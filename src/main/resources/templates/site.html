@@ -1,8 +1,9 @@
 <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -15,27 +16,7 @@
 	
 		<!-- ENTETE -->
 		
-		<div class="row d-flex align-items-center">
-		
-			
-					<div class="col-2">
-						<img src="logo0.png" alt="" />	
-					
-					</div>
-				
-					
-					<div class="col-10">
-						<div class="identif d-flex justify-content-end">
-							<button type="button" class="btn btn-secondary mb-0 mr-1">Qui sommes-nous?</button>
-							<input class="mr-1" type="text" placeholder="Search..">
-							<button type="button" class="btn btn-secondary mb-0 mr-1">Search</button>
-							<p class="identif2 bg-secondary mb-0 text-white "><strong>Prénom Nom</strong></p>
-						</div>
-						
-						
-					</div>
-		
-		</div>
+		<div th:replace="fragments/entete_init :: entete_init"></div>
 		
 		
 		
@@ -128,24 +109,8 @@
 	
 		 <!-- PIED DE PAGE -->
 		
-		<div class="container">
-		<footer class="row justify-content-between">
-			<div class="col">
-				<p class="text-left "><b>Association les amis de l'escalade</b></br>
-					31, avenue de la République </br>
-					75011 Paris </br>
-				</p>
-			</div>
-			
-			<div class="col">
-				<p class="text-right"><b>Contact</b></br>
-				Tél: 01 47 25 25 00</br>
-									  Fax: 01 47 25 25 01</br>
-									  </p>
-				
-			</div>
-		</footer>
-		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+		
 		 <!-- ********************************************* -->
 	</div>
 	
