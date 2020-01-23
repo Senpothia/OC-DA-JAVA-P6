@@ -1,86 +1,70 @@
 <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8"/>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 
-    <title>Les amis de l'escalade</title>
-  </head>
-  <body>
-    <div class="container">
-	
-	  <!-- Entete -->
-		<div class="row d-flex align-items-center">
-		
-			
-					<div class="col-2">
-						<img src="logo0.png" alt="" />	
-					
-					</div>
-				
-					
-					<div class="col-10">
-						<div class="identif d-flex justify-content-end">
-							<button type="button" class="btn btn-secondary mb-0 mr-1">Qui sommes-nous?</button>
-							<input class="mr-1" type="text" placeholder="Search..">
-							<button type="button" class="btn btn-secondary mb-0 mr-1">Search</button>
-							<button type="button" class="btn btn-secondary mb-0 mr-1">Login</button>
-						</div>
-						
-						
-					</div>
-		
-		</div>
-	  <!-- ---------------- -->	
+<title>Les amis de l'escalade</title>
+</head>
+<body>
+	<div class="container">
+
+
+		<!-- Entete -->
+		<div th:replace="fragments/entete_init :: entete_init"></div>
+		<!-- ---------------- -->
+
 		<div class="row">
 			<div class="col">
 				<img src="bandeau7.jpg" alt="" />
 			</div>
 		</div>
-		
+
 		<div class="row">
-		
-		<h1>Les amis de l'escalade</h1>
-		
-			<div style="height:300px;">
-				<p>est une association fondée en 1998 pour rapprocher les passionnés d'escalade. Notre site permet aux adhérents de consulter 
-				les informations sur des sites d'escalades. Ils peuvent également partager les informations qu'ils détiennent et laisser des commentaires.
-				</p>
+
+			<h1>Les amis de l'escalade</h1>
+
+			<div style="height: 300px;">
+				<p>est une association fondée en 1998 pour rapprocher les
+					passionnés d'escalade. Notre site permet aux adhérents de consulter
+					les informations sur des sites d'escalades. Ils peuvent également
+					partager les informations qu'ils détiennent et laisser des
+					commentaires.</p>
 			</div>
 		</div>
-		
-		<footer class="row justify-content-between">
-			<div class="col" >
-			
-			
-			
-				<p class="text-left"><b>Association les amis de l'escalade</b></br>
-					31, avenue de la République </br>
-					75010 Paris </br>
-				</p>
-		
-				
-			</div>
-			
-			<div class="col">
-				<p class="text-right"><b>Contact</b></br>
-				Tél: 01 47 25 25 00</br>
-									  Fax: 01 47 25 25 01</br>
-									  </p>
-				
-			</div>
-		</footer>
-		
+
+		<!-- footer -->
+
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+		<!-- footer -->
 	</div>
-	
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
 </html>
