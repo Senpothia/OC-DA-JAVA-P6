@@ -18,5 +18,19 @@ public class HomeController {
 		return "presentation";
 	}
 	
+	@GetMapping("/connexion")
+	public String connexion() {
+		
+		return "connexion";
+	}
+	
+	@GetMapping("/galerie")
+	public String galerie() {
+		
+		return "galerie";
+	}
+	
+	
+	
 
 }
