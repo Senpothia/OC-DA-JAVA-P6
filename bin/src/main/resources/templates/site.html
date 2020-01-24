@@ -1,0 +1,123 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	 <link rel="stylesheet" href="styles.css">
+    <title>Les amis de l'escalade</title>
+  </head>
+  <body>
+    <div class="container">
+	
+		<!-- ENTETE -->
+		
+		<div th:replace="fragments/entete_init :: entete_init"></div>
+		
+		
+		
+		 <!-- ********************************************* -->
+		 
+		 	 <!-- IMAGE -->
+			 
+		<div class="row">
+		<div class="col">
+			<img src="bandeau4.png" alt="" />
+		</div>
+		</div>
+	
+		 <!-- ********************************************* -->
+		<div class="message row">
+		
+		<div class="col-6">
+		<P>Nom du site consulté</p>
+		</div>
+		<div class="col-6">
+				<div class="d-flex justify-content-end">
+					<img src="tag01.png" alt="" />		
+				</div>
+		</div>
+	
+		</div>
+		 <!-- ********************************************* -->
+		 
+		<div class="container">
+		
+			<div class="row">
+		
+					<div class="informations col-4"> 
+					 <h1>Informations</h1>
+					 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, 
+					 adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+					 Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, 
+					 scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue.
+					 Praesent egestas
+					 leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis i
+					
+					</div>
+					
+					<div class="informations col-8"> 
+						
+				
+						<h1>Images</h1>
+				
+					
+					<div class="row">
+					
+						<div class="col"><img src="escalade.png" alt="" /></div>
+						<div class="col"><img src="escalade2.png" alt="" /></div>
+						<div class="col"><img src="escalade.png" alt="" /></div>
+					
+					</div>
+					
+					<div class="row">
+					
+						<div class="col"><img src="escalade2.png" alt="" /></div>
+						<div class="col"><img src="escalade.png" alt="" /></div>
+						<div class="col"><img src="escalade2.png" alt="" /></div>
+					
+					</div>
+					
+					
+					</div>
+		
+			</div>
+			
+			<div class="container">
+			
+					<div class="row pt-3">
+						
+						<div class="col">
+							<div class="d-flex justify-content-end">
+								<button type="submit" class="bouton btn btn-primary">Supprimer</button>
+								<button type="submit" class="bouton btn btn-primary">Modifier</button>
+							</div>
+						</div>		
+									
+								
+						
+					</div>
+			</div>
+			
+			
+		</div>
+		
+	
+		 <!-- PIED DE PAGE -->
+		
+		<div th:replace="fragments/footer :: footer"></div>
+		
+		 <!-- ********************************************* -->
+	</div>
+	
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

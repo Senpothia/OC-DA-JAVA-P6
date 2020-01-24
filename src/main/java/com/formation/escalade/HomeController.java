@@ -30,7 +30,11 @@ public class HomeController {
 		return "galerie";
 	}
 	
-	
+	@GetMapping("/compte")
+	public String compte() {
+		
+		return "compte";
+	}
 	
 
 }

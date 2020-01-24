@@ -1,9 +1,9 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="fr">
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -12,58 +12,37 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="styles.css">
+
 <title>Les amis de l'escalade</title>
 </head>
 <body>
 	<div class="container">
 
-		<!-- ENTETE -->
 
 		<!-- Entete -->
 		<div th:replace="fragments/entete_init :: entete_init"></div>
 		<!-- ---------------- -->
 
-		<!-- ********************************************* -->
-
-		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img src="bandeau1.png" alt="" />
+				<img src="bandeau7.jpg" alt="" />
 			</div>
 		</div>
 
-		<div class="message row">
-
-			<h1>Entrez vos indentifiants de connexion ou créer un compte.</h1>
-
-		</div>
 		<div class="row">
 
-			<div class="col">
-				<form class="formulaire">
-					<div class="form-group">
-						<label for="email">Email</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+			<h1>Les amis de l'escalade</h1>
 
-					</div>
-					<div class="form-group">
-						<label for="password">Password</label> <input type="password"
-							class="form-control" id="exampleInputPassword1">
-					</div>
-
-					<div class="float-right">
-						<button type="submit" class="btn btn-primary">Connexion</button>
-						
-					</div>
-
-				</form>
-				<a href="compte"><button type="submit" class="btn btn-primary">Créer un compte</button></a>
-				
+			<div style="height: 300px;">
+				<p>est une association fondée en 1998 pour rapprocher les
+					passionnés d'escalade. Notre site permet aux adhérents de consulter
+					les informations sur des sites d'escalades. Ils peuvent également
+					partager les informations qu'ils détiennent et laisser des
+					commentaires.</p>
 			</div>
 		</div>
-		<!-- PIED DE PAGE -->
+
+		<!-- footer -->
 
 		<!-- PIED DE PAGE -->
 
@@ -71,9 +50,7 @@
 
 		<!-- ********************************************* -->
 
-
-	</div>
-
+		<!-- footer -->
 	</div>
 
 	<!-- Optional JavaScript -->
