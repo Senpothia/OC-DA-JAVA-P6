@@ -11,14 +11,14 @@ public class Utilisateur {
 	private Integer id;
 	private String nom;
 	private String prenom;
-	private String departement;
+	private int departement;
 	private String email;
 	private String passe;
 	private boolean membre;
 	public Utilisateur() {
 		
 	}
-	public Utilisateur(Integer id, String nom, String prenom, String departement, String email, String passe,
+	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
 			boolean membre) {
 		
 		this.id = id;
@@ -47,10 +47,10 @@ public class Utilisateur {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	public String getDepartement() {
+	public int getDepartement() {
 		return departement;
 	}
-	public void setDepartement(String departement) {
+	public void setDepartement(int departement) {
 		this.departement = departement;
 	}
 	public String getEmail() {

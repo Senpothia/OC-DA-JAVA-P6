@@ -14,17 +14,27 @@ import com.formation.escalade.repository.IUtilisateur;
 @Controller
 public class CompteController {
 	
+	private final IUtilisateur utilisateurRepo;
+	
+	public CompteController(IUtilisateur utilisateurRepo){
+		
+		this.utilisateurRepo = utilisateurRepo;
+	}
+	
 	@GetMapping("/compte")
 	public String compte(Model model) {
 		model.addAttribute("utilisateur", new Utilisateur());
-		return "compte2";
+		return "compte";
 	}
 	
 	@PostMapping("/compte")
 	public String compteSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
 		model.addAttribute("utilisateur", utilisateur);
 		System.out.println(utilisateur.toString());
-		
+		// personnageRepository.save(Personnage.builder().name(nom).build());
+		utilisateur.setMembre(false);
+		// int departement = Integer.parseInt(utilisateur.getDepartement());
+		utilisateurRepo.save(utilisateur);
 		return "accueil";
 	}
 
