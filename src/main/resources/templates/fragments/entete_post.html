@@ -1,4 +1,4 @@
-<div th:fragment="entete_init">
+<div th:fragment="entete_post">
 
 	<div class="row d-flex align-items-center">
 
@@ -14,10 +14,13 @@
 			<div class="identif d-flex justify-content-end">
 				<a href="presentation"><button type="button" class="btn btn-secondary mb-0 mr-1">Qui
 					sommes-nous?</button></a>
+				<a href="galerie">
+					<button type="button" class="btn btn-secondary mb-0 mr-1">Galerie</button>
+				</a>
 				<input class="mr-1" type="text" placeholder="Search..">
 				<button type="button" class="btn btn-secondary mb-0 mr-1">Search</button>
-				<p class="identif2 bg-secondary mb-0 text-white ">
-					<strong>Prénom Nom</strong>
+				<a href="modificationCompte"><p class="identif2 bg-secondary mb-0 text-white " th:text="${utilisateur.prenom}+' '+ ${utilisateur.nom}"></a>
+					
 				</p>
 			</div>
 

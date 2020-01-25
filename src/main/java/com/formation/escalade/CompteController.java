@@ -31,12 +31,28 @@ public class CompteController {
 	public String compteSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
 		model.addAttribute("utilisateur", utilisateur);
 		System.out.println(utilisateur.toString());
-		// personnageRepository.save(Personnage.builder().name(nom).build());
+		
 		utilisateur.setMembre(false);
-		// int departement = Integer.parseInt(utilisateur.getDepartement());
+		
 		utilisateurRepo.save(utilisateur);
 		return "accueil";
 	}
-
+	
+	@GetMapping("/modificationCompte")
+	public String modificationCompte(Utilisateur utilisateur) {
+		
+		return "modificationCompte";
+	}
+	
+	@PostMapping("/ModificationCompte")
+	public String compteModification(@ModelAttribute Utilisateur utilisateur, Model model) {
+		model.addAttribute("utilisateur", utilisateur);
+		System.out.println(utilisateur.toString());
+		
+		utilisateur.setMembre(false);
+		
+		utilisateurRepo.save(utilisateur);
+		return "accueil";
+	}
 
 }
