@@ -1,10 +1,11 @@
-package com.formation.model;
+package com.formation.escalade.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+@Entity
 public class Topo {
 
 	@Id

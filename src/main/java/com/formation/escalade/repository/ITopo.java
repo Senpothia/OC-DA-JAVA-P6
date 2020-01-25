@@ -1,8 +1,8 @@
-package com.formation.repository;
+package com.formation.escalade.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.formation.model.Topo;
+import com.formation.escalade.model.Topo;
 
 public interface ITopo extends JpaRepository <Topo, Integer>{
 

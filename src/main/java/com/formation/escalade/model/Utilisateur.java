@@ -1,8 +1,9 @@
-package com.formation.model;
+package com.formation.escalade.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+@Entity
 public class Utilisateur {
 
 	@Id
@@ -15,12 +16,11 @@ public class Utilisateur {
 	private String passe;
 	private boolean membre;
 	public Utilisateur() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	public Utilisateur(Integer id, String nom, String prenom, String departement, String email, String passe,
 			boolean membre) {
-		super();
+		
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -70,6 +70,11 @@ public class Utilisateur {
 	}
 	public void setMembre(boolean membre) {
 		this.membre = membre;
+	}
+	@Override
+	public String toString() {
+		return "Utilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", departement=" + departement
+				+ ", email=" + email + ", passe=" + passe + ", membre=" + membre + "]";
 	}
 	
 	

@@ -1,4 +1,4 @@
-package com.formation.model;
+package com.formation.escalade.model;
 
 import org.springframework.stereotype.Component;
 

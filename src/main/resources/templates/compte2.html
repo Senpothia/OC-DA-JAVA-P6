@@ -38,64 +38,67 @@
 			<h1>Completez ce formulaire pour créer votre compte.</h1>
 
 		</div>
+
+		<!--********************************************* -->
 		<div class="row">
 
 			<div class="col">
 				<form th:action="@{/compte}" method="post"
 					th:object="${utilisateur}">
-					<div class="row">
 
-						<div class="col">
-						<label for="nom">Nom:</label><input type="text" th:field="*{nom}" /></div>
-						
+
+					<div class="form-group">
+						<label for="exampleInputEmail1">Prénom</label> <input type="text"
+							class="form-control" th:field="*{prenom}">
 					</div>
 
-					<div class="row">
-						<label for="prenom">Prénom:</label><input type="text"
-							th:field="*{prenom}" />
+					<div class="form-group">
+						<label for="exampleInputEmail1">Nom</label> <input type="text"
+							class="form-control" th:field="*{nom}">
 					</div>
 
-					<div class="row">
-						<label for="prenom">Département:</label><input type="text"
-							th:field="*{departement}" />
+					<div class="form-group">
+						<label for="exampleInputEmail1">Département</label> <input
+							type="text" class="form-control" th:field="*{departement}">
 					</div>
 
-					<div class="row">
-						<label for="email">Email:</label><input type="text"
-							th:field="*{email}" />
+					<div class="form-group">
+						<label for="exampleInputEmail1">Email</label> <input type="text"
+							class="form-control" th:field="*{email}">
 					</div>
 
-					<div class="row">
-						<label for="password">Password:</label><input type="text"
-							th:field="*{passe}" />
+					<div class="form-group">
+						<label for="exampleInputEmail1">Password</label> <input
+							type="text" class="form-control" th:field="*{passe}">
 					</div>
 
-					<div class="row">
-						<input type="submit" value="Submit" /> <input type="reset"
-							value="Reset" />
+					<div class="d-flex justify-content-end">
+						<input class="btn btn-primary mr-1" type="reset" value="Reset">
+						<button type="submit" class="btn btn-primary">Envoyer</button>
+
 					</div>
+
 
 
 				</form>
 
 			</div>
 
-			
+
 
 		</div>
+
+
+
+		<!-- PIED DE PAGE -->
+
+
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
 	</div>
-	<!-- PIED DE PAGE -->
 
-	<!-- PIED DE PAGE -->
-
-	<div th:replace="fragments/footer :: footer"></div>
-
-	<!-- ********************************************* -->
-
-
-	</div>
-
-	</div>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
