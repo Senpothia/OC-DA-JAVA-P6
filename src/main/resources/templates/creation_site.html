@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -20,11 +20,11 @@
 
 		<!-- ENTETE -->
 
-		<!-- Entete -->
-		<div th:replace="fragments/entete_init :: entete_init"></div>
-		<!-- ---------------- -->
+		
+		<div th:replace="fragments/entete_post :: entete_post"></div>
+		
 
-		<!-- ********************************************* -->
+		<!-- ******************* -->
 
 		<!-- IMAGE -->
 
@@ -48,6 +48,7 @@
 
 			<div class="row">
 
+			
 				<div class="validations col-3">
 
 
@@ -96,34 +97,29 @@
 					<h1>Site</h1>
 
 					<div class="row">
-						<label for="email">Nom</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Nom</label> <input type="text"
+							class="form-control" >
 					</div>
 
 					<div class="row">
-						<label for="email">Lieu</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Lieu</label> <input type="text"
+							class="form-control" >
 					</div>
 
 					<div class="row">
-						<label for="email">Département</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Département</label> <input type="Text"
+							class="form-control" >
 					</div>
 					<h1>Voie</h1>
 
 					<div class="row">
-						<label for="email">Numéro</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Numéro</label> <input type="text"
+							class="form-control" >
 					</div>
 
 					<div class="row">
-						<label for="email">Cotation</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Cotation</label> <input type="text"
+							class="form-control" >
 					</div>
 				</div>
 
@@ -132,54 +128,41 @@
 					<h1>Secteur</h1>
 
 					<div class="row">
-						<label for="email">Nom</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Nom</label> <input type="text"
+							class="form-control" >
 					</div>
 
 					<div class="row">
-						<label for="email">Numéro</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Numéro</label> <input type="text"
+							class="form-control" >
 					</div>
 
 					<div class="row">
-						<label for="email">Remarque</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Remarque</label> <input type="text"
+							class="form-control" >
 					</div>
 
 					<h1>Longueur</h1>
 
 					<div class="row">
-						<label for="email">Numéro</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Numéro</label> <input type="text"
+							class="form-control">
 					</div>
 
 					<div class="row">
-						<label for="email">Cotation</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Cotation</label> <input type="text"
+							class="form-control" >
 					</div>
 				</div>
 			</div>
 
 		</div>
+		<!-- PIED DE PAGE -->
 
-	</div>
+		<div th:replace="fragments/footer :: footer"></div>
 
+		<!-- ********************************************* -->
 
-	<!-- PIED DE PAGE -->
-
-	<!-- PIED DE PAGE -->
-
-	<div th:replace="fragments/footer :: footer"></div>
-
-	<!-- ********************************************* -->
-
-
-	<!-- ********************************************* -->
 	</div>
 
 	<!-- Optional JavaScript -->
