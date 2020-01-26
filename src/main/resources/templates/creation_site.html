@@ -20,9 +20,9 @@
 
 		<!-- ENTETE -->
 
-		
-		<div th:replace="fragments/entete_post :: entete_post"></div>
-		
+
+		<div th:replace="fragments/entete_init :: entete_init"></div>
+
 
 		<!-- ******************* -->
 
@@ -45,117 +45,120 @@
 		<!-- ********************************************* -->
 
 		<div class="container">
-
-			<div class="row">
-
-			
-				<div class="validations col-3">
+			<form th:action="@{/creationSite}" method="post"
+					th:object="${formSite}">
+				<div class="row">
 
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Ajouter
-							secteur</button>
+					<div class="validations col-3">
+
+
+						<div class="bouton row">
+							<button type="button" class="btn btn-primary btn-block">Ajouter
+								secteur</button>
+
+						</div>
+
+						<div class="bouton row">
+							<button type="button" class="btn btn-primary btn-block">Ajouter
+								voie</button>
+						</div>
+
+						<div class="bouton row">
+							<button type="button" class="btn btn-primary btn-block">Ajouter
+								longueur</button>
+						</div>
+
+						<div class="bouton row">
+							<button type="button" class="btn btn-primary btn-block">Visualiser
+								site</button>
+						</div>
+
+						<div class="bouton row">
+							<button type="button" class="btn btn-primary btn-block">Modifier
+								site</button>
+						</div>
+
+						<div class="bouton row">
+							<button type="button" class="btn btn-primary btn-block">Valider</button>
+						</div>
+
+						<div class="bouton row">
+							<button type="submit" class="btn btn-primary btn-block">Enregistrer
+								site</button>
+						</div>
+						<div class="bouton row">
+							<button type="button" class="btn btn-primary btn-block">Annuler</button>
+						</div>
 
 					</div>
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Ajouter
-							voie</button>
+
+					<div class="col">
+						<h1>Site</h1>
+
+						<div class="row">
+							<label for="text">Nom</label> <input type="text"
+								class="form-control" th:field="*{nomSite}">
+						</div>
+
+						<div class="row">
+							<label for="text">Lieu</label> <input type="text"
+								class="form-control" th:field="*{lieuSite}">
+						</div>
+
+						<div class="row">
+							<label for="text">Département</label> <input type="Text"
+								class="form-control" th:field="*{departementSite}">
+						</div>
+						<h1>Voie</h1>
+
+						<div class="row">
+							<label for="text">Numéro</label> <input type="text"
+								class="form-control" th:field="*{numVoie}">
+						</div>
+
+						<div class="row">
+							<label for="text">Cotation</label> <input type="text"
+								class="form-control" th:field="*{cotationVoie}">
+						</div>
 					</div>
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Ajouter
-							longueur</button>
+
+					<div class="col">
+						<h1>Secteur</h1>
+
+						<div class="row">
+							<label for="text">Nom</label> <input type="text"
+								class="form-control" th:field="*{nomSecteur}">
+						</div>
+
+						<div class="row">
+							<label for="text">Numéro</label> <input type="text"
+								class="form-control" th:field="*{numSecteur}">
+						</div>
+
+						<div class="row">
+							<label for="text">Remarque</label> <input type="text"
+								class="form-control" th:field="*{remSecteur}">
+						</div>
+
+						<h1>Longueur</h1>
+
+						<div class="row">
+							<label for="text">Numéro</label> <input type="text"
+								class="form-control" th:field="*{numLongueur}">
+						</div>
+
+						<div class="row">
+							<label for="text">Cotation</label> <input type="text"
+								class="form-control" th:field="*{cotationLongueur}">
+						</div>
 					</div>
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Visualiser
-							site</button>
-					</div>
-
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Modifier
-							site</button>
-					</div>
-
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Valider</button>
-					</div>
-
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Enregistrer
-							site</button>
-					</div>
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Annuler</button>
-					</div>
 
 				</div>
-
-
-				<div class="col">
-					<h1>Site</h1>
-
-					<div class="row">
-						<label for="email">Nom</label> <input type="text"
-							class="form-control" >
-					</div>
-
-					<div class="row">
-						<label for="email">Lieu</label> <input type="text"
-							class="form-control" >
-					</div>
-
-					<div class="row">
-						<label for="email">Département</label> <input type="Text"
-							class="form-control" >
-					</div>
-					<h1>Voie</h1>
-
-					<div class="row">
-						<label for="email">Numéro</label> <input type="text"
-							class="form-control" >
-					</div>
-
-					<div class="row">
-						<label for="email">Cotation</label> <input type="text"
-							class="form-control" >
-					</div>
-				</div>
-
-
-				<div class="col">
-					<h1>Secteur</h1>
-
-					<div class="row">
-						<label for="email">Nom</label> <input type="text"
-							class="form-control" >
-					</div>
-
-					<div class="row">
-						<label for="email">Numéro</label> <input type="text"
-							class="form-control" >
-					</div>
-
-					<div class="row">
-						<label for="email">Remarque</label> <input type="text"
-							class="form-control" >
-					</div>
-
-					<h1>Longueur</h1>
-
-					<div class="row">
-						<label for="email">Numéro</label> <input type="text"
-							class="form-control">
-					</div>
-
-					<div class="row">
-						<label for="email">Cotation</label> <input type="text"
-							class="form-control" >
-					</div>
-				</div>
-			</div>
-
+			</form>
 		</div>
 		<!-- PIED DE PAGE -->
 
