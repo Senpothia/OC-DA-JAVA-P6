@@ -72,12 +72,14 @@ public class CompteController {
 		return "espace";
 	}
 	
-	@GetMapping("/suppressionCompte/{id}") 
+	@GetMapping("/suppressionCompte") 
 		
-		public void supprimerCompte(@PathVariable int id) {
-		 //utilisateurRepo.deleteInBatch(utilisateurRepo.findById(id));
+		public String supprimerCompte() {
 			
-		       System.out.println("Utilisateur id: " + id +"Supprimé");
+			
+			utilisateurRepo.delete(utilisateurRepo.getOne(34));
+		       System.out.println("Utilisateur id: " + 34 +"Supprimé");
+		       return "test";
 		   }
    
 		
