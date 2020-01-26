@@ -35,13 +35,10 @@
 
 		<div class="message row d-flex justify-content-center">
 
-			<h1
-				th:text="'Bienvenue parmi nous, ' + ${utilisateur.prenom}+' '+ ${utilisateur.nom} +' !'"></h1>
+			<h1>Espace personnel</h1>
 		</div>
 		<div class="message row d-flex justify-content-center">
-			<div>
-				<h3>Votre compte a été crée.</h3>
-			</div>
+			
 
 		</div>
 		<h3>
@@ -67,10 +64,6 @@
 			<p th:text="'Password: ' + ${utilisateur.passe}"></p>
 		</div>
 		
-		<div class="row d-flex justify-content-center">
-			<button type="button" class="btn btn-primary">Accéder à votre espace personnel</button>
-		</div>
-
 		<!-- PIED DE PAGE -->
 
 		<div th:replace="fragments/footer :: footer"></div>

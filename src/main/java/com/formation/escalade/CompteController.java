@@ -52,5 +52,18 @@ public class CompteController {
 		utilisateurRepo.save(utilisateur);
 		return "accueil";
 	}
+	
+	@GetMapping("/espace")
+	public String espace(Utilisateur utilisateur) {
+		
+		return "espace";
+	}
+	
+	@PostMapping("/espace")
+	public String espaceSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
+		model.addAttribute("utilisateur", utilisateur);
+		System.out.println(utilisateur.toString());
+		return "espace";
+	}
 
 }

@@ -55,7 +55,7 @@
 		<div class="row d-flex justify-content-center">
 			<p th:text="'Prénom: ' + ${utilisateur.prenom}"></p>
 		</div>
-		
+
 		<div class="row d-flex justify-content-center">
 			<p th:text="'Département: ' + ${utilisateur.departement}"></p>
 		</div>
@@ -66,9 +66,14 @@
 		<div class="row d-flex justify-content-center">
 			<p th:text="'Password: ' + ${utilisateur.passe}"></p>
 		</div>
-		
+
 		<div class="row d-flex justify-content-center">
-			<button type="button" class="btn btn-primary">Accéder à votre espace personnel</button>
+
+			<form th:action="@{/espace}" method="post"
+					th:object="${utilisateur}">
+				<button type="submit" class="btn btn-primary">Accéder
+						à votre espace personnel</button>
+			</form>
 		</div>
 
 		<!-- PIED DE PAGE -->
