@@ -72,13 +72,13 @@ public class CompteController {
 		return "espace";
 	}
 	
-	@GetMapping("/suppressionCompte") 
+	@GetMapping("/suppressionCompte/{id}") 
 		
-		public String supprimerCompte() {
+		public String supprimerCompte(@PathVariable("id") int id,Model model) {
 			
-			
-			utilisateurRepo.delete(utilisateurRepo.getOne(34));
-		       System.out.println("Utilisateur id: " + 34 +"Supprimé");
+			model.addAttribute("id",id);
+			utilisateurRepo.delete(utilisateurRepo.getOne(id));
+		       System.out.println("Utilisateur id: " + id +"Supprimé");
 		       return "test";
 		   }
    
