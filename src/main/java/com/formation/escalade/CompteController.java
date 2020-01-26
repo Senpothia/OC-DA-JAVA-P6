@@ -81,6 +81,13 @@ public class CompteController {
 		       System.out.println("Utilisateur id: " + id +"Supprimé");
 		       return "test";
 		   }
+   @PostMapping("/suppressonCompte")
+   
+   		public String deleteAccount(@ModelAttribute Utilisateur utilisateur, Model model) {
+	   	model.addAttribute("utilisateur", utilisateur);
+	   	utilisateurRepo.delete(utilisateur);
+	    return "test";
+   }
    
 		
 	}
