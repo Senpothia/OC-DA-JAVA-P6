@@ -32,38 +32,88 @@
 				<img src="bandeau1.png" alt="" />
 			</div>
 		</div>
-
-		<div class="message row d-flex justify-content-center">
+		<!-- ----------------- -->
+		<div class="row d-flex justify-content-center">
 
 			<h1>Espace personnel</h1>
 		</div>
-		<div class="message row d-flex justify-content-center">
-			
+
+
+		<div class="row">
+			<div class="donnees col-3">
+
+				<div class="row d-flex justify-content-center">
+					<h3>
+						<strong>Vos données</strong></br>
+					</h3>
+				</div>
+
+
+				<div class="row d-flex justify-content-center">
+					<p th:text="'Nom: ' + ${utilisateur.nom}"></p>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<p th:text="'Prénom: ' + ${utilisateur.prenom}"></p>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<p th:text="'Département: ' + ${utilisateur.departement}"></p>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<p th:text="'email: ' + ${utilisateur.email}"></p>
+				</div>
+				<div class="row d-flex justify-content-center">
+					<p th:text="'Password: ' + ${utilisateur.passe}"></p>
+				</div>
+				
+				<div class="row d-flex justify-content-center">
+					<a href="modificationCompte"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Supprimer compte</button></a>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<a href="modificationCompte"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Modifier</button></a>
+				</div>
+
+			</div>
+			<div class="col-9 donnees">
+
+				<div class="row d-flex justify-content-center">
+					<h3>
+						<strong>Fonctionnalités</strong></br>
+					</h3>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<a href="creationSite"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Créer un site</button></a>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<a href="creationSite"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Liste des topos
+							emprumtées</button></a>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<a href="creationSite"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Suivi des demandes
+							de topos</button></a>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<a href="creationSite"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Demander une topo</button></a>
+				</div>
+
+			</div>
+
 
 		</div>
-		<h3>
-			<strong>Récapitulatif de vos données:</strong></br>
-		</h3>
 
-		<div class="row d-flex justify-content-center">
-			<p th:text="'Nom: ' + ${utilisateur.nom}"></p>
-		</div>
-
-		<div class="row d-flex justify-content-center">
-			<p th:text="'Prénom: ' + ${utilisateur.prenom}"></p>
-		</div>
-		
-		<div class="row d-flex justify-content-center">
-			<p th:text="'Département: ' + ${utilisateur.departement}"></p>
-		</div>
-
-		<div class="row d-flex justify-content-center">
-			<p th:text="'email: ' + ${utilisateur.email}"></p>
-		</div>
-		<div class="row d-flex justify-content-center">
-			<p th:text="'Password: ' + ${utilisateur.passe}"></p>
-		</div>
-		
 		<!-- PIED DE PAGE -->
 
 		<div th:replace="fragments/footer :: footer"></div>
@@ -72,7 +122,7 @@
 
 
 	</div>
-
+	<!-- fin conteneur -->
 
 
 	<!-- Optional JavaScript -->

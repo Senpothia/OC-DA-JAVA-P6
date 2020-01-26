@@ -84,3 +84,17 @@ a{
 	text-decoration: none;
 	color: white;
 }
+
+.donnees{
+	border: 1px solid ;
+	border-radius: 8px;
+	padding: 10px
+	
+}
+
+.bouton2{
+	
+	margin: 5px;
+	width:250px;
+	
+}
