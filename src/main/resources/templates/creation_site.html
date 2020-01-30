@@ -46,7 +46,7 @@
 
 		<div class="container">
 			<form th:action="@{/creationSite}" method="post"
-					th:object="${formSite}">
+				th:object="${formSite}">
 				<div class="row">
 
 
@@ -103,7 +103,7 @@
 						</div>
 
 						<div class="row">
-							<label for="text">Lieu</label> <input type="text"
+							<label for="text">Localisation</label> <input type="text"
 								class="form-control" th:field="*{localisationSite}">
 						</div>
 
@@ -111,17 +111,20 @@
 							<label for="text">Département</label> <input type="Text"
 								class="form-control" th:field="*{departementSite}">
 						</div>
+
+						<div class="row">
+							<label for="text">Remarque</label> <input type="text"
+								class="form-control" th:field="*{remSecteur}">
+						</div>
+
 						<h1>Voie</h1>
-						
+
 						<div class="row">
 							<label for="text">Nom</label> <input type="text"
 								class="form-control" th:field="*{nomVoie}">
 						</div>
+
 						
-						<div class="row">
-							<label for="text">Numéro</label> <input type="text"
-								class="form-control" th:field="*{numVoie}">
-						</div>
 
 						<div class="row">
 							<label for="text">Cotation</label> <input type="text"
@@ -138,23 +141,14 @@
 								class="form-control" th:field="*{nomSecteur}">
 						</div>
 
-						<div class="row">
-							<label for="text">Numéro</label> <input type="text"
-								class="form-control" th:field="*{numSecteur}">
-						</div>
-
-						<div class="row">
-							<label for="text">Remarque</label> <input type="text"
-								class="form-control" th:field="*{remSecteur}">
-						</div>
-
+					
 						<h1>Longueur</h1>
 
 						<div class="row">
 							<label for="text">Nom</label> <input type="text"
 								class="form-control" th:field="*{nomLongueur}">
 						</div>
-						
+
 						<div class="row">
 							<label for="text">Nombre de spits</label> <input type="text"
 								class="form-control" th:field="*{nbreSpit}">
@@ -164,8 +158,12 @@
 							<label for="text">Cotation</label> <input type="text"
 								class="form-control" th:field="*{cotationLongueur}">
 						</div>
-						
-						
+
+						<div class="row">
+							<label for="text">Remarque</label> <input type="text"
+								class="form-control" th:field="*{remSecteur}">
+						</div>
+
 					</div>
 
 

@@ -2,16 +2,24 @@ package com.formation.escalade.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 @Entity
+@Table(name="longueur")
 public class Longueur {
 
 	@Id
-	@GeneratedValue
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private Integer spit;
 	private String nom;
 	private String cotation;
+	@OneToOne
+	@JoinColumn(name="id_voie")
 	private Integer id_voie;
 	public Longueur() {
 		super();

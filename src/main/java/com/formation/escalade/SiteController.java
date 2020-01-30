@@ -56,27 +56,34 @@ public class SiteController {
 		boolean officielSite = false;
 
 		String nomSecteur = formSite.getNomSecteur();
-		int numSecteur = formSite.getNumSecteur();
-		String remSecteur = formSite.getRemSecteur();
+		
+		String remSecteur = formSite.getRemSite();  // A corriger: A mettre dans la classe commentaire_site
 
 		String nomVoie = formSite.getNomVoie();
-		int numVoie = formSite.getNumVoie();
+		
 		String cotationVoie = formSite.getCotationVoie();
 
 		String nomLongueur = formSite.getNomLongueur();
-		int numLongueur = formSite.getNumLongueur();
+		
 		int nbreSpit = formSite.getNbreSpit();
 		String cotationLongueur = formSite.getCotationLongueur();
+		String remLongueur = formSite.getRemLongueur();
 
-		Site site = new Site(nomSite, localisationSite, departementSite, officielSite);
-		Secteur secteur = new Secteur(nomSecteur,  numSecteur, remSecteur);
-		Voie voie = new Voie(nomVoie, numVoie, cotationVoie);
-		Longueur longueur = new Longueur(nomLongueur, numLongueur,  nbreSpit );
+		Site site = new Site();
+		site.setNom(nomSite);
+		site.setLocalisation(localisationSite);
+		site.setDepartement(departementSite);
+		site.setOfficiel(officielSite);
 		
 		siteRepo.save(site);
+		
+		Secteur secteur = new Secteur();
+		secteur.setNom(nomSecteur);
+	
+
 		secteurRepo.save(secteur);
-		voieRepo.save(voie);
-		longueurRepo.save(longueur);
+		//voieRepo.save(voie);
+		//longueurRepo.save(longueur);
 
 		return "creation_site";
 	}

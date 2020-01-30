@@ -5,43 +5,39 @@ public class FormSite {
 	private String nomSite;
 	private String localisationSite;
 	private String departementSite;
+	private String remSite;
 	
 	private String nomSecteur;
-	private int numSecteur;
-	private String remSecteur;
 	
-	private int numVoie;
+	
 	private String nomVoie;
 	private String cotationVoie;
 	
-	
-	private int numLongueur;
 	private int nbreSpit;
 	private String nomLongueur;
 	private String cotationLongueur;
+	private String remLongueur;
 	
 	public FormSite() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormSite(String nomSite, String localisationSite, String departementSite, String nomSecteur, int numSecteur,
-			String remSecteur, int numVoie, String nomVoie, String cotationVoie, int numLongueur, int nbreSpit,
-			String nomLongueur, String cotationLongueur) {
+	public FormSite(String nomSite, String localisationSite, String departementSite, String remSite, String nomSecteur,
+			String nomVoie, String cotationVoie, int nbreSpit, String nomLongueur, String cotationLongueur,
+			String remLongueur) {
 		super();
 		this.nomSite = nomSite;
 		this.localisationSite = localisationSite;
 		this.departementSite = departementSite;
+		this.remSite = remSite;
 		this.nomSecteur = nomSecteur;
-		this.numSecteur = numSecteur;
-		this.remSecteur = remSecteur;
-		this.numVoie = numVoie;
 		this.nomVoie = nomVoie;
 		this.cotationVoie = cotationVoie;
-		this.numLongueur = numLongueur;
 		this.nbreSpit = nbreSpit;
 		this.nomLongueur = nomLongueur;
 		this.cotationLongueur = cotationLongueur;
+		this.remLongueur = remLongueur;
 	}
 
 	public String getNomSite() {
@@ -68,36 +64,20 @@ public class FormSite {
 		this.departementSite = departementSite;
 	}
 
+	public String getRemSite() {
+		return remSite;
+	}
+
+	public void setRemSite(String remSite) {
+		this.remSite = remSite;
+	}
+
 	public String getNomSecteur() {
 		return nomSecteur;
 	}
 
 	public void setNomSecteur(String nomSecteur) {
 		this.nomSecteur = nomSecteur;
-	}
-
-	public int getNumSecteur() {
-		return numSecteur;
-	}
-
-	public void setNumSecteur(int numSecteur) {
-		this.numSecteur = numSecteur;
-	}
-
-	public String getRemSecteur() {
-		return remSecteur;
-	}
-
-	public void setRemSecteur(String remSecteur) {
-		this.remSecteur = remSecteur;
-	}
-
-	public int getNumVoie() {
-		return numVoie;
-	}
-
-	public void setNumVoie(int numVoie) {
-		this.numVoie = numVoie;
 	}
 
 	public String getNomVoie() {
@@ -114,14 +94,6 @@ public class FormSite {
 
 	public void setCotationVoie(String cotationVoie) {
 		this.cotationVoie = cotationVoie;
-	}
-
-	public int getNumLongueur() {
-		return numLongueur;
-	}
-
-	public void setNumLongueur(int numLongueur) {
-		this.numLongueur = numLongueur;
 	}
 
 	public int getNbreSpit() {
@@ -148,14 +120,23 @@ public class FormSite {
 		this.cotationLongueur = cotationLongueur;
 	}
 
+	public String getRemLongueur() {
+		return remLongueur;
+	}
+
+	public void setRemLongueur(String remLongueur) {
+		this.remLongueur = remLongueur;
+	}
+
 	@Override
 	public String toString() {
 		return "FormSite [nomSite=" + nomSite + ", localisationSite=" + localisationSite + ", departementSite="
-				+ departementSite + ", nomSecteur=" + nomSecteur + ", numSecteur=" + numSecteur + ", remSecteur="
-				+ remSecteur + ", numVoie=" + numVoie + ", nomVoie=" + nomVoie + ", cotationVoie=" + cotationVoie
-				+ ", numLongueur=" + numLongueur + ", nbreSpit=" + nbreSpit + ", nomLongueur=" + nomLongueur
-				+ ", cotationLongueur=" + cotationLongueur + "]";
+				+ departementSite + ", remSite=" + remSite + ", nomSecteur=" + nomSecteur + ", nomVoie=" + nomVoie
+				+ ", cotationVoie=" + cotationVoie + ", nbreSpit=" + nbreSpit + ", nomLongueur=" + nomLongueur
+				+ ", cotationLongueur=" + cotationLongueur + ", remLongueur=" + remLongueur + "]";
 	}
 
+	
+	
 	
 }

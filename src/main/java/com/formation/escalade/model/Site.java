@@ -2,12 +2,16 @@ package com.formation.escalade.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 @Entity
+@Table(name="site")
 public class Site {
 
 	@Id
-	@GeneratedValue
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String nom;
 	private String localisation;
@@ -18,9 +22,7 @@ public class Site {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
-	
+
 	public Site(Integer id, String nom, String localisation, String departement, boolean officiel) {
 		super();
 		this.id = id;
