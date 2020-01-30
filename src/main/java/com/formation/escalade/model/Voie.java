@@ -16,6 +16,10 @@ public class Voie {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
 	public Voie(Integer id, String nom, String cotation, Integer id_secteur) {
 		super();
 		this.id = id;
@@ -23,6 +27,10 @@ public class Voie {
 		this.cotation = cotation;
 		this.id_secteur = id_secteur;
 	}
+
+
+
+
 	public Integer getId() {
 		return id;
 	}

@@ -17,6 +17,10 @@ public class Site {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
 	public Site(Integer id, String nom, String localisation, String departement, boolean officiel) {
 		super();
 		this.id = id;
@@ -25,6 +29,10 @@ public class Site {
 		this.departement = departement;
 		this.officiel = officiel;
 	}
+
+
+
+
 	public Integer getId() {
 		return id;
 	}

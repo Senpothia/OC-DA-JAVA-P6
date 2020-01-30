@@ -3,7 +3,7 @@ package com.formation.escalade.model;
 public class FormSite {
 
 	private String nomSite;
-	private String lieuSite;
+	private String localisationSite;
 	private String departementSite;
 	
 	private String nomSecteur;
@@ -25,12 +25,12 @@ public class FormSite {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormSite(String nomSite, String lieuSite, String departementSite, String nomSecteur, int numSecteur,
+	public FormSite(String nomSite, String localisationSite, String departementSite, String nomSecteur, int numSecteur,
 			String remSecteur, int numVoie, String nomVoie, String cotationVoie, int numLongueur, int nbreSpit,
 			String nomLongueur, String cotationLongueur) {
 		super();
 		this.nomSite = nomSite;
-		this.lieuSite = lieuSite;
+		this.localisationSite = localisationSite;
 		this.departementSite = departementSite;
 		this.nomSecteur = nomSecteur;
 		this.numSecteur = numSecteur;
@@ -52,12 +52,12 @@ public class FormSite {
 		this.nomSite = nomSite;
 	}
 
-	public String getLieuSite() {
-		return lieuSite;
+	public String getLocalisationSite() {
+		return localisationSite;
 	}
 
-	public void setLieuSite(String lieuSite) {
-		this.lieuSite = lieuSite;
+	public void setLocalisationSite(String localisationSite) {
+		this.localisationSite = localisationSite;
 	}
 
 	public String getDepartementSite() {
@@ -150,12 +150,12 @@ public class FormSite {
 
 	@Override
 	public String toString() {
-		return "FormSite [nomSite=" + nomSite + ", lieuSite=" + lieuSite + ", departementSite=" + departementSite
-				+ ", nomSecteur=" + nomSecteur + ", numSecteur=" + numSecteur + ", remSecteur=" + remSecteur
-				+ ", numVoie=" + numVoie + ", nomVoie=" + nomVoie + ", cotationVoie=" + cotationVoie + ", numLongueur="
-				+ numLongueur + ", nbreSpit=" + nbreSpit + ", nomLongueur=" + nomLongueur + ", cotationLongueur="
-				+ cotationLongueur + "]";
+		return "FormSite [nomSite=" + nomSite + ", localisationSite=" + localisationSite + ", departementSite="
+				+ departementSite + ", nomSecteur=" + nomSecteur + ", numSecteur=" + numSecteur + ", remSecteur="
+				+ remSecteur + ", numVoie=" + numVoie + ", nomVoie=" + nomVoie + ", cotationVoie=" + cotationVoie
+				+ ", numLongueur=" + numLongueur + ", nbreSpit=" + nbreSpit + ", nomLongueur=" + nomLongueur
+				+ ", cotationLongueur=" + cotationLongueur + "]";
 	}
-	
+
 	
 }

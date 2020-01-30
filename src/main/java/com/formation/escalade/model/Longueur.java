@@ -17,6 +17,10 @@ public class Longueur {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
 	public Longueur(Integer id, Integer spit, String nom, String cotation, Integer id_voie) {
 		super();
 		this.id = id;
@@ -25,6 +29,10 @@ public class Longueur {
 		this.cotation = cotation;
 		this.id_voie = id_voie;
 	}
+
+
+
+
 	public Integer getId() {
 		return id;
 	}

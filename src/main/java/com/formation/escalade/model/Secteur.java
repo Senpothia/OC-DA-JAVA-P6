@@ -15,12 +15,20 @@ public class Secteur {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
 	public Secteur(Integer id, String nom, Integer id_site) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.id_site = id_site;
 	}
+
+
+
+
 	public Integer getId() {
 		return id;
 	}
