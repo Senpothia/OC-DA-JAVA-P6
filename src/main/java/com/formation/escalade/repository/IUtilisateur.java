@@ -15,7 +15,7 @@ import com.sun.xml.bind.v2.model.core.ID;
 public interface IUtilisateur extends JpaRepository <Utilisateur, Integer>{
 
 	 Utilisateur findById(int id);
-	 List<Utilisateur> findAll(Sort Name);
+	 
 
 	
 	
