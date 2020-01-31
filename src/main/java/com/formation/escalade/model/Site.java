@@ -10,8 +10,8 @@ import javax.persistence.Table;
 public class Site {
 
 	@Id
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String nom;
 	private String localisation;
