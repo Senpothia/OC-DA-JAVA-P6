@@ -54,20 +54,23 @@ public class SiteController {
 		String localisationSite = formSite.getLocalisationSite();
 		String departementSite = formSite.getDepartementSite();
 		boolean officielSite = false;
+		
+		String remSite = formSite.getRemSite();  // A corriger: A mettre dans la classe commentaire_site
+							 // Coorigé!
 
 		String nomSecteur = formSite.getNomSecteur();
 		
-		String remSecteur = formSite.getRemSite();  // A corriger: A mettre dans la classe commentaire_site
-
+		
 		String nomVoie = formSite.getNomVoie();
 		
 		String cotationVoie = formSite.getCotationVoie();
+		
 
 		String nomLongueur = formSite.getNomLongueur();
-		
 		int nbreSpit = formSite.getNbreSpit();
 		String cotationLongueur = formSite.getCotationLongueur();
 		String remLongueur = formSite.getRemLongueur();
+		
 
 		Site site = new Site();
 		site.setNom(nomSite);
