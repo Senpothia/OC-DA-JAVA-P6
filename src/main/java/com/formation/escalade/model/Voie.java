@@ -25,13 +25,17 @@ public class Voie {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Voie(Integer id, String nom, String cotation, Integer id_secteur) {
+	public Voie(Integer id, String nom, String cotation, Secteur secteur) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.cotation = cotation;
-		this.id_secteur = id_secteur;
+		this.secteur = secteur;
 	}
+	
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,15 +54,15 @@ public class Voie {
 	public void setCotation(String cotation) {
 		this.cotation = cotation;
 	}
-	public Integer getId_secteur() {
-		return id_secteur;
+	public Secteur getSecteur() {
+		return secteur;
 	}
-	public void setId_secteur(Integer id_secteur) {
-		this.id_secteur = id_secteur;
+	public void setSecteur(Secteur secteur) {
+		this.secteur = secteur;
 	}
 	@Override
 	public String toString() {
-		return "Voie [id=" + id + ", nom=" + nom + ", cotation=" + cotation + ", id_secteur=" + id_secteur + "]";
+		return "Voie [id=" + id + ", nom=" + nom + ", cotation=" + cotation + ", secteur=" + secteur + "]";
 	}
 	
 	  

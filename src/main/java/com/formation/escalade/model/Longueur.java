@@ -25,22 +25,14 @@ public class Longueur {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
-	public Longueur(Integer id, Integer spit, String nom, String cotation, Integer id_voie) {
+	public Longueur(Integer id, Integer spit, String nom, String cotation, Voie voie) {
 		super();
 		this.id = id;
 		this.spit = spit;
 		this.nom = nom;
 		this.cotation = cotation;
-		this.id_voie = id_voie;
+		this.voie = voie;
 	}
-
-
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -65,12 +57,19 @@ public class Longueur {
 	public void setCotation(String cotation) {
 		this.cotation = cotation;
 	}
-	public Integer getId_voie() {
-		return id_voie;
+	public Voie getVoie() {
+		return voie;
 	}
-	public void setId_voie(Integer id_voie) {
-		this.id_voie = id_voie;
+	public void setVoie(Voie voie) {
+		this.voie = voie;
 	}
+	@Override
+	public String toString() {
+		return "Longueur [id=" + id + ", spit=" + spit + ", nom=" + nom + ", cotation=" + cotation + ", voie=" + voie
+				+ "]";
+	}
+	
+	
 	
 	
 }

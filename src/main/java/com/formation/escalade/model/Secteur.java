@@ -24,15 +24,13 @@ public class Secteur {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Secteur(Integer id, String nom, Integer numSecteur, Integer id_site) {
+	public Secteur(Integer id, String nom, Integer numSecteur, Site site) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.id_site = id_site;
+		this.numSecteur = numSecteur;
+		this.site = site;
 	}
-	
-	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -51,18 +49,16 @@ public class Secteur {
 	public void setNumSecteur(Integer numSecteur) {
 		this.numSecteur = numSecteur;
 	}
-	public Integer getId_site() {
-		return id_site;
+	public Site getSite() {
+		return site;
 	}
-	public void setId_site(Integer id_site) {
-		this.id_site = id_site;
+	public void setSite(Site site) {
+		this.site = site;
 	}
 	@Override
 	public String toString() {
-		return "Secteur [id=" + id + ", nom=" + nom + ", numSecteur=" + numSecteur + ", id_site=" + id_site + "]";
+		return "Secteur [id=" + id + ", nom=" + nom + ", numSecteur=" + numSecteur + ", site=" + site + "]";
 	}
-	
-	
 	
 	
 	
