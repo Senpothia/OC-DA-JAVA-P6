@@ -82,12 +82,23 @@ public class SiteController {
 		
 		Secteur secteur = new Secteur();
 		secteur.setNom(nomSecteur);
-	
-
+		secteur.setSite(site);
+		
 		secteurRepo.save(secteur);
-		//voieRepo.save(voie);
-		//longueurRepo.save(longueur);
+		
+		Voie voie = new Voie();
+		voie.setNom(nomVoie);
+		voie.setCotation(cotationVoie);
+		voie.setSecteur(secteur);
+		voieRepo.save(voie);
+		
+		Longueur longueur = new Longueur();
+		longueur.setNom(nomLongueur);
+		longueur.setSpit(nbreSpit);
+		longueur.setCotation(cotationLongueur);
+		longueur.setVoie(voie);
 
+		longueurRepo.save(longueur);   
 		return "creation_site";
 	}
 
