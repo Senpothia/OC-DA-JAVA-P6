@@ -19,7 +19,7 @@ public class Secteur {
 	private Integer numSecteur;
 	@OneToOne
 	@JoinColumn(name="id_site")
-	private Integer id_site;
+	private Site site;
 	public Secteur() {
 		super();
 		// TODO Auto-generated constructor stub
