@@ -33,8 +33,6 @@ public class Voie {
 	}
 	
 	
-	
-	
 	public Integer getId() {
 		return id;
 	}

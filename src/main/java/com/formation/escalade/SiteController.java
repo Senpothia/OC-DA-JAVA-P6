@@ -52,12 +52,11 @@ public class SiteController {
 
 		String nomSite = formSite.getNomSite();
 		String localisationSite = formSite.getLocalisationSite();
-		String departementSite = formSite.getDepartementSite();
+		int departementSite = formSite.getDepartementSite();
 		boolean officielSite = false;
 		
-		String remSite = formSite.getRemSite();  // A corriger: A mettre dans la classe commentaire_site
-							 // Coorigé!
-
+		String remSite = formSite.getRemSite();
+		
 		String nomSecteur = formSite.getNomSecteur();
 		
 		

@@ -16,7 +16,7 @@ public class Secteur {
 	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String nom;
-	private Integer numSecteur;
+	
 	@OneToOne
 	@JoinColumn(name="id_site")
 	private Site site;
@@ -28,7 +28,7 @@ public class Secteur {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.numSecteur = numSecteur;
+		
 		this.site = site;
 	}
 	public Integer getId() {
@@ -43,12 +43,7 @@ public class Secteur {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Integer getNumSecteur() {
-		return numSecteur;
-	}
-	public void setNumSecteur(Integer numSecteur) {
-		this.numSecteur = numSecteur;
-	}
+	
 	public Site getSite() {
 		return site;
 	}
@@ -57,7 +52,7 @@ public class Secteur {
 	}
 	@Override
 	public String toString() {
-		return "Secteur [id=" + id + ", nom=" + nom + ", numSecteur=" + numSecteur + ", site=" + site + "]";
+		return "Secteur [id=" + id + "site=" + site + "]";
 	}
 	
 	

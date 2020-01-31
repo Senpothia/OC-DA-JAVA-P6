@@ -15,7 +15,7 @@ public class Site {
 	private Integer id;
 	private String nom;
 	private String localisation;
-	private String departement;
+	private int departement;
 	private boolean officiel;
 	public Site() {
 		super();
@@ -23,7 +23,7 @@ public class Site {
 	}
 	
 
-	public Site(Integer id, String nom, String localisation, String departement, boolean officiel) {
+	public Site(Integer id, String nom, String localisation, int departement, boolean officiel) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -53,10 +53,10 @@ public class Site {
 	public void setLocalisation(String localisation) {
 		this.localisation = localisation;
 	}
-	public String getDepartement() {
+	public int getDepartement() {
 		return departement;
 	}
-	public void setDepartement(String departement) {
+	public void setDepartement(int departement) {
 		this.departement = departement;
 	}
 	public boolean isOfficiel() {
@@ -64,6 +64,13 @@ public class Site {
 	}
 	public void setOfficiel(boolean officiel) {
 		this.officiel = officiel;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Site [id=" + id + ", nom=" + nom + ", localisation=" + localisation + ", departement=" + departement
+				+ ", officiel=" + officiel + "]";
 	}
 	
 	

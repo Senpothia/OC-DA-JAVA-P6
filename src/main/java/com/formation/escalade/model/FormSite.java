@@ -4,7 +4,7 @@ public class FormSite {
 
 	private String nomSite;
 	private String localisationSite;
-	private String departementSite;
+	private int departementSite;
 	private String remSite;
 	
 	private String nomSecteur;
@@ -23,7 +23,7 @@ public class FormSite {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormSite(String nomSite, String localisationSite, String departementSite, String remSite, String nomSecteur,
+	public FormSite(String nomSite, String localisationSite, int departementSite, String remSite, String nomSecteur,
 			String nomVoie, String cotationVoie, int nbreSpit, String nomLongueur, String cotationLongueur,
 			String remLongueur) {
 		super();
@@ -56,11 +56,11 @@ public class FormSite {
 		this.localisationSite = localisationSite;
 	}
 
-	public String getDepartementSite() {
+	public int getDepartementSite() {
 		return departementSite;
 	}
 
-	public void setDepartementSite(String departementSite) {
+	public void setDepartementSite(int departementSite) {
 		this.departementSite = departementSite;
 	}
 
