@@ -20,7 +20,7 @@ public class Longueur {
 	private String cotation;
 	@OneToOne
 	@JoinColumn(name="id_voie")
-	private Integer id_voie;
+	private Voie voie;
 	public Longueur() {
 		super();
 		// TODO Auto-generated constructor stub
