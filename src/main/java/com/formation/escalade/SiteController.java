@@ -114,5 +114,41 @@ public class SiteController {
 		longueurRepo.save(longueur);   
 		return "creation_site";
 	}
-
+	
+	@GetMapping("/annuler")
+	public String annulation() {
+		
+		return "index";
+	}
+	
+	@GetMapping("/addsecteur")
+	public String addsecteur() {
+		
+		return "index";
+	}
+	
+	@GetMapping("/addvoie")
+	public String addvoie() {
+		
+		return "index";
+	}
+	
+	@GetMapping("/addlongueur")
+	public String addlongueur() {
+		
+		return "index";
+	}
+	
+	@GetMapping("/visualisersite")
+	public String visualiserSite() {
+		
+		return "index";
+	}
+	
+	@GetMapping("/modifiersite")
+	public String modifierSite() {
+		
+		return "index";
+	}
+	
 }

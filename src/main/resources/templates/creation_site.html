@@ -52,39 +52,41 @@
 
 					<div class="validations col-3">
 
+						<div class="bouton2">
 
-						<div class="bouton row">
-							<button type="button" class="btn btn-primary btn-block">Ajouter
-								secteur</button>
+							<a href="addsecteur"><p class="btn btn-primary btn-block">Ajouter secteur</p></a>
 
+						</div>
+						
+						<div class="bouton2">
+							
+							<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter voie</p></a>
+							
+						</div>
+						<div class="bouton2">
+							
+							<a href="addlongueur"><p class="btn btn-primary btn-block">Ajouter longueur</p></a>
+							
+						</div>
+						<div class="bouton2">
+							
+							<a href="visualisersite"><p class="btn btn-primary btn-block">Visualiser site</p></a>
+							
+						</div>
+						<div class="bouton2">
+							
+							<a href="modifiersite"><p class="btn btn-primary btn-block">Modifier site</p></a>
+							
 						</div>
 
 						<div class="bouton row">
-							<button type="button" class="btn btn-primary btn-block">Ajouter
-								voie</button>
-						</div>
-
-						<div class="bouton row">
-							<button type="button" class="btn btn-primary btn-block">Ajouter
-								longueur</button>
-						</div>
-
-						<div class="bouton row">
-							<button type="button" class="btn btn-primary btn-block">Visualiser
+							<button type="submit" class="btn btn-primary btn-block" style="width:245px;">Enregistrer
 								site</button>
 						</div>
+						<div class="bouton2">
 
-						<div class="bouton row">
-							<button type="button" class="btn btn-primary btn-block">Modifier
-								site</button>
-						</div>
+							<a href="annuler"><p class="btn btn-primary btn-block">Annuler</p></a>
 
-						<div class="bouton row">
-							<button type="submit" class="btn btn-primary btn-block">Enregistrer
-								site</button>
-						</div>
-						<div class="bouton row">
-							<button type="button" class="btn btn-primary btn-block">Annuler</button>
 						</div>
 
 					</div>
@@ -112,7 +114,7 @@
 							<label for="text">Commentaire</label> <input type="text"
 								class="form-control" th:field="*{remSite}">
 						</div>
-						
+
 						<h1>Secteur</h1>
 
 						<div class="row  mr-1">
@@ -120,8 +122,8 @@
 								class="form-control" th:field="*{nomSecteur}">
 						</div>
 
-					
-						
+
+
 
 						<div class="row  mr-1">
 							<label for="text">Cotation</label> <input type="text"
@@ -131,9 +133,16 @@
 
 
 					<div class="col">
+
+						<h1 class="ml-3">Voie</h1>
+
+						<div class="row ml-1">
+							<label for="text">Nom</label> <input type="text"
+								class="form-control" th:field="*{nomVoie}">
+						</div>
 						
-						
-					
+							<div class="row ml-1" style="height: 15px"></div>
+
 						<h1 class="ml-3">Longueur</h1>
 
 						<div class="row ml-1">
@@ -150,18 +159,11 @@
 							<label for="text">Cotation</label> <input type="text"
 								class="form-control" th:field="*{cotationLongueur}">
 						</div>
-						
-						<div class="row ml-1" style="height: 70px">
-							
-						</div>
-						
-							<h1 class="ml-3">Voie</h1>
 
-						<div class="row ml-1">
-							<label for="text">Nom</label> <input type="text"
-								class="form-control" th:field="*{nomVoie}">
-						</div>
+						<div class="row ml-1" style="height: 70px"></div>
+
 						
+
 
 					</div>
 
