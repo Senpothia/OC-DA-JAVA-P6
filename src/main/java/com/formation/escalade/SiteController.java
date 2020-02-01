@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
+import com.formation.escalade.repository.CommentaireRepo;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -25,14 +27,16 @@ public class SiteController {
 	private final ISecteur secteurRepo;
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
+	private final CommentaireRepo commentaireRepo;
 	
 	
-	public SiteController(ISite siteRepo, ISecteur secteurRepo,IVoie voieRepo, ILongueur longueurRepo) {
+	public SiteController(ISite siteRepo, ISecteur secteurRepo,IVoie voieRepo, ILongueur longueurRepo,CommentaireRepo commentaireRepo) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
 		this.voieRepo = voieRepo;
 		this.longueurRepo = longueurRepo;
+		this.commentaireRepo = commentaireRepo;
 	}
 
 	@GetMapping("/creationSite")
@@ -57,6 +61,7 @@ public class SiteController {
 		
 		String remSite = formSite.getRemSite();
 		
+		
 		String nomSecteur = formSite.getNomSecteur();
 		
 		
@@ -68,7 +73,7 @@ public class SiteController {
 		String nomLongueur = formSite.getNomLongueur();
 		int nbreSpit = formSite.getNbreSpit();
 		String cotationLongueur = formSite.getCotationLongueur();
-		String remLongueur = formSite.getRemLongueur();
+		
 		
 
 		Site site = new Site();
@@ -78,6 +83,15 @@ public class SiteController {
 		site.setOfficiel(officielSite);
 		
 		siteRepo.save(site);
+		
+		Commentaire commentaire = new Commentaire();
+		Utilisateur auteur = new Utilisateur();
+		auteur.setId(3);
+		commentaire.setAuteur(auteur);
+		commentaire.setSite(site);
+		commentaire.setText(remSite);
+		commentaireRepo.save(commentaire);
+		
 		
 		Secteur secteur = new Secteur();
 		secteur.setNom(nomSecteur);

@@ -1,9 +1,12 @@
 package com.formation.escalade.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="site")
@@ -17,6 +20,10 @@ public class Site {
 	private String localisation;
 	private int departement;
 	private boolean officiel;
+	
+	@OneToMany(mappedBy="site")
+	private List<Commentaire> commentaires;
+	
 	public Site() {
 		super();
 		// TODO Auto-generated constructor stub

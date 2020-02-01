@@ -1,8 +1,18 @@
 package com.formation.escalade.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 public class Utilisateur {
 
@@ -15,6 +25,17 @@ public class Utilisateur {
 	private String email;
 	private String passe;
 	private boolean membre;
+	
+	@OneToMany(mappedBy="auteur")
+	private List<Commentaire> commentaires;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="Demande",
+				joinColumns = @JoinColumn(name="id_utilisateur"),
+				inverseJoinColumns = @JoinColumn(name="id_topo")
+				)
+	private List<Demande> demandes;
+	
 	public Utilisateur() {
 		
 	}
@@ -70,6 +91,23 @@ public class Utilisateur {
 	}
 	public void setMembre(boolean membre) {
 		this.membre = membre;
+	}
+	
+	/**
+	public List<Commentaire_site> getCommentaires() {
+		return commentaires;
+	}
+	public void setCommentaires(List<Commentaire_site> commentaires) {
+		this.commentaires = commentaires;
+	}
+	
+	*/
+	
+	public List<Demande> getDemandes() {
+		return demandes;
+	}
+	public void setDemandes(List<Demande> demandes) {
+		this.demandes = demandes;
 	}
 	@Override
 	public String toString() {

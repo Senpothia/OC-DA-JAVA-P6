@@ -11,6 +11,8 @@ public class Demande {
 	private Integer id;
 	private Integer id_topo;
 	private Integer id_utilisateur;
+	
+	
 	public Demande() {
 		super();
 		// TODO Auto-generated constructor stub
