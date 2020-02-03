@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.formation.escalade.model.Site;
 
+@Service
 public class SiteService implements GestionSiteService {
 
 	@Override
