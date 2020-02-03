@@ -86,7 +86,7 @@ public class SiteController {
 		
 		Commentaire commentaire = new Commentaire();
 		Utilisateur auteur = new Utilisateur();
-		auteur.setId(3);
+		auteur.setId(1);
 		commentaire.setAuteur(auteur);
 		commentaire.setSite(site);
 		commentaire.setText(remSite);
