@@ -51,7 +51,9 @@ public class SiteController {
 	@PostMapping("/creationSite")
 
 	public String siteSubmit(FormSite formSite) {
-
+		
+		createSite(formeSite);
+		/**
 		System.out.println(formSite.toString());
 
 		String nomSite = formSite.getNomSite();
@@ -112,6 +114,7 @@ public class SiteController {
 		longueur.setVoie(voie);
 
 		longueurRepo.save(longueur);   
+		*/
 		return "creation_site";
 	}
 	
