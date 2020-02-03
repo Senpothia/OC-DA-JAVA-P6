@@ -7,16 +7,7 @@ import com.formation.escalade.model.Site;
 @Service
 public class SiteService implements GestionSiteService {
 	
-	@Autowired
-	private final ISite siteRepo;
-	@Autowired
-	private final ISecteur secteurRepo;
-	@Autowired
-	private final IVoie voieRepo;
-	@Autowired
-	private final ILongueur longueurRepo;
-	@Autowired
-	private final CommentaireRepo commentaireRepo
+	
 
 	@Override
 	public void createSite(FormSite formSite) {
