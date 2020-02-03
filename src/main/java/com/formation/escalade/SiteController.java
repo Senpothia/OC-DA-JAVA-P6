@@ -29,6 +29,8 @@ public class SiteController {
 	private final ILongueur longueurRepo;
 	private final CommentaireRepo commentaireRepo;
 	
+	 @Autowired
+	SiteService siteService;
 	
 	public SiteController(ISite siteRepo, ISecteur secteurRepo,IVoie voieRepo, ILongueur longueurRepo,CommentaireRepo commentaireRepo) {
 
