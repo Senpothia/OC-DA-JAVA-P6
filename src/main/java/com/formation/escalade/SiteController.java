@@ -54,7 +54,7 @@ public class SiteController {
 
 	public String siteSubmit(FormSite formSite) {
 		
-		createSite(formeSite);
+		createSite(formSite);
 		/**
 		System.out.println(formSite.toString());
 
