@@ -2,12 +2,47 @@ package com.formation.escalade.service;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.formation.escalade.model.Commentaire;
+import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.Longueur;
+import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Utilisateur;
+import com.formation.escalade.model.Voie;
+import com.formation.escalade.repository.CommentaireRepo;
+import com.formation.escalade.repository.ILongueur;
+import com.formation.escalade.repository.ISecteur;
+import com.formation.escalade.repository.ISite;
+import com.formation.escalade.repository.IVoie;
 
 @Service
 public class SiteService implements GestionSiteService {
 	
+	@Autowired
+	private final ISite siteRepo;
+	@Autowired
+	private final ISecteur secteurRepo;
+	@Autowired
+	private final IVoie voieRepo;
+	@Autowired
+	private final ILongueur longueurRepo;
+	@Autowired
+	private final CommentaireRepo commentaireRepo;
 	
+
+	public SiteService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
+			CommentaireRepo commentaireRepo) {
+		super();
+		this.siteRepo = siteRepo;
+		this.secteurRepo = secteurRepo;
+		this.voieRepo = voieRepo;
+		this.longueurRepo = longueurRepo;
+		this.commentaireRepo = commentaireRepo;
+	}
+
 
 	@Override
 	public void createSite(FormSite formSite) {
@@ -34,7 +69,6 @@ public class SiteService implements GestionSiteService {
 		String nomLongueur = formSite.getNomLongueur();
 		int nbreSpit = formSite.getNbreSpit();
 		String cotationLongueur = formSite.getCotationLongueur();
-		
 		
 
 		Site site = new Site();
@@ -72,9 +106,8 @@ public class SiteService implements GestionSiteService {
 		longueur.setCotation(cotationLongueur);
 		longueur.setVoie(voie);
 
-		longueurRepo.save(longueur)
+		longueurRepo.save(longueur);
 		
-
 	}
 
 	@Override
@@ -93,6 +126,12 @@ public class SiteService implements GestionSiteService {
 	public Collection<Site> getSite() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void createSite(Site site) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

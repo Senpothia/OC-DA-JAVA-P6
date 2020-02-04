@@ -1,5 +1,6 @@
 package com.formation.escalade;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
 import com.formation.escalade.repository.IUtilisateur;
 import com.formation.escalade.repository.IVoie;
+import com.formation.escalade.service.SiteService;
 
 @Controller
 public class SiteController {
@@ -30,7 +32,7 @@ public class SiteController {
 	private final CommentaireRepo commentaireRepo;
 	
 	 @Autowired
-	SiteService siteService;
+	 SiteService siteService;
 	
 	public SiteController(ISite siteRepo, ISecteur secteurRepo,IVoie voieRepo, ILongueur longueurRepo,CommentaireRepo commentaireRepo) {
 
@@ -54,7 +56,7 @@ public class SiteController {
 
 	public String siteSubmit(FormSite formSite) {
 		
-		createSite(formSite);
+		siteService.createSite(formSite);;
 		/**
 		System.out.println(formSite.toString());
 
