@@ -131,7 +131,7 @@ public class SiteController {
 	@GetMapping("/addsecteur")
 	public String addsecteur(Model model) {
 		model.addAttribute("formSite", new FormSite());
-		return "add_secteur2";
+		return "add_secteur";
 	}
 	
 	@GetMapping("/addvoie")
