@@ -43,7 +43,7 @@ public class SiteController {
 		this.commentaireRepo = commentaireRepo;
 	}
 
-	@GetMapping("/creationSite")
+	@GetMapping("/creationsite")
 
 	public String creationSite(Model model) {
 
@@ -52,7 +52,7 @@ public class SiteController {
 		return "creation_site";
 	}
 
-	@PostMapping("/creationSite")
+	@PostMapping("/creationsite")
 
 	public String siteSubmit(FormSite formSite) {
 		
@@ -137,13 +137,13 @@ public class SiteController {
 	@GetMapping("/addvoie")
 	public String addvoie() {
 		
-		return "index";
+		return "creation_voie";
 	}
 	
 	@GetMapping("/addlongueur")
 	public String addlongueur() {
 		
-		return "index";
+		return "creation_longueur";
 	}
 	
 	@GetMapping("/visualisersite")
@@ -156,6 +156,12 @@ public class SiteController {
 	public String modifierSite() {
 		
 		return "index";
+	}
+	
+	@GetMapping("/selection")
+	public String selection() {
+		
+		return "selection";
 	}
 	
 }
