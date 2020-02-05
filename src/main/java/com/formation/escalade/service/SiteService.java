@@ -33,12 +33,14 @@ public class SiteService implements GestionSiteService {
 	@Autowired
 	private final CommentaireRepo commentaireRepo;
 	
+	
+	/**
 	private Site site;
 	private List<Secteur> secteurs;
 	private List<Voie> voies;
 	private List<Longueur> longueurs;
 	
-	
+	*/
 	
 
 	public SiteService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
@@ -143,17 +145,18 @@ public class SiteService implements GestionSiteService {
 		
 	}
 	
+	/**
 	public void arbre(Integer id) {
 		
 		this.site = siteRepo.getOne(id);
 		this.secteurs = secteurRepo.findAllById_site();
-		this.voies = voieRepo.findAllBySecteurs( this.secteurs);
+		//this.voies = voieRepo.findAllBySecteurs( this.secteurs);
 		
 		
 		
 	}
 
-	
+	*/
 	
 
 }

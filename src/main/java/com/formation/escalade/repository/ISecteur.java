@@ -8,6 +8,5 @@ import com.formation.escalade.model.Secteur;
 
 public interface ISecteur extends JpaRepository <Secteur, Integer>{
 
-	List<Secteur> findAllById_site();
-
+	
 }
