@@ -1,6 +1,7 @@
 package com.formation.escalade.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,13 @@ public class SiteService implements GestionSiteService {
 	private final ILongueur longueurRepo;
 	@Autowired
 	private final CommentaireRepo commentaireRepo;
+	
+	private Site site;
+	private List<Secteur> secteurs;
+	private List<Voie> voies;
+	private List<Longueur> longueurs;
+	
+	
 	
 
 	public SiteService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
@@ -111,13 +119,13 @@ public class SiteService implements GestionSiteService {
 	}
 
 	@Override
-	public void updateSite(String id, Site site) {
+	public void updateSite(Integer id, Site site) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteSite(String id) {
+	public void deleteSite(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -128,10 +136,24 @@ public class SiteService implements GestionSiteService {
 		return null;
 	}
 
+
 	@Override
 	public void createSite(Site site) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void arbre(Integer id) {
+		
+		this.site = siteRepo.getOne(id);
+		this.secteurs = secteurRepo.findAllById_site();
+		this.voies = voieRepo.findAllBySecteurs( this.secteurs);
+		
+		
+		
+	}
+
+	
+	
 
 }
