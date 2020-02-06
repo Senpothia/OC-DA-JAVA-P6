@@ -151,9 +151,23 @@ public class SiteService implements GestionSiteService {
 	public void chercherSite(Integer id) {
 		Site site = siteRepo.getOne(id);
 		System.out.println(site.toString());
-		List<Secteur> secteurs = secteurRepo.findByNom("Eglise");
-		System.out.println(secteurs.get(0).toString());
-		secteurs = secteurRepo.findBySite(site);
+		//List<Secteur> secteurs = secteurRepo.findByNom("Eglise");
+		List<Secteur> secteurs = secteurRepo.findBySite(site);
+		for (Secteur s: secteurs){
+			System.out.println("--------------------------");
+			System.out.println(s.toString());
+			System.out.println("--------------------------");
+		}
+		//secteurs = secteurRepo.findBySite(site);
+		ArrayList<String> nomsSecteurs = new ArrayList<String>();
+		String nomSecteur = new String();
+		for (Secteur s: secteurs){
+			nomSecteur = s.getNom();
+			System.out.println("++++++++++++++++++++++++++");
+			System.out.println(nomSecteur);
+			System.out.println("++++++++++++++++++++++++++");
+			nomsSecteurs.add(nomSecteur);
+		}
 		
 		
 	}
