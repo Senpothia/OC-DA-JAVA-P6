@@ -147,9 +147,6 @@ public class SiteService implements GestionSiteService {
 	}
 
 
-	
-
-
 	@Override
 	public void chercherSite(Integer id) {
 		Site site = siteRepo.getOne(id);
@@ -162,28 +159,6 @@ public class SiteService implements GestionSiteService {
 	}
 
 
-	
-
-/**
-	@Override
-	public void chercherSite(Integer id) {
-		
-		Site site = siteRepo.getOne(id);
-		System.out.println(site.toString());
-		List<Secteur> secteurs = secteurRepo.findById_site(id);
-		Secteur secteur0 = secteurs.get(0);
-		System.out.println(secteur0.toString());
-		
-	}
-	
-	*/
-	
-	
-	
-	
-	
-	
-	
 	
 
 }
