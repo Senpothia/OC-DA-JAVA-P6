@@ -12,5 +12,7 @@ public interface GestionSiteService {
 	   public abstract void deleteSite(Integer id);
 	   public abstract Collection<Site> getSite();
 	   void createSite(FormSite formSite);
+	   void chercherSite(Integer id);
+	  
 
 }
