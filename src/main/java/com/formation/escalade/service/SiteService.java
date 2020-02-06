@@ -1,5 +1,6 @@
 package com.formation.escalade.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -150,7 +151,9 @@ public class SiteService implements GestionSiteService {
 	@Override
 	public void chercherSite(Integer id) {
 		Site site = siteRepo.getOne(id);
+		System.out.println("***************************");
 		System.out.println(site.toString());
+		System.out.println("***************************");
 		//List<Secteur> secteurs = secteurRepo.findByNom("Eglise");
 		List<Secteur> secteurs = secteurRepo.findBySite(site);
 		for (Secteur s: secteurs){
@@ -168,6 +171,52 @@ public class SiteService implements GestionSiteService {
 			System.out.println("++++++++++++++++++++++++++");
 			nomsSecteurs.add(nomSecteur);
 		}
+		
+		ArrayList<String> nomsVoies = new ArrayList<String>();
+		List<Voie> voies = new ArrayList<Voie>();
+		for (Secteur s: secteurs) {
+		//List<Voie> voies = voieRepo.findBySecteur(s);
+		for (Voie v: voies){
+			System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvv");
+			System.out.println(v.toString());
+			System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvv");
+		}
+		//secteurs = secteurRepo.findBySite(site);
+		
+		String nomVoie = new String();
+		for (Voie v: voies){
+			nomVoie = v.getNom();
+			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
+			System.out.println(nomVoie);
+			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
+			nomsVoies.add(nomVoie);
+			
+		}
+		}  
+		
+		List<Longueur> longueurs = new ArrayList<Longueur>();
+		ArrayList<String> nomsLongueurs = new ArrayList<String>();
+		
+		for (Voie v: voies) {
+			//List<Longueur> longueurs = longueurRepo.findByVoie(v);
+			for (Longueur l: longueurs){
+				System.out.println("llllllllllllllllllllllllll");
+				System.out.println(l.toString());
+				System.out.println("llllllllllllllllllllllllll");
+			}
+			//secteurs = secteurRepo.findBySite(site);
+			
+			String nomLongueur = new String();
+			for (Longueur l: longueurs){
+				nomLongueur = l.getNom();
+				System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjj");
+				System.out.println(nomLongueur);
+				System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjj");
+				nomsLongueurs.add(nomLongueur);
+				
+			}
+			}  
+		
 		
 		
 	}
