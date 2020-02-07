@@ -102,8 +102,8 @@ public class SiteController {
 
 		return "index";
 	}
-
-	@GetMapping("/selection/{id}")
+	/**
+	@GetMapping("/selection1/{id}")
 	public String selection(@PathVariable("id") Integer id, Model model) {
 		/**
 		 * List<LigneSite> tableSite = siteService.chercherSite(id); String nomSite =
@@ -155,10 +155,26 @@ public class SiteController {
 			}
 		
 	}
-		*/
+		
 		siteService.decomposerSite(id);
 		return "selection";
 
 	} // fin
+   */
+	
+	@GetMapping("/selection/{id}")
+	public String selection1(@PathVariable("id") Integer id, Model model) {
+		
+		List<Secteur> secteurs = siteService.chercherSecteurs(id);
+		List<List<Voie>> voies = siteService.chercherVoies(secteurs);
+		List<List<Longueur>> longueurs = siteService.chercherLongueurs(voies);
+		List<String> listeSecteurs = siteService.decomposerSecteur(id);
+		System.out.println("Secteurs: " + listeSecteurs.size());
+		List<List<String>> listeVoies =siteService.decomposerVoie(secteurs);
+		System.out.println("Voies: " + listeVoies.size());
+		List<List<String>> listeLongueurs =siteService.decomposerLongueur(voies);
+		System.out.println("Longueurs: " + listeLongueurs.size());
+		return "selection";
+	}// 
 
 }

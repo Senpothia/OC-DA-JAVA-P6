@@ -351,7 +351,42 @@ public class SiteService implements GestionSiteService {
 		   
 		   return listeNomsLongueurs;
 	   }
+	     
+	   //**********************************
+	   public List<Secteur> chercherSecteurs(int id){
+		   
+		   	Site site = siteRepo.getOne(id);
+			List<Secteur> secteurs = secteurRepo.findBySite(site);
+		   
+		   return secteurs;
+	   }
 	   
+	   public List<List<Voie>> chercherVoies(List<Secteur> secteurs){
+		   
+		   List<Voie> voies = new ArrayList<Voie>();
+		   List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
+		   
+		   for (Secteur s : secteurs) {
+				voies = voieRepo.findBySecteur(s);  // Récupération de toutes les voies d'un secteur
+				listeVoies.add(voies);  // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
+			}
+		   
+		   return listeVoies;
+		   
+	   }  //
 	   
+	   public List<List<Longueur>> chercherLongueurs(List<List<Voie>> listeVoies){
+		   
+		    List<Longueur> longueurs = new ArrayList<Longueur>();
+			List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
 
-}
+			for (List<Voie> v: listeVoies) {
+				
+				for (Voie w: v) {
+					longueurs = longueurRepo.findByVoie(w);
+					listeLongueurs.add(longueurs); 	
+				}
+			}
+			return listeLongueurs;
+	   	}
+}//***
