@@ -1,8 +1,10 @@
 package com.formation.escalade.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.LigneSite;
 import com.formation.escalade.model.Site;
 
 public interface GestionSiteService {
@@ -12,7 +14,9 @@ public interface GestionSiteService {
 	   public abstract void deleteSite(Integer id);
 	   public abstract Collection<Site> getSite();
 	   void createSite(FormSite formSite);
-	   void chercherSite(Integer id);
+	   List<LigneSite> chercherSite(Integer id);
+	   abstract List<String> ordonnerSecteur(List<LigneSite> tableSite);
+	   abstract List<String> ordonnerVoie(List<LigneSite> tableSite);
 	  
 
 }

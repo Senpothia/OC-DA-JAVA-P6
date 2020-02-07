@@ -52,8 +52,9 @@ public class Secteur {
 	}
 	@Override
 	public String toString() {
-		return "Secteur [id=" + id + "site=" + site + "]";
+		return "Secteur [id=" + id + ", nom=" + nom + ", site=" + site + "]";
 	}
+	
 	
 	
 }

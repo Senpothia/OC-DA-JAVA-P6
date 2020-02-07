@@ -24,7 +24,7 @@ import com.formation.escalade.repository.IVoie;
 
 @Service
 public class SiteService implements GestionSiteService {
-	
+
 	@Autowired
 	private final ISite siteRepo;
 	@Autowired
@@ -35,16 +35,12 @@ public class SiteService implements GestionSiteService {
 	private final ILongueur longueurRepo;
 	@Autowired
 	private final CommentaireRepo commentaireRepo;
-	
-	
+
 	/**
-	private Site site;
-	private List<Secteur> secteurs;
-	private List<Voie> voies;
-	private List<Longueur> longueurs;
-	
-	*/
-	
+	 * private Site site; private List<Secteur> secteurs; private List<Voie> voies;
+	 * private List<Longueur> longueurs;
+	 * 
+	 */
 
 	public SiteService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			CommentaireRepo commentaireRepo) {
@@ -56,42 +52,36 @@ public class SiteService implements GestionSiteService {
 		this.commentaireRepo = commentaireRepo;
 	}
 
-
 	@Override
 	public void createSite(FormSite formSite) {
-		
-		
+
 		System.out.println(formSite.toString());
 
 		String nomSite = formSite.getNomSite();
 		String localisationSite = formSite.getLocalisationSite();
 		int departementSite = formSite.getDepartementSite();
 		boolean officielSite = false;
-		
+
 		String remSite = formSite.getRemSite();
-		
-		
+
 		String nomSecteur = formSite.getNomSecteur();
-		
-		
+
 		String nomVoie = formSite.getNomVoie();
-		
+
 		String cotationVoie = formSite.getCotationVoie();
-		
 
 		String nomLongueur = formSite.getNomLongueur();
 		int nbreSpit = formSite.getNbreSpit();
 		String cotationLongueur = formSite.getCotationLongueur();
-		
 
 		Site site = new Site();
 		site.setNom(nomSite);
 		site.setLocalisation(localisationSite);
 		site.setDepartement(departementSite);
 		site.setOfficiel(officielSite);
-		
+
 		siteRepo.save(site);
-		
+
 		Commentaire commentaire = new Commentaire();
 		Utilisateur auteur = new Utilisateur();
 		auteur.setId(1);
@@ -99,20 +89,19 @@ public class SiteService implements GestionSiteService {
 		commentaire.setSite(site);
 		commentaire.setText(remSite);
 		commentaireRepo.save(commentaire);
-		
-		
+
 		Secteur secteur = new Secteur();
 		secteur.setNom(nomSecteur);
 		secteur.setSite(site);
-		
+
 		secteurRepo.save(secteur);
-		
+
 		Voie voie = new Voie();
 		voie.setNom(nomVoie);
 		voie.setCotation(cotationVoie);
 		voie.setSecteur(secteur);
 		voieRepo.save(voie);
-		
+
 		Longueur longueur = new Longueur();
 		longueur.setNom(nomLongueur);
 		longueur.setSpit(nbreSpit);
@@ -120,19 +109,19 @@ public class SiteService implements GestionSiteService {
 		longueur.setVoie(voie);
 
 		longueurRepo.save(longueur);
-		
+
 	}
 
 	@Override
 	public void updateSite(Integer id, Site site) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteSite(Integer id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -141,61 +130,98 @@ public class SiteService implements GestionSiteService {
 		return null;
 	}
 
-
 	@Override
 	public void createSite(Site site) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-
 	@Override
-	public void chercherSite(Integer id) {
-		
-		
+	public List<LigneSite> chercherSite(Integer id) {
+
 		Site site = siteRepo.getOne(id);
-		
+
 		List<LigneSite> tableSite = new ArrayList<LigneSite>();
 		String nomSite = new String();
 		String nomSecteur = new String();
 		String nomVoie = new String();
 		String nomLongueur = new String();
-		
+
 		nomSite = site.getNom();
-		
+
 		List<Secteur> secteurs = secteurRepo.findBySite(site);
 		List<Voie> voies = new ArrayList<Voie>();
 		List<Longueur> longueurs = new ArrayList<Longueur>();
-		
+
 		ArrayList<String> nomsVoies = new ArrayList<String>();
 		ArrayList<String> nomsSecteurs = new ArrayList<String>();
 		ArrayList<String> nomsLongueurs = new ArrayList<String>();
-		
-		
-		for (Secteur s: secteurs){
+
+		for (Secteur s : secteurs) {
 			nomSecteur = s.getNom();
 			voies = voieRepo.findBySecteur(s);
-			for (Voie v: voies) {
+			for (Voie v : voies) {
 				nomVoie = v.getNom();
 				longueurs = longueurRepo.findByVoie(v);
-				for (Longueur l: longueurs) {
+				for (Longueur l : longueurs) {
 					nomLongueur = l.getNom();
 					LigneSite ligneSite = new LigneSite(nomSite, nomSecteur, nomVoie, nomLongueur);
 					tableSite.add(ligneSite);
 					System.out.println("*** ligne: " + ligneSite.toString());
 				}
 			}
-			
-			
 		}
-		
-		
-		}  // fin chercherSite()
-		
-		
-		
-	
 
-	
+		return tableSite;
+
+	}
+
+	@Override
+	public List<String> ordonnerSecteur(List<LigneSite> tableSite) {
+
+		// String nomSite = new String();
+		// nomSite = tableSite.get(0).getNomSite();
+		String nomSecteur = new String("");
+
+		List<String> nomsSecteurs = new ArrayList<String>();
+		for (int i = 0; i <= tableSite.size() - 1; i++) {
+
+			String nSecteur = tableSite.get(i).getNomSecteur();
+			if (!nSecteur.equals(nomSecteur)) {
+
+				nomsSecteurs.add(nSecteur);
+				nomSecteur = nSecteur;
+			}
+		}
+		/**
+		 * for (String s: nomsSecteurs ) {
+		 * 
+		 * System.out.println("SECTEUR: "+ s); }
+		 */
+
+		return nomsSecteurs;
+	}
+
+	public List<String> ordonnerVoie(List<LigneSite> tableSite) {
+
+		String nomSecteur = new String("");
+
+		String nomVoie = new String("");
+
+		//String nomLongueur = new String("");
+
+		List<String> nomsSecteurs = new ArrayList<String>();
+		for (int i = 0; i <= tableSite.size() - 1; i++) {
+
+			String nSecteur = tableSite.get(i).getNomSecteur();
+			if (!nSecteur.equals(nomSecteur)) {
+
+				nomsSecteurs.add(nSecteur);
+				nomSecteur = nSecteur;
+			}
+		}
+
+		return null;
+	}
 
 }
