@@ -249,7 +249,7 @@ public class SiteService implements GestionSiteService {
 				}
 			
 		}
-
+		// Traitement des longueurs
 		List<Longueur> longueurs = new ArrayList<Longueur>();
 		List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
 
@@ -270,6 +270,88 @@ public class SiteService implements GestionSiteService {
 		}
 		
 		
-		}
+		}//
+	
+	
+		//  **************************************************
+	
+	   public List<String> decomposerSecteur(int id){
+		   
+		    Site site = siteRepo.getOne(id);
+			// Traitement des secteurs
+			List<Secteur> secteurs = secteurRepo.findBySite(site);  // Récupération de tous les secteurs du site
+			String nomSecteur = new String();
+			List<String> nomSecteurs = new ArrayList<String>();
+			for (Secteur s : secteurs) {  // Affichage de chaque secteur
+
+				System.out.println(s.toString());
+			}
+			
+			for (Secteur s: secteurs) {
+				
+				nomSecteur = s.getNom();
+				nomSecteurs.add(nomSecteur);
+			}
+			
+		   return nomSecteurs;
+		   
+	   }///
+	   
+	   public List<List<String>> decomposerVoie(List<Secteur> secteurs){
+		   
+		   	List<Voie> voies = new ArrayList<Voie>();
+			List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
+			String nomVoie = new String();
+			List<String> nomVoiesSecteur = new ArrayList<String>();
+			List<List<String>> listeNomsVoies = new ArrayList<List<String>>();
+			for (Secteur s : secteurs) {
+				voies = voieRepo.findBySecteur(s);  // Récupération de toutes les voies d'un secteur
+				listeVoies.add(voies);  // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
+			}
+
+			for (List<Voie> v : listeVoies) {
+					for (Voie w: v) {
+						System.out.println(w.toString());  // Affichage de toutes les voies 
+						nomVoie = w.getNom();
+						nomVoiesSecteur.add(nomVoie);
+					}
+					listeNomsVoies.add(nomVoiesSecteur);
+			}
+			
+			
+		   return listeNomsVoies;
+	   }//
+	   
+	   public List<List<String>> decomposerLongueur(List<List<Voie>> listeVoies){
+		   
+		    List<Longueur> longueurs = new ArrayList<Longueur>();
+			List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
+			String nomLongueur = new String();
+			List<String> nomLongueursVoie = new ArrayList<String>();
+			List<List<String>> listeNomsLongueurs = new ArrayList<List<String>>();
+
+			for (List<Voie> v: listeVoies) {
+				
+				for (Voie w: v) {
+					longueurs = longueurRepo.findByVoie(w);
+					listeLongueurs.add(longueurs); 
+					
+				}
+			}
+			
+			for (List<Longueur> l : listeLongueurs) {	
+				for (Longueur j: l) {
+					System.out.println(j.toString());  // Affichage de toutes les voies 
+					nomLongueur = j.getNom();
+					nomLongueursVoie.add(nomLongueur);
+				}
+				listeNomsLongueurs.add(nomLongueursVoie);
+			}
+			
+		   
+		   return listeNomsLongueurs;
+	   }
+	   
+	   
 
 }
