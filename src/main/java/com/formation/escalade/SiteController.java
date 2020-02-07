@@ -111,6 +111,8 @@ public class SiteController {
 		 * listeSecteurs = siteService.ordonnerSecteur(tableSite); List<String>
 		 * listeVoies = siteService.ordonnerVoie(tableSite);
 		 */
+		
+		/**
 		Site site = siteRepo.getOne(id);
 		// Traitement des secteurs
 		List<Secteur> secteurs = secteurRepo.findBySite(site);  // Récupération de tous les secteurs du site
@@ -153,8 +155,8 @@ public class SiteController {
 			}
 		
 	}
-		
-
+		*/
+		siteService.decomposerSite(id);
 		return "selection";
 
 	} // fin

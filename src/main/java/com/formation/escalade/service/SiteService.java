@@ -223,5 +223,53 @@ public class SiteService implements GestionSiteService {
 
 		return null;
 	}
+	
+	public void decomposerSite(int id) {
+		
+		Site site = siteRepo.getOne(id);
+		// Traitement des secteurs
+		List<Secteur> secteurs = secteurRepo.findBySite(site);  // Récupération de tous les secteurs du site
+		
+		for (Secteur s : secteurs) {  // Affichage de chaque secteur
+
+			System.out.println(s.toString());
+		}
+		// Traitement des voies 
+		List<Voie> voies = new ArrayList<Voie>();
+		List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
+
+		for (Secteur s : secteurs) {
+			voies = voieRepo.findBySecteur(s);  // Récupération de toutes les voies d'un secteur
+			listeVoies.add(voies);  // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
+		}
+
+		for (List<Voie> v : listeVoies) {
+				for (Voie w: v) {
+					System.out.println(w.toString());  // Affichage de toutes les voies 
+				}
+			
+		}
+
+		List<Longueur> longueurs = new ArrayList<Longueur>();
+		List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
+
+		for (List<Voie> v: listeVoies) {
+			
+			for (Voie w: v) {
+				longueurs = longueurRepo.findByVoie(w);
+				listeLongueurs.add(longueurs); 
+				
+			}
+		}
+		
+		for (List<Longueur> l : listeLongueurs) {	
+			for (Longueur j: l) {
+				System.out.println(j.toString());  // Affichage de toutes les voies 
+			}
+		
+		}
+		
+		
+		}
 
 }
