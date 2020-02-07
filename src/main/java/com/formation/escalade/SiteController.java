@@ -101,7 +101,7 @@ public class SiteController {
 	@GetMapping("/selection/{id}")
 	public String selection(@PathVariable("id") Integer id) {
 		siteService.chercherSite(id);
-		return "selection";
+		return "test1";
 	}
 	
 }

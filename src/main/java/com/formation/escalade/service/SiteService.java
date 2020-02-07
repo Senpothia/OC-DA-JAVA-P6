@@ -13,6 +13,7 @@ import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.LigneSite;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.CommentaireRepo;
@@ -150,18 +151,24 @@ public class SiteService implements GestionSiteService {
 
 	@Override
 	public void chercherSite(Integer id) {
+		/**
+		//  	Récuperation du site 
+		String nomSite = new String();
 		Site site = siteRepo.getOne(id);
 		System.out.println("***************************");
 		System.out.println(site.toString());
+		nomSite = site.getNom();
+		System.out.println(nomSite);
 		System.out.println("***************************");
-		//List<Secteur> secteurs = secteurRepo.findByNom("Eglise");
+	
+		//     Traitements des secteurs
 		List<Secteur> secteurs = secteurRepo.findBySite(site);
 		for (Secteur s: secteurs){
 			System.out.println("--------------------------");
 			System.out.println(s.toString());
 			System.out.println("--------------------------");
 		}
-		//secteurs = secteurRepo.findBySite(site);
+		
 		ArrayList<String> nomsSecteurs = new ArrayList<String>();
 		String nomSecteur = new String();
 		for (Secteur s: secteurs){
@@ -172,16 +179,16 @@ public class SiteService implements GestionSiteService {
 			nomsSecteurs.add(nomSecteur);
 		}
 		
+		//        Traitement des voies
 		ArrayList<String> nomsVoies = new ArrayList<String>();
 		List<Voie> voies = new ArrayList<Voie>();
 		for (Secteur s: secteurs) {
-		//List<Voie> voies = voieRepo.findBySecteur(s);
+		 voies = voieRepo.findBySecteur(s);
 		for (Voie v: voies){
 			System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvv");
 			System.out.println(v.toString());
 			System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvv");
 		}
-		//secteurs = secteurRepo.findBySite(site);
 		
 		String nomVoie = new String();
 		for (Voie v: voies){
@@ -192,13 +199,14 @@ public class SiteService implements GestionSiteService {
 			nomsVoies.add(nomVoie);
 			
 		}
-		}  
 		
+		}  
+		//      Traitement des longueurs
 		List<Longueur> longueurs = new ArrayList<Longueur>();
 		ArrayList<String> nomsLongueurs = new ArrayList<String>();
 		
 		for (Voie v: voies) {
-			//List<Longueur> longueurs = longueurRepo.findByVoie(v);
+			longueurs = longueurRepo.findByVoie(v);
 			for (Longueur l: longueurs){
 				System.out.println("llllllllllllllllllllllllll");
 				System.out.println(l.toString());
@@ -218,9 +226,41 @@ public class SiteService implements GestionSiteService {
 			}  
 		
 		
+	*/
 		
-	}
-
+		
+		List<LigneSite> tableSite = new ArrayList<LigneSite>();
+		Site site = siteRepo.getOne(id);
+		String nomSite = new String();
+		nomSite = site.getNom();
+		List<Secteur> secteurs = secteurRepo.findBySite(site);
+		ArrayList<String> nomsSecteurs = new ArrayList<String>();
+		String nomSecteur = new String();
+		for (Secteur s: secteurs){
+			nomSecteur = s.getNom();
+			nomsSecteurs.add(nomSecteur);
+		}
+		
+		
+		ArrayList<String> nomsVoies = new ArrayList<String>();
+		List<Voie> voies = new ArrayList<Voie>();
+		for (Secteur s: secteurs) {
+		voies = voieRepo.findBySecteur(s);
+		String nomVoie = new String();
+		for (Voie v: voies){
+			nomVoie = v.getNom();
+			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
+			System.out.println(nomVoie);
+			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
+			nomsVoies.add(nomVoie);
+			
+		}
+		
+		}  
+		
+		
+		
+	}// fin chercherSite()
 
 	
 
