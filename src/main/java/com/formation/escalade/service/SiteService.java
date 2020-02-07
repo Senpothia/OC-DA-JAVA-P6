@@ -151,116 +151,50 @@ public class SiteService implements GestionSiteService {
 
 	@Override
 	public void chercherSite(Integer id) {
-		/**
-		//  	Récuperation du site 
-		String nomSite = new String();
+		
+		
 		Site site = siteRepo.getOne(id);
-		System.out.println("***************************");
-		System.out.println(site.toString());
-		nomSite = site.getNom();
-		System.out.println(nomSite);
-		System.out.println("***************************");
-	
-		//     Traitements des secteurs
-		List<Secteur> secteurs = secteurRepo.findBySite(site);
-		for (Secteur s: secteurs){
-			System.out.println("--------------------------");
-			System.out.println(s.toString());
-			System.out.println("--------------------------");
-		}
-		
-		ArrayList<String> nomsSecteurs = new ArrayList<String>();
-		String nomSecteur = new String();
-		for (Secteur s: secteurs){
-			nomSecteur = s.getNom();
-			System.out.println("++++++++++++++++++++++++++");
-			System.out.println(nomSecteur);
-			System.out.println("++++++++++++++++++++++++++");
-			nomsSecteurs.add(nomSecteur);
-		}
-		
-		//        Traitement des voies
-		ArrayList<String> nomsVoies = new ArrayList<String>();
-		List<Voie> voies = new ArrayList<Voie>();
-		for (Secteur s: secteurs) {
-		 voies = voieRepo.findBySecteur(s);
-		for (Voie v: voies){
-			System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvv");
-			System.out.println(v.toString());
-			System.out.println("vvvvvvvvvvvvvvvvvvvvvvvvvv");
-		}
-		
-		String nomVoie = new String();
-		for (Voie v: voies){
-			nomVoie = v.getNom();
-			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
-			System.out.println(nomVoie);
-			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
-			nomsVoies.add(nomVoie);
-			
-		}
-		
-		}  
-		//      Traitement des longueurs
-		List<Longueur> longueurs = new ArrayList<Longueur>();
-		ArrayList<String> nomsLongueurs = new ArrayList<String>();
-		
-		for (Voie v: voies) {
-			longueurs = longueurRepo.findByVoie(v);
-			for (Longueur l: longueurs){
-				System.out.println("llllllllllllllllllllllllll");
-				System.out.println(l.toString());
-				System.out.println("llllllllllllllllllllllllll");
-			}
-			//secteurs = secteurRepo.findBySite(site);
-			
-			String nomLongueur = new String();
-			for (Longueur l: longueurs){
-				nomLongueur = l.getNom();
-				System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjj");
-				System.out.println(nomLongueur);
-				System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjj");
-				nomsLongueurs.add(nomLongueur);
-				
-			}
-			}  
-		
-		
-	*/
-		
 		
 		List<LigneSite> tableSite = new ArrayList<LigneSite>();
-		Site site = siteRepo.getOne(id);
 		String nomSite = new String();
-		nomSite = site.getNom();
-		List<Secteur> secteurs = secteurRepo.findBySite(site);
-		ArrayList<String> nomsSecteurs = new ArrayList<String>();
 		String nomSecteur = new String();
-		for (Secteur s: secteurs){
-			nomSecteur = s.getNom();
-			nomsSecteurs.add(nomSecteur);
-		}
+		String nomVoie = new String();
+		String nomLongueur = new String();
 		
+		nomSite = site.getNom();
+		
+		List<Secteur> secteurs = secteurRepo.findBySite(site);
+		List<Voie> voies = new ArrayList<Voie>();
+		List<Longueur> longueurs = new ArrayList<Longueur>();
 		
 		ArrayList<String> nomsVoies = new ArrayList<String>();
-		List<Voie> voies = new ArrayList<Voie>();
-		for (Secteur s: secteurs) {
-		voies = voieRepo.findBySecteur(s);
-		String nomVoie = new String();
-		for (Voie v: voies){
-			nomVoie = v.getNom();
-			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
-			System.out.println(nomVoie);
-			System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu");
-			nomsVoies.add(nomVoie);
+		ArrayList<String> nomsSecteurs = new ArrayList<String>();
+		ArrayList<String> nomsLongueurs = new ArrayList<String>();
+		
+		
+		for (Secteur s: secteurs){
+			nomSecteur = s.getNom();
+			voies = voieRepo.findBySecteur(s);
+			for (Voie v: voies) {
+				nomVoie = v.getNom();
+				longueurs = longueurRepo.findByVoie(v);
+				for (Longueur l: longueurs) {
+					nomLongueur = l.getNom();
+					LigneSite ligneSite = new LigneSite(nomSite, nomSecteur, nomVoie, nomLongueur);
+					tableSite.add(ligneSite);
+					System.out.println("*** ligne: " + ligneSite.toString());
+				}
+			}
+			
 			
 		}
 		
-		}  
+		
+		}  // fin chercherSite()
 		
 		
 		
-	}// fin chercherSite()
+	
 
 	
 
