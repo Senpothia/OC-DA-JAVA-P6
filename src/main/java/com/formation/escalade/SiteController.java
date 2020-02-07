@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.GroupeSite;
 import com.formation.escalade.model.LigneSite;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
@@ -165,16 +166,34 @@ public class SiteController {
 	@GetMapping("/selection/{id}")
 	public String selection1(@PathVariable("id") Integer id, Model model) {
 		
+		Site site = siteRepo.getOne(id);
+		String nomSite = site.getNom();
 		List<Secteur> secteurs = siteService.chercherSecteurs(id);
 		List<List<Voie>> voies = siteService.chercherVoies(secteurs);
 		List<List<Longueur>> longueurs = siteService.chercherLongueurs(voies);
+		
 		List<String> listeSecteurs = siteService.decomposerSecteur(id);
 		System.out.println("Secteurs: " + listeSecteurs.size());
 		List<List<String>> listeVoies =siteService.decomposerVoie(secteurs);
 		System.out.println("Voies: " + listeVoies.size());
 		List<List<String>> listeLongueurs =siteService.decomposerLongueur(voies);
 		System.out.println("Longueurs: " + listeLongueurs.size());
-		return "selection";
+		
+		
+		
+		int taille = 0;
+		for (int i=0; i<listeLongueurs.size()-1; i++) {  // Evaluation taille du tableau
+		 taille = listeLongueurs.get(i).size() + taille;
+		}
+		
+		String [] tabLongueurs = new String[taille];
+		
+		
+		
+		GroupeSite groupeSite = new GroupeSite(nomSite, listeSecteurs, listeVoies, listeLongueurs);
+		model.addAttribute("site",groupeSite);
+		
+		return "selection2";
 	}// 
 
 }

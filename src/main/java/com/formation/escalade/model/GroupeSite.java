@@ -5,7 +5,7 @@ import java.util.List;
 public class GroupeSite {
 	
 	private String nomSite;
-	private String secteurs;
+	private List<String> secteurs;
 	private List<List<String>> voies;
 	private List<List<String>> longueurs;
 	
@@ -14,7 +14,7 @@ public class GroupeSite {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GroupeSite(String nomSite, String secteurs, List<List<String>> voies, List<List<String>> longueurs) {
+	public GroupeSite(String nomSite, List<String> secteurs, List<List<String>> voies, List<List<String>> longueurs) {
 		super();
 		this.nomSite = nomSite;
 		this.secteurs = secteurs;
@@ -30,11 +30,11 @@ public class GroupeSite {
 		this.nomSite = nomSite;
 	}
 
-	public String getSecteurs() {
+	public List<String> getSecteurs() {
 		return secteurs;
 	}
 
-	public void setSecteurs(String secteurs) {
+	public void setSecteurs(List<String> secteurs) {
 		this.secteurs = secteurs;
 	}
 
@@ -59,6 +59,8 @@ public class GroupeSite {
 		return "GroupeSite [nomSite=" + nomSite + ", secteurs=" + secteurs + ", voies=" + voies + ", longueurs="
 				+ longueurs + "]";
 	}
+	
+	
 	
 
 }
