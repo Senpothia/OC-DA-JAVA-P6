@@ -168,32 +168,63 @@ public class SiteController {
 		
 		Site site = siteRepo.getOne(id);
 		String nomSite = site.getNom();
+		System.out.println("//Nom du site: " + nomSite);
 		List<Secteur> secteurs = siteService.chercherSecteurs(id);
 		List<List<Voie>> voies = siteService.chercherVoies(secteurs);
 		List<List<Longueur>> longueurs = siteService.chercherLongueurs(voies);
 		
 		List<String> listeSecteurs = siteService.decomposerSecteur(id);
-		System.out.println("Secteurs: " + listeSecteurs.size());
+		System.out.println("Taille liste Secteurs: " + listeSecteurs.size());
+		for (int i=0 ; i<listeSecteurs.size(); i++ ) {
+			System.out.println("//Nom secteur, rang: " + i +":" + listeSecteurs.get(i));
+			
+		}
 		List<List<String>> listeVoies =siteService.decomposerVoie(secteurs);
-		System.out.println("Voies: " + listeVoies.size());
+		System.out.println("//Taille liste Voies: " + listeVoies.size());
 		List<List<String>> listeLongueurs =siteService.decomposerLongueur(voies);
-		System.out.println("Longueurs: " + listeLongueurs.size());
+		System.out.println("//Taille liste Longueurs: " + listeLongueurs.size());
 		
-		
-		
-		int taille = 0;
-		for (int i=0; i<listeLongueurs.size()-1; i++) {  // Evaluation taille du tableau
-		 taille = listeLongueurs.get(i).size() + taille;
+		String test = new String();
+		for (int i=0; i<listeLongueurs.size(); i++){
+			test = listeLongueurs.get(i).get(i);
+			System.out.println("//Nom de la voie, rang " + i +": " + test);
 		}
 		
-		String [] tabLongueurs = new String[taille];
+		int taille = 0;
+		int [] tailles = new int[listeLongueurs.size()]; // Tailles des listes internes à la liste des listes
+		System.out.println("//Taille de la liste des liste de longueurs: " + listeLongueurs.size());
+		for (int i=0; i<listeLongueurs.size(); i++) {  // Evaluation taille du tableau
 		
+		 tailles[i]= listeLongueurs.get(i).size();  // Mesure taille de la liste i de la liste des listes
+		 System.out.println("//Taille de la liste interne, rang: "+ i +": "+ tailles[i]);
+		 taille =  tailles[i] + taille;
 		
+		}
+		System.out.println("//Taille colonne des longueurs: " + taille);
+		String [] tabNomsLongueurs = new String[taille];  // élements de la colonne des longueurs: noms des longueurs à faire apparaitre dans la table
+		List<String> uneListeDansListeLongueurs = new ArrayList<String>();// une liste des élements de la colonne des longueurs
+		int k=0;
+		for (int i=0; i<listeLongueurs.size()-1; i++) {  // 
+			 
+			 uneListeDansListeLongueurs = listeLongueurs.get(i);  // Récupération de la liste i dans la liste de listes
+			 for (int j=0; j<uneListeDansListeLongueurs.size()-1; j++) {
+				 
+				 tabNomsLongueurs[k] = uneListeDansListeLongueurs.get(j);
+				 k++;
+			 }
+			
+			}
 		
+		for (int i=0; i<taille-1; i++) {  // Test : affichage colonne des longueurs 
+			
+			System.out.println("//Noms des longueurs:" + tabNomsLongueurs[i]);
+		}
+		
+		/**
 		GroupeSite groupeSite = new GroupeSite(nomSite, listeSecteurs, listeVoies, listeLongueurs);
 		model.addAttribute("site",groupeSite);
-		
-		return "selection2";
+		*/
+		return "selection";
 	}// 
 
 }
