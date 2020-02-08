@@ -19,7 +19,7 @@ public class Secteur {
 	private String nom;
 	
 	@ManyToOne
-	//@JoinColumn(name="id_site")
+	@JoinColumn(name="id_site")
 	private Site site;
 	public Secteur() {
 		super();
@@ -53,7 +53,7 @@ public class Secteur {
 	}
 	@Override
 	public String toString() {
-		return "Secteur [id=" + id + ", nom=" + nom + ", site=" + site + "]";
+		return "Secteur [id=" + id + ", nom=" + nom + "]";
 	}
 	
 	

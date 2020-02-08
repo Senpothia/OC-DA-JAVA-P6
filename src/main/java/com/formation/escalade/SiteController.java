@@ -169,7 +169,8 @@ public class SiteController {
 		Site site = siteRepo.getOne(id);
 		String nomSite = site.getNom();
 		System.out.println("//Nom du site: " + nomSite);
-		List<Secteur> secteurs = siteService.chercherSecteurs(id);
+		//List<Secteur> secteurs = siteService.chercherSecteurs(id);
+		List<Secteur> secteurs = site.getSecteurs();
 		List<List<Voie>> voies = siteService.chercherVoies(secteurs);
 		List<List<Longueur>> longueurs = siteService.chercherLongueurs(voies);
 		

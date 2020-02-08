@@ -20,28 +20,25 @@ public class Site {
 	private String localisation;
 	private int departement;
 	private boolean officiel;
-	
+	@OneToMany(mappedBy="site")
+	private List<Secteur> secteurs; 
 	@OneToMany(mappedBy="site")
 	private List<Commentaire> commentaires;
-	
 	public Site() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-
-	public Site(Integer id, String nom, String localisation, int departement, boolean officiel) {
+	public Site(Integer id, String nom, String localisation, int departement, boolean officiel, List<Secteur> secteurs,
+			List<Commentaire> commentaires) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.localisation = localisation;
 		this.departement = departement;
 		this.officiel = officiel;
+		this.secteurs = secteurs;
+		this.commentaires = commentaires;
 	}
-
-
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -72,12 +69,22 @@ public class Site {
 	public void setOfficiel(boolean officiel) {
 		this.officiel = officiel;
 	}
-
-
+	public List<Secteur> getSecteurs() {
+		return secteurs;
+	}
+	public void setSecteurs(List<Secteur> secteurs) {
+		this.secteurs = secteurs;
+	}
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
+	}
 	@Override
 	public String toString() {
 		return "Site [id=" + id + ", nom=" + nom + ", localisation=" + localisation + ", departement=" + departement
-				+ ", officiel=" + officiel + "]";
+				+ ", officiel=" + officiel + ", secteurs=" + secteurs + ", commentaires=" + commentaires + "]";
 	}
 	
 	
