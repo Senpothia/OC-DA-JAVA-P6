@@ -236,13 +236,13 @@ public class SiteController {
 		
 	}
 	
-	@GetMapping("/arbre")
+	@GetMapping("/selection4")
 	public String resume(Model model) {
 		
 		Site site = siteRepo.getOne(1);
 		model.addAttribute("site", site);
 		
-		return "arbre";
+		return "selection4";
 	}
 	
 	
