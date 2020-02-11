@@ -162,7 +162,7 @@ public class SiteController {
 
 	} // fin
    */
-	
+	/**
 	@GetMapping("/selection/{id}")
 	public String selection1(@PathVariable("id") Integer id, Model model) {
 		
@@ -171,8 +171,9 @@ public class SiteController {
 		System.out.println("//Nom du site: " + nomSite);
 		//List<Secteur> secteurs = siteService.chercherSecteurs(id);
 		List<Secteur> secteurs = site.getSecteurs();
-		List<List<Voie>> voies = siteService.chercherVoies(secteurs);
-		List<List<Longueur>> longueurs = siteService.chercherLongueurs(voies);
+		//List<List<Voie>> voies = siteService.chercherVoies(secteurs);
+		//List<Voie> voies = secteurs.get(0).getVoies();
+	//erreur!!!	List<List<Longueur>> longueurs = siteService.chercherLongueurs(voies);
 		
 		List<String> listeSecteurs = siteService.decomposerSecteur(id);
 		System.out.println("Taille liste Secteurs: " + listeSecteurs.size());
@@ -221,11 +222,28 @@ public class SiteController {
 			System.out.println("//Noms des longueurs:" + tabNomsLongueurs[i]);
 		}
 		
-		/**
+		
 		GroupeSite groupeSite = new GroupeSite(nomSite, listeSecteurs, listeVoies, listeLongueurs);
 		model.addAttribute("site",groupeSite);
-		*/
+		
 		return "selection";
-	}// 
-
+	}// */
+	
+	@GetMapping("/selection")
+	public String selection() {
+		
+		return "selection";
+		
+	}
+	
+	@GetMapping("/arbre")
+	public String resume(Model model) {
+		
+		Site site = siteRepo.getOne(1);
+		model.addAttribute("site", site);
+		
+		return "arbre";
+	}
+	
+	
 }

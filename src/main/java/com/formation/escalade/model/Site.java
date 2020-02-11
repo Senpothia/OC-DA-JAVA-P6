@@ -9,11 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name="site")
+
 public class Site {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String nom;
@@ -83,8 +83,7 @@ public class Site {
 	}
 	@Override
 	public String toString() {
-		return "Site [id=" + id + ", nom=" + nom + ", localisation=" + localisation + ", departement=" + departement
-				+ ", officiel=" + officiel + ", secteurs=" + secteurs + ", commentaires=" + commentaires + "]";
+		return "Site [id=" +  "]";
 	}
 	
 	
