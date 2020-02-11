@@ -15,45 +15,6 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 
-<style>
-ul, #myUL {
-	list-style-type: none;
-}
-
-#myUL {
-	margin: 0;
-	padding: 0;
-}
-
-.caret {
-	cursor: pointer;
-	-webkit-user-select: none; /* Safari 3.1+ */
-	-moz-user-select: none; /* Firefox 2+ */
-	-ms-user-select: none; /* IE 10+ */
-	user-select: none;
-}
-
-.caret::before {
-	content: "\25B6";
-	color: black;
-	display: inline-block;
-	margin-right: 6px;
-}
-
-.caret-down::before {
-	-ms-transform: rotate(90deg); /* IE 9 */
-	-webkit-transform: rotate(90deg); /* Safari */ '
-	transform: rotate(90deg);
-}
-
-.nested {
-	display: none;
-}
-
-.active {
-	display: block;
-}
-</style>
 
 <title>Les amis de l'escalade</title>
 </head>
@@ -72,83 +33,26 @@ ul, #myUL {
 		</div>
 
 		<div class="row d-flex justify-content-center">
-			<h2 class="mt-2" th:text="'Modification du site : ' + ${site.getNom()}"></h2>
-		</div>
-		<div class=row>
-			<div class="col-4">
-
-				<!--  Début arbre -->
 
 
-				<div class="col">
 
-					<h3 th:text="${site.getNom()}"></h3>
+			<div class="col-4 ">
+
+				<h3 class="mt-2">Modification d'un site</h3>
+
+
+				<div class="form-group mt-3">
+					<label for="exampleFormControlSelect1">Sélectionnez un site</label>
+					<select class="form-control" id="exampleFormControlSelect1" >
+						<option  th:each="site: ${sites}" th:text="${site.getNom()}"></option>
+						
+					</select>
 				</div>
 
-				<div>
-					<ul th:each="secteur: ${site.secteurs}">
-						<li th:text="${secteur.getNom()}"></li>
-						<ul th:each="voie: ${secteur.voies}">
-							<li th:text="${voie.getNom()}"></li>
-							<ul th:each="longueur: ${voie.longueurs}">
-								<li th:text="${longueur.getNom()}"></li>
-
-							</ul>
-						</ul>
-
-					</ul>
-
-
-				</div>
-
-				<!-- Fin arbre -->
-
-
-			</div>
-
-			<div class="col-4 mt-5">
-
-				
-
-
-
-					<div class="form-group">
-						<a href="/annuler"><p type="text"
-								class="btn btn-primary btn-block" style="width: 350px;">Modifier un secteur</p></a>
-					</div>
-
-
-
-					<div class="form-group">
-						<a href="/annuler"><p type="text"
-								class="btn btn-primary btn-block" style="width: 350px;">Modifier une voie</p></a>
-					</div>
-
-
-					<div class="form-group">
-						<a href="/annuler"><p type="text"
-								class="btn btn-primary btn-block" style="width: 350px;">modifier une longueur</p></a>
-					</div>
-			</div>
-
-			<div class="col-4 mt-5">
 
 				<div class="form-group">
 					<a href="/annuler"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							secteur</p></a>
-				</div>
-
-				<div class="form-group">
-					<a href="/annuler"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							voie</p></a>
-				</div>
-
-				<div class="form-group">
-					<a href="/annuler"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							longueur</p></a>
+							class="btn btn-primary btn-block" style="width: 350px;">Valider</p></a>
 				</div>
 
 				<div class="form-group">
@@ -156,11 +60,10 @@ ul, #myUL {
 							class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
 				</div>
 
-			
-			</div>
-		
 
+			</div>
 		</div>
+
 
 		<!-- PIED DE PAGE -->
 
