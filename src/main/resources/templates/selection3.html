@@ -84,19 +84,19 @@ ul, #myUL {
 
 
 
-<ul id="myUL" th:object="${site}">   <!-- Début arbre -->
+<ul id="myUL">   <!-- Début arbre -->
 
  
-  <li><span class="caret">Secteur1</span>  <!--  DEBUT SECTEUR -->
-    <ul class="nested"><!--  DEBUT SECTEUR -->
+  <li th:each="secteur: ${site.secteurs}" ><span class="caret" ></span>  <!--  DEBUT SECTEUR -->
+    <ul class="nested"  th:each="secteur: ${site.secteurs}"><!--  DEBUT SECTEUR -->
    
 	  
-	  <li>   <!-- début Voie -->
+	  <li >   <!-- début Voie -->
 	 
-	  <li><span class="caret">Voie1</span>
-			<ul class="nested">
-				<li>longueur1</li>
-				<li>longueur2</li>
+	  <li th:text="${voie.getNom()}"><span class="caret"  ></span>
+			<ul class="nested" th:each="longueur: ${voie.longueurs}">
+				<li th:text="${longueur.getNom()}"></li>
+				
 			</ul>
 		</li>
 	  
