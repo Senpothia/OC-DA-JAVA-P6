@@ -251,8 +251,19 @@ public class SiteController {
 		
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
+		String nomSite = new String();
+		model.addAttribute("nomSite", nomSite);
 		return "choisirsite";
 	}
+	
+	@PostMapping("/ok")
+	public String choixsite(String nomSite) {
+		
+		System.out.println("Site choisi: " + nomSite);
+		
+		return "ok";
+	}
+	
 	
 	
 }

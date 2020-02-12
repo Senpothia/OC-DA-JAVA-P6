@@ -40,27 +40,27 @@
 
 				<h3 class="mt-2">Modification d'un site</h3>
 
+				<form  methode="post" th:action="@{/ok.html}" th:object="${nomSite}">
+					<div class="form-group mt-3">
+						<label for="exampleFormControlSelect1">Sélectionnez un
+							site</label>
+							 <select class="form-control"  name="nomSite">
+							<option th:each="site: ${sites}" th:text="${site.getNom()}"></option>
 
-				<div class="form-group mt-3">
-					<label for="exampleFormControlSelect1">Sélectionnez un site</label>
-					<select class="form-control" id="exampleFormControlSelect1" >
-						<option  th:each="site: ${sites}" th:text="${site.getNom()}"></option>
-						
-					</select>
-				</div>
+							</select>
+					</div>
 
-
-				<div class="form-group">
-					<a href="/annuler"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Valider</p></a>
-				</div>
-
-				<div class="form-group">
-					<a href="/annuler"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
-				</div>
+					<button type="submit" class="btn btn-primary mb-2"
+						style="width: 350px;">Valider</button>
 
 
+
+					<div class="form-group">
+						<a href="/espace"><p type="text"
+								class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
+					</div>
+
+				</form>
 			</div>
 		</div>
 
