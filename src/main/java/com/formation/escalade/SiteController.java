@@ -264,6 +264,17 @@ public class SiteController {
 		return "ok";
 	}
 	
+	@PostMapping("/choisirsite")
+	public String choixSite(String nomSite, Model model) {
 	
+	Site site = siteRepo.findByNom(nomSite);
+	model.addAttribute("site", site);
+	
+	return "selection4";
+		
+		
+		
+		
+	}
 	
 }

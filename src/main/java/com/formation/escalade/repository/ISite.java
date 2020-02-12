@@ -11,6 +11,10 @@ public interface ISite extends JpaRepository <Site, Integer>{
 
 	
 
+	Site findByNom(String nomSite);
+
+	
+
 	
 	
 	
