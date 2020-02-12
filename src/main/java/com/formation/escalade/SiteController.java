@@ -257,7 +257,7 @@ public class SiteController {
 	}
 	
 	@PostMapping("/ok")
-	public String choixsite(String nomSite) {
+	public String choixsite(String nomSite) {  // Méthode pour test
 		
 		System.out.println("Site choisi: " + nomSite);
 		
@@ -270,7 +270,7 @@ public class SiteController {
 	Site site = siteRepo.findByNom(nomSite);
 	model.addAttribute("site", site);
 	
-	return "selection4";
+	return "arbre";
 		
 	
 	
