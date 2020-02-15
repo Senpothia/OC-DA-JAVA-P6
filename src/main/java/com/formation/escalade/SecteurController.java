@@ -48,7 +48,7 @@ public class SecteurController {
 	
 		Site site = siteRepo.getOne(secteurId);
 
-		return "secteurs";
+		return "ok";
 	}
 
 }
