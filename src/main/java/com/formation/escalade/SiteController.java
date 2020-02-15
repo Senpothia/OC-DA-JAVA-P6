@@ -71,25 +71,7 @@ public class SiteController {
 	@GetMapping("/annuler")
 	public String annulation() {
 
-		return "index";
-	}
-
-	@GetMapping("/creation_secteur")
-	public String addsecteur(Model model) {
-		model.addAttribute("formSite", new FormSite());
-		return "creation_secteur";
-	}
-
-	@GetMapping("/addvoie")
-	public String addvoie() {
-
-		return "creation_voie";
-	}
-
-	@GetMapping("/addlongueur")
-	public String addlongueur() {
-
-		return "creation_longueur";
+		return "espace";
 	}
 
 	@GetMapping("/visualisersite")
@@ -103,55 +85,46 @@ public class SiteController {
 
 		return "index";
 	}
-	
-	
-	@GetMapping("/selection")
-	public String selection() {
-		
-		return "selection";
-		
-	}
-	
-	@GetMapping("/selection4")
-	public String resume(Model model) {  // Méthode de test
-		
-		Site site = siteRepo.getOne(1);
-		model.addAttribute("site", site);
-		
-		return "selection4";
-	}
-	
-	
+
+
 	@GetMapping("/choisirsite")
 	public String choisirSite(Model model) {
-		
+
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
 		model.addAttribute("nomSite", nomSite);
 		return "choisirsite";
 	}
+
+	@PostMapping("/choisirsite")
+	public String choixSite(String nomSite, Model model) {
+
+		Site site = siteRepo.findByNom(nomSite);
+		model.addAttribute("site", site);
+
+		return "arbre";
+	}
+	
+	
+	// Methodes de test 
 	
 	@PostMapping("/ok")
-	public String choixsite(String nomSite) {  // Méthode pour test
-		
+	public String choixsite(String nomSite) { // Méthode pour test
+
 		System.out.println("Site choisi: " + nomSite);
-		
+
 		return "ok";
 	}
 	
-	@PostMapping("/choisirsite")
-	public String choixSite(String nomSite, Model model) {
-	
-	Site site = siteRepo.findByNom(nomSite);
-	model.addAttribute("site", site);
-	
-	return "arbre";
-		
-	
-	
-		
-		
+	@GetMapping("/selection4")
+	public String resume(Model model) { // Méthode de test
+
+		Site site = siteRepo.getOne(1);
+		model.addAttribute("site", site);
+
+		return "selection4";
 	}
 	
+
 }
