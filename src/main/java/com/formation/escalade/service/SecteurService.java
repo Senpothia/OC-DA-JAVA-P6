@@ -46,12 +46,11 @@ public class SecteurService {
 		this.commentaireRepo = commentaireRepo;
 	}
 
-	public void createSecteur(FormSite formSite, Site site) {
+	public void createSecteur(FormSite formSite, Integer siteId) {
 		
 		
 		
-		String remSite = formSite.getRemSite();
-
+		System.out.println("Entrée service secteur");
 		String nomSecteur = formSite.getNomSecteur();
 
 		String nomVoie = formSite.getNomVoie();
@@ -64,6 +63,8 @@ public class SecteurService {
 		
 		Secteur secteur = new Secteur();
 		secteur.setNom(nomSecteur);
+		
+		Site site = siteRepo.getOne(siteId);
 		secteur.setSite(site);
 
 		secteurRepo.save(secteur);
@@ -81,8 +82,6 @@ public class SecteurService {
 		longueur.setVoie(voie);
 
 		longueurRepo.save(longueur);
-		
-		
 		
 	}
 

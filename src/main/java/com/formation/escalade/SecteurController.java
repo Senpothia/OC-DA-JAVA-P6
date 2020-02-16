@@ -1,5 +1,8 @@
 package com.formation.escalade;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,25 +51,29 @@ public class SecteurController {
 	}
 	
 	@GetMapping("/site/{id}/secteurs")
-	public String modifierSecteur(@PathVariable("id") Integer idSite, Model model) {
-
-	
+	public String modifierSecteur(@PathVariable("id") Integer idSite, Model model, HttpSession session) {
+		
+		Integer siteId = idSite;
+		session.setAttribute("IDSITE", siteId);
+		//Integer siteId = (Integer) session.getAttribute("IDSITE");
 		Site site = siteRepo.getOne(idSite);
 		FormSite formSite = new FormSite();
 		formSite.setIdSite(idSite);
 		model.addAttribute("formSite", formSite );
 		model.addAttribute("site", site);
+		model.addAttribute("siteId", siteId );
 		System.out.println("GET: " + formSite.toString());
 		return "creation_secteur";
 	}
 	
 	@PostMapping("/creationsecteur")
 
-	public String siteSubmit(FormSite formSite, Site site) {
-
-		System.out.println("POST: " +formSite.toString());
-		System.out.println("Site id: " + site.getId());
-		//secteurService.createSecteur(formSite, site);
+	public String secteurSubmit(FormSite formSite, Site site,  HttpServletRequest request) {
+		
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		System.out.println("POST: " + formSite.toString());
+		System.out.println("Site id session: " + siteId);
+		secteurService.createSecteur(formSite, siteId);
 
 		return "ok";
 	}
