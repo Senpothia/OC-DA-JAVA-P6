@@ -68,14 +68,15 @@ public class SecteurController {
 	
 	@PostMapping("/creationsecteur")
 
-	public String secteurSubmit(FormSite formSite, Site site,  HttpServletRequest request) {
+	public String secteurSubmit(FormSite formSite, Site site,  HttpServletRequest request, Model model) {
 		
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		System.out.println("POST: " + formSite.toString());
 		System.out.println("Site id session: " + siteId);
 		secteurService.createSecteur(formSite, siteId);
-
-		return "ok";
+		Site siteActuel = siteRepo.getOne(siteId);
+		model.addAttribute("site", siteActuel);
+		return "arbre";
 	}
 
 }

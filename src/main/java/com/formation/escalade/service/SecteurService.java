@@ -1,5 +1,8 @@
 package com.formation.escalade.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,15 +76,26 @@ public class SecteurService {
 		voie.setNom(nomVoie);
 		voie.setCotation(cotationVoie);
 		voie.setSecteur(secteur);
-		voieRepo.save(voie);
+		
+		List<Voie> voies = new ArrayList<>();
+		voies.add(voie);
+		secteur.setVoies(voies);
+		
+		//voieRepo.save(voie);
 
 		Longueur longueur = new Longueur();
 		longueur.setNom(nomLongueur);
 		longueur.setSpit(nbreSpit);
 		longueur.setCotation(cotationLongueur);
 		longueur.setVoie(voie);
-
+		
+		List<Longueur> longueurs = new ArrayList<>();
+		longueurs.add(longueur);
+		voie.setLongueurs(longueurs);
+		voieRepo.save(voie);
 		longueurRepo.save(longueur);
+		
+		
 		
 	}
 
