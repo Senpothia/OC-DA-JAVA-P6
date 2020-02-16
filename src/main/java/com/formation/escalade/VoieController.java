@@ -35,19 +35,14 @@ public class VoieController {
 		this.commentaireRepo = commentaireRepo;
 	}
 	
-	@GetMapping("/addvoie")
-	public String addvoie() {
-
-		return "creation_voie";
-	}
-	
 	@GetMapping("/site/{id}/voies")
-	public String modifierSecteur(@PathVariable("id") Integer secteurId, Model model) {
-
-	
-		Site site = siteRepo.getOne(secteurId);
-
-		return "ok";
+	public String addvoie(@PathVariable("id") Integer idSite, Model model) {
+		
+		Site site = siteRepo.getOne(idSite);
+		model.addAttribute("site", site);
+		return "choisirsecteur";
 	}
+	
+	
 
 }
