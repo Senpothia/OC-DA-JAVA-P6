@@ -24,7 +24,9 @@ import com.formation.escalade.repository.IVoie;
 
 @Service
 public class SiteService implements GestionSiteService {
-
+	
+	@Autowired
+	SiteService siteService;
 	@Autowired
 	private final ISite siteRepo;
 	@Autowired

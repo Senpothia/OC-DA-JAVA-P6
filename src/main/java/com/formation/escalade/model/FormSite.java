@@ -2,6 +2,7 @@ package com.formation.escalade.model;
 
 public class FormSite {
 
+	private Integer idSite;
 	private String nomSite;
 	private String localisationSite;
 	private int departementSite;
@@ -24,9 +25,11 @@ public class FormSite {
 	}
 
 
-	public FormSite(String nomSite, String localisationSite, int departementSite, String remSite, String nomSecteur,
-			String nomVoie, String cotationVoie, int nbreSpit, String nomLongueur, String cotationLongueur) {
+	public FormSite(Integer idSite, String nomSite, String localisationSite, int departementSite, String remSite,
+			String nomSecteur, String nomVoie, String cotationVoie, int nbreSpit, String nomLongueur,
+			String cotationLongueur) {
 		super();
+		this.idSite = idSite;
 		this.nomSite = nomSite;
 		this.localisationSite = localisationSite;
 		this.departementSite = departementSite;
@@ -37,6 +40,16 @@ public class FormSite {
 		this.nbreSpit = nbreSpit;
 		this.nomLongueur = nomLongueur;
 		this.cotationLongueur = cotationLongueur;
+	}
+
+
+	public Integer getIdSite() {
+		return idSite;
+	}
+
+
+	public void setIdSite(Integer idSite) {
+		this.idSite = idSite;
 	}
 
 
@@ -142,11 +155,13 @@ public class FormSite {
 
 	@Override
 	public String toString() {
-		return "FormSite [nomSite=" + nomSite + ", localisationSite=" + localisationSite + ", departementSite="
-				+ departementSite + ", remSite=" + remSite + ", nomSecteur=" + nomSecteur + ", nomVoie=" + nomVoie
-				+ ", cotationVoie=" + cotationVoie + ", nbreSpit=" + nbreSpit + ", nomLongueur=" + nomLongueur
-				+ ", cotationLongueur=" + cotationLongueur + "]";
+		return "FormSite [idSite=" + idSite + ", nomSite=" + nomSite + ", localisationSite=" + localisationSite
+				+ ", departementSite=" + departementSite + ", remSite=" + remSite + ", nomSecteur=" + nomSecteur
+				+ ", nomVoie=" + nomVoie + ", cotationVoie=" + cotationVoie + ", nbreSpit=" + nbreSpit
+				+ ", nomLongueur=" + nomLongueur + ", cotationLongueur=" + cotationLongueur + "]";
 	}
-
+	
+	
+	
 	
 }

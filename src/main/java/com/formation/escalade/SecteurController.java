@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.Site;
@@ -13,10 +14,14 @@ import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
 import com.formation.escalade.repository.IVoie;
+import com.formation.escalade.service.SecteurService;
 import com.formation.escalade.service.SiteService;
 
 @Controller
 public class SecteurController {
+	
+	@Autowired
+	SecteurService secteurService;
 
 	private final ISite siteRepo;
 	private final ISecteur secteurRepo;
@@ -43,10 +48,25 @@ public class SecteurController {
 	}
 	
 	@GetMapping("/site/{id}/secteurs")
-	public String modifierSecteur(@PathVariable("id") Integer secteurId, Model model) {
+	public String modifierSecteur(@PathVariable("id") Integer idSite, Model model) {
 
 	
-		Site site = siteRepo.getOne(secteurId);
+		Site site = siteRepo.getOne(idSite);
+		FormSite formSite = new FormSite();
+		formSite.setIdSite(idSite);
+		model.addAttribute("formSite", formSite );
+		model.addAttribute("site", site);
+		System.out.println("GET: " + formSite.toString());
+		return "creation_secteur";
+	}
+	
+	@PostMapping("/creationsecteur")
+
+	public String siteSubmit(FormSite formSite, Site site) {
+
+		System.out.println("POST: " +formSite.toString());
+		System.out.println("Site id: " + site.getId());
+		//secteurService.createSecteur(formSite, site);
 
 		return "ok";
 	}
