@@ -10,15 +10,11 @@ import com.formation.escalade.model.Voie;
 
 public interface ISecteur extends JpaRepository <Secteur, Integer>{
 
-	List<Secteur> findByNom(String nom);
+	Secteur findByNom(String nom);
 
 	List<Secteur> findBySite(Site site);
 
-	
 
-	
-
-//	List<Secteur> findById_site(Integer id);
 
 	
 }

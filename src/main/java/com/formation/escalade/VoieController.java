@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
 import com.formation.escalade.repository.CommentaireRepo;
 import com.formation.escalade.repository.ILongueur;
@@ -59,8 +61,13 @@ public class VoieController {
 		System.out.println("Id site: " + siteId);
 		//Site site = siteRepo.findByNom(nomSite);
 		//model.addAttribute("site", site);
+		Site site = siteRepo.getOne(siteId);
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
+		model.addAttribute("site", site);
+		model.addAttribute("secteur", secteur);
+		model.addAttribute("formSite", new FormSite());
 
-		return "ok";
+		return "creation_voie";
 	}
 
 }
