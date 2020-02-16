@@ -94,9 +94,6 @@ public class SecteurService {
 		voie.setLongueurs(longueurs);
 		voieRepo.save(voie);
 		longueurRepo.save(longueur);
-		
-		
-		
 	}
 
 }

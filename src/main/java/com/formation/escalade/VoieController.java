@@ -1,5 +1,6 @@
 package com.formation.escalade;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,8 @@ public class VoieController {
 	@GetMapping("/site/{id}/voies")
 	public String addvoie(@PathVariable("id") Integer idSite, Model model, HttpSession session) {
 		
-		
+		Integer siteId = idSite;
+		session.setAttribute("IDSITE", siteId);
 		Site site = siteRepo.getOne(idSite);
 		model.addAttribute("site", site);
 		String nomSecteur = new String();
@@ -50,9 +52,11 @@ public class VoieController {
 	}
 	
 	@PostMapping("/choisirsecteur")
-	public String choixSite(String nomSecteur, Model model) {
-
+	public String choixSite(String nomSecteur, HttpServletRequest request, Model model) {
+		
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		System.out.println("nomSecteur: " + nomSecteur);
+		System.out.println("Id site: " + siteId);
 		//Site site = siteRepo.findByNom(nomSite);
 		//model.addAttribute("site", site);
 
