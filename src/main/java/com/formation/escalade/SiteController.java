@@ -107,7 +107,7 @@ public class SiteController {
 	}
 	
 	
-	// Methodes de test 
+	// ********   Methodes de test  *****************
 	
 	@PostMapping("/ok")
 	public String choixsite(String nomSite) { // Méthode pour test
