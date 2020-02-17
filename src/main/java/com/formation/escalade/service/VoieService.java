@@ -20,8 +20,7 @@ import com.formation.escalade.repository.IVoie;
 @Service
 public class VoieService {
 
-	@Autowired
-	SecteurService secteurService;
+	
 	@Autowired
 	private final ISite siteRepo;
 	@Autowired

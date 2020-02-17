@@ -97,13 +97,13 @@
 					<h1>Voie</h1>
 
 					<div class="row mr-2">
-						<label for="email">Numéro:</label> <input type="text"
-							class="form-control">
+						<label for="email">Nom de la voie:</label> <input type="text"
+							class="form-control" th:field="*{nomVoie}">
 					</div>
 
 					<div class="row mr-2">
 						<label for="email">Cotation:</label> <input type="text"
-							class="form-control">
+							class="form-control" th:field="*{cotationVoie}">
 					</div>
 				</div>
 
@@ -132,7 +132,7 @@
 
 
 						<label for="email">Nom:</label> <input type="text"
-							class="form-control">
+							class="form-control" th:field="*{nomLongueur}">
 					</div>
 					
 					<div class="row ml-1">
@@ -142,7 +142,7 @@
 
 					<div class="row ml-2">
 						<label for="email">Cotation</label> <input type="text"
-							class="form-control">
+							class="form-control" th:field="*{cotationLongueur}">
 					</div>
 				</div>
 

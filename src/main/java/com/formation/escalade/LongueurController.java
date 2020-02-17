@@ -13,6 +13,7 @@ import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
 import com.formation.escalade.repository.IVoie;
 import com.formation.escalade.service.SiteService;
+import com.formation.escalade.service.VoieService;
 
 @Controller
 public class LongueurController {
@@ -23,6 +24,9 @@ public class LongueurController {
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
 	private final CommentaireRepo commentaireRepo;
+	
+	@Autowired
+	LongueurService voieService;
 
 	
 	public LongueurController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,

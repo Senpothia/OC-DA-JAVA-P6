@@ -81,7 +81,10 @@ public class VoieController {
 		System.out.println("POST: " + formSite.toString());
 		System.out.println("Site id session: " + siteId);
 		voieService.creervoie(formSite, siteId, nomSecteur);
-		return "ok";
+		Site siteActuel = siteRepo.getOne(siteId);
+		model.addAttribute("site", siteActuel);
+		return "arbre";
+		
 	}
 
 
