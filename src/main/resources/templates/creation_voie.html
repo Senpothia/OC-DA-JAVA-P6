@@ -44,115 +44,106 @@
 		</div>
 		<!-- ********************************************* -->
 
-
+	<form th:action="@{/ajoutervoie}" method="post"
+				th:object="${formSite}">
 
 		<div class="row">
 
-			<div class="col-3">
+		
+				<div class="col-3">
 
 
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Ajouter
-						secteur</button>
+					<div class="bouton2">
 
-				</div>
+						<a href="espace"><p class="btn btn-primary btn-block">Visualiser
+								site</p></a>
 
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Ajouter
-						voie</button>
-				</div>
+					</div>
 
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Ajouter
-						longueur</button>
-				</div>
+					<div class="bouton2">
 
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Visualiser
-						site</button>
-				</div>
+						<a href="espace"><p class="btn btn-primary btn-block">Modifier
+								site</p></a>
 
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Modifier
-						site</button>
-				</div>
+					</div>
 
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Valider</button>
-				</div>
+					<div class="bouton row">
+						<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+					</div>
 
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Enregistrer
-						site</button>
-				</div>
-				<div class="bouton row">
-					<button type="submit" class="btn btn-primary btn-block">Annuler</button>
-				</div>
+					<div class="bouton2">
 
-			</div>
+						<a href="espace"><p class="btn btn-primary btn-block">Annuler</p></a>
 
+					</div>
 
-			<div class="col">
-				<h1>Site</h1>
-
-				<div class="row">
-					<p>
-						<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
-						</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
-							th:text="${site.departement}"></span></br>
-					</p>
 
 				</div>
 
 
-				<h1>Voie</h1>
+				<div class="col">
+					<h1>Site</h1>
 
-				<div class="row mr-2">
-					<label for="email">Numéro:</label> <input type="text"
-						class="form-control">
-				</div>
+					<div class="row">
+						<p>
+							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
+							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
+								th:text="${site.departement}"></span></br>
+						</p>
 
-				<div class="row mr-2">
-					<label for="email">Cotation:</label> <input type="text"
-						class="form-control">
-				</div>
-			</div>
-
-
-			<div class="col">
-				<h1>Secteur</h1>
-
-				<div class="row">
+					</div>
 
 
-					<p>
-						<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
-						</br> </br> </br>
+					<h1>Voie</h1>
 
-					</p>
+					<div class="row mr-2">
+						<label for="email">Numéro:</label> <input type="text"
+							class="form-control">
+					</div>
 
-				</div>
-
-				<div class="row">
-
-					<h1>Longueur</h1>
+					<div class="row mr-2">
+						<label for="email">Cotation:</label> <input type="text"
+							class="form-control">
+					</div>
 				</div>
 
 
-				<div class="row ml-2">
+				<div class="col">
+					<h1>Secteur</h1>
+
+					<div class="row">
 
 
-					<label for="email">Nom:</label> <input type="text"
-						class="form-control">
+						<p>
+							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
+							</br> </br> </br>
+
+						</p>
+
+					</div>
+
+					<div class="row">
+
+						<h1>Longueur</h1>
+					</div>
+
+
+					<div class="row ml-2">
+
+
+						<label for="email">Nom:</label> <input type="text"
+							class="form-control">
+					</div>
+
+					<div class="row ml-2">
+						<label for="email">Cotation</label> <input type="text"
+							class="form-control">
+					</div>
 				</div>
 
-				<div class="row ml-2">
-					<label for="email">Cotation</label> <input type="text"
-						class="form-control">
-				</div>
-			</div>
+			
 		</div>
-
+</form>
 		<!-- PIED DE PAGE -->
 
 		<div th:replace="fragments/footer :: footer"></div>

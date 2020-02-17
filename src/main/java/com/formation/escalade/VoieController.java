@@ -19,6 +19,7 @@ import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
 import com.formation.escalade.repository.IVoie;
 import com.formation.escalade.service.SiteService;
+import com.formation.escalade.service.VoieService;
 
 @Controller
 public class VoieController {
@@ -29,7 +30,8 @@ public class VoieController {
 	private final ILongueur longueurRepo;
 	private final CommentaireRepo commentaireRepo;
 
-	
+	@Autowired
+	VoieService voieService;
 
 	public VoieController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			CommentaireRepo commentaireRepo) {
@@ -53,7 +55,7 @@ public class VoieController {
 		return "choisirsecteur";
 	}
 	
-	@PostMapping("/choisirsecteur")
+	@PostMapping("/creervoie")
 	public String choixSite(String nomSecteur, HttpServletRequest request, Model model) {
 		
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
@@ -69,5 +71,12 @@ public class VoieController {
 
 		return "creation_voie";
 	}
+	
+	@PostMapping("/ajoutervoie")
+	public String ajoutervoie() {
+		
+		return "ok";
+	}
+
 
 }
