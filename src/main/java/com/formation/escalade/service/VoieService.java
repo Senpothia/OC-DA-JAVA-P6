@@ -46,7 +46,6 @@ public class VoieService {
 	public void creervoie(FormSite formSite, Integer siteId, String nomSecteur) {
 		
 		Site site = siteRepo.getOne(siteId);
-		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		
 		String nomVoie = formSite.getNomVoie();
 		String cotationVoie = formSite.getCotationVoie();
@@ -58,21 +57,26 @@ public class VoieService {
 		Voie voie = new Voie();
 		voie.setNom(nomVoie);
 		voie.setCotation(cotationVoie);
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		voie.setSecteur(secteur);
+		List<Longueur> longueurs = new ArrayList<>();
 		
+		List<Voie> voies = secteur.getVoies();
+		
+		
+		
+		//voieRepo.save(voie);
+
 		Longueur longueur = new Longueur();
 		longueur.setNom(nomLongueur);
 		longueur.setSpit(nbreSpit);
 		longueur.setCotation(cotationLongueur);
+		voies.add(voie);
 		longueur.setVoie(voie);
 		
-		List<Longueur> longueurs = new ArrayList<>();
+		
 		longueurs.add(longueur);
 		voie.setLongueurs(longueurs);
-		
-		List<Voie> voies = secteur.getVoies();
-		voies.add(voie);
-		
 		secteurRepo.save(secteur);
 		voieRepo.save(voie);
 		longueurRepo.save(longueur);
