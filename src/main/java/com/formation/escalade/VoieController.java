@@ -56,11 +56,12 @@ public class VoieController {
 	}
 	
 	@PostMapping("/creervoie")
-	public String choixSite(String nomSecteur, HttpServletRequest request, Model model) {
+	public String choixSite(String nomSecteur, HttpServletRequest request, Model model, HttpSession session) {
 		
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		System.out.println("nomSecteur: " + nomSecteur);
 		System.out.println("Id site: " + siteId);
+		session.setAttribute("NOMSECTEUR", nomSecteur);
 		//Site site = siteRepo.findByNom(nomSite);
 		//model.addAttribute("site", site);
 		Site site = siteRepo.getOne(siteId);
@@ -73,8 +74,13 @@ public class VoieController {
 	}
 	
 	@PostMapping("/ajoutervoie")
-	public String ajoutervoie() {
+	public String ajoutervoie(FormSite formSite, Site site,  HttpServletRequest request, Model model) {
 		
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		String nomSecteur = (String) request.getSession().getAttribute("NOMSECTEUR");
+		System.out.println("POST: " + formSite.toString());
+		System.out.println("Site id session: " + siteId);
+		voieService.creervoie(formSite, siteId, nomSecteur);
 		return "ok";
 	}
 
