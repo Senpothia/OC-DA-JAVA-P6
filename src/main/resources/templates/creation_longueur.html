@@ -50,7 +50,8 @@
 
 				<div class="validations col-3">
 
-			<form>
+			<form th:action="@{/creationlongueur}" method="post"      
+			th:object="${formSite}">
 					<div class="bouton2">
 
 						<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
@@ -150,12 +151,12 @@
 					<div class="row">
 					
 				
-						<label for="email">Nom</label> <input type="email"
+						<label for="email">Nom</label> <input type="text"
 							class="form-control" th:field="${formSite.nomVoie}">
 					</div>
 
 					<div class="row">
-						<label for="email">Cotation</label> <input type="email"
+						<label for="email">Cotation</label> <input type="text"
 							class="form-control" th:field="${formSite.cotationVoie}">
 					</div>
 				</div>
