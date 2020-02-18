@@ -1,5 +1,6 @@
 package com.formation.escalade;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,14 +60,19 @@ public class LongueurController {
 		System.out.println("Choix secteur:" + nomSecteur);
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		model.addAttribute("secteur", secteur);
+		String nomVoie = new String();
+		model.addAttribute("nomVoie", nomVoie);
 
 		return "choisirvoie";
 
 	}
 
-	@PostMapping("/creervoie")
-	public String creerVoie() {
-
-		return "ok";
+	@PostMapping("/creerlongueur")
+	public String creerVoie(String nomVoie, Model model, HttpServletRequest request) {
+		
+		System.out.println("Nom de voie: " + nomVoie);
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		
+		return "creation_longueur";
 	}
 }

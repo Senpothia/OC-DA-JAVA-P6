@@ -40,11 +40,11 @@
 
 				<h3 class="mt-2">Ajouter une voie</h3>
 
-				<form method="post" th:action="@{/creervoie}"
+				<form method="post" th:action="@{/creerlongueur}"
 					th:object="${nomVoie}">
 					<div class="form-group mt-3">
 						<label for="exampleFormControlSelect1">Sélectionnez une
-							voie</label> <select class="form-control" name="nomSecteur">
+							voie</label> <select class="form-control" name="nomVoie">
 							<option th:each="voie: ${secteur.getVoies()}"
 								th:text="${voie.getNom()}"></option>
 
