@@ -77,7 +77,7 @@ public class SiteController {
 	@GetMapping("/visualisersite")
 	public String visualiserSite() {
 
-		return "index";
+		return "site";
 	}
 
 	@GetMapping("/modifiersite")
