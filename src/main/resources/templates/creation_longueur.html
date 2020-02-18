@@ -50,7 +50,7 @@
 
 				<div class="validations col-3">
 
-			<form th:action="@{/creationlongueur}" method="post"      
+			<form th:action="@{/creationsecteur}" method="post"      
 			th:object="${formSite}">
 					<div class="bouton2">
 
@@ -151,12 +151,17 @@
 					<div class="row">
 					
 				
-						<label for="email">Nom</label> <input type="text"
+						<label for="email">Nom</label> <input type="email"
 							class="form-control" th:field="${formSite.nomVoie}">
+					</div>
+					
+					<div class="row">
+						<label for="text">Nombre de spits</label> <input type="text"
+							class="form-control" th:field="*{nbreSpit}">
 					</div>
 
 					<div class="row">
-						<label for="email">Cotation</label> <input type="text"
+						<label for="email">Cotation</label> <input type="email"
 							class="form-control" th:field="${formSite.cotationVoie}">
 					</div>
 				</div>
