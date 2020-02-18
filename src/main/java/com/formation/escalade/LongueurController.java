@@ -100,7 +100,8 @@ public class LongueurController {
 		String nomVoie = (String) request.getSession().getAttribute("NOMVOIE");
 		Voie voie = voieRepo.findByNom(nomVoie);
 		longueur.setVoie(voie);
-		return "ok";
+		longueurRepo.save(longueur);
+		return "espace";
 	}
 	
 	
