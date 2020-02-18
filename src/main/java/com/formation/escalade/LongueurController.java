@@ -71,7 +71,7 @@ public class LongueurController {
 	}
 
 	@PostMapping("/creerlongueur")
-	public String creerVoie(String nomVoie, Model model, HttpServletRequest request) {
+	public String creerVoie(String nomVoie, Model model, HttpServletRequest request, HttpSession session ) {
 		
 		System.out.println("Nom de voie: " + nomVoie);
 		Voie voie = voieRepo.findByNom(nomVoie);
@@ -79,6 +79,7 @@ public class LongueurController {
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		Site site = siteRepo.getOne(siteId);
 		String nomSecteur = (String) request.getSession().getAttribute("NOMSECTEUR");
+		session.setAttribute("NOMVOIE", nomVoie);
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		model.addAttribute("secteur", secteur);
 		model.addAttribute("site", site);
@@ -87,4 +88,17 @@ public class LongueurController {
 		
 		return "creation_longueur";
 	}
+	@PostMapping("/creationlongueur")
+	
+	public String creationLongueur(FormSite formSite, HttpServletRequest request) {
+		
+		Longueur longueur = new Longueur();
+		longueur.setNom(formSite.nomVoie);
+		longueur.setCotation(formSite.cotationVoie);
+		String nomVoie = (String) request.getSession().getAttribute("NOMVOIE");
+		Voie voie = voieRepo.findByNom(nomVoie);
+		return "ok";
+	}
+	
+	
 }
