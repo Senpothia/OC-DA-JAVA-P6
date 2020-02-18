@@ -33,7 +33,7 @@ public class LongueurController {
 	private final CommentaireRepo commentaireRepo;
 
 	@Autowired
-	LongueurService voieService;
+	LongueurService longueurService;
 
 	public LongueurController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			CommentaireRepo commentaireRepo) {
@@ -93,26 +93,8 @@ public class LongueurController {
 	
 	public String creationLongueur(FormSite formSite, HttpServletRequest request) {
 		
-		Longueur longueur = new Longueur();
-		
-		String nomLongueur = formSite.getNomLongueur();
-		String cotationLongueur = formSite.getCotationLongueur();
-		int nbreSpits = formSite.getNbreSpit();
-		System.out.println("nom: " + nomLongueur);
-		System.out.println("cotation: " + cotationLongueur);
-		System.out.println("nbre spits: " + nbreSpits);
-		
-		longueur.setNom(nomLongueur);
-		longueur .setCotation(cotationLongueur);
-		longueur.setSpit(nbreSpits);
-		
-		String nomVoie = (String) request.getSession().getAttribute("NOMVOIE");
-		System.out.println("Nom voie: " + nomVoie);
-		Voie voie = voieRepo.findByNom(nomVoie);
-		longueur.setVoie(voie);
-		
-		longueurRepo.save(longueur);
-		
+
+		longueurService.createLongueur(formSite, request);
 		return "ok";
 	}
 	
