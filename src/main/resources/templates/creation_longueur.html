@@ -97,8 +97,9 @@
 
 					<div class="row">
 						<p>
-							Site: nom du site</br> Lieu: lieu du site</br> Département: département du
-							site</br> </br> </br> </br> </br> </br>
+							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
+							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
+								th:text="${site.departement}"></span></br>
 						</p>
 
 					</div>
@@ -106,12 +107,17 @@
 
 					<h1>Voie</h1>
 
-					<div class="row">
-						<p>
-							Numéro: Numéro de la voie</br> Cotation: cotation de la voie</br> </br> </br> </br> </br> </br>
-						</p>
-
+					<div class="row mr-2">
+						<label for="email">Nom de la voie:</label> <input type="text"
+							class="form-control" th:field="*{nomVoie}">
 					</div>
+
+					<div class="row mr-2">
+						<label for="email">Cotation:</label> <input type="text"
+							class="form-control" th:field="*{cotationVoie}">
+					</div>
+				</div>
+
 
 
 				</div>
@@ -124,8 +130,9 @@
 
 
 						<p>
-							Secteur: nom du secteur</br> Numéro du secteur: numéro du secteur</br>
-							Remarque: remarque sur secteur</br> </br> </br> </br> </br> </br>
+							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
+							</br> </br> </br>
+
 						</p>
 
 					</div>
