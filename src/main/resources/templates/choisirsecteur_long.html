@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Les amis de l'écalade</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<!-- Required meta tags -->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+
+<title>Les amis de l'escalade</title>
+</head>
+<body>
+	<div class="container">
+
+		<!-- Entete -->
+		<div th:replace="fragments/entete_init :: entete_init"></div>
+		<!-- ---------------- -->
+
+
+		<div class="row">
+			<div class="col">
+				<img src="bandeau3.png" alt="Bandeau" th:src="@{/bandeau3.png}" />
+			</div>
+		</div>
+
+		<div class="row d-flex justify-content-center">
+
+
+
+			<div class="col-4 ">
+
+				<h3 class="mt-2">Ajouter une voie</h3>
+
+				<form method="post" th:action="@{/choisirvoie}"
+					th:object="${nomSecteur}">
+					<div class="form-group mt-3">
+						<label for="exampleFormControlSelect1">Sélectionnez un
+							secteur</label> <select class="form-control" name="nomSecteur">
+							<option th:each="secteur: ${site.getSecteurs()}"
+								th:text="${secteur.getNom()}"></option>
+
+						</select>
+					</div>
+
+					<button type="submit" class="btn btn-primary mb-2"
+						style="width: 350px;">Valider</button>
+
+
+
+					<div class="form-group">
+						<a href="/espace"><p type="text"
+								class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+
+	</div>
+	<!-- fin container -->
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+	<script>
+		var toggler = document.getElementsByClassName("caret");
+		var i;
+
+		for (i = 0; i < toggler.length; i++) {
+			toggler[i].addEventListener("click", function() {
+				this.parentElement.querySelector(".nested").classList
+						.toggle("active");
+				this.classList.toggle("caret-down");
+			});
+		}
+	</script>
+</body>
+</html>
