@@ -50,15 +50,16 @@ public class LongueurController {
 		Site site = siteRepo.getOne(siteId);
 		model.addAttribute("site", site);
 		String nomSecteur = new String();
-		model.addAttribute("nomSite", nomSecteur);
+		model.addAttribute("nomSecteur", nomSecteur);
 		return "choisirsecteur_long";
 
 	}
 
 	@PostMapping("/choisirvoie")
-	public String choisirVoie(String nomSecteur, Model model) {
+	public String choisirVoie(String nomSecteur, Model model, HttpSession session) {
 
 		System.out.println("Choix secteur:" + nomSecteur);
+		session.setAttribute("NOMSECTEUR", nomSecteur);
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		model.addAttribute("secteur", secteur);
 		String nomVoie = new String();
@@ -74,6 +75,9 @@ public class LongueurController {
 		System.out.println("Nom de voie: " + nomVoie);
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		Site site = siteRepo.getOne(siteId);
+		String nomSecteur = (String) request.getSession().getAttribute("NOMSECTEUR");
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
+		model.addAttribute("secteur", secteur);
 		model.addAttribute("site", site);
 		FormSite formSite = new FormSite();
 		model.addAttribute("formSite", formSite );
