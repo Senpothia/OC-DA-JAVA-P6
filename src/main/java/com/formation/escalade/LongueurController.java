@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.CommentaireRepo;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;

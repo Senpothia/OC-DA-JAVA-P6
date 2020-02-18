@@ -11,6 +11,8 @@ public interface IVoie extends JpaRepository <Voie, Integer>{
 
 	List<Voie> findBySecteur(Secteur s);
 
+	Voie findByNom(String nomVoie);
+
 	//<Secteur> IVoie findAllBySecteurs(List<Secteur> secteurs);
 
 }
