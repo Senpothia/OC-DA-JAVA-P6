@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
 import com.formation.escalade.repository.CommentaireRepo;
@@ -72,7 +73,11 @@ public class LongueurController {
 		
 		System.out.println("Nom de voie: " + nomVoie);
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		Site site = siteRepo.getOne(siteId);
+		model.addAttribute("site", site);
+		FormSite formSite = new FormSite();
+		model.addAttribute("formSite", formSite );
 		
-		return "creation_longueur";
+		return "creation_longueur2";
 	}
 }

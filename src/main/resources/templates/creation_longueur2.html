@@ -1,0 +1,178 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css">
+<title>Les amis de l'escalade</title>
+</head>
+<body>
+	<div class="container">
+
+		<!-- ENTETE -->
+
+		<!-- Entete -->
+		<div th:replace="fragments/entete_init :: entete_init"></div>
+		<!-- ---------------- -->
+
+		<!-- ********************************************* -->
+
+		<!-- IMAGE -->
+
+		<div class="row">
+			<div class="col">
+				<img src="bandeau3.png" alt="" />
+			</div>
+		</div>
+
+		<!-- ********************************************* -->
+		<div class="message row">
+
+			<p>
+				<b>Ajout d'une voie à un secteur existant.</b>
+			</p>
+
+		</div>
+		<!-- ********************************************* -->
+
+	<form th:action="@{/ajoutervoie}" method="post"
+				th:object="${formSite}">
+
+		<div class="row">
+
+		
+				<div class="col-3">
+
+
+					<div class="bouton2">
+
+						<a href="espace"><p class="btn btn-primary btn-block">Visualiser
+								site</p></a>
+
+					</div>
+
+					<div class="bouton2">
+
+						<a href="espace"><p class="btn btn-primary btn-block">Modifier
+								site</p></a>
+
+					</div>
+
+					<div class="bouton row">
+						<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+					</div>
+
+					<div class="bouton2">
+
+						<a href="espace"><p class="btn btn-primary btn-block">Annuler</p></a>
+
+					</div>
+
+
+				</div>
+
+
+				<div class="col">
+					<h1>Site</h1>
+
+					<div class="row">
+						<p>
+							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
+							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
+								th:text="${site.departement}"></span></br>
+						</p>
+
+					</div>
+
+
+					<h1>Voie</h1>
+
+					<div class="row mr-2">
+						<label for="email">Nom de la voie:</label> <input type="text"
+							class="form-control" th:field="*{nomVoie}">
+					</div>
+
+					<div class="row mr-2">
+						<label for="email">Cotation:</label> <input type="text"
+							class="form-control" th:field="*{cotationVoie}">
+					</div>
+				</div>
+
+
+				<div class="col">
+					<h1>Secteur</h1>
+
+					<div class="row">
+
+
+						<p>
+							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
+							</br> </br> </br>
+
+						</p>
+
+					</div>
+
+					<div class="row">
+
+						<h1>Longueur</h1>
+					</div>
+
+
+					<div class="row ml-2">
+
+
+						<label for="email">Nom:</label> <input type="text"
+							class="form-control" th:field="*{nomLongueur}">
+					</div>
+					
+					<div class="row ml-1">
+						<label for="text">Nombre de spits</label> <input type="text"
+							class="form-control" th:field="*{nbreSpit}">
+					</div>
+
+					<div class="row ml-2">
+						<label for="email">Cotation</label> <input type="text"
+							class="form-control" th:field="*{cotationLongueur}">
+					</div>
+				</div>
+
+			
+		</div>
+</form>
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+
+
+		<!-- PIED DE PAGE -->
+
+
+	</div>
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>
