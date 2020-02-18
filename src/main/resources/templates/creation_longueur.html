@@ -107,14 +107,12 @@
 
 					<h1>Voie</h1>
 
-					<div class="row mr-2">
-						<label for="email">Nom de la voie:</label> <input type="text"
-							class="form-control" th:field="${formSite.nomVoie}">
-					</div>
+					<div class="row">
+						<p>
+							<strong>Site:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
+							</strong><span th:text="${voie.cotation}"></span></br>
+						</p>
 
-					<div class="row mr-2">
-						<label for="email">Cotation:</label> <input type="text"
-							class="form-control" th:field="${formSite.cotationVoie}">
 					</div>
 				</div>
 
