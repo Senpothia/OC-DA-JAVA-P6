@@ -109,12 +109,12 @@
 
 					<div class="row mr-2">
 						<label for="email">Nom de la voie:</label> <input type="text"
-							class="form-control" th:field="*{nomVoie}">
+							class="form-control" th:field="${formSite.nomVoie}">
 					</div>
 
 					<div class="row mr-2">
 						<label for="email">Cotation:</label> <input type="text"
-							class="form-control" th:field="*{cotationVoie}">
+							class="form-control" th:field="${formSite.cotationVoie}">
 					</div>
 				</div>
 
@@ -140,15 +140,13 @@
 					<h1>Longueur</h1>
 
 					<div class="row">
-						<label for="email">Numéro</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+						<label for="email">Nom</label> <input type="email"
+							class="form-control" th:field="${formSite.nomVoie}">
 					</div>
 
 					<div class="row">
 						<label for="email">Cotation</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+							class="form-control" th:field="${formSite.cotationVoie}">
 					</div>
 				</div>
 			</div>
