@@ -94,13 +94,25 @@ public class LongueurController {
 	public String creationLongueur(FormSite formSite, HttpServletRequest request) {
 		
 		Longueur longueur = new Longueur();
-		longueur.setNom(formSite.getNomLongueur());
-		longueur.setCotation(formSite.getCotationLongueur());
-		longueur.setSpit(formSite.getNbreSpit());
+		
+		String nomLongueur = formSite.getNomLongueur();
+		String cotationLongueur = formSite.getCotationLongueur();
+		int nbreSpits = formSite.getNbreSpit();
+		System.out.println("nom: " + nomLongueur);
+		System.out.println("cotation: " + cotationLongueur);
+		System.out.println("nbre spits: " + nbreSpits);
+		
+		longueur.setNom(nomLongueur);
+		longueur .setCotation(cotationLongueur);
+		longueur.setSpit(nbreSpits);
+		
 		String nomVoie = (String) request.getSession().getAttribute("NOMVOIE");
-		System.out.println("Nom de voie: "+ nomVoie);
-		System.out.println(formSite.toString());
+		System.out.println("Nom voie: " + nomVoie);
+		Voie voie = voieRepo.findByNom(nomVoie);
+		longueur.setVoie(voie);
+		
 		longueurRepo.save(longueur);
+		
 		return "ok";
 	}
 	

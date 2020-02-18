@@ -43,15 +43,19 @@
 
 		</div>
 		<!-- ********************************************* -->
-
-		<div class="container">
-
+	<form th:action="@{/creationlongueur}" method="post"
+					th:object="${formSite}">
+	
 			<div class="row">
 
-				<div class="validations col-3">
 
-					<form th:action="@{/creationlongueur}" method="post"
-						th:object="${formSite}">
+			
+					
+					
+					<div class="validations col-3">
+
+			
+
 						<div class="bouton2">
 
 							<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
@@ -97,76 +101,74 @@
 							<a href="addvoie"><p class="btn btn-primary btn-block">Annuler</p></a>
 
 						</div>
-					</form>
-				</div>
-
-
-				<div class="col">
-
-					<h1>Site</h1>
-					<div class="row">
-
-
-						<p>
-							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
-							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
-								th:text="${site.departement}"></span></br>
-						</p>
-
 					</div>
 
 
-					<h1>Voie</h1>
+					<div class="col">
 
-					<div class="row">
-
-
-						<p>
-							<strong>Site:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
-							</strong><span th:text="${voie.cotation}"></span></br>
-						</p>
-
-					</div>
-				</div>
+						<h1>Site</h1>
+						<div class="row">
 
 
+							<p>
+								<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
+								</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
+									th:text="${site.departement}"></span></br>
+							</p>
+
+						</div>
 
 
+						<h1>Voie</h1>
+
+						<div class="row">
 
 
-				<div class="col">
+							<p>
+								<strong>Site:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
+								</strong><span th:text="${voie.cotation}"></span></br>
+							</p>
 
-					<h1>Secteur</h1>
-					<div class="row">
-
-
-						<p>
-							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
-							</br> </br> </br>
-
-						</p>
-
+						</div>
 					</div>
 
-					<h1>Longueur</h1>
 
-					<div class="row">
+					<div class="col">
+
+						<h1>Secteur</h1>
+						<div class="row">
 
 
-						<label for="email">Nom</label> <input type="text"
-							class="form-control" th:field="${formSite.nomLongueur}">
+							<p>
+								<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
+								</br> </br> </br>
+
+							</p>
+
+						</div>
+
+						<h1>Longueur</h1>
+
+						<div class="row">
+
+
+							<label for="text">Nom</label> <input type="text"
+								class="form-control" th:field="${formSite.nomLongueur}">
+						</div>
+
+						<div class="row">
+							<label for="text">Nombre de spits</label> <input type="text"
+								class="form-control" th:field="${formSite.nbreSpit}">
+						</div>
+
+						<div class="row">
+							<label for="text">Cotation</label> <input type="text"
+								class="form-control" th:field="${formSite.cotationLongueur}">
+						</div>
+
+
 					</div>
-
-					<div class="row">
-						<label for="text">Nombre de spits</label> <input type="number"
-							class="form-control" th:field="${formSite.nbreSpit}">
-					</div>
-
-					<div class="row">
-						<label for="email">Cotation</label> <input type="text"
-							class="form-control" th:field="${formSite.cotationVoie}">
-					</div>
-				</div>
+				</form>
 			</div>
 
 			<!-- PIED DE PAGE -->
@@ -174,8 +176,7 @@
 
 			<!-- PIED DE PAGE -->
 
-		</div>
-
+		
 
 	</div>
 
