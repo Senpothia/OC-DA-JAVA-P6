@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
 import com.formation.escalade.model.Voie;
@@ -93,8 +94,8 @@ public class LongueurController {
 	public String creationLongueur(FormSite formSite, HttpServletRequest request) {
 		
 		Longueur longueur = new Longueur();
-		longueur.setNom(formSite.nomVoie);
-		longueur.setCotation(formSite.cotationVoie);
+		longueur.setNom(formSite.getNomVoie());
+		longueur.setCotation(formSite.getCotationVoie());
 		String nomVoie = (String) request.getSession().getAttribute("NOMVOIE");
 		Voie voie = voieRepo.findByNom(nomVoie);
 		return "ok";
