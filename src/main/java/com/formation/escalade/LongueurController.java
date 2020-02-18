@@ -1,11 +1,17 @@
 package com.formation.escalade;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
 import com.formation.escalade.repository.CommentaireRepo;
 import com.formation.escalade.repository.ILongueur;
@@ -55,5 +61,22 @@ public class LongueurController {
 		return "creation_longueur";
 	}
 	
+	@PostMapping("/creerlongueur")
+	public String choixSite(String nomSecteur, HttpServletRequest request, Model model, HttpSession session) {
+		
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		System.out.println("nomSecteur: " + nomSecteur);
+		System.out.println("Id site: " + siteId);
+		session.setAttribute("NOMSECTEUR", nomSecteur);
+		//Site site = siteRepo.findByNom(nomSite);
+		//model.addAttribute("site", site);
+		Site site = siteRepo.getOne(siteId);
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
+		model.addAttribute("site", site);
+		model.addAttribute("secteur", secteur);
+		model.addAttribute("formSite", new FormSite());
+
+		return "creation_longueur";
+	}
 
 }

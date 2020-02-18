@@ -14,7 +14,6 @@ import com.formation.escalade.service.SecteurService;
 public class LongueurService {
 	
 	
-	
 	@Autowired
 	private final ISite siteRepo;
 	@Autowired
