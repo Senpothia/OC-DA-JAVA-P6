@@ -73,6 +73,8 @@ public class LongueurController {
 	public String creerVoie(String nomVoie, Model model, HttpServletRequest request) {
 		
 		System.out.println("Nom de voie: " + nomVoie);
+		Voie voie = voieRepo.findByNom(nomVoie);
+		model.addAttribute("voie", voie );
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		Site site = siteRepo.getOne(siteId);
 		String nomSecteur = (String) request.getSession().getAttribute("NOMSECTEUR");
