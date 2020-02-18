@@ -96,8 +96,10 @@ public class LongueurController {
 		Longueur longueur = new Longueur();
 		longueur.setNom(formSite.getNomVoie());
 		longueur.setCotation(formSite.getCotationVoie());
+		longueur.setSpit(formSite.getNbreSpit());
 		String nomVoie = (String) request.getSession().getAttribute("NOMVOIE");
 		Voie voie = voieRepo.findByNom(nomVoie);
+		longueur.setVoie(voie);
 		return "ok";
 	}
 	
