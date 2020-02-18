@@ -78,6 +78,6 @@ public class LongueurController {
 		FormSite formSite = new FormSite();
 		model.addAttribute("formSite", formSite );
 		
-		return "creation_longueur2";
+		return "creation_longueur";
 	}
 }
