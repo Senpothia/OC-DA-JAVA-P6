@@ -93,9 +93,11 @@
 
 
 				<div class="col">
-					<h1>Site</h1>
+					
 
 					<div class="row">
+					
+					<h1>Site</h1>
 						<p>
 							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
 							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
@@ -105,9 +107,11 @@
 					</div>
 
 
-					<h1>Voie</h1>
+				
 
 					<div class="row">
+					
+					<h1>Voie</h1>
 						<p>
 							<strong>Site:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
 							</strong><span th:text="${voie.cotation}"></span></br>
@@ -118,14 +122,14 @@
 
 
 
-				</div>
+			
 
 
 				<div class="col">
-					<h1>Secteur</h1>
+				
 
 					<div class="row">
-
+						<h1>Secteur</h1>
 
 						<p>
 							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
@@ -135,9 +139,11 @@
 
 					</div>
 
-					<h1>Longueur</h1>
+					
 
 					<div class="row">
+					
+					<h1>Longueur</h1>
 						<label for="email">Nom</label> <input type="email"
 							class="form-control" th:field="${formSite.nomVoie}">
 					</div>
@@ -148,22 +154,14 @@
 					</div>
 				</div>
 			</div>
+			
+			<!-- PIED DE PAGE -->
+		<div th:replace="fragments/footer :: footer"></div>
+		
+			<!-- PIED DE PAGE -->
 
 		</div>
-		<!-- ********************************************* -->
-		<div th:replace="fragments/footer :: footer"></div>
-		<!-- ********************************************* -->
-	</div>
-
-
-
-
-	<!-- PIED DE PAGE -->
-
-
-
-
-
+		
 
 	</div>
 
