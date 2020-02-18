@@ -50,61 +50,63 @@
 
 				<div class="validations col-3">
 
-			<form th:action="@{/creationlongueur}" method="post"      
-			th:object="${formSite}">
-					<div class="bouton2">
+					<form th:action="@{/creationlongueur}" method="post"
+						th:object="${formSite}">
+						<div class="bouton2">
 
-						<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
-								secteur</p></a>
+							<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
+									secteur</p></a>
 
-					</div>
+						</div>
 
-					<div class="bouton2">
+						<div class="bouton2">
 
-						<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
-								voie</p></a>
+							<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
+									voie</p></a>
 
-					</div>
+						</div>
 
-					<div class="bouton2">
+						<div class="bouton2">
 
-						<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
-								longueur</p></a>
+							<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
+									longueur</p></a>
 
-					</div>
+						</div>
 
-					<div class="bouton2">
+						<div class="bouton2">
 
-						<a href="addvoie"><p class="btn btn-primary btn-block">Visualiser site</p></a>
+							<a href="addvoie"><p class="btn btn-primary btn-block">Visualiser
+									site</p></a>
 
-					</div>
+						</div>
 
-					<div class="bouton2">
+						<div class="bouton2">
 
-						<a href="addvoie"><p class="btn btn-primary btn-block">Modifier site</p></a>
+							<a href="addvoie"><p class="btn btn-primary btn-block">Modifier
+									site</p></a>
 
-					</div>
+						</div>
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
-					</div>
+						<div class="bouton row">
+							<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+						</div>
 
-					
-					<div class="bouton2">
 
-						<a href="addvoie"><p class="btn btn-primary btn-block">Annuler</p></a>
+						<div class="bouton2">
 
-					</div>
-		</form>
+							<a href="addvoie"><p class="btn btn-primary btn-block">Annuler</p></a>
+
+						</div>
+					</form>
 				</div>
 
 
 				<div class="col">
-					
-		<h1>Site</h1>
+
+					<h1>Site</h1>
 					<div class="row">
-					
-				
+
+
 						<p>
 							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
 							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
@@ -114,11 +116,11 @@
 					</div>
 
 
-				<h1>Voie</h1>
+					<h1>Voie</h1>
 
 					<div class="row">
-					
-					
+
+
 						<p>
 							<strong>Site:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
 							</strong><span th:text="${voie.cotation}"></span></br>
@@ -129,14 +131,14 @@
 
 
 
-			
+
 
 
 				<div class="col">
-				
-	<h1>Secteur</h1>
+
+					<h1>Secteur</h1>
 					<div class="row">
-					
+
 
 						<p>
 							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
@@ -146,17 +148,17 @@
 
 					</div>
 
-						<h1>Longueur</h1>
+					<h1>Longueur</h1>
 
 					<div class="row">
-					
-				
+
+
 						<label for="email">Nom</label> <input type="text"
-							class="form-control" th:field="${formSite.nomVoie}">
+							class="form-control" th:field="${formSite.nomLongueur}">
 					</div>
-					
+
 					<div class="row">
-						<label for="text">Nombre de spits</label> <input type="text"
+						<label for="text">Nombre de spits</label> <input type="number"
 							class="form-control" th:field="${formSite.nbreSpit}">
 					</div>
 
@@ -166,14 +168,14 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- PIED DE PAGE -->
-		<div th:replace="fragments/footer :: footer"></div>
-		
+			<div th:replace="fragments/footer :: footer"></div>
+
 			<!-- PIED DE PAGE -->
 
 		</div>
-		
+
 
 	</div>
 

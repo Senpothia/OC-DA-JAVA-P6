@@ -84,8 +84,8 @@ public class LongueurController {
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		model.addAttribute("secteur", secteur);
 		model.addAttribute("site", site);
-		FormSite formSite = new FormSite();
-		model.addAttribute("formSite", formSite );
+		//FormSite formSite = new FormSite();
+		model.addAttribute("formSite",  new FormSite() );
 		
 		return "creation_longueur";
 	}
@@ -94,14 +94,14 @@ public class LongueurController {
 	public String creationLongueur(FormSite formSite, HttpServletRequest request) {
 		
 		Longueur longueur = new Longueur();
-		longueur.setNom(formSite.getNomVoie());
-		longueur.setCotation(formSite.getCotationVoie());
+		longueur.setNom(formSite.getNomLongueur());
+		longueur.setCotation(formSite.getCotationLongueur());
 		longueur.setSpit(formSite.getNbreSpit());
 		String nomVoie = (String) request.getSession().getAttribute("NOMVOIE");
-		Voie voie = voieRepo.findByNom(nomVoie);
-		longueur.setVoie(voie);
+		System.out.println("Nom de voie: "+ nomVoie);
+		System.out.println(formSite.toString());
 		longueurRepo.save(longueur);
-		return "espace";
+		return "ok";
 	}
 	
 	
