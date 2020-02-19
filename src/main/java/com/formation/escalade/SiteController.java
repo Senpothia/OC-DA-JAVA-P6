@@ -106,6 +106,18 @@ public class SiteController {
 		return "arbre";
 	}
 	
+	@GetMapping("/galerie")
+	public String galerie(Model model) {
+		
+		List<String> nomsSites = new ArrayList<>();
+		List<Site> sites = siteRepo.findAll();
+		for (Site site: sites) {
+			nomsSites.add(site.getNom());
+		}
+		model.addAttribute("nomsSites", nomsSites);
+		return "galerie";
+	}
+	
 	
 	// ********   Methodes de test  *****************
 	

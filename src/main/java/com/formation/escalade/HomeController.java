@@ -25,11 +25,7 @@ public class HomeController {
 		return "connexion";
 	}
 	
-	@GetMapping("/galerie")
-	public String galerie() {
-		
-		return "galerie";
-	}
+	
 	
 	
 	

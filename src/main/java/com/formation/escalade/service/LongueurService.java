@@ -1,4 +1,4 @@
-package com.formation.escalade;
+package com.formation.escalade.service;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +13,6 @@ import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
 import com.formation.escalade.repository.IVoie;
-import com.formation.escalade.service.SecteurService;
 
 @Service
 public class LongueurService {
