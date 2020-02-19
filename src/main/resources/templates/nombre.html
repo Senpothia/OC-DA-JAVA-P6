@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<p th:each="number: ${#numbers.sequence(0,4)}">
+    <span th:text="${nomsSites.get(number)}"></span>
+</p>
+
+</body>
+</html>

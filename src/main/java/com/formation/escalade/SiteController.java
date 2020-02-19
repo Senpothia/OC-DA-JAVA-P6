@@ -138,5 +138,22 @@ public class SiteController {
 		return "selection4";
 	}
 	
+	@GetMapping("/nombre")
+	public String nombre(Model model) { // Méthode de test
 
+		List<String> nomsSites = new ArrayList<>();
+		List<Site> sites = siteRepo.findAll();
+		for (Site site: sites) {
+			nomsSites.add(site.getNom());
+		}
+		model.addAttribute("nomsSites", nomsSites);
+		return "nombre";
+	}
+	
+	@GetMapping("/gal")
+	public String nombre2(Model model) { // Méthode de test
+
+		
+		return "galerie2";
+	}
 }
