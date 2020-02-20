@@ -149,7 +149,7 @@ public class SiteController {
 		
 		if (nbrePages < 2) {
 			
-			borneSup = reste;
+			borneSup = taille - 5;
 		}
 		for (int i=0; i< borneSup; i++) {
 			
