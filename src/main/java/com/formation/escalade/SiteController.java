@@ -91,7 +91,7 @@ public class SiteController {
 
 	@GetMapping("/choisirsite")
 	public String choisirSite(Model model) {
-
+		
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
@@ -110,7 +110,7 @@ public class SiteController {
 	
 	@GetMapping("/galerie")
 	public String galerie(Model model) {
-		
+		int page = 1;
 		List<String> nomsSites = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
 		for (Site site: sites) {
@@ -167,6 +167,11 @@ public class SiteController {
 		
 		}
 		model.addAttribute("numPages", numPages);
+		String previous = String.valueOf(page == 1 ? 1 : page - 1);
+		String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);
+		model.addAttribute("numPages", numPages);
+		model.addAttribute("previous", previous);
+		model.addAttribute("next", next);
 		return "galerie";
 	}
 	
@@ -232,7 +237,11 @@ public class SiteController {
 			numPages.add(numPage);
 		
 		}
+		String previous = String.valueOf(page == 1 ? 1 : page - 1);
+		String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);
 		model.addAttribute("numPages", numPages);
+		model.addAttribute("previous", previous);
+		model.addAttribute("next", next);
 		return "galerie";
 		
 		
