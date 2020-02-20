@@ -215,9 +215,9 @@ public class SiteController {
 		
 		
 		
-		if (nbrePages < 2) {  // si la 2nd ligne est incomplète
+		if (taille - ( page * 2 * LIGNE ) < LIGNE) {  // 
 			
-			borneSup = taille - LIGNE;
+			borneSup = taille - ( page * 2 * LIGNE );
 		}
 		for (int i = LIGNE + offSet; i< borneSup + LIGNE + offSet; i++) {
 			
