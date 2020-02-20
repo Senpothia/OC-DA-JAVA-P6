@@ -160,6 +160,7 @@ public class SiteController {
 		List<String> numPages = new ArrayList<>();
 		for (int i=1; i<nbrePages+1; i++){
 			String numPage = String.valueOf(i);
+			System.out.println("num de page: " + numPage);
 			numPages.add(numPage);
 		
 		}
