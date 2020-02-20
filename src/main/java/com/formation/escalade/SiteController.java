@@ -157,7 +157,7 @@ public class SiteController {
 		}
 		model.addAttribute("ligne2", ligne2);
 		
-		List<int> numPages = new ArrayList<>();
+		List<Integer> numPages = new ArrayList<>();
 		for (int i=1; i<nbrePages+1; i++){
 			
 			numPages.add(i);
