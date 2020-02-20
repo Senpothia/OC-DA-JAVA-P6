@@ -116,14 +116,38 @@ public class SiteController {
 		}
 		
 		int taille = nomsSites.size();
-		int nbrePages = taille/5;
-		int reste = taille%5;
+		//taille = taille + 29;  //    test calcul nbre de pages 
+		System.out.println("nbre de sites: " + taille);
+		int nbrePages = taille / 10 ;
+		int reste = taille % 10;
+		if (reste != 0) {
+			
+			nbrePages++;
+		}
+		
+		System.out.println("nbre de pages: " + nbrePages);
+		
 		List<String> ligne1 = new ArrayList<>();
 		for (int i=0; i<5; i++) {
 			
 			ligne1.add(nomsSites.get(i));
 		}
-		model.addAttribute("nomsSites", nomsSites);
+		model.addAttribute("ligne1", ligne1);
+		
+		List<String> ligne2 = new ArrayList<>();
+		
+		int borneSup = 5;
+		
+		if (nbrePages < 2) {
+			
+			borneSup = reste;
+		}
+		for (int i=0; i< borneSup; i++) {
+			
+			ligne2.add(nomsSites.get(i));
+		}
+		model.addAttribute("ligne2", ligne2);
+		
 		return "galerie";
 	}
 	
