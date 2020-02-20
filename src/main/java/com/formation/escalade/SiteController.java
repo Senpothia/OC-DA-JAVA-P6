@@ -120,6 +120,8 @@ public class SiteController {
 		System.out.println("nbre de sites: " + taille);
 		int nbrePages = taille / 10 ;
 		int reste = taille % 10;
+		int borneSup = 5;
+		
 		if (reste != 0) {
 			
 			nbrePages++;
@@ -128,15 +130,22 @@ public class SiteController {
 		System.out.println("nbre de pages: " + nbrePages);
 		
 		List<String> ligne1 = new ArrayList<>();
-		for (int i=0; i<5; i++) {
+		
+		if (taille<5){
+		
+			borneSup = taille;
+		}
+		
+		for (int i=0; i<borneSup; i++) {
 			
 			ligne1.add(nomsSites.get(i));
 		}
+		
 		model.addAttribute("ligne1", ligne1);
 		
 		List<String> ligne2 = new ArrayList<>();
 		
-		int borneSup = 5;
+		
 		
 		if (nbrePages < 2) {
 			
