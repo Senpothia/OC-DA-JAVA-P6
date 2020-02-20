@@ -36,6 +36,8 @@ public class SiteController {
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
 	private final CommentaireRepo commentaireRepo;
+	
+	final int LIGNE = 5; // nombre de site afficher par ligne de la galerie
 
 	@Autowired
 	SiteService siteService;
@@ -118,9 +120,9 @@ public class SiteController {
 		int taille = nomsSites.size();
 		//taille = taille + 29;  //    test calcul nbre de pages 
 		System.out.println("nbre de sites: " + taille);
-		int nbrePages = taille / 10 ;
-		int reste = taille % 10;
-		int borneSup = 5;
+		int nbrePages = taille / (2 * LIGNE) ;
+		int reste = taille % (2 * LIGNE);
+		int borneSup = LIGNE;
 		
 		if (reste != 0) {
 			
@@ -131,7 +133,7 @@ public class SiteController {
 		
 		List<String> ligne1 = new ArrayList<>();
 		
-		if (taille<5){
+		if (taille<LIGNE){
 		
 			borneSup = taille;
 		}
@@ -149,9 +151,9 @@ public class SiteController {
 		
 		if (nbrePages < 2) {
 			
-			borneSup = taille - 5;
+			borneSup = taille - LIGNE;
 		}
-		for (int i=0; i< borneSup; i++) {
+		for (int i = LIGNE; i< borneSup + LIGNE; i++) {
 			
 			ligne2.add(nomsSites.get(i));
 		}
@@ -166,6 +168,74 @@ public class SiteController {
 		}
 		model.addAttribute("numPages", numPages);
 		return "galerie";
+	}
+	
+	
+	@GetMapping("galerie/{page}")
+	public String galeriePage(@PathVariable ("page") int page, Model model) {
+		
+		
+		List<String> nomsSites = new ArrayList<>();
+		List<Site> sites = siteRepo.findAll();
+		for (Site site: sites) {
+			nomsSites.add(site.getNom());
+		}
+		
+		int taille = nomsSites.size();   // nombre de sites enregistrés
+		//taille = taille + 29; 		 //    test calcul nbre de pages 
+		System.out.println("nbre de sites: " + taille);
+		int nbrePages = taille / (2 * LIGNE) ;   // nbre de pages pleines
+		int reste = taille % (2 * LIGNE);
+		int borneSup = LIGNE;
+	
+		if (reste != 0) {  // il reste des sites en plus des pages pleines
+			
+			nbrePages++;	// page suplémentaire pour les sites restants
+		}
+		
+		int offSet = nbrePages + (page - 1) * 2* LIGNE;
+		
+		System.out.println("nbre de pages: " + nbrePages);
+		
+		List<String> ligne1 = new ArrayList<>();
+		
+		if (taille<LIGNE){
+		
+			borneSup = taille;
+		}
+		
+		for (int i=0; i<borneSup; i++) {
+			
+			ligne1.add(nomsSites.get(i));
+		}
+		
+		model.addAttribute("ligne1", ligne1);
+		
+		List<String> ligne2 = new ArrayList<>();
+		
+		
+		
+		if (nbrePages < 2) {  // si la 2nd ligne est incomplète
+			
+			borneSup = taille - LIGNE;
+		}
+		for (int i = LIGNE + offSet; i< borneSup + LIGNE + offSet; i++) {
+			
+			ligne2.add(nomsSites.get(i));
+		}
+		model.addAttribute("ligne2", ligne2);
+		
+		List<String> numPages = new ArrayList<>();
+		for (int i=1; i<nbrePages+1; i++){
+			String numPage = String.valueOf(i);
+			System.out.println("num de page: " + numPage);
+			numPages.add(numPage);
+		
+		}
+		model.addAttribute("numPages", numPages);
+		return "galerie";
+		
+		
 	}
 	
 	

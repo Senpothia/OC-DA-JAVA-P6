@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.FormSite;
@@ -24,7 +25,7 @@ import com.formation.escalade.repository.IVoie;
 
 
 @Service
-public class GeneraService{
+public class GeneralService{
 
   @Autowired
 	GeneralService generalService;
@@ -55,7 +56,7 @@ public class GeneraService{
 		this.commentaireRepo = commentaireRepo;
 	}
   
-   public pagination(Model model){
+   public void pagination(Model model){
    
    List<String> nomsSites = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
