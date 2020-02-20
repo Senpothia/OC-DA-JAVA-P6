@@ -48,7 +48,7 @@
 
 					<div class="row">
 
-						<div class="col ">
+						<div class="col" th:each="nomSite: ${ligne1}">
 							<div class="row">
 								<img src="escalade.png" alt="" />
 							</div>
@@ -66,12 +66,12 @@
 
 					<div class="row">
 
-						<div class="col ">
+						<div class="col" th:each="nomSite: ${ligne2}">
 							<div class="row">
 								<img src="escalade2.png" alt="" />
 							</div>
 							<div class="row">
-								<div class="col-8">nom du site</div>
+								<div class="col-8" th:text="${nomSite}"></div>
 								<div class="col-4">
 									<div class="row">
 										<img src="tag01.png" alt="" />
