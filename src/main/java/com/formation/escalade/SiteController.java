@@ -164,7 +164,7 @@ public class SiteController {
 			numPages.add(numPage);
 		
 		}
-		model.addAttribute("NumPages", numPages);
+		model.addAttribute("numPages", numPages);
 		return "galerie";
 	}
 	
