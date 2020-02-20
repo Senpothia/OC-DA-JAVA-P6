@@ -114,6 +114,15 @@ public class SiteController {
 		for (Site site: sites) {
 			nomsSites.add(site.getNom());
 		}
+		
+		int taille = nomsSites.size();
+		int nbrePages = taille/5;
+		int reste = taille%5;
+		List<String> ligne1 = new ArrayList<>();
+		for (int i=0; i<5; i++) {
+			
+			ligne1.add(nomsSites.get(i));
+		}
 		model.addAttribute("nomsSites", nomsSites);
 		return "galerie";
 	}
