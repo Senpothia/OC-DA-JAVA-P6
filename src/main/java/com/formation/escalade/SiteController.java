@@ -110,6 +110,7 @@ public class SiteController {
 	
 	@GetMapping("/galerie")
 	public String galerie(Model model) {
+		
 		int page = 1;
 		List<String> nomsSites = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
