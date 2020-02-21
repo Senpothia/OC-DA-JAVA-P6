@@ -53,7 +53,7 @@
 								<img src="escalade.png" alt="" th:src="@{/escalade.png}" />
 							</div>
 							<div class="row">
-								<a class="col-8" th:text="${nomSite}" th:href="@{/viewsite/{id}(id=${idSite})}"></a>
+								<a class="col-8"  th:href="@{/viewsite/{id}(id=${idSite})}"><span th:text="${nomSite}" ></span></a>
 								<div class="col-4">
 									<div class="row">
 										<img src="tag01.png" alt="" th:src="@{/tag01.png}"/>
@@ -71,7 +71,7 @@
 								<img src="escalade2.png" alt="" / th:src="@{/escalade2.png}"/>
 							</div>
 							<div class="row">
-								<a class="col-8" th:text="${nomSite}" th:href="@{/viewsite/{nomSite}(nomSite=${nomSite})}"></a>
+								<a class="col-8"  th:href="@{/viewsite/{id}(id=${idSite})}"><span th:text="${nomSite}" ></span></a>
 								<div class="col-4">
 									<div class="row">
 										<img src="tag01.png" alt="" th:src="@{/tag01.png}"/>
