@@ -107,9 +107,9 @@ public class SiteController {
 		return "arbre";
 	}
 
-	 /**
+	/**
 	 * @GetMapping("/galerie") public String galerie(Model model) {
-	
+	 * 
 	 * int page = 1; List<String> nomsSites = new ArrayList<>(); List<Site> sites =
 	 * siteRepo.findAll(); for (Site site: sites) { nomsSites.add(site.getNom()); }
 	 * 
@@ -158,76 +158,60 @@ public class SiteController {
 	 */
 	@GetMapping("galerie/{page}")
 	/**
-	List<String> nomsSites = new ArrayList<>();
-	List<Site> sites = siteRepo.findAll();
-	for (Site site: sites) {
-		nomsSites.add(site.getNom());
-	}
-	
-	int taille = nomsSites.size();   // nombre de sites enregistrés
-	//taille = taille + 29; 		 //    test calcul nbre de pages 
-	System.out.println("nbre de sites: " + taille);
-	int nbrePages = taille / (2 * LIGNE) ;   // nbre de pages pleines
-	int reste = taille % (2 * LIGNE);
-	int borneSup = LIGNE;
+	 * List<String> nomsSites = new ArrayList<>(); List<Site> sites =
+	 * siteRepo.findAll(); for (Site site: sites) { nomsSites.add(site.getNom()); }
+	 * 
+	 * int taille = nomsSites.size(); // nombre de sites enregistrés //taille =
+	 * taille + 29; // test calcul nbre de pages System.out.println("nbre de sites:
+	 * " + taille); int nbrePages = taille / (2 * LIGNE) ; // nbre de pages pleines
+	 * int reste = taille % (2 * LIGNE); int borneSup = LIGNE;
+	 * 
+	 * if (reste != 0) { // il reste des sites en plus des pages pleines
+	 * 
+	 * nbrePages++; // page suplémentaire pour les sites restants }
+	 * 
+	 * int offSet = nbrePages + (page - 1) * 2* LIGNE;
+	 * 
+	 * System.out.println("nbre de pages: " + nbrePages);
+	 * 
+	 * List<String> ligne1 = new ArrayList<>();
+	 * 
+	 * if (taille<LIGNE){
+	 * 
+	 * borneSup = taille; }
+	 * 
+	 * for (int i=0; i<borneSup; i++) {
+	 * 
+	 * ligne1.add(nomsSites.get(i)); }
+	 * 
+	 * model.addAttribute("ligne1", ligne1);
+	 * 
+	 * List<String> ligne2 = new ArrayList<>();
+	 * 
+	 * 
+	 * 
+	 * if (taille - ( page * 2 * LIGNE ) < LIGNE) { //
+	 * 
+	 * borneSup = taille - ( page * 2 * LIGNE ); } for (int i = LIGNE + offSet; i<
+	 * borneSup + LIGNE + offSet; i++) {
+	 * 
+	 * ligne2.add(nomsSites.get(i)); } model.addAttribute("ligne2", ligne2);
+	 * 
+	 * List<String> numPages = new ArrayList<>(); for (int i=1; i<nbrePages+1; i++){
+	 * String numPage = String.valueOf(i); System.out.println("num de page: " +
+	 * numPage); numPages.add(numPage);
+	 * 
+	 * } String previous = String.valueOf(page == 1 ? 1 : page - 1); String next =
+	 * String.valueOf(page == nbrePages ? nbrePages : page + 1);
+	 * model.addAttribute("numPages", numPages); model.addAttribute("previous",
+	 * previous); model.addAttribute("next", next); return "galerie";
+	 * 
+	 * 
+	 */
 
-	if (reste != 0) {  // il reste des sites en plus des pages pleines
-		
-		nbrePages++;	// page suplémentaire pour les sites restants
-	}
-	
-	int offSet = nbrePages + (page - 1) * 2* LIGNE;
-	
-	System.out.println("nbre de pages: " + nbrePages);
-	
-	List<String> ligne1 = new ArrayList<>();
-	
-	if (taille<LIGNE){
-	
-		borneSup = taille;
-	}
-	
-	for (int i=0; i<borneSup; i++) {
-		
-		ligne1.add(nomsSites.get(i));
-	}
-	
-	model.addAttribute("ligne1", ligne1);
-	
-	List<String> ligne2 = new ArrayList<>();
-	
-	
-	
-	if (taille - ( page * 2 * LIGNE ) < LIGNE) {  // 
-		
-		borneSup = taille - ( page * 2 * LIGNE );
-	}
-	for (int i = LIGNE + offSet; i< borneSup + LIGNE + offSet; i++) {
-		
-		ligne2.add(nomsSites.get(i));
-	}
-	model.addAttribute("ligne2", ligne2);
-	
-	List<String> numPages = new ArrayList<>();
-	for (int i=1; i<nbrePages+1; i++){
-		String numPage = String.valueOf(i);
-		System.out.println("num de page: " + numPage);
-		numPages.add(numPage);
-	
-	}
-	String previous = String.valueOf(page == 1 ? 1 : page - 1);
-	String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);
-	model.addAttribute("numPages", numPages);
-	model.addAttribute("previous", previous);
-	model.addAttribute("next", next);
-	return "galerie";
-	
-	
-	*/
-	
-	//********************
+	// ********************
 	public String galeriePage(@PathVariable("page") int page, Model model) {
-		
+
 		List<String> nomsSites = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
 		for (Site site : sites) {
@@ -238,8 +222,7 @@ public class SiteController {
 		// taille = taille + 29; // test calcul nbre de pages
 		System.out.println("nbre de sites: " + taille);
 		int nbrePages = taille / (2 * LIGNE); // nbre de pages pleines
-		int reste = taille % (2 * LIGNE);	  // nbre de sites contenus dans page incomplète
-		
+		int reste = taille % (2 * LIGNE); // nbre de sites contenus dans page incomplète
 
 		if (reste != 0) { // il reste des sites en plus deceux sur les pages pleines
 
@@ -251,61 +234,78 @@ public class SiteController {
 
 		List<String> ligne1 = new ArrayList<>();
 		List<String> ligne2 = new ArrayList<>();
-		
-	
-		int borneInf = (page - 1) *2*LIGNE ;
+
+		int borneInf = (page - 1) * 2 * LIGNE;
 		int borneSup = borneInf + LIGNE - 1;
-		
+
 		if (page == nbrePages) { // traitement de la dernière page
 
-			if (reste < LIGNE) {  // Une seule ligne à remplir
+			System.out.println("Traitement derniere page ");
 
-				for (int i = borneInf; i <borneInf + reste -1; i++) {
-					System.out.println("indice: " + i);
+			if (reste < LIGNE) { // Une seule ligne à remplir
+
+				for (int i = borneInf; i < borneInf + reste - 1; i++) {
+					System.out.println("indice ligne partielle unique derniere page: " + i);
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
 				}
 
-			} else {
-				for (int i = borneInf; i < borneSup +1 ; i++) { // Remplissage ligne 1
-					System.out.println("indice: " + i);
+			} else {		// Deux lignes à remplir
+				for (int i = borneInf; i < borneSup + 1; i++) { // Remplissage ligne 1 normalement
+					System.out.println("indice ligne pleine deniere page: " + i);
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
 				}
 
-				for (int i = borneInf; i < borneInf + reste -1; i++) { // Remplissage ligne 2
-					System.out.println("indice: " + i);
+				for (int i = borneInf; i < borneInf + reste - 1; i++) { // Remplissage ligne 2 partiellement
+					System.out.println("indice ligne partielle derniere page: " + i);
 					ligne2.add(nomsSites.get(i)); // determiner l'indice i
 				}
 			}
-		}
-		
+			
+			model.addAttribute("ligne1", ligne1);
+			model.addAttribute("ligne2", ligne2);
+			
+		} // fin traitement de la dernière page
 
-		for (int i = borneInf; i < borneSup +1 ; i++) { // Remplissage lignes pleines - ligne 1
+		if (page < nbrePages) { // traitement page pleine
 
-			ligne1.add(nomsSites.get(i));
-		}
+			for (int i = borneInf; i < borneSup + 1; i++) { // Remplissage lignes pleines - ligne 1
+				System.out.println("indice ligne pleine: " + i);
+				ligne1.add(nomsSites.get(i));
+			}
 
-		model.addAttribute("ligne1", ligne1);
-	
-		
-		for (int i = borneInf+LIGNE; i < borneSup+LIGNE +1 ; i++) { // Remplissage lignes pleines - ligne 2
+			model.addAttribute("ligne1", ligne1);
 
-			ligne2.add(nomsSites.get(i));
-		}
+			for (int i = borneInf + LIGNE; i < borneSup + LIGNE + 1; i++) { // Remplissage lignes pleines - ligne 2
+				System.out.println("indice ligne pleine: " + i);
+				ligne2.add(nomsSites.get(i));
+			}
 
-		model.addAttribute("ligne2", ligne2);
+			model.addAttribute("ligne2", ligne2);
+		} // fin traitement ligne pleine
 
 		List<String> numPages = new ArrayList<>();
-		for (int i = 1; i < nbrePages + 1; i++) {  // Définition des numéro de page pour thymeleaf
+		for (int i = 1; i < nbrePages + 1; i++) { // Définition des numéro de page pour thymeleaf
 			String numPage = String.valueOf(i);
-			System.out.println("num de page: " + numPage);
+			System.out.println("num de page thymeleaf pour pagination : " + numPage);
 			numPages.add(numPage);
 
 		}
-		String previous = String.valueOf(page == 1 ? 1 : page - 1);  // Détermination des numéro de pages  
+		String previous = String.valueOf(page == 1 ? 1 : page - 1); // Détermination des numéro de pages
 		String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);// pour les boutons previous et next
 		model.addAttribute("numPages", numPages);
 		model.addAttribute("previous", previous);
 		model.addAttribute("next", next);
+
+		for (int i = 0; i < ligne1.size(); i++) {
+
+			System.out.println("ligne 1: " + i +" " + ligne1.get(i));
+		}
+
+		for (int i = 0; i < ligne2.size(); i++) {
+
+			System.out.println("ligne 2: " + i +" "+ ligne2.get(i));
+		}
+
 		return "galerie";
 
 	}
