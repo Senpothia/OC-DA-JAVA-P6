@@ -107,7 +107,7 @@ public class SiteController {
 		return "arbre";
 	}
 
-	
+	@GetMapping("/galerie/{page}")
 	public String galeriePage(@PathVariable("page") int page, Model model) {
 
 		List<String> nomsSites = new ArrayList<>();
