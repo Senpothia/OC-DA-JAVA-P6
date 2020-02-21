@@ -41,6 +41,9 @@ public class SiteController {
 
 	@Autowired
 	SiteService siteService;
+	
+	@Autowired
+	GeneralService generalService;
 
 	public SiteController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			CommentaireRepo commentaireRepo) {
@@ -109,7 +112,9 @@ public class SiteController {
 
 	@GetMapping("/galerie/{page}")
 	public String galeriePage(@PathVariable("page") int page, Model model) {
-
+		
+		generalService.pagination(page, model);
+		/**
 		List<String> nomsSites = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
 		for (Site site : sites) {
@@ -203,7 +208,7 @@ public class SiteController {
 
 			System.out.println("ligne 2: " + i +" "+ ligne2.get(i));
 		}
-
+		*/
 		return "galerie";
 
 	}
