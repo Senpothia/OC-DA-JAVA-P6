@@ -50,7 +50,7 @@
 
 						<div class="col" th:each="nomSite: ${ligne1}">
 							<div class="row">
-								<img src="escalade.png" alt="" th:src="@{/escalade.png}" />
+									<a class="col-8"  th:href="@{/viewsite/{nomSite}(nomSite=${nomSite})}"><img src="escalade.png" alt="" th:src="@{/escalade.png}" /></a>
 							</div>
 							<div class="row">
 								<div class="col-8" th:text="${nomSite}"></div>
@@ -68,7 +68,7 @@
 
 						<div class="col" th:each="nomSite: ${ligne2}">
 							<div class="row">
-								<img src="escalade2.png" alt="" / th:src="@{/escalade2.png}"/>
+								<a class="col-8"  th:href="@{/viewsite/{nomSite}(nomSite=${nomSite})}"><img src="escalade2.png" alt="" th:src="@{/escalade2.png}" /></a>
 							</div>
 							<div class="row">
 								<div class="col-8" th:text="${nomSite}"></div>

@@ -210,8 +210,18 @@ public class SiteController {
 			System.out.println("ligne 2: " + i +" "+ ligne2.get(i));
 		}
 		*/
-		return "galerie3";
+		return "galerie";
 
+	}
+	
+	@GetMapping("/viewsite/{nomSite}")
+	public String vueSite(@PathVariable("nomSite") String nomSite, Model model){
+		
+		Site site = siteRepo.findByNom(nomSite);
+		model.addAttribute("site", site);
+		
+		return"site";
+		
 	}
 
 	// ******** Methodes de test *****************
