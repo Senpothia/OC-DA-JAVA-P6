@@ -164,7 +164,7 @@ public class SiteController {
 			
 		} // fin traitement de la dernière page
 
-		if (page < nbrePages) { // traitement page pleine
+		if (page < nbrePages || reste == 0) { // traitement page pleine
 
 			for (int i = borneInf; i < borneSup + 1; i++) { // Remplissage lignes pleines - ligne 1
 				System.out.println("indice ligne pleine: " + i);
