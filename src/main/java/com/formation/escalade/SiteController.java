@@ -244,7 +244,7 @@ public class SiteController {
 
 			if (reste < LIGNE) { // Une seule ligne à remplir
 
-				for (int i = borneInf; i < borneInf + reste - 1; i++) {
+				for (int i = borneInf; i < borneInf + reste; i++) {
 					System.out.println("indice ligne partielle unique derniere page: " + i);
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
 				}
@@ -255,7 +255,7 @@ public class SiteController {
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
 				}
 
-				for (int i = borneInf; i < borneInf + reste - 1; i++) { // Remplissage ligne 2 partiellement
+				for (int i = borneInf; i < borneInf + reste; i++) { // Remplissage ligne 2 partiellement
 					System.out.println("indice ligne partielle derniere page: " + i);
 					ligne2.add(nomsSites.get(i)); // determiner l'indice i
 				}
