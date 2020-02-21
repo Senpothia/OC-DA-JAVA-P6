@@ -36,7 +36,7 @@ public class SiteController {
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
 	private final CommentaireRepo commentaireRepo;
-	
+
 	final int LIGNE = 5; // nombre de site afficher par ligne de la galerie
 
 	@Autowired
@@ -88,10 +88,9 @@ public class SiteController {
 		return "index";
 	}
 
-
 	@GetMapping("/choisirsite")
 	public String choisirSite(Model model) {
-		
+
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
@@ -107,150 +106,212 @@ public class SiteController {
 
 		return "arbre";
 	}
+
+	 /**
+	 * @GetMapping("/galerie") public String galerie(Model model) {
 	
-	@GetMapping("/galerie")
-	public String galerie(Model model) {
-		
-		int page = 1;
-		List<String> nomsSites = new ArrayList<>();
-		List<Site> sites = siteRepo.findAll();
-		for (Site site: sites) {
-			nomsSites.add(site.getNom());
-		}
-		
-		int taille = nomsSites.size();
-		//taille = taille + 29;  //    test calcul nbre de pages 
-		System.out.println("nbre de sites: " + taille);
-		int nbrePages = taille / (2 * LIGNE) ;
-		int reste = taille % (2 * LIGNE);
-		int borneSup = LIGNE;
-		
-		if (reste != 0) {
-			
-			nbrePages++;
-		}
-		
-		System.out.println("nbre de pages: " + nbrePages);
-		
-		List<String> ligne1 = new ArrayList<>();
-		
-		if (taille<LIGNE){
-		
-			borneSup = taille;
-		}
-		
-		for (int i=0; i<borneSup; i++) {
-			
-			ligne1.add(nomsSites.get(i));
-		}
-		
-		model.addAttribute("ligne1", ligne1);
-		
-		List<String> ligne2 = new ArrayList<>();
-		
-		
-		
-		if (nbrePages < 2) {
-			
-			borneSup = taille - LIGNE;
-		}
-		for (int i = LIGNE; i< borneSup + LIGNE; i++) {
-			
-			ligne2.add(nomsSites.get(i));
-		}
-		model.addAttribute("ligne2", ligne2);
-		
-		List<String> numPages = new ArrayList<>();
-		for (int i=1; i<nbrePages+1; i++){
-			String numPage = String.valueOf(i);
-			System.out.println("num de page: " + numPage);
-			numPages.add(numPage);
-		
-		}
-		model.addAttribute("numPages", numPages);
-		String previous = String.valueOf(page == 1 ? 1 : page - 1);
-		String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);
-		model.addAttribute("numPages", numPages);
-		model.addAttribute("previous", previous);
-		model.addAttribute("next", next);
-		return "galerie";
-	}
-	
-	
+	 * int page = 1; List<String> nomsSites = new ArrayList<>(); List<Site> sites =
+	 * siteRepo.findAll(); for (Site site: sites) { nomsSites.add(site.getNom()); }
+	 * 
+	 * int taille = nomsSites.size(); //taille = taille + 29; // test calcul nbre de
+	 * pages System.out.println("nbre de sites: " + taille); int nbrePages = taille
+	 * / (2 * LIGNE) ; int reste = taille % (2 * LIGNE); int borneSup = LIGNE;
+	 * 
+	 * if (reste != 0) {
+	 * 
+	 * nbrePages++; }
+	 * 
+	 * System.out.println("nbre de pages: " + nbrePages);
+	 * 
+	 * List<String> ligne1 = new ArrayList<>();
+	 * 
+	 * if (taille<LIGNE){
+	 * 
+	 * borneSup = taille; }
+	 * 
+	 * for (int i=0; i<borneSup; i++) {
+	 * 
+	 * ligne1.add(nomsSites.get(i)); }
+	 * 
+	 * model.addAttribute("ligne1", ligne1);
+	 * 
+	 * List<String> ligne2 = new ArrayList<>();
+	 * 
+	 * 
+	 * 
+	 * if (nbrePages < 2) {
+	 * 
+	 * borneSup = taille - LIGNE; } for (int i = LIGNE; i< borneSup + LIGNE; i++) {
+	 * 
+	 * ligne2.add(nomsSites.get(i)); } model.addAttribute("ligne2", ligne2);
+	 * 
+	 * List<String> numPages = new ArrayList<>(); for (int i=1; i<nbrePages+1; i++){
+	 * String numPage = String.valueOf(i); System.out.println("num de page: " +
+	 * numPage); numPages.add(numPage);
+	 * 
+	 * } model.addAttribute("numPages", numPages); String previous =
+	 * String.valueOf(page == 1 ? 1 : page - 1); String next = String.valueOf(page
+	 * == nbrePages ? nbrePages : page + 1); model.addAttribute("numPages",
+	 * numPages); model.addAttribute("previous", previous);
+	 * model.addAttribute("next", next); return "galerie"; }
+	 * 
+	 */
 	@GetMapping("galerie/{page}")
-	public String galeriePage(@PathVariable ("page") int page, Model model) {
+	/**
+	List<String> nomsSites = new ArrayList<>();
+	List<Site> sites = siteRepo.findAll();
+	for (Site site: sites) {
+		nomsSites.add(site.getNom());
+	}
+	
+	int taille = nomsSites.size();   // nombre de sites enregistrés
+	//taille = taille + 29; 		 //    test calcul nbre de pages 
+	System.out.println("nbre de sites: " + taille);
+	int nbrePages = taille / (2 * LIGNE) ;   // nbre de pages pleines
+	int reste = taille % (2 * LIGNE);
+	int borneSup = LIGNE;
+
+	if (reste != 0) {  // il reste des sites en plus des pages pleines
 		
+		nbrePages++;	// page suplémentaire pour les sites restants
+	}
+	
+	int offSet = nbrePages + (page - 1) * 2* LIGNE;
+	
+	System.out.println("nbre de pages: " + nbrePages);
+	
+	List<String> ligne1 = new ArrayList<>();
+	
+	if (taille<LIGNE){
+	
+		borneSup = taille;
+	}
+	
+	for (int i=0; i<borneSup; i++) {
+		
+		ligne1.add(nomsSites.get(i));
+	}
+	
+	model.addAttribute("ligne1", ligne1);
+	
+	List<String> ligne2 = new ArrayList<>();
+	
+	
+	
+	if (taille - ( page * 2 * LIGNE ) < LIGNE) {  // 
+		
+		borneSup = taille - ( page * 2 * LIGNE );
+	}
+	for (int i = LIGNE + offSet; i< borneSup + LIGNE + offSet; i++) {
+		
+		ligne2.add(nomsSites.get(i));
+	}
+	model.addAttribute("ligne2", ligne2);
+	
+	List<String> numPages = new ArrayList<>();
+	for (int i=1; i<nbrePages+1; i++){
+		String numPage = String.valueOf(i);
+		System.out.println("num de page: " + numPage);
+		numPages.add(numPage);
+	
+	}
+	String previous = String.valueOf(page == 1 ? 1 : page - 1);
+	String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);
+	model.addAttribute("numPages", numPages);
+	model.addAttribute("previous", previous);
+	model.addAttribute("next", next);
+	return "galerie";
+	
+	
+	*/
+	
+	//********************
+	public String galeriePage(@PathVariable("page") int page, Model model) {
 		
 		List<String> nomsSites = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
-		for (Site site: sites) {
+		for (Site site : sites) {
 			nomsSites.add(site.getNom());
 		}
-		
-		int taille = nomsSites.size();   // nombre de sites enregistrés
-		//taille = taille + 29; 		 //    test calcul nbre de pages 
+
+		int taille = nomsSites.size(); // nombre de sites enregistrés
+		// taille = taille + 29; // test calcul nbre de pages
 		System.out.println("nbre de sites: " + taille);
-		int nbrePages = taille / (2 * LIGNE) ;   // nbre de pages pleines
-		int reste = taille % (2 * LIGNE);
-		int borneSup = LIGNE;
-	
-		if (reste != 0) {  // il reste des sites en plus des pages pleines
-			
-			nbrePages++;	// page suplémentaire pour les sites restants
+		int nbrePages = taille / (2 * LIGNE); // nbre de pages pleines
+		int reste = taille % (2 * LIGNE);	  // nbre de sites contenus dans page incomplète
+		
+
+		if (reste != 0) { // il reste des sites en plus deceux sur les pages pleines
+
+			nbrePages++; // page suplémentaire pour les sites restants
 		}
-		
-		int offSet = nbrePages + (page - 1) * 2* LIGNE;
-		
+
 		System.out.println("nbre de pages: " + nbrePages);
-		
+		System.out.println("reste: " + reste);
+
 		List<String> ligne1 = new ArrayList<>();
-		
-		if (taille<LIGNE){
-		
-			borneSup = taille;
-		}
-		
-		for (int i=0; i<borneSup; i++) {
-			
-			ligne1.add(nomsSites.get(i));
-		}
-		
-		model.addAttribute("ligne1", ligne1);
-		
 		List<String> ligne2 = new ArrayList<>();
 		
+	
+		int borneInf = (page - 1) *2*LIGNE ;
+		int borneSup = borneInf + LIGNE - 1;
 		
-		
-		if (taille - ( page * 2 * LIGNE ) < LIGNE) {  // 
-			
-			borneSup = taille - ( page * 2 * LIGNE );
+		if (page == nbrePages) { // traitement de la dernière page
+
+			if (reste < LIGNE) {  // Une seule ligne à remplir
+
+				for (int i = borneInf; i <borneInf + reste -1; i++) {
+					System.out.println("indice: " + i);
+					ligne1.add(nomsSites.get(i)); // determiner l'indice i
+				}
+
+			} else {
+				for (int i = borneInf; i < borneSup +1 ; i++) { // Remplissage ligne 1
+					System.out.println("indice: " + i);
+					ligne1.add(nomsSites.get(i)); // determiner l'indice i
+				}
+
+				for (int i = borneInf; i < borneInf + reste -1; i++) { // Remplissage ligne 2
+					System.out.println("indice: " + i);
+					ligne2.add(nomsSites.get(i)); // determiner l'indice i
+				}
+			}
 		}
-		for (int i = LIGNE + offSet; i< borneSup + LIGNE + offSet; i++) {
-			
+		
+
+		for (int i = borneInf; i < borneSup +1 ; i++) { // Remplissage lignes pleines - ligne 1
+
+			ligne1.add(nomsSites.get(i));
+		}
+
+		model.addAttribute("ligne1", ligne1);
+	
+		
+		for (int i = borneInf+LIGNE; i < borneSup+LIGNE +1 ; i++) { // Remplissage lignes pleines - ligne 2
+
 			ligne2.add(nomsSites.get(i));
 		}
+
 		model.addAttribute("ligne2", ligne2);
-		
+
 		List<String> numPages = new ArrayList<>();
-		for (int i=1; i<nbrePages+1; i++){
+		for (int i = 1; i < nbrePages + 1; i++) {  // Définition des numéro de page pour thymeleaf
 			String numPage = String.valueOf(i);
 			System.out.println("num de page: " + numPage);
 			numPages.add(numPage);
-		
+
 		}
-		String previous = String.valueOf(page == 1 ? 1 : page - 1);
-		String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);
+		String previous = String.valueOf(page == 1 ? 1 : page - 1);  // Détermination des numéro de pages  
+		String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);// pour les boutons previous et next
 		model.addAttribute("numPages", numPages);
 		model.addAttribute("previous", previous);
 		model.addAttribute("next", next);
 		return "galerie";
-		
-		
+
 	}
-	
-	
-	// ********   Methodes de test  *****************
-	
+
+	// ******** Methodes de test *****************
+
 	@PostMapping("/ok")
 	public String choixsite(String nomSite) { // Méthode pour test
 
@@ -258,7 +319,7 @@ public class SiteController {
 
 		return "ok";
 	}
-	
+
 	@GetMapping("/selection4")
 	public String resume(Model model) { // Méthode de test
 
@@ -267,23 +328,22 @@ public class SiteController {
 
 		return "selection4";
 	}
-	
+
 	@GetMapping("/nombre")
 	public String nombre(Model model) { // Méthode de test
 
 		List<String> nomsSites = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
-		for (Site site: sites) {
+		for (Site site : sites) {
 			nomsSites.add(site.getNom());
 		}
 		model.addAttribute("nomsSites", nomsSites);
 		return "nombre";
 	}
-	
+
 	@GetMapping("/gal")
 	public String nombre2(Model model) { // Méthode de test
 
-		
 		return "galerie2";
 	}
 }
