@@ -210,7 +210,7 @@ public class SiteController {
 			System.out.println("ligne 2: " + i +" "+ ligne2.get(i));
 		}
 		*/
-		return "galerie";
+		return "galerie3";
 
 	}
 
