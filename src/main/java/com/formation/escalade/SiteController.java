@@ -153,7 +153,7 @@ public class SiteController {
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
 				}
 
-				for (int i = borneInf + LIGNE; i < borneInf + LIGNE + reste; i++) { // Remplissage ligne 2 partiellement
+				for (int i = borneInf + LIGNE; i < borneInf + LIGNE +(reste - LIGNE); i++) { // Remplissage ligne 2 partiellement
 					System.out.println("indice ligne partielle derniere page: " + i);
 					ligne2.add(nomsSites.get(i)); // determiner l'indice i
 				}
