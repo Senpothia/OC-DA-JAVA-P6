@@ -80,16 +80,16 @@ public class SiteController {
 		return "espace";
 	}
 
-	@GetMapping("/visualisersite")
-	public String visualiserSite() {
+	@GetMapping("/structure/{id}")
+	public String structureSite(@PathVariable("id") Integer id) {
 
-		return "site";
+		return "ok";
 	}
 
-	@GetMapping("/modifiersite")
-	public String modifierSite() {
+	@GetMapping("/modifiersite/{id}")
+	public String modifierSite(@PathVariable("id") Integer id) {
 
-		return "index";
+		return "ok";
 	}
 
 	@GetMapping("/choisirsite")
