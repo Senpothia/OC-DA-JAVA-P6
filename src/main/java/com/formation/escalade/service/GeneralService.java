@@ -45,6 +45,7 @@ public class GeneralService{
 	 * private List<Longueur> longueurs;
 	 * 
 	 */
+	final int LIGNE = 5; // nombre de site afficher par ligne de la galerie
 
 	public GeneralService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			CommentaireRepo commentaireRepo) {

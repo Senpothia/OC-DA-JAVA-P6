@@ -26,6 +26,7 @@ import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
 import com.formation.escalade.repository.IUtilisateur;
 import com.formation.escalade.repository.IVoie;
+import com.formation.escalade.service.GeneralService;
 import com.formation.escalade.service.SiteService;
 
 @Controller
