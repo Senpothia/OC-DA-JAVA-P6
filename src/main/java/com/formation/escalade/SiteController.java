@@ -107,109 +107,7 @@ public class SiteController {
 		return "arbre";
 	}
 
-	/**
-	 * @GetMapping("/galerie") public String galerie(Model model) {
-	 * 
-	 * int page = 1; List<String> nomsSites = new ArrayList<>(); List<Site> sites =
-	 * siteRepo.findAll(); for (Site site: sites) { nomsSites.add(site.getNom()); }
-	 * 
-	 * int taille = nomsSites.size(); //taille = taille + 29; // test calcul nbre de
-	 * pages System.out.println("nbre de sites: " + taille); int nbrePages = taille
-	 * / (2 * LIGNE) ; int reste = taille % (2 * LIGNE); int borneSup = LIGNE;
-	 * 
-	 * if (reste != 0) {
-	 * 
-	 * nbrePages++; }
-	 * 
-	 * System.out.println("nbre de pages: " + nbrePages);
-	 * 
-	 * List<String> ligne1 = new ArrayList<>();
-	 * 
-	 * if (taille<LIGNE){
-	 * 
-	 * borneSup = taille; }
-	 * 
-	 * for (int i=0; i<borneSup; i++) {
-	 * 
-	 * ligne1.add(nomsSites.get(i)); }
-	 * 
-	 * model.addAttribute("ligne1", ligne1);
-	 * 
-	 * List<String> ligne2 = new ArrayList<>();
-	 * 
-	 * 
-	 * 
-	 * if (nbrePages < 2) {
-	 * 
-	 * borneSup = taille - LIGNE; } for (int i = LIGNE; i< borneSup + LIGNE; i++) {
-	 * 
-	 * ligne2.add(nomsSites.get(i)); } model.addAttribute("ligne2", ligne2);
-	 * 
-	 * List<String> numPages = new ArrayList<>(); for (int i=1; i<nbrePages+1; i++){
-	 * String numPage = String.valueOf(i); System.out.println("num de page: " +
-	 * numPage); numPages.add(numPage);
-	 * 
-	 * } model.addAttribute("numPages", numPages); String previous =
-	 * String.valueOf(page == 1 ? 1 : page - 1); String next = String.valueOf(page
-	 * == nbrePages ? nbrePages : page + 1); model.addAttribute("numPages",
-	 * numPages); model.addAttribute("previous", previous);
-	 * model.addAttribute("next", next); return "galerie"; }
-	 * 
-	 */
-	@GetMapping("galerie/{page}")
-	/**
-	 * List<String> nomsSites = new ArrayList<>(); List<Site> sites =
-	 * siteRepo.findAll(); for (Site site: sites) { nomsSites.add(site.getNom()); }
-	 * 
-	 * int taille = nomsSites.size(); // nombre de sites enregistrés //taille =
-	 * taille + 29; // test calcul nbre de pages System.out.println("nbre de sites:
-	 * " + taille); int nbrePages = taille / (2 * LIGNE) ; // nbre de pages pleines
-	 * int reste = taille % (2 * LIGNE); int borneSup = LIGNE;
-	 * 
-	 * if (reste != 0) { // il reste des sites en plus des pages pleines
-	 * 
-	 * nbrePages++; // page suplémentaire pour les sites restants }
-	 * 
-	 * int offSet = nbrePages + (page - 1) * 2* LIGNE;
-	 * 
-	 * System.out.println("nbre de pages: " + nbrePages);
-	 * 
-	 * List<String> ligne1 = new ArrayList<>();
-	 * 
-	 * if (taille<LIGNE){
-	 * 
-	 * borneSup = taille; }
-	 * 
-	 * for (int i=0; i<borneSup; i++) {
-	 * 
-	 * ligne1.add(nomsSites.get(i)); }
-	 * 
-	 * model.addAttribute("ligne1", ligne1);
-	 * 
-	 * List<String> ligne2 = new ArrayList<>();
-	 * 
-	 * 
-	 * 
-	 * if (taille - ( page * 2 * LIGNE ) < LIGNE) { //
-	 * 
-	 * borneSup = taille - ( page * 2 * LIGNE ); } for (int i = LIGNE + offSet; i<
-	 * borneSup + LIGNE + offSet; i++) {
-	 * 
-	 * ligne2.add(nomsSites.get(i)); } model.addAttribute("ligne2", ligne2);
-	 * 
-	 * List<String> numPages = new ArrayList<>(); for (int i=1; i<nbrePages+1; i++){
-	 * String numPage = String.valueOf(i); System.out.println("num de page: " +
-	 * numPage); numPages.add(numPage);
-	 * 
-	 * } String previous = String.valueOf(page == 1 ? 1 : page - 1); String next =
-	 * String.valueOf(page == nbrePages ? nbrePages : page + 1);
-	 * model.addAttribute("numPages", numPages); model.addAttribute("previous",
-	 * previous); model.addAttribute("next", next); return "galerie";
-	 * 
-	 * 
-	 */
-
-	// ********************
+	
 	public String galeriePage(@PathVariable("page") int page, Model model) {
 
 		List<String> nomsSites = new ArrayList<>();
@@ -255,7 +153,7 @@ public class SiteController {
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
 				}
 
-				for (int i = borneInf; i < borneInf + reste; i++) { // Remplissage ligne 2 partiellement
+				for (int i = borneInf + LIGNE; i < borneInf + LIGNE + reste; i++) { // Remplissage ligne 2 partiellement
 					System.out.println("indice ligne partielle derniere page: " + i);
 					ligne2.add(nomsSites.get(i)); // determiner l'indice i
 				}
