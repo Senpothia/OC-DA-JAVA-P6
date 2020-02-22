@@ -18,53 +18,73 @@
 <body>
 	<div class="container">
 
-		<!-- ENTETE -->
+		<!-- ENTETE DEBUT-->
 
-		<!-- Entete -->
+
 		<div th:replace="fragments/entete_init :: entete_init"></div>
-		<!-- ---------------- -->
 
-		<!-- ********************************************* -->
+
+		<!-- ENTETE FIN -->
 
 		<!-- IMAGE -->
+
 		<div class="row">
 			<div class="col">
-				<img src="bandeau1.png" alt="" th:src="@{/bandeau1.png}" />
+				<img src="bandeau3.png" alt="Bandeau" th:src="@{/bandeau3.png}" />
 			</div>
 		</div>
 
-		<div class="message row">
-
-			<h1>Liste des commentaires</h1>
-
-		</div>
-		<div class="row">
-
-			<div class="informations col">
-
-				<div th:each="commentaire : ${commentaires}">
-
-					<div class="informations">
-						<p
-							th:text="'Nom: ' + ${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p>
-						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
-						<p th:text="${commentaire.text}"></p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- PIED DE PAGE -->
-
-
-		<div th:replace="fragments/footer :: footer"></div>
-
+		<!-- IMAGE  -->
+		
 		<!-- ********************************************* -->
+		<!-- <div class="container"> -->
+
+		<form th:action="@{/commenter}" method="post"
+			th:object="${comment}">
+			<div class="row">
+
+				<div class="col">
+					<h2>Site</h2>
+
+					<div class="row mr-1 d-flex flex-column informations">
+
+						<strong><p th:text="'Nom:'+ ${site.nom}"></p></strong> <br> <strong><p
+								th:text="'Localisation:'+ ${site.localisation}"></p></strong> <br> <strong><p
+								th:text="'Département:'+ ${site.departement}"></p></strong> <br>
+
+					</div>
 
 
+
+					<h2>Laisser votre commentaire</h2>
+
+					<div class="row">
+
+						<textarea class="form-control" rows="3" name="comment" th:value=${comment}></textarea>
+					</div>
+
+				</div>
+			</div>
+			
+			<div class="row pt-3">
+						
+						<div class="col">
+							<div class="d-flex justify-content-end">
+								<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button type="text" class="bouton btn btn-primary mr-1">Annuler</button></a>
+								<button type="submit" class="bouton btn btn-primary mr-1">Enregistrer</button>		
+								
+								
+							</div>
+						</div>		
+									
+					</div>
+			</form>
+			<!-- PIED DE PAGE -->
+
+				<div th:replace="fragments/footer :: footer"></div>
+
+				<!-- ********************************************* -->
 	</div>
-
-
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

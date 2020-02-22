@@ -3,6 +3,9 @@ package com.formation.escalade;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +23,7 @@ import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
-import com.formation.escalade.repository.CommentaireRepo;
+import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -36,7 +39,8 @@ public class SiteController {
 	private final ISecteur secteurRepo;
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
-	private final CommentaireRepo commentaireRepo;
+	private final ICommentaire commentaireRepo;
+	private final IUtilisateur utilisateurRepo;
 
 	final int LIGNE = 5; // nombre de site afficher par ligne de la galerie
 
@@ -45,15 +49,17 @@ public class SiteController {
 	
 	@Autowired
 	GeneralService generalService;
+	
 
 	public SiteController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			CommentaireRepo commentaireRepo) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
 		this.voieRepo = voieRepo;
 		this.longueurRepo = longueurRepo;
 		this.commentaireRepo = commentaireRepo;
+		this.utilisateurRepo = utilisateurRepo;
 	}
 
 	@GetMapping("/creationsite")
@@ -140,9 +146,39 @@ public class SiteController {
 		Site site = siteRepo.getOne(id);
 		List<Commentaire> commentaires = site.getCommentaires();
 		model.addAttribute("commentaires", commentaires);
+		//model.addAttribute("comment", new String());
 		
 		return "commentaires";
 		
+	}
+	
+	@GetMapping("/commenter/site/{id}")
+	public String commenter(@PathVariable("id") Integer id, Model model, HttpSession session) {
+		
+		Site site = siteRepo.getOne(id);
+		session.setAttribute("IDSITE", id);
+		model.addAttribute("site", site);
+		
+		return "commenter";
+		
+	}
+	
+	@PostMapping("/commenter")
+	public String saveComment(String comment, HttpServletRequest request){
+		
+		System.out.println("Commentaire reçu:" + comment);
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		System.out.println("site id: " + siteId);
+		Commentaire commentaire = new Commentaire();
+		Utilisateur auteur = new Utilisateur();
+		auteur = utilisateurRepo.getOne(1);
+		commentaire.setAuteur(auteur);
+		Site site = siteRepo.getOne(siteId);
+		commentaire.setSite(site);
+		commentaire.setText(comment);
+		commentaireRepo.save(commentaire);
+		
+		return "ok";
 	}
 
 	// ******** Methodes de test *****************

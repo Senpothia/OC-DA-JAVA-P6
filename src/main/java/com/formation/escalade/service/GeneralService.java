@@ -17,7 +17,7 @@ import com.formation.escalade.model.Site;
 import com.formation.escalade.model.LigneSite;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
-import com.formation.escalade.repository.CommentaireRepo;
+import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -38,7 +38,7 @@ public class GeneralService{
 	@Autowired
 	private final ILongueur longueurRepo;
 	@Autowired
-	private final CommentaireRepo commentaireRepo;
+	private final ICommentaire commentaireRepo;
 
 	/**
 	 * private Site site; private List<Secteur> secteurs; private List<Voie> voies;
@@ -48,7 +48,7 @@ public class GeneralService{
 	final int LIGNE = 5; // nombre de site afficher par ligne de la galerie
 
 	public GeneralService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			CommentaireRepo commentaireRepo) {
+			ICommentaire commentaireRepo) {
 		super();
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;

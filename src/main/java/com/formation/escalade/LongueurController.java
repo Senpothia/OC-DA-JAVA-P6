@@ -15,7 +15,7 @@ import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
 import com.formation.escalade.model.Voie;
-import com.formation.escalade.repository.CommentaireRepo;
+import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -31,13 +31,13 @@ public class LongueurController {
 	private final ISecteur secteurRepo;
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
-	private final CommentaireRepo commentaireRepo;
+	private final ICommentaire commentaireRepo;
 
 	@Autowired
 	LongueurService longueurService;
 
 	public LongueurController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			CommentaireRepo commentaireRepo) {
+			ICommentaire commentaireRepo) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
