@@ -146,6 +146,7 @@ public class SiteController {
 		Site site = siteRepo.getOne(id);
 		List<Commentaire> commentaires = site.getCommentaires();
 		model.addAttribute("commentaires", commentaires);
+		model.addAttribute("site", site);
 		//model.addAttribute("comment", new String());
 		
 		return "commentaires";
