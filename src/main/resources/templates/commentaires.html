@@ -12,8 +12,17 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 <title>Les amis de l'escalade</title>
+
+<style>
+.comment { 
+ 
+ 	border: 1px solid ;
+	border-radius: 8px;
+	margin: 10px;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -40,13 +49,13 @@
 		</div>
 		<div class="row">
 
-			<div class="informations col">
+			<div class="col">
 
 				<div th:each="commentaire : ${commentaires}">
 
-					<div class="informations">
-						<p
-							th:text="'Nom: ' + ${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p>
+					<div class="comment">
+						<strong><p
+							th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
 						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
 						<p th:text="${commentaire.text}"></p>
 					</div>
