@@ -80,16 +80,21 @@ public class SiteController {
 		return "espace";
 	}
 
-	@GetMapping("/structure/{id}")
-	public String structureSite(@PathVariable("id") Integer id) {
-
-		return "ok";
+	@GetMapping("/structure/site/{id}")
+	public String structureSite(@PathVariable("id") Integer id, Model model) {
+		
+		Site site = siteRepo.getOne(id);
+		System.out.println("Nom du site: " + site.getNom());
+		model.addAttribute("site", site);
+		return "structure";
 	}
 
 	@GetMapping("/modifiersite/{id}")
-	public String modifierSite(@PathVariable("id") Integer id) {
-
-		return "ok";
+	public String modifierSite(@PathVariable("id") Integer id, Model model) {
+		
+		Site site = siteRepo.getOne(id);
+		model.addAttribute("site",site);
+		return "arbre";
 	}
 
 	@GetMapping("/choisirsite")
@@ -210,8 +215,9 @@ public class SiteController {
 			System.out.println("ligne 2: " + i +" "+ ligne2.get(i));
 		}
 		*/
+		
 		return "galerie";
-
+		//return "galerie_lienText";
 	}
 	
 	@GetMapping("/viewsite/{nomSite}")
