@@ -89,7 +89,7 @@ public class SiteController {
 		return "structure";
 	}
 
-	@GetMapping("/modifiersite/{id}")
+	@GetMapping("/modifier/site/{id}")
 	public String modifierSite(@PathVariable("id") Integer id, Model model) {
 		
 		Site site = siteRepo.getOne(id);
@@ -120,102 +120,6 @@ public class SiteController {
 	public String galeriePage(@PathVariable("page") int page, Model model) {
 		
 		generalService.pagination(page, model);
-		/**
-		List<String> nomsSites = new ArrayList<>();
-		List<Site> sites = siteRepo.findAll();
-		for (Site site : sites) {
-			nomsSites.add(site.getNom());
-		}
-
-		int taille = nomsSites.size(); // nombre de sites enregistrés
-		// taille = taille + 29; // test calcul nbre de pages
-		System.out.println("nbre de sites: " + taille);
-		int nbrePages = taille / (2 * LIGNE); // nbre de pages pleines
-		int reste = taille % (2 * LIGNE); // nbre de sites contenus dans page incomplète
-
-		if (reste != 0) { // il reste des sites en plus deceux sur les pages pleines
-
-			nbrePages++; // page suplémentaire pour les sites restants
-		}
-
-		System.out.println("nbre de pages: " + nbrePages);
-		System.out.println("reste: " + reste);
-
-		List<String> ligne1 = new ArrayList<>();
-		List<String> ligne2 = new ArrayList<>();
-
-		int borneInf = (page - 1) * 2 * LIGNE;
-		int borneSup = borneInf + LIGNE - 1;
-
-		if (page == nbrePages) { // traitement de la dernière page
-
-			System.out.println("Traitement derniere page ");
-
-			if (reste < LIGNE) { // Une seule ligne à remplir
-
-				for (int i = borneInf; i < borneInf + reste; i++) {
-					System.out.println("indice ligne partielle unique derniere page: " + i);
-					ligne1.add(nomsSites.get(i)); // determiner l'indice i
-				}
-
-			} else {		// Deux lignes à remplir
-				for (int i = borneInf; i < borneSup + 1; i++) { // Remplissage ligne 1 normalement
-					System.out.println("indice ligne pleine deniere page: " + i);
-					ligne1.add(nomsSites.get(i)); // determiner l'indice i
-				}
-
-				for (int i = borneInf + LIGNE; i < borneInf + LIGNE +(reste - LIGNE); i++) { // Remplissage ligne 2 partiellement
-					System.out.println("indice ligne partielle derniere page: " + i);
-					ligne2.add(nomsSites.get(i)); // determiner l'indice i
-				}
-			}
-			
-			model.addAttribute("ligne1", ligne1);
-			model.addAttribute("ligne2", ligne2);
-			
-		} // fin traitement de la dernière page
-
-		if (page < nbrePages || reste == 0) { // traitement page pleine
-
-			for (int i = borneInf; i < borneSup + 1; i++) { // Remplissage lignes pleines - ligne 1
-				System.out.println("indice ligne pleine: " + i);
-				ligne1.add(nomsSites.get(i));
-			}
-
-			model.addAttribute("ligne1", ligne1);
-
-			for (int i = borneInf + LIGNE; i < borneSup + LIGNE + 1; i++) { // Remplissage lignes pleines - ligne 2
-				System.out.println("indice ligne pleine: " + i);
-				ligne2.add(nomsSites.get(i));
-			}
-
-			model.addAttribute("ligne2", ligne2);
-		} // fin traitement ligne pleine
-
-		List<String> numPages = new ArrayList<>();
-		for (int i = 1; i < nbrePages + 1; i++) { // Définition des numéro de page pour thymeleaf
-			String numPage = String.valueOf(i);
-			System.out.println("num de page thymeleaf pour pagination : " + numPage);
-			numPages.add(numPage);
-
-		}
-		String previous = String.valueOf(page == 1 ? 1 : page - 1); // Détermination des numéro de pages
-		String next = String.valueOf(page == nbrePages ? nbrePages : page + 1);// pour les boutons previous et next
-		model.addAttribute("numPages", numPages);
-		model.addAttribute("previous", previous);
-		model.addAttribute("next", next);
-
-		for (int i = 0; i < ligne1.size(); i++) {
-
-			System.out.println("ligne 1: " + i +" " + ligne1.get(i));
-		}
-
-		for (int i = 0; i < ligne2.size(); i++) {
-
-			System.out.println("ligne 2: " + i +" "+ ligne2.get(i));
-		}
-		*/
-		
 		return "galerie";
 		//return "galerie_lienText";
 	}
