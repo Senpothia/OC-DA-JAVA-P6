@@ -106,5 +106,11 @@ a:hover {
 	
 }
 
-
+.commentaire{
+	
+			
+			border-radius: 5px;
+			border: 1px solid ;
+			padding: 5px 5px;
+}
 

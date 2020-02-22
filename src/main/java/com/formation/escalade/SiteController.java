@@ -133,6 +133,17 @@ public class SiteController {
 		return"site";
 		
 	}
+	
+	@GetMapping("/commentaires/site/{id}")
+	public String getComments(@PathVariable("id") Integer id, Model model) {
+		
+		Site site = siteRepo.getOne(id);
+		List<Commentaire> commentaires = site.getCommentaires();
+		model.addAttribute("commentaires", commentaires);
+		
+		return "commentaires";
+		
+	}
 
 	// ******** Methodes de test *****************
 
