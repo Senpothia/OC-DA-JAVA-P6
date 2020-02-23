@@ -1,11 +1,55 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/styles.css">
+<title>Les amis de l'escalade</title>
+
+<style>
+.comment { 
+ 
+ 	border: 1px solid ;
+	border-radius: 8px;
+	margin: 10px;
+	
+}
+
+</style>
 </head>
 <body>
-  <h1>OK!</h1>
-   
+
+	<div class="container">
+
+		<!-- ENTETE DEBUT-->
+
+
+		<div th:replace="fragments/entete_init :: entete_init"></div>
+
+
+		<!-- ENTETE FIN -->
+
+
+		<h1>OK!</h1>
+		<a href="#" class="text-primary">Modifier</a>
+		<a href="#" class="text-primary">Primary link</a>
+		
+		<!-- PIED DE PAGE -->
+
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+	</div>
 </body>
 </html>

@@ -218,4 +218,12 @@ public class SiteController {
 
 		return "galerie2";
 	}
+	
+	@GetMapping("/ok")
+	public String ok() { // Méthode pour test
+
+		
+
+		return "ok";
+	}
 }

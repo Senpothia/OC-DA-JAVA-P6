@@ -16,11 +16,12 @@
 <title>Les amis de l'escalade</title>
 
 <style>
-.comment { 
- 
- 	border: 1px solid ;
+.comment {
+	border: 1px solid;
 	border-radius: 8px;
 	margin: 10px;
+	color: black;
+}
 }
 </style>
 </head>
@@ -43,39 +44,48 @@
 		</div>
 
 		<div class="message row">
-
-			<h1>Liste des commentaires</h1>
-
+			<div class="col">
+				<h1>Liste des commentaires</h1>
+				<h2 th:text=${site.nom}></h2>
+			</div>
 		</div>
 		<div class="row">
 
 			<div class="col">
 
-				<div th:each="commentaire : ${commentaires}">
+				<div th:each="commentaire, iStat  : ${commentaires}">
+
 
 					<div class="comment">
 						<strong><p
-							th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
+								th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
 						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
 						<p th:text="${commentaire.text}"></p>
+
+						<div class="row justify-content-end" style="margin-right: 10px;">
+							<a style="margin-right: 10px;"
+								th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
+								class="text-primary">Supprimer</a> <a
+								th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
+								class="text-primary">Modifier</a>
+						</div>
 					</div>
+
 				</div>
 
 			</div>
 		</div>
-		
+
 		<div class="row pt-3">
-						
-						<div class="col">
-							<div class="d-flex justify-content-end">
-								<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button type="text" class="bouton btn btn-primary mr-1">Retour</button></a>
-									
-								
-								
-							</div>
-						</div>		
-									
-					</div>
+
+			<div class="col">
+				<div class="d-flex justify-content-end">
+					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button
+							type="text" class="bouton btn btn-primary mr-1">Retour</button></a>
+				</div>
+			</div>
+
+		</div>
 		<!-- PIED DE PAGE -->
 
 
