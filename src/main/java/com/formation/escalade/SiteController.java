@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.FormSite;
@@ -46,10 +47,9 @@ public class SiteController {
 
 	@Autowired
 	SiteService siteService;
-	
+
 	@Autowired
 	GeneralService generalService;
-	
 
 	public SiteController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo) {
@@ -88,7 +88,7 @@ public class SiteController {
 
 	@GetMapping("/structure/site/{id}")
 	public String structureSite(@PathVariable("id") Integer id, Model model) {
-		
+
 		Site site = siteRepo.getOne(id);
 		System.out.println("Nom du site: " + site.getNom());
 		model.addAttribute("site", site);
@@ -97,9 +97,9 @@ public class SiteController {
 
 	@GetMapping("/modifier/site/{id}")
 	public String modifierSite(@PathVariable("id") Integer id, Model model) {
-		
+
 		Site site = siteRepo.getOne(id);
-		model.addAttribute("site",site);
+		model.addAttribute("site", site);
 		return "arbre";
 	}
 
@@ -124,49 +124,49 @@ public class SiteController {
 
 	@GetMapping("/galerie/{page}")
 	public String galeriePage(@PathVariable("page") int page, Model model) {
-		
+
 		generalService.pagination(page, model);
 		return "galerie";
-		//return "galerie_lienText";
+		// return "galerie_lienText";
 	}
-	
+
 	@GetMapping("/viewsite/{nomSite}")
-	public String vueSite(@PathVariable("nomSite") String nomSite, Model model){
-		
+	public String vueSite(@PathVariable("nomSite") String nomSite, Model model) {
+
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
-		
-		return"site";
-		
+
+		return "site";
+
 	}
-	
+
 	@GetMapping("/commentaires/site/{id}")
 	public String getComments(@PathVariable("id") Integer id, Model model) {
-		
+
 		Site site = siteRepo.getOne(id);
 		List<Commentaire> commentaires = site.getCommentaires();
 		model.addAttribute("commentaires", commentaires);
 		model.addAttribute("site", site);
-		//model.addAttribute("comment", new String());
-		
+		// model.addAttribute("comment", new String());
+
 		return "commentaires";
-		
+
 	}
-	
+
 	@GetMapping("/commenter/site/{id}")
 	public String commenter(@PathVariable("id") Integer id, Model model, HttpSession session) {
-		
+
 		Site site = siteRepo.getOne(id);
 		session.setAttribute("IDSITE", id);
 		model.addAttribute("site", site);
-		
+
 		return "commenter";
-		
+
 	}
-	
+
 	@PostMapping("/commenter")
-	public String saveComment(String comment, HttpServletRequest request){
-		
+	public String saveComment(String comment, HttpServletRequest request) {
+
 		System.out.println("Commentaire reçu:" + comment);
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		System.out.println("site id: " + siteId);
@@ -178,14 +178,51 @@ public class SiteController {
 		commentaire.setSite(site);
 		commentaire.setText(comment);
 		commentaireRepo.save(commentaire);
-		
+
 		return "ok";
 	}
 
-	// ******** Methodes de test *****************
+	@GetMapping("/commentaire/supprimer/comment")
+	public String supprimerCommentaire(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num) {
 
-	@PostMapping("/ok")
-	public String choixsite(String nomSite) { // Méthode pour test
+		Site site = siteRepo.getOne(siteId);
+		List<Commentaire> commentaires = site.getCommentaires();
+		Commentaire commentaire = commentaires.get(num);
+		System.out.println(commentaire.getText());
+		commentaireRepo.delete(commentaire);
+		return "ok";
+	}
+
+	@GetMapping("/commentaire/modifier/comment")
+	public String modifierCommentaire(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
+			HttpSession session) {
+		session.setAttribute("IDSITE", siteId);
+		Site site = siteRepo.getOne(siteId);
+		List<Commentaire> commentaires = site.getCommentaires();
+		Commentaire commentaire = commentaires.get(num);
+		System.out.println(commentaire.getText());
+		model.addAttribute("commentaire", commentaire);
+		String comment = commentaire.getText();
+		session.setAttribute("COMMENT", commentaire);
+		model.addAttribute("site", site);
+		model.addAttribute("comment", comment);
+		return "modifiercommentaire";
+	}
+
+	@PostMapping("/commentaire/modification")
+
+	public String modificationCommentaire(String comment, HttpServletRequest request) {
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		Commentaire commentaire = (Commentaire) request.getSession().getAttribute("COMMENT");
+		System.out.println(comment);
+		commentaire.setText(comment);
+		commentaireRepo.save(commentaire);
+		return "ok";
+	}
+
+	// ******** Methodes de test *****************************************************
+
+	@PostMapping("/ok") public String choixsite(String nomSite) { // Méthode pour test
 
 		System.out.println("Site choisi: " + nomSite);
 
@@ -218,11 +255,9 @@ public class SiteController {
 
 		return "galerie2";
 	}
-	
+
 	@GetMapping("/ok")
 	public String ok() { // Méthode pour test
-
-		
 
 		return "ok";
 	}
