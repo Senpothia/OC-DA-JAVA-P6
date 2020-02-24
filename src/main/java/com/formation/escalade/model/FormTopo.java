@@ -16,13 +16,14 @@ public FormTopo() {
 	// TODO Auto-generated constructor stub
 }
 
-public FormTopo(String nomSite, String nom, String description, String lieu, Date date) {
+public FormTopo(String nomSite, String nom, String description, String lieu, Date date, boolean disponibilite) {
 	super();
 	this.nomSite = nomSite;
 	this.nom = nom;
 	this.description = description;
 	this.lieu = lieu;
 	this.date = date;
+	this.disponibilite = disponibilite;
 }
 
 public String getNomSite() {
@@ -65,5 +66,12 @@ public void setDate(Date date) {
 	this.date = date;
 }
 
+public boolean isDisponibilite() {
+	return disponibilite;
+}
+
+public void setDisponibilite(boolean disponibilite) {
+	this.disponibilite = disponibilite;
+}
 
 }

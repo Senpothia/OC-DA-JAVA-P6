@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.FormTopo;
 import com.formation.escalade.model.GroupeSite;
 import com.formation.escalade.model.LigneSite;
 import com.formation.escalade.model.Longueur;
