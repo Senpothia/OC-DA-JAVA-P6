@@ -70,6 +70,8 @@ public class TopoController {
 	@GetMapping("/creationtopo")
 	public String creationTopo(Model model){
 		
+		List<Site> sites = siteRepo.findAll();
+		model.addAttribute("sites", sites);
 		model.addAttribute("formTopo", new FormTopo());
 	
 		return "creation_topo";
