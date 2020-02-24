@@ -74,4 +74,12 @@ public void setDisponibilite(boolean disponibilite) {
 	this.disponibilite = disponibilite;
 }
 
+@Override
+public String toString() {
+	return "FormTopo [nomSite=" + nomSite + ", nom=" + nom + ", description=" + description + ", lieu=" + lieu
+			+ ", date=" + date + ", disponibilite=" + disponibilite + "]";
+}
+
+
+
 }
