@@ -81,6 +81,17 @@ public class TopoController {
 	public String retourFormTopo(FormTopo formTopo){
 	
 		System.out.println(formTopo.toString());
+		Topo topo = new Topo();
+		topo.setNom(formTopo.getNom());
+		topo.setDescription(formTopo.getDescription());
+		topo.setLieux(formTopo.getLieu());
+		topo.SetDate(formTopo.getDate());
+		topo.setDisponibilite(formTopo.getDisponibilite());
+		Site site = siteRepo.findByNom(nomSite);
+		Integer id = site.getId();
+		topo.setId_site(id);
+		topo.setId_utilisateur(1);
+		topoRepo.save(topo);
 		return "ok"; 
 	}
   
