@@ -6,6 +6,9 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 @Entity
 public class Topo {
 
@@ -14,8 +17,11 @@ public class Topo {
 	private Integer id;
 	private boolean disponible;
 	private Utilisateur proprietaire;
+	@OneToMany(mappedBy="site")   // corriger mappedby...
 	private List<Utilisateur> demandeurs;
+	@OneToOne
 	private Utilisateur emprunteur;
+	@OneToOne
 	private Site site;
 	
 	public Topo() {
