@@ -67,13 +67,13 @@ ul, #myUL {
 
 		<div class="row">
 			<div class="col">
-				<img src="bandeau3.png" alt="" th:src="@{/bandeau3.png}" />
+				<img src="bandeau3.png" alt="" th:src="@{/bandeau3.png}"/>
 			</div>
 		</div>
 
 		<div class="row d-flex justify-content-center">
 			<h2 class="mt-2"
-				th:text="'Modification du site : ' + ${site.getNom()}"></h2>
+				th:text="'Structure du site : ' + ${site.getNom()}"></h2>
 		</div>
 		<div class=row>
 			<div class="col-4">
@@ -107,57 +107,20 @@ ul, #myUL {
 
 			</div>
 
-			<div class="col-4 mt-5">
-
-
-
-
-
-				<div class="form-group">
-					<a href="/modifiersecteur"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Modifier
-							un secteur</p></a>
-				</div>
-
-
-
-				<div class="form-group">
-					<a href="/modifiervoie"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Modifier
-							une voie</p></a>
-				</div>
-
-
-				<div class="form-group">
-					<a href="/modifierlongueur"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Modifier
-							une longueur</p></a>
-				</div>
-			</div>
+			
 
 			<div class="col-4 mt-5">
 
+				
+
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/secteurs'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							secteur</p></a>
+					<a th:href="@{/modifiersite/site/{id}(id=${site.id})}"><p type="text"
+							class="btn btn-primary btn-block" style="width: 350px;">Modifier</p></a>
 				</div>
 
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/voies'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							voie</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/longueurs'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							longueur</p></a>
-				</div>
-
-				<div class="form-group">
-					<a href="/espace"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
+					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p type="text"
+							class="btn btn-primary btn-block" style="width: 350px;">Retour</p></a>
 				</div>
 
 
