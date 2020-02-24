@@ -67,7 +67,9 @@ public class TopoController {
 	}
 	
 	@GetMapping("/creationtopo")
-	public String creationTopo(){
+	public String creationTopo(Model model){
+		
+		model.addAttribute("formTopo", new FormTopo());
 	
 	return "creation_topo";
 	}
