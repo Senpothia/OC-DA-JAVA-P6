@@ -72,7 +72,14 @@ public class TopoController {
 		
 		model.addAttribute("formTopo", new FormTopo());
 	
-	return "creation_topo";
+		return "creation_topo";
+	}
+	
+	@PostMapping("/creationtopo")
+	public String retourFormTopo(FormTopo formTopo){
+	
+		system.out.println(formTopo.toString());
+		return "ok"; 
 	}
   
   }
