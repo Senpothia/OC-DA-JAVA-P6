@@ -78,7 +78,7 @@ public class TopoController {
 	@PostMapping("/creationtopo")
 	public String retourFormTopo(FormTopo formTopo){
 	
-		system.out.println(formTopo.toString());
+		System.out.println(formTopo.toString());
 		return "ok"; 
 	}
   
