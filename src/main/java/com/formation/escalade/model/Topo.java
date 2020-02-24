@@ -1,6 +1,7 @@
 package com.formation.escalade.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,77 +12,74 @@ public class Topo {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	private String nom;
-	private String description;
-	private String lieux;
-	private Date date;
 	private boolean disponible;
-	private Integer id_utilisateur;
-	private Integer id_site;
+	private Utilisateur proprietaire;
+	private List<Utilisateur> demandeurs;
+	private Utilisateur emprunteur;
+	private Site site;
+	
 	public Topo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Topo(Integer id, String nom, String description, String lieux, Date date, boolean disponible,
-			Integer id_utilisateur, Integer id_site) {
+
+	public Topo(Integer id, boolean disponible, Utilisateur proprietaire, List<Utilisateur> demandeurs,
+			Utilisateur emprunteur, Site site) {
 		super();
 		this.id = id;
-		this.nom = nom;
-		this.description = description;
-		this.lieux = lieux;
-		this.date = date;
 		this.disponible = disponible;
-		this.id_utilisateur = id_utilisateur;
-		this.id_site = id_site;
+		this.proprietaire = proprietaire;
+		this.demandeurs = demandeurs;
+		this.emprunteur = emprunteur;
+		this.site = site;
 	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getLieux() {
-		return lieux;
-	}
-	public void setLieux(String lieux) {
-		this.lieux = lieux;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
+
 	public boolean isDisponible() {
 		return disponible;
 	}
+
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
-	public Integer getId_utilisateur() {
-		return id_utilisateur;
+
+	public Utilisateur getProprietaire() {
+		return proprietaire;
 	}
-	public void setId_utilisateur(Integer id_utilisateur) {
-		this.id_utilisateur = id_utilisateur;
+
+	public void setProprietaire(Utilisateur proprietaire) {
+		this.proprietaire = proprietaire;
 	}
-	public Integer getId_site() {
-		return id_site;
+
+	public List<Utilisateur> getDemandeurs() {
+		return demandeurs;
 	}
-	public void setId_site(Integer id_site) {
-		this.id_site = id_site;
+
+	public void setDemandeurs(List<Utilisateur> demandeurs) {
+		this.demandeurs = demandeurs;
 	}
-	
+
+	public Utilisateur getEmprunteur() {
+		return emprunteur;
+	}
+
+	public void setEmprunteur(Utilisateur emprunteur) {
+		this.emprunteur = emprunteur;
+	}
+
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
 	
 }

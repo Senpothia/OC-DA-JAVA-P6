@@ -257,7 +257,7 @@ public class SiteController {
 	}
 
 	@GetMapping("/ok")
-	public String ok() { // Méthode pour test
+	public String ok() { // Méthode de test
 
 		return "ok";
 	}
