@@ -62,7 +62,13 @@ public class TopoController {
 		this.longueurRepo = longueurRepo;
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
-    this.topoRepo = topoRepo;
+    		this.topoRepo = topoRepo;
+	}
+	
+	@GetMapping("/creationtopo")
+	public String creationTopo(){
+	
+	return "creation_topo";
 	}
   
   }
