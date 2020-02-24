@@ -23,6 +23,7 @@ import com.formation.escalade.model.LigneSite;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
@@ -84,15 +85,45 @@ public class TopoController {
 		Topo topo = new Topo();
 		topo.setNom(formTopo.getNom());
 		topo.setDescription(formTopo.getDescription());
-		topo.setLieux(formTopo.getLieu());
-		topo.SetDate(formTopo.getDate());
-		topo.setDisponibilite(formTopo.getDisponibilite());
-		Site site = siteRepo.findByNom(nomSite);
+		topo.setLieu(formTopo.getLieu());
+		topo.setDate(formTopo.getDate());
+		topo.setDisponible(formTopo.isDisponibilite());
+		Site site = siteRepo.findByNom(formTopo.getNomSite());
 		Integer id = site.getId();
 		topo.setId_site(id);
 		topo.setId_utilisateur(1);
 		topoRepo.save(topo);
 		return "ok"; 
+	}
+	
+	@GetMapping("/choisirtopo")
+	public String selectionSiteTopo (Model model) {
+		
+		List<Site> sites = siteRepo.findAll();
+		model.addAttribute("sites", sites);
+		String nomSite = new String();
+		model.addAttribute("nomSite", nomSite);
+	
+		return"choisirtopo";
+		
+	}
+	
+	@PostMapping("/choisirtopo")
+	public String choixSite(String nomSite, Model model) {
+		
+		System.out.println(nomSite);
+		Site site = siteRepo.findByNom(nomSite);
+		Integer id_site = site.getId();
+		List<Topo> topos = topoRepo.findByIdSite(id_site);
+		//List<Topo> topos = topoRepo.findByLieu("Mantes");
+		for (int i=0; i<topos.size();i++) {
+			
+			System.out.println("Visu topo: " + topos.get(i).toString());
+		}
+		
+		model.addAttribute("topos", topos);
+
+		return "ok";
 	}
   
   }

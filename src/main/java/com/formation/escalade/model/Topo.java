@@ -13,26 +13,26 @@ public class Topo {
 	private Integer id;
 	private String nom;
 	private String description;
-	private String lieux;
+	private String lieu;
 	private Date date;
 	private boolean disponible;
-	private Integer id_utilisateur;
-	private Integer id_site;
+	private Integer idUtilisateur;
+	private Integer idSite;
 	public Topo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Topo(Integer id, String nom, String description, String lieux, Date date, boolean disponible,
-			Integer id_utilisateur, Integer id_site) {
+	public Topo(Integer id, String nom, String description, String lieu, Date date, boolean disponible,
+			Integer id_utilisateur, Integer idSite) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.description = description;
-		this.lieux = lieux;
+		this.lieu = lieu;
 		this.date = date;
 		this.disponible = disponible;
-		this.id_utilisateur = id_utilisateur;
-		this.id_site = id_site;
+		this.idUtilisateur = id_utilisateur;
+		this.idSite = idSite;
 	}
 	public Integer getId() {
 		return id;
@@ -52,11 +52,11 @@ public class Topo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getLieux() {
-		return lieux;
+	public String getLieu() {
+		return lieu;
 	}
-	public void setLieux(String lieux) {
-		this.lieux = lieux;
+	public void setLieu(String lieux) {
+		this.lieu = lieux;
 	}
 	public Date getDate() {
 		return date;
@@ -71,16 +71,21 @@ public class Topo {
 		this.disponible = disponible;
 	}
 	public Integer getId_utilisateur() {
-		return id_utilisateur;
+		return idUtilisateur;
 	}
 	public void setId_utilisateur(Integer id_utilisateur) {
-		this.id_utilisateur = id_utilisateur;
+		this.idUtilisateur = id_utilisateur;
 	}
 	public Integer getId_site() {
-		return id_site;
+		return idSite;
 	}
 	public void setId_site(Integer id_site) {
-		this.id_site = id_site;
+		this.idSite = id_site;
+	}
+	@Override
+	public String toString() {
+		return "Topo [id=" + id + ", nom=" + nom + ", description=" + description + ", lieu=" + lieu + ", date=" + date
+				+ ", disponible=" + disponible + ", idUtilisateur=" + idUtilisateur + ", idSite=" + idSite + "]";
 	}
 	
 	
