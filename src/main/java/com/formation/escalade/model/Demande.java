@@ -15,6 +15,9 @@ public class Demande {
 	//private Integer idTopo;
 	//private Integer idUtilisateur;
 	
+	@ManyToMany(mappedBy = "demandes")
+	List<Utilisateur> utilisateurs;
+	
 	public Demande() {
 		super();
 		// TODO Auto-generated constructor stub
