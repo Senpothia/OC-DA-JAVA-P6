@@ -161,8 +161,8 @@ public class TopoController {
 		Topo topo = topos.get(num);
 		System.out.println("Visu topo à reserver: " + topo.toString());
 		Demande demande = new Demande();
-		demande.setId_utilisateur(1);
-		demande.setId_topo(topo.getId());
+		demande.setIdUtilisateur(1);
+		demande.setIdTopo(topo.getId());
 		demandeRepo.save(demande);
 	
 		return "ok";
