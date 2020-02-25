@@ -146,5 +146,11 @@ public class TopoController {
 
 		return "topos";
 	}
+	
+	@GetMapping("/reservation")
+	public String reservation(){
+	
+	return "ok";
+	}
 
 }
