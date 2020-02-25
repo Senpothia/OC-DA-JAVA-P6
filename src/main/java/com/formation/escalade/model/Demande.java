@@ -11,6 +11,9 @@ public class Demande {
 	private Integer id;
 	private Integer id_topo;
 	private Integer id_utilisateur;
+	private Integer idTopo;
+	private Integer idUtilisateur;
+	
 	
 	
 	public Demande() {
