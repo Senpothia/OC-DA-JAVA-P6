@@ -153,7 +153,7 @@ public class TopoController {
 		
 		System.out.println("Id site: " + siteId);
 		System.out.println("num top: " + num);
-		List<Topo> topos = topoRepo.findByIdSite(id_site);
+		List<Topo> topos = topoRepo.findByIdSite(siteId);
 		Topo topo = topos.get(num);
 		System.out.println("Visu topo à reserver: " + topo.toString());
 		
