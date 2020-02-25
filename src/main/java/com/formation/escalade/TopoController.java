@@ -161,8 +161,8 @@ public class TopoController {
 		Topo topo = topos.get(num);
 		System.out.println("Visu topo à reserver: " + topo.toString());
 		Demande demande = new Demande();
-		demande.setIdUtilisateur(1);
-		demande.setIdTopo(topo.getId());
+		demande.setId_utilisateur(1);
+		demande.setId_topo(topo.getId());
 		demandeRepo.save(demande);
 	
 		return "ok";
@@ -171,8 +171,8 @@ public class TopoController {
 	@GetMapping("/reservation/liste/{id}")
 	public String listerReservation (@PathVariable("id") Integer id, Model model){
 		
-		List<Demande> demandes = demandeRepo.findByIdUtilisateur(id);
-		System.out.println("Nbre de demande" + demandes.size());
+		//List<Demande> demandes = demandeRepo.findByIdUtilisateur(id);
+		//System.out.println("Nbre de demande" + demandes.size());
 	
 		return "ok";
 	}

@@ -18,6 +18,7 @@ public class Topo {
 	private boolean disponible;
 	private Integer idUtilisateur;
 	private Integer idSite;
+	
 	public Topo() {
 		super();
 		// TODO Auto-generated constructor stub

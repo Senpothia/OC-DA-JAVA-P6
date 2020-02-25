@@ -9,6 +9,6 @@ import com.formation.escalade.model.Demande;
 
 public interface IDemande extends JpaRepository <Demande, Integer>{
 
-	List<Demande> findByIdUtilisateur(Integer id_utilisateur);
+	//List<Demande> findByIdUtilisateur(Integer id_utilisateur);
 
 }
