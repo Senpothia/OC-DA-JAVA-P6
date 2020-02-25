@@ -37,7 +37,6 @@ import com.formation.escalade.repository.IVoie;
 import com.formation.escalade.service.GeneralService;
 import com.formation.escalade.service.SiteService;
 
-
 @Controller
 public class TopoController {
 
@@ -47,15 +46,13 @@ public class TopoController {
 	private final ILongueur longueurRepo;
 	private final ICommentaire commentaireRepo;
 	private final IUtilisateur utilisateurRepo;
-  private final ITopo topoRepo;
+	private final ITopo topoRepo;
 
 	/**
-  @Autowired
-	SiteService siteService;
-
-	@Autowired
-	GeneralService generalService;
-  */
+	 * @Autowired SiteService siteService;
+	 * 
+	 * @Autowired GeneralService generalService;
+	 */
 
 	public TopoController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo) {
@@ -66,22 +63,22 @@ public class TopoController {
 		this.longueurRepo = longueurRepo;
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
-    		this.topoRepo = topoRepo;
+		this.topoRepo = topoRepo;
 	}
-	
+
 	@GetMapping("/creationtopo")
-	public String creationTopo(Model model){
-		
+	public String creationTopo(Model model) {
+
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		model.addAttribute("formTopo", new FormTopo());
-	
+
 		return "creation_topo";
 	}
-	
+
 	@PostMapping("/creationtopo")
-	public String retourFormTopo(FormTopo formTopo){
-	
+	public String retourFormTopo(FormTopo formTopo) {
+
 		System.out.println(formTopo.toString());
 		Topo topo = new Topo();
 		topo.setNom(formTopo.getNom());
@@ -94,48 +91,60 @@ public class TopoController {
 		topo.setId_site(id);
 		topo.setIdUtilisateur(1);
 		topoRepo.save(topo);
-		return "ok"; 
+		return "ok";
 	}
-	
+
 	@GetMapping("/choisirtopo")
-	public String selectionSiteTopo (Model model) {
-		
+	public String selectionSiteTopo(Model model) {
+
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
 		model.addAttribute("nomSite", nomSite);
-	
-		return"choisirtopo";
-		
+
+		return "choisirtopo";
+
 	}
-	
+
 	@PostMapping("/choisirtopo")
 	public String choixSite(String nomSite, Model model) {
-		
+
 		System.out.println(nomSite);
 		Site site = siteRepo.findByNom(nomSite);
 		Integer id_site = site.getId();
 		List<Topo> topos = topoRepo.findByIdSite(id_site);
 		List<String> noms = new ArrayList<>();
 		List<String> prenoms = new ArrayList<>();
-		for (int i=0; i<topos.size(); i++) {
+		for (int i = 0; i < topos.size(); i++) {
 			Integer id = topos.get(i).getIdUtilisateur();
-			Utilisateur  proprietaire = utilisateurRepo.getOne(id);
+			Utilisateur proprietaire = utilisateurRepo.getOne(id);
 			noms.add(proprietaire.getNom());
 			prenoms.add(proprietaire.getPrenom());
-			
+
 		}
-		//List<Topo> topos = topoRepo.findByLieu("Mantes");
-		for (int i=0; i<topos.size(); i++) {
-			
+		// List<Topo> topos = topoRepo.findByLieu("Mantes");
+		for (int i = 0; i < topos.size(); i++) {
+
 			System.out.println("Visu topo: " + topos.get(i).toString());
 		}
-		
+
+			for (int i = 0; i < noms.size(); i++) {
+
+			System.out.println("nom: " + noms.get(i));
+		}
+			
+			for (int i = 0; i < prenoms.size(); i++) {
+
+				System.out.println("prenom: " + prenoms.get(i));
+			}
+
+
 		model.addAttribute("noms", noms);
 		model.addAttribute("prenoms", prenoms);
 		model.addAttribute("topos", topos);
+		model.addAttribute("site", site);
 
-		return "ok";
+		return "topos";
 	}
-  
-  }
+
+}

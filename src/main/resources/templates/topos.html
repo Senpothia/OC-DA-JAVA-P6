@@ -58,16 +58,20 @@
 
 					<div class="comment">
 						<strong><p
-								th:text="${nom.getIdUtilisateur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
+								  th:text="${prenoms.get(iStat.index)}+ ' ' + ${noms.get(iStat.index)}"></p></strong> 
 						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
-						<p th:text="${commentaire.text}"></p>
+						<p th:text="${topo.nom}"></p>
+						<p th:text="${topo.lieu}"></p>
+						<p th:text="${topo.description}"></p>
 
 						<div class="row justify-content-end" style="margin-right: 10px;">
+						<!--
 							<a style="margin-right: 10px;"
 								th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
 								class="text-primary">Supprimer</a> <a
 								th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
 								class="text-primary">Modifier</a>
+						  -->
 						</div>
 					</div>
 
