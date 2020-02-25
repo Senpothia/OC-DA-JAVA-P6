@@ -53,12 +53,12 @@
 
 			<div class="col">
 
-				<div th:each="commentaire, iStat  : ${commentaires}">
+				<div th:each="topo, iStat  : ${topos}">
 
 
 					<div class="comment">
 						<strong><p
-								th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
+								th:text="${nom.getIdUtilisateur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
 						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
 						<p th:text="${commentaire.text}"></p>
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,7 +92,7 @@ public class TopoController {
 		Site site = siteRepo.findByNom(formTopo.getNomSite());
 		Integer id = site.getId();
 		topo.setId_site(id);
-		topo.setId_utilisateur(1);
+		topo.setIdUtilisateur(1);
 		topoRepo.save(topo);
 		return "ok"; 
 	}
@@ -115,12 +116,23 @@ public class TopoController {
 		Site site = siteRepo.findByNom(nomSite);
 		Integer id_site = site.getId();
 		List<Topo> topos = topoRepo.findByIdSite(id_site);
+		List<String> noms = new ArrayList<>();
+		List<String> prenoms = new ArrayList<>();
+		for (int i=0; i<topos.size(); i++) {
+			Integer id = topos.get(i).getIdUtilisateur();
+			Utilisateur  proprietaire = utilisateurRepo.getOne(id);
+			noms.add(proprietaire.getNom());
+			prenoms.add(proprietaire.getPrenom());
+			
+		}
 		//List<Topo> topos = topoRepo.findByLieu("Mantes");
-		for (int i=0; i<topos.size();i++) {
+		for (int i=0; i<topos.size(); i++) {
 			
 			System.out.println("Visu topo: " + topos.get(i).toString());
 		}
 		
+		model.addAttribute("noms", noms);
+		model.addAttribute("prenoms", prenoms);
 		model.addAttribute("topos", topos);
 
 		return "ok";

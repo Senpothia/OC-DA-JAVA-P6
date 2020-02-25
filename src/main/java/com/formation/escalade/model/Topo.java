@@ -70,10 +70,10 @@ public class Topo {
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
-	public Integer getId_utilisateur() {
+	public Integer getIdUtilisateur() {
 		return idUtilisateur;
 	}
-	public void setId_utilisateur(Integer id_utilisateur) {
+	public void setIdUtilisateur(Integer id_utilisateur) {
 		this.idUtilisateur = id_utilisateur;
 	}
 	public Integer getId_site() {
