@@ -168,7 +168,7 @@ public class TopoController {
 		return "ok";
 	}
 	
-	@GetMapping("/reservation/liste/{id})
+	@GetMapping("/reservation/liste/{id}")
 	public String listerReservation (@PathVariable("id") Integer id, Model model){
 		
 		List<Demande> demandes = demandeRepo.findByIdUtilisateur(id);
