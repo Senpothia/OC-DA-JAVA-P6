@@ -147,8 +147,13 @@ public class TopoController {
 		return "topos";
 	}
 	
-	@GetMapping("/reservation")
-	public String reservation(){
+	@GetMapping("/reservation/topo")
+	public String reservation(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
+			HttpSession session){
+		
+		System.out.println("Id site: " + siteId);
+		System.out.println("num top: " + num);
+		
 	
 	return "ok";
 	}
