@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
+import com.formation.escalade.model.Demande;
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.FormTopo;
 import com.formation.escalade.model.GroupeSite;
@@ -28,6 +29,7 @@ import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
+import com.formation.escalade.repository.IDemande;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -47,6 +49,7 @@ public class TopoController {
 	private final ICommentaire commentaireRepo;
 	private final IUtilisateur utilisateurRepo;
 	private final ITopo topoRepo;
+	private final IDemande demandeRepo;
 
 	/**
 	 * @Autowired SiteService siteService;
@@ -55,7 +58,7 @@ public class TopoController {
 	 */
 
 	public TopoController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo, IDemande demandeRepo) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
@@ -64,6 +67,7 @@ public class TopoController {
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
 		this.topoRepo = topoRepo;
+		this.demandeRepo = demandeRepo;
 	}
 
 	@GetMapping("/creationtopo")
@@ -157,7 +161,7 @@ public class TopoController {
 		Topo topo = topos.get(num);
 		System.out.println("Visu topo à reserver: " + topo.toString());
 		Demande demande = new Demande();
-		demande.setId_Utilisateur(1);
+		demande.setId_utilisateur(1);
 		demande.setId_topo(topo.getId());
 		demandeRepo.save(demande);
 	
