@@ -39,9 +39,14 @@ public class Utilisateur {
 	public Utilisateur() {
 		
 	}
-	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre) {
-		
+	
+	
+	
+	public Integer getId() {
+		return id;
+	}public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
+			boolean membre, List<Commentaire> commentaires, List<Demande> demandes) {
+		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -49,10 +54,12 @@ public class Utilisateur {
 		this.email = email;
 		this.passe = passe;
 		this.membre = membre;
+		this.commentaires = commentaires;
+		this.demandes = demandes;
 	}
-	public Integer getId() {
-		return id;
-	}
+
+
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -113,6 +120,18 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", departement=" + departement
 				+ ", email=" + email + ", passe=" + passe + ", membre=" + membre + "]";
+	}
+
+
+
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+
+
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
 	}
 	
 	
