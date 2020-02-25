@@ -156,7 +156,10 @@ public class TopoController {
 		List<Topo> topos = topoRepo.findByIdSite(siteId);
 		Topo topo = topos.get(num);
 		System.out.println("Visu topo à reserver: " + topo.toString());
-		
+		Demande demande = new Demande();
+		demande.setId_Utilisateur(1);
+		demande.setId_topo(topo.getId());
+		demandeRepo.save(demande);
 	
 	return "ok";
 	}
