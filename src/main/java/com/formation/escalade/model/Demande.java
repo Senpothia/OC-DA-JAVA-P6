@@ -36,19 +36,19 @@ public class Demande {
 		this.id = id;
 	}
 
-	public Integer getId_topo() {
+	public Integer getIdTopo() {
 		return id_topo;
 	}
 
-	public void setId_topo(Integer id_topo) {
+	public void setIdTopo(Integer id_topo) {
 		this.id_topo = id_topo;
 	}
 
-	public Integer getId_utilisateur() {
+	public Integer getIdUtilisateur() {
 		return id_utilisateur;
 	}
 
-	public void setId_utilisateur(Integer id_utilisateur) {
+	public void setIdUtilisateur(Integer id_utilisateur) {
 		this.id_utilisateur = id_utilisateur;
 	}
 /**
