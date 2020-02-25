@@ -30,7 +30,7 @@ public class Utilisateur {
 	private List<Commentaire> commentaires;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="Demande",
+	@JoinTable(name="demande",
 				joinColumns = @JoinColumn(name="id_utilisateur"),
 				inverseJoinColumns = @JoinColumn(name="id_topo")
 				)
