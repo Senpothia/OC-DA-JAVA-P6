@@ -24,6 +24,9 @@ public class Site {
 	private List<Secteur> secteurs; 
 	@OneToMany(mappedBy="site")
 	private List<Commentaire> commentaires;
+	@OneToMany(mappedBy="site")
+	private List<Topo> topos;
+	
 	public Site() {
 		super();
 		// TODO Auto-generated constructor stub

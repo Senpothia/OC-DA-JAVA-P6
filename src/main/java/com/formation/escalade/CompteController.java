@@ -63,13 +63,13 @@ public class CompteController {
 
 	@GetMapping("/espace")
 	public String espace(Model model) {
-		model.addAttribute("utilisateur", new Utilisateur(100, "Hugo", "Victor", 75, "mail@hhg", "passvictor", false));
+		model.addAttribute("utilisateur", new Utilisateur(100, "Hugo", "Victor", 75, "mail@hhg", "passvictor", false, null, null));
 		return "espace";
 	}
 
 	@PostMapping("/espace")
 	public String espaceSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
-		model.addAttribute("utilisateur", new Utilisateur(100, "Hugo", "Victor", 75, "mail@hhg", "passvictor", false));
+		model.addAttribute("utilisateur", new Utilisateur(100, "Hugo", "Victor", 75, "mail@hhg", "passvictor", false, null, null));
 		System.out.println(utilisateur.toString());
 		return "espace";
 	}
