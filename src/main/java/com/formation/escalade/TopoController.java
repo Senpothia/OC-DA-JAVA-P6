@@ -128,13 +128,6 @@ public class TopoController {
 		}
 		
 		
-		// List<Topo> topos = topoRepo.findByLieu("Mantes");
-	/**	for (int i = 0; i < topos.size(); i++) {
-
-			System.out.println("Visu topo: " + topos.get(i).toString());
-		}
-	 */
-		
 			for (int i = 0; i < noms.size(); i++) {
 
 			System.out.println("nom: " + noms.get(i));
@@ -162,8 +155,7 @@ public class TopoController {
 		System.out.println("num top: " + num);
 		Site site = siteRepo.getOne(siteId);
 		List<Topo> topos = topoRepo.findBySite(site);
-		Topo topo = topos.get(num);
-		//System.out.println("Visu topo à reserver: " + topo.toString());
+		Topo topo = topos.get(num);	
 		Demande demande = new Demande();
 		demande.setDemandeur(utilisateurRepo.getOne(1));
 		demande.setTopo(topo);
@@ -175,7 +167,8 @@ public class TopoController {
 	@GetMapping("/reservation/liste/{id}")
 	public String listerReservation (@PathVariable("id") Integer id, Model model){
 		
-		//List<Demande> demandes = demandeRepo.findByIdUtilisateur(id);
+		Site site = siteRepo.getOne(id);
+		
 		//System.out.println("Nbre de demande" + demandes.size());
 	
 		return "ok";
