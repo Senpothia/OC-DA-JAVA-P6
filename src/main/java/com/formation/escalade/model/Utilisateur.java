@@ -38,7 +38,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Topo> demandes) {
+			boolean membre, List<Commentaire> commentaires, List<Demande> demandes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -115,11 +115,11 @@ public class Utilisateur {
 		this.commentaires = commentaires;
 	}
 
-	public List<Topo> getDemandes() {
+	public List<Demande> getDemandes() {
 		return demandes;
 	}
 
-	public void setDemandes(List<Topo> demandes) {
+	public void setDemandes(List<Demande> demandes) {
 		this.demandes = demandes;
 	}
 

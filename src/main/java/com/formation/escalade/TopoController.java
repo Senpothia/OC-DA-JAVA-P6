@@ -92,7 +92,7 @@ public class TopoController {
 		topo.setDisponible(formTopo.isDisponibilite());
 		Site site = siteRepo.findByNom(formTopo.getNomSite());
 		Integer id = site.getId();
-		topo.setIdSite(id);
+	//	topo.setIdSite(id);
 		//topo.setIdUtilisateur(1);
 		topoRepo.save(topo);
 		return "ok";
