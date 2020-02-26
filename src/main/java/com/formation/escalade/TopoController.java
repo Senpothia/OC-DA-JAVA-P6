@@ -116,7 +116,7 @@ public class TopoController {
 		System.out.println(nomSite);
 		Site site = siteRepo.findByNom(nomSite);
 		Integer id_site = site.getId();
-		List<Topo> topos = topoRepo.findByIdSite(id_site);
+		List<Topo> topos = topoRepo.findBySite(site);
 		List<String> noms = new ArrayList<>();
 		List<String> prenoms = new ArrayList<>();
 		
@@ -153,14 +153,15 @@ public class TopoController {
 
 		return "topos";
 	}
-	/**
+	
 	@GetMapping("/reservation/topo")
 	public String reservation(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
 			HttpSession session){
 		
 		System.out.println("Id site: " + siteId);
 		System.out.println("num top: " + num);
-		List<Topo> topos = topoRepo.findByIdSite(siteId);
+		Site site = siteRepo.getOne(siteId);
+		List<Topo> topos = topoRepo.findBySite(site);
 		Topo topo = topos.get(num);
 		//System.out.println("Visu topo à reserver: " + topo.toString());
 		Demande demande = new Demande();
@@ -179,5 +180,5 @@ public class TopoController {
 	
 		return "ok";
 	}
-*/
+
 }
