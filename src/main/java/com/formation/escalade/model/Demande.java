@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 @Entity
 public class Demande {
 
@@ -13,25 +14,27 @@ public class Demande {
 	@GeneratedValue
 	private Integer id;
 	
-	private Integer id_topo;
-	private Integer id_utilisateur;
+	//private Integer id_topo;
+	//private Integer id_utilisateur;
 	//private Integer idTopo;
 	//private Integer idUtilisateur;
 	
-	@ManyToMany(mappedBy = "demandes")
-	List<Utilisateur> utilisateurs;
+	@ManyToOne
+	private Utilisateur demandeur;
+	
+	@ManyToOne
+	private Topo topo;
 
 	public Demande() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Demande(Integer id, Integer id_topo, Integer id_utilisateur, List<Utilisateur> utilisateurs) {
+	public Demande(Integer id, Utilisateur demandeur, Topo topo) {
 		super();
 		this.id = id;
-		this.id_topo = id_topo;
-		this.id_utilisateur = id_utilisateur;
-		this.utilisateurs = utilisateurs;
+		this.demandeur = demandeur;
+		this.topo = topo;
 	}
 
 	public Integer getId() {
@@ -42,30 +45,21 @@ public class Demande {
 		this.id = id;
 	}
 
-	public Integer getId_topo() {
-		return id_topo;
+	public Utilisateur getDemandeur() {
+		return demandeur;
 	}
 
-	public void setId_topo(Integer id_topo) {
-		this.id_topo = id_topo;
+	public void setDemandeur(Utilisateur demandeur) {
+		this.demandeur = demandeur;
 	}
 
-	public Integer getId_utilisateur() {
-		return id_utilisateur;
+	public Topo getTopo() {
+		return topo;
 	}
 
-	public void setId_utilisateur(Integer id_utilisateur) {
-		this.id_utilisateur = id_utilisateur;
+	public void setTopo(Topo topo) {
+		this.topo = topo;
 	}
 
-	public List<Utilisateur> getUtilisateurs() {
-		return utilisateurs;
-	}
 
-	public void setUtilisateurs(List<Utilisateur> utilisateurs) {
-		this.utilisateurs = utilisateurs;
-	}
-	
-
-	
 }

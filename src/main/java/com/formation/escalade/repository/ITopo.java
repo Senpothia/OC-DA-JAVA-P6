@@ -9,8 +9,8 @@ import com.formation.escalade.model.Topo;
 
 public interface ITopo extends JpaRepository <Topo, Integer>{
 
-	List<Topo> findByIdSite(Integer id_site);
+	//List<Topo> findByIdSite(Integer id_site);
 
-	List<Topo> findByLieu(String string);
+	//List<Topo> findByLieu(String string);
 
 }

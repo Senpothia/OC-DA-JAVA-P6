@@ -29,23 +29,16 @@ public class Utilisateur {
 	@OneToMany(mappedBy="auteur")
 	private List<Commentaire> commentaires;
 	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="demande",
-				joinColumns = @JoinColumn(name="id_utilisateur"),
-				inverseJoinColumns = @JoinColumn(name="id_topo")
-				)
-	private List<Demande> demandes;
-	
+	@OneToMany(mappedBy="demandeurs")
+	private List<Topo> demandes;
+
 	public Utilisateur() {
-		
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	public Integer getId() {
-		return id;
-	}public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Demande> demandes) {
+
+	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
+			boolean membre, List<Commentaire> commentaires, List<Topo> demandes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -58,82 +51,79 @@ public class Utilisateur {
 		this.demandes = demandes;
 	}
 
-
+	public Integer getId() {
+		return id;
+	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNom() {
 		return nom;
 	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
 	public String getPrenom() {
 		return prenom;
 	}
+
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
 	public int getDepartement() {
 		return departement;
 	}
+
 	public void setDepartement(int departement) {
 		this.departement = departement;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPasse() {
 		return passe;
 	}
+
 	public void setPasse(String passe) {
 		this.passe = passe;
 	}
+
 	public boolean isMembre() {
 		return membre;
 	}
+
 	public void setMembre(boolean membre) {
 		this.membre = membre;
 	}
-	
-	/**
-	public List<Commentaire_site> getCommentaires() {
-		return commentaires;
-	}
-	public void setCommentaires(List<Commentaire_site> commentaires) {
-		this.commentaires = commentaires;
-	}
-	
-	*/
-	
-	public List<Demande> getDemandes() {
-		return demandes;
-	}
-	public void setDemandes(List<Demande> demandes) {
-		this.demandes = demandes;
-	}
-	@Override
-	public String toString() {
-		return "Utilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", departement=" + departement
-				+ ", email=" + email + ", passe=" + passe + ", membre=" + membre + "]";
-	}
-
-
 
 	public List<Commentaire> getCommentaires() {
 		return commentaires;
 	}
 
-
-
 	public void setCommentaires(List<Commentaire> commentaires) {
 		this.commentaires = commentaires;
 	}
-	
-	
 
+	public List<Topo> getDemandes() {
+		return demandes;
+	}
+
+	public void setDemandes(List<Topo> demandes) {
+		this.demandes = demandes;
+	}
+
+	
+	
+	
 }

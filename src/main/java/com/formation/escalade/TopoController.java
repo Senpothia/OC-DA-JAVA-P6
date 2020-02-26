@@ -92,8 +92,8 @@ public class TopoController {
 		topo.setDisponible(formTopo.isDisponibilite());
 		Site site = siteRepo.findByNom(formTopo.getNomSite());
 		Integer id = site.getId();
-		topo.setId_site(id);
-		topo.setIdUtilisateur(1);
+		topo.setIdSite(id);
+		//topo.setIdUtilisateur(1);
 		topoRepo.save(topo);
 		return "ok";
 	}
@@ -112,13 +112,14 @@ public class TopoController {
 
 	@PostMapping("/choisirtopo")
 	public String choixSite(String nomSite, Model model) {
-
+		/**
 		System.out.println(nomSite);
 		Site site = siteRepo.findByNom(nomSite);
 		Integer id_site = site.getId();
 		List<Topo> topos = topoRepo.findByIdSite(id_site);
 		List<String> noms = new ArrayList<>();
 		List<String> prenoms = new ArrayList<>();
+		
 		for (int i = 0; i < topos.size(); i++) {
 			Integer id = topos.get(i).getIdUtilisateur();
 			Utilisateur proprietaire = utilisateurRepo.getOne(id);
@@ -147,32 +148,32 @@ public class TopoController {
 		model.addAttribute("prenoms", prenoms);
 		model.addAttribute("topos", topos);
 		model.addAttribute("site", site);
-
+*/
 		return "topos";
 	}
 	
 	@GetMapping("/reservation/topo")
 	public String reservation(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
 			HttpSession session){
-		
+		/**
 		System.out.println("Id site: " + siteId);
 		System.out.println("num top: " + num);
 		List<Topo> topos = topoRepo.findByIdSite(siteId);
 		Topo topo = topos.get(num);
 		System.out.println("Visu topo à reserver: " + topo.toString());
 		Demande demande = new Demande();
-		demande.setId_utilisateur(1);
-		demande.setId_topo(topo.getId());
-		demandeRepo.save(demande);
-	
+		//demande.setId_utilisateur(1);
+		//demande.setId_topo(topo.getId());
+		//demandeRepo.save(demande);
+	*/  
 		return "ok";
 	}
 	
 	@GetMapping("/reservation/liste/{id}")
 	public String listerReservation (@PathVariable("id") Integer id, Model model){
 		
-		List<Demande> demandes = demandeRepo.findByIdUtilisateur(id);
-		System.out.println("Nbre de demande" + demandes.size());
+		//List<Demande> demandes = demandeRepo.findByIdUtilisateur(id);
+		//System.out.println("Nbre de demande" + demandes.size());
 	
 		return "ok";
 	}
