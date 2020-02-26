@@ -31,6 +31,9 @@ public class Utilisateur {
 	
 	@OneToMany(mappedBy="demandeur")
 	private List<Demande> demandes;
+	
+	@OneToMany(mappedBy="proprietaire")
+	private List<Topo> topos;
 
 	public Utilisateur() {
 		super();
@@ -38,7 +41,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Demande> demandes) {
+			boolean membre, List<Commentaire> commentaires, List<Demande> demandes, List<Topo> topos) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -49,6 +52,7 @@ public class Utilisateur {
 		this.membre = membre;
 		this.commentaires = commentaires;
 		this.demandes = demandes;
+		this.topos = topos;
 	}
 
 	public Integer getId() {
@@ -121,6 +125,14 @@ public class Utilisateur {
 
 	public void setDemandes(List<Demande> demandes) {
 		this.demandes = demandes;
+	}
+
+	public List<Topo> getTopos() {
+		return topos;
+	}
+
+	public void setTopos(List<Topo> topos) {
+		this.topos = topos;
 	}
 
 	

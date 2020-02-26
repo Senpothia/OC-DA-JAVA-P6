@@ -31,7 +31,7 @@ public class Topo {
 	//@JoinColumn(name="id_site")
 	private Site site;
 	
-	@OneToOne
+	@ManyToOne
 	private Utilisateur proprietaire;
 
 	public Topo() {
@@ -125,6 +125,7 @@ public class Topo {
 		this.proprietaire = proprietaire;
 	}
 
+	
 
 	
 }
