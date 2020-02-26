@@ -30,7 +30,7 @@ public class Utilisateur {
 	private List<Commentaire> commentaires;
 	
 	@OneToMany(mappedBy="demandeur")
-	private List<Topo> demandes;
+	private List<Demande> demandes;
 
 	public Utilisateur() {
 		super();
