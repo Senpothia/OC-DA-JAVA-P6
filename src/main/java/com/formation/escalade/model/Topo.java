@@ -29,6 +29,9 @@ public class Topo {
 	@ManyToOne
 	//@JoinColumn(name="id_site")
 	private Site site;
+	
+	@OneToOne
+	private Utilisateur proprietaire;
 
 	public Topo() {
 		super();
