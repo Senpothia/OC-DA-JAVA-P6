@@ -40,7 +40,7 @@ public class Topo {
 	}
 
 	public Topo(Integer id, String nom, String description, String lieu, Date date, boolean disponible,
-			List<Demande> demandes, Site site) {
+			List<Demande> demandes, Site site, Utilisateur proprietaire) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -50,6 +50,7 @@ public class Topo {
 		this.disponible = disponible;
 		this.demandes = demandes;
 		this.site = site;
+		this.proprietaire = proprietaire;
 	}
 
 	public Integer getId() {
@@ -115,8 +116,15 @@ public class Topo {
 	public void setSite(Site site) {
 		this.site = site;
 	}
-	
-	
+
+	public Utilisateur getProprietaire() {
+		return proprietaire;
+	}
+
+	public void setProprietaire(Utilisateur proprietaire) {
+		this.proprietaire = proprietaire;
+	}
+
 
 	
 }

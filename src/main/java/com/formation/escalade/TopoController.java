@@ -92,8 +92,8 @@ public class TopoController {
 		topo.setDisponible(formTopo.isDisponibilite());
 		Site site = siteRepo.findByNom(formTopo.getNomSite());
 		Integer id = site.getId();
-	//	topo.setIdSite(id);
-		//topo.setIdUtilisateur(1);
+		topo.setProprietaire(utilisateurRepo.getOne(1));
+		topo.setSite(site);
 		topoRepo.save(topo);
 		return "ok";
 	}
@@ -112,7 +112,7 @@ public class TopoController {
 
 	@PostMapping("/choisirtopo")
 	public String choixSite(String nomSite, Model model) {
-		/**
+		
 		System.out.println(nomSite);
 		Site site = siteRepo.findByNom(nomSite);
 		Integer id_site = site.getId();
@@ -120,19 +120,21 @@ public class TopoController {
 		List<String> noms = new ArrayList<>();
 		List<String> prenoms = new ArrayList<>();
 		
-		for (int i = 0; i < topos.size(); i++) {
-			Integer id = topos.get(i).getIdUtilisateur();
-			Utilisateur proprietaire = utilisateurRepo.getOne(id);
-			noms.add(proprietaire.getNom());
+		for (Topo topo:topos ) {
+			Utilisateur proprietaire = topo.getProprietaire();
 			prenoms.add(proprietaire.getPrenom());
-
+			noms.add(proprietaire.getNom());
+			
 		}
+		
+		
 		// List<Topo> topos = topoRepo.findByLieu("Mantes");
-		for (int i = 0; i < topos.size(); i++) {
+	/**	for (int i = 0; i < topos.size(); i++) {
 
 			System.out.println("Visu topo: " + topos.get(i).toString());
 		}
-
+	 */
+		
 			for (int i = 0; i < noms.size(); i++) {
 
 			System.out.println("nom: " + noms.get(i));
@@ -148,24 +150,24 @@ public class TopoController {
 		model.addAttribute("prenoms", prenoms);
 		model.addAttribute("topos", topos);
 		model.addAttribute("site", site);
-*/
+
 		return "topos";
 	}
-	
+	/**
 	@GetMapping("/reservation/topo")
 	public String reservation(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
 			HttpSession session){
-		/**
+		
 		System.out.println("Id site: " + siteId);
 		System.out.println("num top: " + num);
 		List<Topo> topos = topoRepo.findByIdSite(siteId);
 		Topo topo = topos.get(num);
-		System.out.println("Visu topo à reserver: " + topo.toString());
+		//System.out.println("Visu topo à reserver: " + topo.toString());
 		Demande demande = new Demande();
-		//demande.setId_utilisateur(1);
-		//demande.setId_topo(topo.getId());
-		//demandeRepo.save(demande);
-	*/  
+		demande.setDemandeur(utilisateurRepo.getOne(1));
+		demande.setTopo(topo);
+		demandeRepo.save(demande);
+	
 		return "ok";
 	}
 	
@@ -177,5 +179,5 @@ public class TopoController {
 	
 		return "ok";
 	}
-
+*/
 }
