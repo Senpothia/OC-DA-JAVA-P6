@@ -29,7 +29,7 @@ public class Utilisateur {
 	@OneToMany(mappedBy="auteur")
 	private List<Commentaire> commentaires;
 	
-	@OneToMany(mappedBy="demandeurs")
+	@OneToMany(mappedBy="demandeur")
 	private List<Topo> demandes;
 
 	public Utilisateur() {
