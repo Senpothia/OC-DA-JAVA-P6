@@ -88,15 +88,16 @@ ul, #myUL {
 
 				<div>
 					<ul th:each="secteur: ${site.secteurs}">
-						<li th:text="${secteur.getNom()}"></li>
-						<ul th:each="voie: ${secteur.voies}">
-							<li th:text="${voie.getNom()}"></li>
-							<ul th:each="longueur: ${voie.longueurs}">
-								<li th:text="${longueur.getNom()}"></li>
+						<li >test
+						<a th:text="${secteur.getNom()}" href="#"></a>
+							<ul th:each="voie: ${secteur.voies}">
+								<li th:text="${voie.getNom()}"></li>
+								<ul th:each="longueur: ${voie.longueurs}">
+									<li th:text="${longueur.getNom()}"></li>
 
+								</ul>
 							</ul>
-						</ul>
-
+						</li>
 					</ul>
 
 
@@ -138,21 +139,21 @@ ul, #myUL {
 			<div class="col-4 mt-5">
 
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/secteurs'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							secteur</p></a>
+					<a th:href="@{/site/{id}(id=${site.id})}+'/secteurs'"><p
+							type="text" class="btn btn-primary btn-block"
+							style="width: 350px;">Ajouter secteur</p></a>
 				</div>
 
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/voies'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							voie</p></a>
+					<a th:href="@{/site/{id}(id=${site.id})}+'/voies'"><p
+							type="text" class="btn btn-primary btn-block"
+							style="width: 350px;">Ajouter voie</p></a>
 				</div>
 
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/longueurs'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							longueur</p></a>
+					<a th:href="@{/site/{id}(id=${site.id})}+'/longueurs'"><p
+							type="text" class="btn btn-primary btn-block"
+							style="width: 350px;">Ajouter longueur</p></a>
 				</div>
 
 				<div class="form-group">
