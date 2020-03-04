@@ -4,6 +4,8 @@ import java.lang.module.FindException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,19 +64,20 @@ public class CompteController {
 	}
 
 	@GetMapping("/espace")
-	public String espace(Model model) {
-		model.addAttribute("utilisateur", new Utilisateur(100, "Hugo", "Victor", 75, "mail@hhg", "passvictor", false, null, null,null));
+	public String espace( Model model, HttpServletRequest request) {
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
+		model.addAttribute("utilisateur", utilisateur);
 		return "espace";
 	}
-
+/**
 	@PostMapping("/espace")
-	public String espaceSubmit(@ModelAttribute Utilisateur utilisateur, Model model, HttpServletRequest request) {
+	public String espaceSubmit( Model model, HttpServletRequest request) {
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
 		model.addAttribute("utilisateur", utilisateur);
 		System.out.println(utilisateur.toString());
 		return "espace";
 	}
-
+*/
 	@GetMapping("/suppressionCompte/{id}")
 
 	public String supprimerCompte(@PathVariable("id") int id, Model model) {

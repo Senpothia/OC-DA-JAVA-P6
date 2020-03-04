@@ -68,7 +68,7 @@ public class HomeController {
 				
 			}
 		
-		return "ok";
+		return "redirect:espace";
 	}
 	
 
