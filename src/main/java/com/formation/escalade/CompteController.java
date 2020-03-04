@@ -68,8 +68,9 @@ public class CompteController {
 	}
 
 	@PostMapping("/espace")
-	public String espaceSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
-		model.addAttribute("utilisateur", new Utilisateur(100, "Hugo", "Victor", 75, "mail@hhg", "passvictor", false, null, null,null));
+	public String espaceSubmit(@ModelAttribute Utilisateur utilisateur, Model model, HttpServletRequest request) {
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
+		model.addAttribute("utilisateur", utilisateur);
 		System.out.println(utilisateur.toString());
 		return "espace";
 	}
