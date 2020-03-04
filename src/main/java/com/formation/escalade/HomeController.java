@@ -24,17 +24,17 @@ public class HomeController {
 	
 	@GetMapping("/connexion")
 	public String connexion(Model model) {
-		
-		model.addAttribute("user", new User());
+		User user = new User();
+		model.addAttribute("user",user );
 		
 		return "connexion";
 	}
 	
 	
 	@PostMapping("/connexion")
-	public String getCompte() {
+	public String getCompte(User user) {
 		
-		
+		System.out.println(user.toString());
 		return "ok";
 	}
 	

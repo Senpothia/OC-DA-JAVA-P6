@@ -2,7 +2,7 @@ package com.formation.escalade.model;
 
 public class User {
 
-	private String nom;
+	private String email;
 	private String password;
 	
 	public User() {
@@ -10,18 +10,18 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String nom, String password) {
+	public User(String email, String password) {
 		super();
-		this.nom = nom;
+		this.email = email;
 		this.password = password;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -34,8 +34,9 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [nom=" + nom + ", password=" + password + "]";
+		return "User [email=" + email + ", password=" + password + "]";
 	}
+
 	
 	
 	
