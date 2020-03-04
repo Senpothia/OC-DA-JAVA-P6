@@ -1,5 +1,7 @@
 package com.formation.escalade;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,9 +60,9 @@ public class HomeController {
 		
 		if (email.equals(usermail) && passe.equals(userpassword)){
 			
-				System.out.println("Connexion réussie");
+				System.out.println("Connexion réussie!");
 			} else {
-				System.out.println("Mot de passe erroné!");
+				System.out.println("Connexion échouée!");
 				
 			}
 		
