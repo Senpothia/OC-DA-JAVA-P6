@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.formation.escalade.model.User;
+import com.formation.escalade.model.Utilisateur;
+import com.formation.escalade.repository.IUtilisateur;
 
 @Controller
 public class HomeController {
@@ -42,18 +44,25 @@ public class HomeController {
 	public String getCompte(User user) {
 		
 		System.out.println(user.toString());
-		Utilisateur utilisateur = utilisateurRepo.findByEmail();
-		String passe = null;
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(user.getEmail());
 		
-		if (utilisateur != null){
+		String email = utilisateur.getEmail();
+		String passe = utilisateur.getPasse();
+		String usermail = user.getEmail();
+		String userpassword = user.getPassword();
+		
+		System.out.println("email en base: " + email);
+		System.out.println("passe en base: " + passe);
+		System.out.println("email  du formulaire: " + user.getEmail());
+		System.out.println("password  du formulaire: " + user.getPassword());
+		
+		if (email.equals(usermail) && passe.equals(userpassword)){
 			
-			String passe = utilisateur.getPasse();
-			
-			if (passe != null){
-			
-				system.out.println("Connexion réussie");
+				System.out.println("Connexion réussie");
+			} else {
+				System.out.println("Mot de passe erroné!");
+				
 			}
-		}
 		
 		return "ok";
 	}
