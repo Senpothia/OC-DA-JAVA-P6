@@ -47,7 +47,7 @@ public class HomeController {
 		
 		System.out.println(user.toString());
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(user.getEmail());
-		session.setAttribute("USER", utilisateur);
+		
 		String email = utilisateur.getEmail();
 		String passe = utilisateur.getPasse();
 		String usermail = user.getEmail();
@@ -61,6 +61,8 @@ public class HomeController {
 		if (email.equals(usermail) && passe.equals(userpassword)){
 			
 				System.out.println("Connexion réussie!");
+				session.setAttribute("USER", utilisateur);
+			
 			} else {
 				System.out.println("Connexion échouée!");
 				
