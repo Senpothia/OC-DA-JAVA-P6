@@ -10,6 +10,13 @@ import com.formation.escalade.model.User;
 @Controller
 public class HomeController {
 	
+	private final IUtilisateur utilisateurRepo;
+	
+	public HomeController( IUtilisateur utilisateurRepo){
+	
+		this.utilisateurRepo = utilisateurRepo;
+	}
+	
 	@GetMapping("/")
 	public String accueil() {
 		
@@ -35,6 +42,19 @@ public class HomeController {
 	public String getCompte(User user) {
 		
 		System.out.println(user.toString());
+		Utilisateur utilisateur = utilisateurRepo.findByEmail();
+		String passe = null;
+		
+		if (utilisateur != null){
+			
+			String passe = utilisateur.getPasse();
+			
+			if (passe != null){
+			
+				system.out.println("Connexion réussie");
+			}
+		}
+		
 		return "ok";
 	}
 	
