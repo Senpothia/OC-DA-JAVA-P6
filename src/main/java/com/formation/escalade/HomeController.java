@@ -41,11 +41,11 @@ public class HomeController {
 	
 	
 	@PostMapping("/connexion")
-	public String getCompte(User user) {
+	public String getCompte(User user, HttpSession session ) {
 		
 		System.out.println(user.toString());
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(user.getEmail());
-		
+		session.setAttribute("USER", utilisateur);
 		String email = utilisateur.getEmail();
 		String passe = utilisateur.getPasse();
 		String usermail = user.getEmail();
