@@ -175,5 +175,44 @@ public class TopoController {
 	
 		return "ok";
 	}
+	
+	@GetMapping("topos/site/{id}")
+	public String listeTopos(@PathVariable("id") Integer id, Model model) {
+		
+		Site site = siteRepo.getOne(id);
+		System.out.println("Visu page topo site: " + id);
+		
+		Integer id_site = site.getId();
+		List<Topo> topos = topoRepo.findBySite(site);
+		List<String> noms = new ArrayList<>();
+		List<String> prenoms = new ArrayList<>();
+		
+		for (Topo topo:topos ) {
+			Utilisateur proprietaire = topo.getProprietaire();
+			prenoms.add(proprietaire.getPrenom());
+			noms.add(proprietaire.getNom());
+			
+		}
+		
+		
+			for (int i = 0; i < noms.size(); i++) {
+
+			System.out.println("nom: " + noms.get(i));
+		}
+			
+			for (int i = 0; i < prenoms.size(); i++) {
+
+				System.out.println("prenom: " + prenoms.get(i));
+			}
+
+
+		model.addAttribute("noms", noms);
+		model.addAttribute("prenoms", prenoms);
+		model.addAttribute("topos", topos);
+		model.addAttribute("site", site);
+
+		
+		return "topos";
+	}
 
 }

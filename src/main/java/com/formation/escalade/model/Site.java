@@ -86,6 +86,14 @@ public class Site {
 	public void setCommentaires(List<Commentaire> commentaires) {
 		this.commentaires = commentaires;
 	}
+	
+	
+	public List<Topo> getTopos() {
+		return topos;
+	}
+	public void setTopos(List<Topo> topos) {
+		this.topos = topos;
+	}
 	@Override
 	public String toString() {
 		return "Site [id=" +  "]";
