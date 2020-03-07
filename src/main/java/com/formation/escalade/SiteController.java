@@ -123,31 +123,43 @@ public class SiteController {
 	}
 
 	@GetMapping("/galerie/{page}")
-	public String galeriePage(@PathVariable("page") int page, Model model) {
-
+	public String galeriePage(@PathVariable("page") int page, Model model, HttpServletRequest request) {
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
+		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
+		model.addAttribute("utilisateur", utilisateur);
+		model.addAttribute("authentification",authentification);
 		generalService.pagination(page, model);
 		return "galerie";
 		// return "galerie_lienText";
 	}
 
 	@GetMapping("/viewsite/{nomSite}")
-	public String vueSite(@PathVariable("nomSite") String nomSite, Model model) {
-
+	public String vueSite(@PathVariable("nomSite") String nomSite, Model model, HttpServletRequest request) {
+	
+		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
-		System.out.println("méthode vueSite, siteController");
-
+		if(authentification) {
+			
+			Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
+			model.addAttribute("utilisateur", utilisateur);
+		}
+		
+		model.addAttribute("authentification",authentification);
+		
 		return "site";
 
 	}
 
 	@GetMapping("/commentaires/site/{id}")
-	public String getComments(@PathVariable("id") Integer id, Model model) {
-
+	public String getComments(@PathVariable("id") Integer id, Model model,HttpServletRequest request) {
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
+		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
 		Site site = siteRepo.getOne(id);
 		List<Commentaire> commentaires = site.getCommentaires();
 		model.addAttribute("commentaires", commentaires);
 		model.addAttribute("site", site);
+		model.addAttribute("authentification",authentification);
 		// model.addAttribute("comment", new String());
 
 		return "commentaires";
@@ -155,11 +167,13 @@ public class SiteController {
 	}
 
 	@GetMapping("/commenter/site/{id}")
-	public String commenter(@PathVariable("id") Integer id, Model model, HttpSession session) {
-
+	public String commenter(@PathVariable("id") Integer id, Model model, HttpSession session, HttpServletRequest request) {
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
+		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
 		Site site = siteRepo.getOne(id);
 		session.setAttribute("IDSITE", id);
 		model.addAttribute("site", site);
+		model.addAttribute("authentification",authentification);
 
 		return "commenter";
 
@@ -167,7 +181,8 @@ public class SiteController {
 
 	@PostMapping("/commenter")
 	public String saveComment(String comment, HttpServletRequest request, Model model) {
-
+		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
+		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
 		System.out.println("Commentaire reçu:" + comment);
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		System.out.println("site id: " + siteId);
@@ -180,6 +195,7 @@ public class SiteController {
 		commentaire.setText(comment);
 		commentaireRepo.save(commentaire);
 		model.addAttribute("site", site);
+		model.addAttribute("authentification",authentification);
 
 		return "site";
 	}

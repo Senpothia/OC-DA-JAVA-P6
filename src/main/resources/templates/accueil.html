@@ -18,11 +18,16 @@
 <body>
 	<div class="container">
 
-		<!-- ENTETE -->
+		
 
 		<!-- Entete -->
-		<div th:replace="fragments/entete_post :: entete_post"></div>
-		<!-- ---------------- -->
+			<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span>
+		
+		<span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
 
 		<!-- ********************************************* -->
 
