@@ -135,6 +135,7 @@ public class SiteController {
 
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
+		System.out.println("méthode vueSite, siteController");
 
 		return "site";
 
@@ -165,7 +166,7 @@ public class SiteController {
 	}
 
 	@PostMapping("/commenter")
-	public String saveComment(String comment, HttpServletRequest request) {
+	public String saveComment(String comment, HttpServletRequest request, Model model) {
 
 		System.out.println("Commentaire reçu:" + comment);
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
@@ -178,8 +179,9 @@ public class SiteController {
 		commentaire.setSite(site);
 		commentaire.setText(comment);
 		commentaireRepo.save(commentaire);
+		model.addAttribute("site", site);
 
-		return "ok";
+		return "site";
 	}
 
 	@GetMapping("/commentaire/supprimer/comment")
