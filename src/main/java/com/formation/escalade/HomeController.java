@@ -26,9 +26,9 @@ public class HomeController {
 	public String accueil(Model model, HttpSession session,HttpServletRequest request ) {
 		
 		
-		Boolean authentification;
+		Boolean authentification=false;
 		//boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
-		/**
+		
 		session.setAttribute("AUTH", authentification);
 		model.addAttribute("authentification", authentification);
 		if (authentification) {
