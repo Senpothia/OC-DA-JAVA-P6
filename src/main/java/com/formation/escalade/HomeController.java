@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.User;
 import com.formation.escalade.model.Utilisateur;
@@ -50,16 +51,22 @@ public class HomeController {
 	}
 	
 	@GetMapping("/connexion")
-	public String connexion(Model model) {
+	public String connexion(@RequestParam (name= "error", required=false) boolean error, Model model) {
 		User user = new User();
 		model.addAttribute("user",user );
+		model.addAttribute("error", error);
 		
 		return "connexion";
+		//return "connexion2"; // Version initiale
 	}
+	
+	
+	
 	
 	
 	@PostMapping("/connexion")
 	public String getCompte(User user, HttpSession session,HttpServletRequest request ) {
+		/**
 		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
 		System.out.println(user.toString());
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(user.getEmail());
@@ -84,6 +91,7 @@ public class HomeController {
 				
 			}
 		session.setAttribute("AUTH", authentification);
+		*/
 		return "redirect:espace";
 	}
 	
