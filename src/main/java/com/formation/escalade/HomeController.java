@@ -23,10 +23,12 @@ public class HomeController {
 	}
 	
 	@GetMapping("/")
-	public String accueil(Model model, HttpSession session) {
+	public String accueil(Model model, HttpSession session,HttpServletRequest request ) {
 		
-		Boolean authentification = false;
 		
+		Boolean authentification;
+		//boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
+		/**
 		session.setAttribute("AUTH", authentification);
 		model.addAttribute("authentification", authentification);
 		if (authentification) {
@@ -37,7 +39,7 @@ public class HomeController {
 		model.addAttribute("utilisateur", utilisateur);
 		
 		}
-		//return "ok";
+		//return "ok";*/
 		return "index";
 	}
 	
