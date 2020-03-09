@@ -214,5 +214,15 @@ public class TopoController {
 		
 		return "topos";
 	}
+	
+	@GetMapping("/modifier/topo")
+	public String modifierTopo(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
+			HttpSession session){
+		
+		
+		
+		return "ok";
+	}
+	
 
 }

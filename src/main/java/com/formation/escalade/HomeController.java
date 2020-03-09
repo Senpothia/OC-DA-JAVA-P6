@@ -1,5 +1,7 @@
 package com.formation.escalade;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.formation.escalade.model.Commentaire;
+import com.formation.escalade.model.Demande;
+import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.User;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.repository.IUtilisateur;
@@ -27,7 +32,7 @@ public class HomeController {
 	public String accueil(Model model, HttpSession session,HttpServletRequest request ) {
 		
 		
-		Boolean authentification=false;
+		Boolean authentification=true;  // provisoire
 		//boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
 		
 		session.setAttribute("AUTH", authentification);
@@ -35,8 +40,12 @@ public class HomeController {
 		if (authentification) {
 			
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setPrenom("Michel");
-		utilisateur.setNom("Lopez");
+		utilisateur.setNom("Hugo");
+		utilisateur.setPrenom("Victor");
+		utilisateur.setDepartement(78);
+		utilisateur.setEmail("victor@gmail.com");
+		utilisateur.setPrenom("passevictor");
+		utilisateur.setMembre(true);
 		model.addAttribute("utilisateur", utilisateur);
 		
 		}

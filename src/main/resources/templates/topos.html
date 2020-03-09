@@ -65,8 +65,10 @@
 						<p th:text="${topo.description}"></p>
 
 						<div class="row justify-content-end" style="margin-right: 10px;">
-						
 							<a style="margin-right: 10px;"
+								th:href="@{/modifier/topo(siteId=${site.id},num=${iStat.index})}"
+								class="text-primary">Modifier</a>
+							<a 
 								th:href="@{/reservation/topo(siteId=${site.id},num=${iStat.index})}"
 								class="text-primary">Reserver</a> 
 						</div>
