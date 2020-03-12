@@ -34,6 +34,13 @@ public class Utilisateur {
 	
 	@OneToMany(mappedBy="proprietaire")
 	private List<Topo> topos;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="UserProfil",
+				joinColumns=@JoinColumn(name = "idUser"), 
+				inverseJoinColumns = @JoinColumn(name ="idProfil")
+			)
+	private List<Profil> profils; 
 
 	public Utilisateur() {
 		super();
@@ -133,6 +140,14 @@ public class Utilisateur {
 
 	public void setTopos(List<Topo> topos) {
 		this.topos = topos;
+	}
+
+	public List<Profil> getProfils() {
+		return profils;
+	}
+
+	public void setProfils(List<Profil> profils) {
+		this.profils = profils;
 	}
 
 	
