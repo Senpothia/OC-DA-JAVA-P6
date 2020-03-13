@@ -47,8 +47,11 @@ public class Utilisateur {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Demande> demandes, List<Topo> topos) {
+			boolean membre, List<Commentaire> commentaires, List<Demande> demandes, List<Topo> topos,
+			List<Profil> profils) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -60,7 +63,10 @@ public class Utilisateur {
 		this.commentaires = commentaires;
 		this.demandes = demandes;
 		this.topos = topos;
+		this.profils = profils;
 	}
+
+
 
 	public Integer getId() {
 		return id;
