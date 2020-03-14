@@ -211,14 +211,24 @@ public class SiteController {
 	}
 
 	@GetMapping("/commenter/site/{id}")
-	public String commenter(@PathVariable("id") Integer id, Model model, HttpSession session,
-			HttpServletRequest request) {
-		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
-		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
+	public String commenter(@PathVariable("id") Integer id, Model model, 
+			HttpServletRequest request, HttpSession session) {
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		Site site = siteRepo.getOne(id);
 		session.setAttribute("IDSITE", id);
 		model.addAttribute("site", site);
-		model.addAttribute("authentification", authentification);
+		
 
 		return "commenter";
 
@@ -226,8 +236,20 @@ public class SiteController {
 
 	@PostMapping("/commenter")
 	public String saveComment(String comment, HttpServletRequest request, Model model) {
-		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
-		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
+		
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		System.out.println("Commentaire reçu:" + comment);
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		System.out.println("site id: " + siteId);
@@ -240,8 +262,7 @@ public class SiteController {
 		commentaire.setText(comment);
 		commentaireRepo.save(commentaire);
 		model.addAttribute("site", site);
-		model.addAttribute("authentification", authentification);
-
+		
 		return "site";
 	}
 
