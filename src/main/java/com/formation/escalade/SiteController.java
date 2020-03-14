@@ -267,19 +267,49 @@ public class SiteController {
 	}
 
 	@GetMapping("/commentaire/supprimer/comment")
-	public String supprimerCommentaire(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num) {
+	public String supprimerCommentaire(@RequestParam("siteId") Integer siteId, 
+			@RequestParam("num") int num, HttpServletRequest request, Model model) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		Site site = siteRepo.getOne(siteId);
+		model.addAttribute(site);
 		List<Commentaire> commentaires = site.getCommentaires();
 		Commentaire commentaire = commentaires.get(num);
 		System.out.println(commentaire.getText());
 		commentaireRepo.delete(commentaire);
-		return "ok";
+		return "site";
 	}
 
 	@GetMapping("/commentaire/modifier/comment")
-	public String modifierCommentaire(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
-			HttpSession session) {
+	public String modifierCommentaire(@RequestParam("siteId") Integer siteId, 
+			@RequestParam("num") int num, Model model,
+			HttpSession session, HttpServletRequest request) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		session.setAttribute("IDSITE", siteId);
 		Site site = siteRepo.getOne(siteId);
 		List<Commentaire> commentaires = site.getCommentaires();
@@ -295,13 +325,17 @@ public class SiteController {
 
 	@PostMapping("/commentaire/modification")
 
-	public String modificationCommentaire(String comment, HttpServletRequest request) {
+	public String modificationCommentaire(String comment, HttpServletRequest request, 
+			Model model) {
+		
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		Site site = siteRepo.getOne(siteId);
+		model.addAttribute(site);
 		Commentaire commentaire = (Commentaire) request.getSession().getAttribute("COMMENT");
 		System.out.println(comment);
 		commentaire.setText(comment);
 		commentaireRepo.save(commentaire);
-		return "ok";
+		return "site";
 	}
 
 	// ******** Methodes de test
