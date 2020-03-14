@@ -91,7 +91,7 @@ public class HomeController {
 	}
 	
 	@GetMapping("/connexion")
-	public String connexion(@RequestParam (name= "error", required=false) boolean error, Model model) {
+	public String connexion(@RequestParam(name="error", required=false) boolean error, Model model) {
 		User user = new User();
 		model.addAttribute("user",user );
 		model.addAttribute("error", error);

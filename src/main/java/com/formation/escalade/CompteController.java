@@ -33,13 +33,13 @@ public class CompteController {
 		this.utilisateurRepo = utilisateurRepo;
 	}
 
-	@GetMapping("/compte")
+	@GetMapping("/compte")   // Création de compte
 	public String compte(Model model) {
 		model.addAttribute("utilisateur", new Utilisateur());
 		return "compte";
 	}
 
-	@PostMapping("/compte")
+	@PostMapping("/compte")	// Création de compte
 	public String compteSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
 		model.addAttribute("utilisateur", utilisateur);
 		System.out.println(utilisateur.toString());
@@ -68,7 +68,7 @@ public class CompteController {
 		return "accueil";
 	}
 
-	@GetMapping("/espace")
+	@GetMapping("/espace")    // Accès espace personnel
 	public String espace( Model model, HttpServletRequest request, Principal principal) {
 		String email = request.getUserPrincipal().getName();
 		model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
@@ -138,8 +138,5 @@ public class CompteController {
 		return "test1";
 	}
 
-	
-	
-	
 
 }
