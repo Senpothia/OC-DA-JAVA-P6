@@ -18,11 +18,5 @@ public interface IUtilisateur extends JpaRepository <Utilisateur, Integer>{
 
 	Utilisateur findByEmail(String email);
 
-	
 
-	
-	 
-
-	
-	
 }

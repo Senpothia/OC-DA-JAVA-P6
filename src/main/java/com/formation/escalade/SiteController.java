@@ -1,5 +1,6 @@
 package com.formation.escalade;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,28 +125,20 @@ public class SiteController {
 
 	@GetMapping("/galerie/{page}")
 	public String galeriePage(@PathVariable("page") int page, Model model, HttpServletRequest request) {
-		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
-		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
-		model.addAttribute("utilisateur", utilisateur);
-		model.addAttribute("authentification",authentification);
+		
 		generalService.pagination(page, model);
 		return "galerie";
-		// return "galerie_lienText";
+		
 	}
 
 	@GetMapping("/viewsite/{nomSite}")
-	public String vueSite(@PathVariable("nomSite") String nomSite, Model model, HttpServletRequest request) {
-	
-		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
+	public String vueSite(@PathVariable("nomSite") String nomSite, Model model,HttpServletRequest request, Principal principal) {
+		
+		String email = request.getUserPrincipal().getName();
+		model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+		
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
-		if(authentification) {
-			
-			Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
-			model.addAttribute("utilisateur", utilisateur);
-		}
-		
-		model.addAttribute("authentification",authentification);
 		
 		return "site";
 

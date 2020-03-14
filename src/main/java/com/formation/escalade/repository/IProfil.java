@@ -7,4 +7,6 @@ import com.formation.escalade.model.Profil;
 
 public interface IProfil extends JpaRepository <Profil, Integer> {
 
+	Profil findByRole(String string);
+
 }

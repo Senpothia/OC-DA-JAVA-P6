@@ -13,25 +13,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.Demande;
+import com.formation.escalade.model.Profil;
 import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.User;
 import com.formation.escalade.model.Utilisateur;
+import com.formation.escalade.repository.IProfil;
 import com.formation.escalade.repository.IUtilisateur;
 
 @Controller
 public class HomeController {
 	
 	private final IUtilisateur utilisateurRepo;
+	private final IProfil profilRepo;
 	
-	public HomeController( IUtilisateur utilisateurRepo){
+	public HomeController( IUtilisateur utilisateurRepo, IProfil profilRepo){
 	
 		this.utilisateurRepo = utilisateurRepo;
+		this.profilRepo = profilRepo;
 	}
 	
 	@GetMapping("/")
 	public String accueil(Model model, HttpSession session,HttpServletRequest request ) {
 		
-		
+		/*
 		Boolean authentification=true;  // provisoire
 		//boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
 		
@@ -49,6 +53,33 @@ public class HomeController {
 		model.addAttribute("utilisateur", utilisateur);
 		
 		}
+		*/
+		Utilisateur user1 = utilisateurRepo.getOne(15);
+		List <Profil> profils1 = user1.getProfils();
+		if (profils1 == null) {
+			
+			Profil p1 = profilRepo.findByRole("MEMBRE");
+			Profil p2 = profilRepo.findByRole("USER");
+			profils1.add(p1);
+			profils1.add(p2);
+			user1.setProfils(profils1);
+			utilisateurRepo.save(user1);
+		}
+		
+		
+		Utilisateur user2 = utilisateurRepo.getOne(8);
+		List <Profil> profils2 = user2.getProfils();
+		System.out.println("Nom user2: " + user2.getNom());
+		if (profils2 == null) {
+			
+			//Profil p3 = profilRepo.findByRole("MEMBRE");
+			Profil p4 = profilRepo.findByRole("USER");
+			//profil2.add(p3);
+			profils2.add(p4);
+			user2.setProfils(profils2);
+			utilisateurRepo.save(user2);
+		}
+		
 		//return "ok";*/
 		return "index";
 	}

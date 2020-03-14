@@ -1,12 +1,14 @@
 package com.formation.escalade;
 
 import java.lang.module.FindException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,9 +25,11 @@ import com.sun.xml.bind.v2.model.core.ID;
 public class CompteController {
 
 	private final IUtilisateur utilisateurRepo;
+	private final PasswordEncoder passwordEncoder;
 
-	public CompteController(IUtilisateur utilisateurRepo) {
-
+	public CompteController(IUtilisateur utilisateurRepo, PasswordEncoder passwordEncoder) {
+		
+		this.passwordEncoder = passwordEncoder;
 		this.utilisateurRepo = utilisateurRepo;
 	}
 
@@ -41,6 +45,7 @@ public class CompteController {
 		System.out.println(utilisateur.toString());
 
 		utilisateur.setMembre(false);
+		utilisateur.setPasse(passwordEncoder.encode(utilisateur.getPasse()));
 
 		utilisateurRepo.save(utilisateur);
 		return "accueil";
@@ -64,9 +69,9 @@ public class CompteController {
 	}
 
 	@GetMapping("/espace")
-	public String espace( Model model, HttpServletRequest request) {
-		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
-		model.addAttribute("utilisateur", utilisateur);
+	public String espace( Model model, HttpServletRequest request, Principal principal) {
+		String email = request.getUserPrincipal().getName();
+		model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
 		return "espace";
 	}
 /**
