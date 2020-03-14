@@ -1,5 +1,6 @@
 package com.formation.escalade;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,60 +34,44 @@ public class HomeController {
 	}
 	
 	@GetMapping("/")
-	public String accueil(Model model, HttpSession session,HttpServletRequest request ) {
+	public String accueil(Model model, HttpSession session,HttpServletRequest request, Principal principal ) {
 		
-		/*
-		Boolean authentification=true;  // provisoire
-		//boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
-		
-		session.setAttribute("AUTH", authentification);
-		model.addAttribute("authentification", authentification);
-		if (authentification) {
-			
-		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setNom("Hugo");
-		utilisateur.setPrenom("Victor");
-		utilisateur.setDepartement(78);
-		utilisateur.setEmail("victor@gmail.com");
-		utilisateur.setPrenom("passevictor");
-		utilisateur.setMembre(true);
-		model.addAttribute("utilisateur", utilisateur);
-		
-		}
-		*/
-		Utilisateur user1 = utilisateurRepo.getOne(15);
-		List <Profil> profils1 = user1.getProfils();
-		if (profils1 == null) {
-			
-			Profil p1 = profilRepo.findByRole("MEMBRE");
-			Profil p2 = profilRepo.findByRole("USER");
-			profils1.add(p1);
-			profils1.add(p2);
-			user1.setProfils(profils1);
-			utilisateurRepo.save(user1);
+		System.out.println("entrée accueil()");
+
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
 		}
 		
 		
-		Utilisateur user2 = utilisateurRepo.getOne(8);
-		List <Profil> profils2 = user2.getProfils();
-		System.out.println("Nom user2: " + user2.getNom());
-		if (profils2 == null) {
-			
-			//Profil p3 = profilRepo.findByRole("MEMBRE");
-			Profil p4 = profilRepo.findByRole("USER");
-			//profil2.add(p3);
-			profils2.add(p4);
-			user2.setProfils(profils2);
-			utilisateurRepo.save(user2);
-		}
-		
-		//return "ok";*/
 		return "index";
 	}
 	
 	@GetMapping("/presentation")
-	public String presentation() {
+	public String presentation(HttpSession session,HttpServletRequest request, Principal principal, Model model) {
 		
+		System.out.println("entrée presentation()");
+
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		return "presentation";
 	}
 	
@@ -99,10 +84,6 @@ public class HomeController {
 		return "connexion";
 		//return "connexion2"; // Version initiale
 	}
-	
-	
-	
-	
 	
 	@PostMapping("/connexion")
 	public String getCompte(User user, HttpSession session,HttpServletRequest request ) {

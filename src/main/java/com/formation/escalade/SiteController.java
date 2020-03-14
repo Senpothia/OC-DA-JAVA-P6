@@ -88,8 +88,23 @@ public class SiteController {
 	}
 
 	@GetMapping("/structure/site/{id}")
-	public String structureSite(@PathVariable("id") Integer id, Model model) {
+	public String structureSite(@PathVariable("id") Integer id, Model model,HttpServletRequest request,
+			Principal principal) {
+		
+		System.out.println("entrée structureSite()");
 
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		Site site = siteRepo.getOne(id);
 		System.out.println("Nom du site: " + site.getNom());
 		model.addAttribute("site", site);
@@ -171,16 +186,26 @@ public class SiteController {
 	}
 
 	@GetMapping("/commentaires/site/{id}")
-	public String getComments(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
-		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("USER");
-		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
+	public String getComments(@PathVariable("id") Integer id, Model model, HttpServletRequest request, Principal principal) {
+		System.out.println("entrée getComments()");
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		Site site = siteRepo.getOne(id);
 		List<Commentaire> commentaires = site.getCommentaires();
 		model.addAttribute("commentaires", commentaires);
 		model.addAttribute("site", site);
-		model.addAttribute("authentification", authentification);
-		// model.addAttribute("comment", new String());
-
+		
 		return "commentaires";
 
 	}

@@ -53,6 +53,32 @@ ul, #myUL {
 .active {
 	display: block;
 }
+
+.a_fragment{
+	
+	text-decoration: none;
+	color: white;
+}
+
+.identif{
+			
+	border-radius: 5px;
+	padding: 5px 10px;
+		}
+
+.identif2{
+			
+	marging: 0px;
+	border-radius: 5px;
+	border: 1px solid ;
+	padding: 5px 5px;
+		}	
+		
+a:hover {
+
+	text-decoration: none;
+	color: white;
+}
 </style>
 
 <title>Les amis de l'escalade</title>
@@ -61,7 +87,11 @@ ul, #myUL {
 	<div class="container">
 
 		<!-- Entete -->
-		<div th:replace="fragments/entete_init :: entete_init"></div>
+			<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
 		<!-- ---------------- -->
 
 
