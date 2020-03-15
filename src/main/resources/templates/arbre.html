@@ -53,6 +53,33 @@ ul, #myUL {
 .active {
 	display: block;
 }
+
+.a_fragment{
+	
+	text-decoration: none;
+	color: white;
+}
+
+.identif{
+			
+	border-radius: 5px;
+	padding: 5px 10px;
+		}
+
+.identif2{
+			
+	marging: 0px;
+	border-radius: 5px;
+	border: 1px solid ;
+	padding: 5px 5px;
+		}	
+		
+a:hover {
+
+	text-decoration: none;
+	color: white;
+}
+
 </style>
 
 <title>Les amis de l'escalade</title>
@@ -61,7 +88,11 @@ ul, #myUL {
 	<div class="container">
 
 		<!-- Entete -->
-		<div th:replace="fragments/entete_init :: entete_init"></div>
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
 		<!-- ---------------- -->
 
 
@@ -109,10 +140,6 @@ ul, #myUL {
 
 			<div class="col-4 mt-5">
 
-
-
-
-
 				<div class="form-group">
 					<a href="/modifiersecteur"><p type="text"
 							class="btn btn-primary btn-block" style="width: 350px;">Modifier
@@ -138,21 +165,21 @@ ul, #myUL {
 			<div class="col-4 mt-5">
 
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/secteurs'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							secteur</p></a>
+					<a th:href="@{/site/{id}(id=${site.id})}+'/secteurs'"><p
+							type="text" class="btn btn-primary btn-block"
+							style="width: 350px;">Ajouter secteur</p></a>
 				</div>
 
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/voies'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							voie</p></a>
+					<a th:href="@{/site/{id}(id=${site.id})}+'/voies'"><p
+							type="text" class="btn btn-primary btn-block"
+							style="width: 350px;">Ajouter voie</p></a>
 				</div>
 
 				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/longueurs'"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Ajouter
-							longueur</p></a>
+					<a th:href="@{/site/{id}(id=${site.id})}+'/longueurs'"><p
+							type="text" class="btn btn-primary btn-block"
+							style="width: 350px;">Ajouter longueur</p></a>
 				</div>
 
 				<div class="form-group">

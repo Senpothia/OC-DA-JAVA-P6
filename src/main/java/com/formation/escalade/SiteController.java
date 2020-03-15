@@ -96,8 +96,22 @@ public class SiteController {
 	}
 
 	@GetMapping("/annuler")
-	public String annulation() {
+	public String annulation(HttpServletRequest request, Model model,
+			Principal principal) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		return "espace";
 	}
 
@@ -148,8 +162,21 @@ public class SiteController {
 	}
 
 	@GetMapping("/choisirsite")
-	public String choisirSite(Model model) {
+	public String choisirSite(Model model, HttpServletRequest request,
+			Principal principal) {
 
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
@@ -241,6 +268,7 @@ public class SiteController {
 	@GetMapping("/commenter/site/{id}")
 	public String commenter(@PathVariable("id") Integer id, Model model, 
 			HttpServletRequest request, HttpSession session) {
+		
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -355,6 +383,19 @@ public class SiteController {
 
 	public String modificationCommentaire(String comment, HttpServletRequest request, 
 			Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		Site site = siteRepo.getOne(siteId);
