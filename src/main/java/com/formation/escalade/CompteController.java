@@ -52,8 +52,22 @@ public class CompteController {
 	}
 
 	@GetMapping("/modificationCompte")
-	public String modificationCompte(Utilisateur utilisateur) {
+	public String modificationCompte(Utilisateur utilisateur, 
+			Model model, HttpServletRequest request) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		return "modificationCompte";
 	}
 
@@ -65,7 +79,7 @@ public class CompteController {
 		utilisateur.setMembre(false);
 
 		utilisateurRepo.save(utilisateur);
-		return "accueil";
+		return "espace";
 	}
 
 	@GetMapping("/espace")    // Accès espace personnel
@@ -74,6 +88,8 @@ public class CompteController {
 		model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
 		return "espace";
 	}
+	
+	
 /**
 	@PostMapping("/espace")
 	public String espaceSubmit( Model model, HttpServletRequest request) {

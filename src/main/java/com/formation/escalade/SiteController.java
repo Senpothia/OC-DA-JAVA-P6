@@ -65,8 +65,22 @@ public class SiteController {
 
 	@GetMapping("/creationsite")
 
-	public String creationSite(Model model) {
+	public String creationSite(Model model, HttpServletRequest request,
+			Principal principal) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		model.addAttribute("formSite", new FormSite());
 
 		return "creation_site";
@@ -105,6 +119,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
+		
 		Site site = siteRepo.getOne(id);
 		System.out.println("Nom du site: " + site.getNom());
 		model.addAttribute("site", site);
@@ -112,8 +127,21 @@ public class SiteController {
 	}
 
 	@GetMapping("/modifier/site/{id}")
-	public String modifierSite(@PathVariable("id") Integer id, Model model) {
+	public String modifierSite(@PathVariable("id") Integer id, Model model,
+			HttpServletRequest request, Principal principal) {
 
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		return "arbre";
