@@ -15,6 +15,72 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 
+<style>
+ul, #myUL {
+	list-style-type: none;
+}
+
+#myUL {
+	margin: 0;
+	padding: 0;
+}
+
+.caret {
+	cursor: pointer;
+	-webkit-user-select: none; /* Safari 3.1+ */
+	-moz-user-select: none; /* Firefox 2+ */
+	-ms-user-select: none; /* IE 10+ */
+	user-select: none;
+}
+
+.caret::before {
+	content: "\25B6";
+	color: black;
+	display: inline-block;
+	margin-right: 6px;
+}
+
+.caret-down::before {
+	-ms-transform: rotate(90deg); /* IE 9 */
+	-webkit-transform: rotate(90deg); /* Safari */ '
+	transform: rotate(90deg);
+}
+
+.nested {
+	display: none;
+}
+
+.active {
+	display: block;
+}
+
+.a_fragment{
+	
+	text-decoration: none;
+	color: white;
+}
+
+.identif{
+			
+	border-radius: 5px;
+	padding: 5px 10px;
+		}
+
+.identif2{
+			
+	marging: 0px;
+	border-radius: 5px;
+	border: 1px solid ;
+	padding: 5px 5px;
+		}	
+		
+a:hover {
+
+	text-decoration: none;
+	color: white;
+}
+
+</style>
 
 <title>Les amis de l'escalade</title>
 </head>
@@ -34,7 +100,36 @@
 
 		<div class="row d-flex justify-content-center">
 
+			<div class="col-lg-4">
 
+				<!--  Début arbre -->
+
+
+				<div class="col">
+
+					<h3 th:text="${site.getNom()}"></h3>
+				</div>
+
+				<div>
+					<ul th:each="secteur: ${site.secteurs}">
+						<li th:text="${secteur.getNom()}"></li>
+						<ul th:each="voie: ${secteur.voies}">
+							<li th:text="${voie.getNom()}"></li>
+							<ul th:each="longueur: ${voie.longueurs}">
+								<li th:text="${longueur.getNom()}"></li>
+
+							</ul>
+						</ul>
+
+					</ul>
+
+
+				</div>
+
+				<!-- Fin arbre -->
+
+
+			</div>
 
 			<div class="col-4 ">
 

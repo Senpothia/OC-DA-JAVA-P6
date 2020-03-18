@@ -59,8 +59,12 @@ public class LongueurController {
 	}
 
 	@PostMapping("/choisirvoie")
-	public String choisirVoie(String nomSecteur, Model model, HttpSession session) {
-
+	public String choisirVoie(String nomSecteur, Model model, HttpSession session,
+			HttpServletRequest request) {
+		
+		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
+		Site site = siteRepo.getOne(siteId);
+		model.addAttribute("site", site);
 		System.out.println("Choix secteur:" + nomSecteur);
 		session.setAttribute("NOMSECTEUR", nomSecteur);
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
