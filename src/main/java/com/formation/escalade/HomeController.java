@@ -87,32 +87,7 @@ public class HomeController {
 	
 	@PostMapping("/connexion")
 	public String getCompte(User user, HttpSession session,HttpServletRequest request ) {
-		/**
-		boolean authentification = (boolean) request.getSession().getAttribute("AUTH");
-		System.out.println(user.toString());
-		Utilisateur utilisateur = utilisateurRepo.findByEmail(user.getEmail());
 		
-		String email = utilisateur.getEmail();
-		String passe = utilisateur.getPasse();
-		String usermail = user.getEmail();
-		String userpassword = user.getPassword();
-		System.out.println("email en base: " + email);
-		System.out.println("passe en base: " + passe);
-		System.out.println("email  du formulaire: " + user.getEmail());
-		System.out.println("password  du formulaire: " + user.getPassword());
-		
-		if (email.equals(usermail) && passe.equals(userpassword)){
-			
-				System.out.println("Connexion réussie!");
-				session.setAttribute("USER", utilisateur);
-				authentification = true;
-			
-			} else {
-				System.out.println("Connexion échouée!");
-				
-			}
-		session.setAttribute("AUTH", authentification);
-		*/
 		return "redirect:espace";
 	}
 	
