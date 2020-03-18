@@ -98,7 +98,7 @@ public class SiteController {
 	@GetMapping("/annuler")
 	public String annulation(HttpServletRequest request, Model model,
 			Principal principal) {
-		
+		System.out.println("entrée dans annulation()");
 		try {
 
 			String email = request.getUserPrincipal().getName();
