@@ -39,7 +39,8 @@
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau1.png" alt="" th:src="@{/images/bandeau1.png}" />
+				<img class="img-fluid" src="/images/bandeau1.png" alt=""
+					th:src="@{/images/bandeau1.png}" />
 			</div>
 		</div>
 
@@ -58,7 +59,7 @@
 
 					<div class="comment">
 						<strong><p
-								  th:text="${prenoms.get(iStat.index)}+ ' ' + ${noms.get(iStat.index)}"></p></strong> 
+								th:text="${prenoms.get(iStat.index)}+ ' ' + ${noms.get(iStat.index)}"></p></strong>
 						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
 						<p th:text="${topo.nom}"></p>
 						<p th:text="${topo.lieu}"></p>
@@ -67,10 +68,9 @@
 						<div class="row justify-content-end" style="margin-right: 10px;">
 							<a style="margin-right: 10px;"
 								th:href="@{/modifier/topo(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Modifier</a>
-							<a 
+								class="text-primary">Modifier</a> <a
 								th:href="@{/reservation/topo(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Reserver</a> 
+								class="text-primary">Reserver</a>
 						</div>
 					</div>
 
@@ -84,7 +84,9 @@
 			<div class="col">
 				<div class="d-flex justify-content-end">
 					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button
-							type="text" class="bouton btn btn-primary mr-1">Retour</button></a>
+							type="text" class="bouton btn btn-primary mr-1">Retour</button></a> 
+					<a th:href="@{/creationtopo/{nomSite}(nomSite=${site.nom})}"><button
+							type="button" class="bouton btn btn-primary mr-1">Ajouter une topo</button></a>
 				</div>
 			</div>
 

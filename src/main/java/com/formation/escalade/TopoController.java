@@ -1,5 +1,6 @@
 package com.formation.escalade;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,18 +73,74 @@ public class TopoController {
 	}
 
 	@GetMapping("/creationtopo")
-	public String creationTopo(Model model) {
+	public String creationTopo(Model model, HttpServletRequest request
+			,Principal principal) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		model.addAttribute("formTopo", new FormTopo());
-
+		model.addAttribute("listeSite", true);  // Avec affichage de la liste des sites
 		return "creation_topo";
+	}
+	
+	
+	@GetMapping("/creationtopo/{nomSite}")
+	public String creationTopoPageTopos(@PathVariable ("nomSite") String nomSite, Model model 
+			,HttpServletRequest request,Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		System.out.println("creationTopoPageTopos, nom du site: " + nomSite);
+		FormTopo formTopo = new FormTopo();
+		formTopo.setNomSite(nomSite);
+		model.addAttribute("formTopo", formTopo);
+		//model.addAttribute("nomSite", nomSite);
+		model.addAttribute("listeSite", false);  // sans affichage de la liste des site
+		return "creation_topo";
+		
 	}
 
 	@PostMapping("/creationtopo")
-	public String retourFormTopo(FormTopo formTopo) {
+	public String retourFormTopo(FormTopo formTopo, HttpServletRequest request
+			,Model model,Principal principal) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		System.out.println(formTopo.toString());
 		Topo topo = new Topo();
 		topo.setNom(formTopo.getNom());
@@ -99,6 +157,8 @@ public class TopoController {
 		topoRepo.save(topo);
 		return "ok";
 	}
+	
+	
 
 	@GetMapping("/choisirtopo")
 	public String selectionSiteTopo(Model model) {
@@ -177,7 +237,21 @@ public class TopoController {
 	}
 	
 	@GetMapping("topos/site/{id}")
-	public String listeTopos(@PathVariable("id") Integer id, Model model) {
+	public String listeTopos(@PathVariable("id") Integer id, HttpServletRequest request
+			,Model model,Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: *****" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		
 		Site site = siteRepo.getOne(id);
 		System.out.println("Visu page topo site: " + id);
@@ -211,7 +285,6 @@ public class TopoController {
 		model.addAttribute("topos", topos);
 		model.addAttribute("site", site);
 
-		
 		return "topos";
 	}
 	

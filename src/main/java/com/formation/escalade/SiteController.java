@@ -64,7 +64,6 @@ public class SiteController {
 	}
 
 	@GetMapping("/creationsite")
-
 	public String creationSite(Model model, HttpServletRequest request,
 			Principal principal) {
 		
@@ -380,7 +379,6 @@ public class SiteController {
 	}
 
 	@PostMapping("/commentaire/modification")
-
 	public String modificationCommentaire(String comment, HttpServletRequest request, 
 			Model model) {
 		
