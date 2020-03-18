@@ -82,7 +82,7 @@ public class HomeController {
 		model.addAttribute("error", error);
 		
 		return "connexion";
-		//return "connexion2"; // Version initiale
+		
 	}
 	
 	@PostMapping("/connexion")
