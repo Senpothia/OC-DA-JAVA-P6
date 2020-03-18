@@ -407,47 +407,6 @@ public class SiteController {
 		return "site";
 	}
 
-	// ******** Methodes de test
-	// *****************************************************
+	
 
-	@PostMapping("/ok")
-	public String choixsite(String nomSite) { // Méthode pour test
-
-		System.out.println("Site choisi: " + nomSite);
-
-		return "ok";
-	}
-
-	@GetMapping("/selection4")
-	public String resume(Model model) { // Méthode de test
-
-		Site site = siteRepo.getOne(1);
-		model.addAttribute("site", site);
-
-		return "selection4";
-	}
-
-	@GetMapping("/nombre")
-	public String nombre(Model model) { // Méthode de test
-
-		List<String> nomsSites = new ArrayList<>();
-		List<Site> sites = siteRepo.findAll();
-		for (Site site : sites) {
-			nomsSites.add(site.getNom());
-		}
-		model.addAttribute("nomsSites", nomsSites);
-		return "nombre";
-	}
-
-	@GetMapping("/gal")
-	public String nombre2(Model model) { // Méthode de test
-
-		return "galerie2";
-	}
-
-	@GetMapping("/ok")
-	public String ok() { // Méthode de test
-
-		return "ok";
-	}
 }
