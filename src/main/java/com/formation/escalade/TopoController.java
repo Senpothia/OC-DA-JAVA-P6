@@ -245,7 +245,8 @@ public class TopoController {
 			String email = request.getUserPrincipal().getName();
 			System.out.println("email récupéré: *****" + email);
 			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
-			model.addAttribute("authentification", true);
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
 
 		} catch (NullPointerException e) {
 
