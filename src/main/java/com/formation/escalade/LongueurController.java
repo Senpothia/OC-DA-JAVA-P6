@@ -96,7 +96,7 @@ public class LongueurController {
 		
 
 		longueurService.createLongueur(formSite, request);
-		return "ok";
+		return "redirect:espace";
 	}
 	
 	
