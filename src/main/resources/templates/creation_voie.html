@@ -36,10 +36,13 @@
 
 		<!-- ********************************************* -->
 		<div class="message row">
+			<div class="col">
 
-			<p>
-				<b>Ajout d'une voie à un secteur existant.</b>
-			</p>
+				<p>
+					<b>Ajout d'une voie à un secteur existant.</b>
+				</p>
+			</div>
+			
 
 		</div>
 		<!-- ********************************************* -->
@@ -49,79 +52,71 @@
 
 
 			<div class="row">
-			
-					<div class="col-lg-6">
-					
-						<p>
-							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
-							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
-								th:text="${site.departement}"></span></br>
-						</p>
-					</div>
-					
-					<div class="col-lg-6">
-					
-						<p>
-							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
-							</br> </br> </br>
-		
-						</p>
-					</div>
-			
-			
+
+				<div class="col-lg-6">
+
+					<p>
+						<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
+						</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
+							th:text="${site.departement}"></span></br>
+					</p>
+				</div>
+
+				<div class="col-lg-6">
+
+					<p>
+						<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
+						</br> </br> </br>
+
+					</p>
+				</div>
+
+
 			</div>
 
 			<div class="row">
-			
-					<div class="col-lg-6">
-								<h1>Voie</h1>
 
-								
-									<label for="email">Nom de la voie:</label> <input type="text"
-										class="form-control" th:field="*{nomVoie}">
-								
-					
-								
-									<label for="email">Cotation:</label> <input type="text"
-										class="form-control" th:field="*{cotationVoie}">
-								
-					
-					</div>
-					
-					<div class="col-lg-6">
-						
-									<h1>Longueur</h1>
-					
-									<label for="email">Nom:</label> <input type="text"
-										class="form-control" th:field="*{nomLongueur}">
-								
-					
-							
-									<label for="text">Nombre de spits</label> <input type="number"
-										class="form-control" th:field="*{nbreSpit}">
-							
-								
-									<label for="email">Cotation</label> <input type="text"
-										class="form-control" th:field="*{cotationLongueur}">
-								
-					</div>
-			
+				<div class="col-lg-6">
+					<h1>Voie</h1>
+
+
+					<label for="email">Nom de la voie:</label> <input type="text"
+						class="form-control" th:field="*{nomVoie}"> <label
+						for="email">Cotation:</label> <input type="text"
+						class="form-control" th:field="*{cotationVoie}">
+
+
+				</div>
+
+				<div class="col-lg-6">
+
+					<h1>Longueur</h1>
+
+					<label for="email">Nom:</label> <input type="text"
+						class="form-control" th:field="*{nomLongueur}"> <label
+						for="text">Nombre de spits</label> <input type="number"
+						class="form-control" th:field="*{nbreSpit}"> <label
+						for="email">Cotation</label> <input type="text"
+						class="form-control" th:field="*{cotationLongueur}">
+
+				</div>
+
 			</div>
 
 
 			<div class="row mt-3">
-				
+
 				<div class="col">
-				
+
 					<div class="d-flex justify-content-end">
-				
+
 						<a th:href="@{/espace}"><button class="btn btn-primary mr-1">Annuler</button></a>
 						<button type="submit" class="btn btn-primary">Enregistrer</button>
 					</div>
-				
-		
+
+
 				</div>
-				
+
 			</div>
 
 

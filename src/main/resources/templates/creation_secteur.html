@@ -38,7 +38,7 @@
 		<div class="message row">
 
 			<p>
-				<b>Pour créer un secteur, remplir ce formulaire.</b>
+				<b>Pour créer un secteur, remplir ce formulaire. template 2</b>
 			</p>
 
 		</div>
@@ -50,55 +50,10 @@
 			<div class="row">
 
 
-				<div class="validations col-lg-4">
-
-					<div class="bouton2">
-
-						<a href="addsecteur"><p class="btn btn-primary btn-block">Ajouter
-								secteur</p></a>
-
-					</div>
-
-					<div class="bouton2">
-
-						<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
-								voie</p></a>
-
-					</div>
-					<div class="bouton2">
-
-						<a href="addlongueur"><p class="btn btn-primary btn-block">Ajouter
-								longueur</p></a>
-
-					</div>
-					<div class="bouton2">
-
-						<a href="visualisersite"><p class="btn btn-primary btn-block">Visualiser
-								site</p></a>
-
-					</div>
-					<div class="bouton2">
-
-						<a href="modifiersite"><p class="btn btn-primary btn-block">Modifier
-								site</p></a>
-
-					</div>
-
-					<div class="bouton mb-3">
-						<button type="submit" class="btn btn-primary btn-block"
-							>Enregistrer site</button>
-					</div>
-					<div class="bouton2">
-
-						<a href="selection"><p class="btn btn-primary btn-block">Annuler</p></a>
-
-					</div>
-
-				</div>
 
 
 
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<h1>Site</h1>
 
 					<div class="row mr-1 d-flex flex-column informations">
@@ -128,7 +83,7 @@
 				</div>
 
 
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 
 					<h1 class="ml-3">Voie</h1>
 
@@ -163,6 +118,21 @@
 
 				</div>
 
+
+			</div>
+			
+				<div class="row mt-3">
+
+				<div class="col">
+
+					<div class="d-flex justify-content-end">
+
+						<a th:href="@{/espace}"><button class="btn btn-primary mr-1">Annuler</button></a>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
+					</div>
+
+
+				</div>
 
 			</div>
 		</form>
