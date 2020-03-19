@@ -76,7 +76,6 @@ a:hover {
 	color: white;
 }
 </style>
-
 <title>Les amis de l'escalade</title>
 </head>
 <body>
@@ -93,16 +92,13 @@ a:hover {
 
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt=""
+				<img class="img-fluid" src="images/bandeau3.png" alt="Bandeau"
 					th:src="@{/images/bandeau3.png}" />
 			</div>
 		</div>
 
 		<div class="row d-flex justify-content-center">
-			<h2 class="mt-2"
-				th:text="'Modification du site : ' + ${site.getNom()}"></h2>
-		</div>
-		<div class=row>
+
 			<div class="col-lg-4">
 
 				<!--  Début arbre -->
@@ -134,66 +130,35 @@ a:hover {
 
 			</div>
 
-			<div class="col-lg-4 mt-5">
+			<div class="col-4 ">
 
-				<div class="form-group">
-					<a th:href="@{modifier/informations/site/{id}(id=${site.id})}"><p type="text"
-							class="btn btn-primary btn-block" style="width: 250px;">Modifier
-							informations</p></a>
-				</div>
+				<h3 class="mt-2">Ajouter une voie</h3>
 
-				<div class="form-group">
-					<a th:href="@{/modifier/secteur/site/{id}(id=${site.id})}"><p type="text"
-							class="btn btn-primary btn-block" style="width: 250px;">Modifier
-							un secteur</p></a>
-				</div>
+				<form method="post" th:action="@{/modifier/secteur/site/{id}(id=${site.id})}"
+					th:object="${nomSecteur}">
+					<div class="form-group mt-3">
+						<label for="exampleFormControlSelect1">Sélectionnez un
+							secteur</label> <select class="form-control" name="nomSecteur">
+							<option th:each="secteur: ${site.getSecteurs()}"
+								th:text="${secteur.getNom()}"></option>
 
+						</select>
+					</div>
 
-
-				<div class="form-group">
-					<a href="/modifier/voie"><p type="text"
-							class="btn btn-primary btn-block" style="width: 250px;">Modifier
-							une voie</p></a>
-				</div>
+					<button type="submit" class="btn btn-primary mb-2"
+						style="width: 350px;">Valider</button>
 
 
-				<div class="form-group">
-					<a href="/modifier/longueur"><p type="text"
-							class="btn btn-primary btn-block" style="width: 250px;">Modifier
-							une longueur</p></a>
-				</div>
+
+					<div class="form-group">
+						<a href="/espace"><p type="text"
+								class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
+					</div>
+
+				</form>
 			</div>
-
-			<div class="col-lg-4 mt-5">
-
-				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/secteurs'"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Ajouter secteur</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/voies'"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Ajouter voie</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/longueurs'"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Ajouter longueur</p></a>
-				</div>
-
-				<div class="form-group">
-					<a href="/espace"><p type="text"
-							class="btn btn-primary btn-block" style="width: 250px;">Annuler</p></a>
-				</div>
-
-
-			</div>
-
-
 		</div>
+
 
 		<!-- PIED DE PAGE -->
 

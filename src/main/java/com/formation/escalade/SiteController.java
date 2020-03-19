@@ -176,6 +176,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
+		
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
@@ -184,8 +185,21 @@ public class SiteController {
 	}
 
 	@PostMapping("/choisirsite")
-	public String choixSite(String nomSite, Model model) {
+	public String choixSite(String nomSite, Model model, HttpServletRequest request) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
 
@@ -487,8 +501,9 @@ public class SiteController {
 		return "espace";
 	}
 
-	@GetMapping("/modifier/secteur")
-	public String modifierSecteur(HttpSession session,HttpServletRequest request
+	@GetMapping("/modifier/secteur/site/{id}")
+	public String modifierSecteur(@PathVariable("id") Integer id, HttpSession session
+			,HttpServletRequest request
 			, Principal principal, Model model) {
 		
 		try {
@@ -505,8 +520,51 @@ public class SiteController {
 		}
 		
 		
-		return "ok";
+		session.setAttribute("IDSITE", id);
+		Site site = siteRepo.getOne(id);
+		model.addAttribute("site", site);
+		String nomSecteur = new String();
+		model.addAttribute("nomSite", nomSecteur);
+		return "choisir_secteur_modification";
+		
 	}
+	
+	@PostMapping("/modifier/secteur/site/{id}")
+	public String choixSecteurModification(@PathVariable("id") Integer id,Model model, HttpServletRequest request
+			, Principal principal, String nomSecteur) {
+		
+		System.out.println("Entrée post choixSecteurModification");
+		System.out.println("nom secteur récupéré: " + nomSecteur );
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
+		FormSite formSite = new FormSite();
+		formSite.setIdSite(id);
+		formSite.setNomSecteur(secteur.getNom());
+		model.addAttribute("formSite", formSite);
+		
+		return "modifier_infos_secteur";
+	}
+	
+	@PostMapping("/modification/informations/secteur/{id}")
+	public String modifierInfosSecteur(String nomSecteur) {
+		
+		// Methode de traitement du changement de nom du secteur
+		
+		return "espace";
+	}
+	
 	
 	@GetMapping("/modifier/longueur")
 	public String modifierLongueur(HttpSession session
