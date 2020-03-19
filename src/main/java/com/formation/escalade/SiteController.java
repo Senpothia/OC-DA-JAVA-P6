@@ -422,6 +422,54 @@ public class SiteController {
 			model.addAttribute("authentification", false);
 		}
 		
+		List<Site> sites = siteRepo.findAll();
+		model.addAttribute("sites", sites);
+		String nomSite = new String();
+		model.addAttribute("nomSite", nomSite);
+		return "choisirsite";
+	}
+	
+	@GetMapping("/modifier/informations/site/{id}")
+	public String modifierSiteInfos(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request
+			, Principal principal, Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		Site site = siteRepo.getOne(id);
+		FormSite formSite = new FormSite();
+		formSite.setIdSite(id);
+		formSite.setNomSite(site.getNom());
+		formSite.setLocalisationSite(site.getLocalisation());
+		formSite.setDepartementSite(site.getDepartement());
+		model.addAttribute("formSite", formSite);
+		return "modifier_infos";
+	}
+	
+	
+	@PostMapping("/modification/informations/{id}")
+	public String informations(@PathVariable("id") Integer id ,FormSite formSite, HttpServletRequest request, 
+			Model model) {
+		
+		System.out.println("Méthode post traitement modification informations site");
+		System.out.println("Id site: " + id);
+		System.out.println(formSite.toString());
+		
+		Site site = siteRepo.getOne(id);
+		site.setNom(formSite.getNomSite());
+		site.setLocalisation(formSite.getLocalisationSite());
+		site.setDepartement(formSite.getDepartementSite());
+		siteRepo.save(site);
 		return "ok";
 	}
 

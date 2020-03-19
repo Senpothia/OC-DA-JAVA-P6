@@ -137,7 +137,7 @@ a:hover {
 			<div class="col-lg-4 mt-5">
 
 				<div class="form-group">
-					<a href="/modifier/site"><p type="text"
+					<a th:href="@{modifier/informations/site/{id}(id=${site.id})}"><p type="text"
 							class="btn btn-primary btn-block" style="width: 250px;">Modifier
 							informations</p></a>
 				</div>
