@@ -99,7 +99,7 @@ public class TopoController {
 	
 	@GetMapping("/creationtopo/{nomSite}")
 	public String creationTopoPageTopos(@PathVariable ("nomSite") String nomSite, Model model 
-			,HttpServletRequest request,Principal principal) {
+			, HttpServletRequest request, Principal principal, HttpSession session) {
 		
 		try {
 
@@ -114,6 +114,8 @@ public class TopoController {
 			model.addAttribute("authentification", false);
 		}
 		
+		session.setAttribute("NOMSITE", nomSite);
+		
 		System.out.println("creationTopoPageTopos, nom du site: " + nomSite);
 		FormTopo formTopo = new FormTopo();
 		formTopo.setNomSite(nomSite);
@@ -127,6 +129,9 @@ public class TopoController {
 	@PostMapping("/creationtopo")
 	public String retourFormTopo(FormTopo formTopo, HttpServletRequest request
 			,Model model,Principal principal) {
+		
+		System.out.println("Entrée retourFormTopo - POST");
+		System.out.println("Nom du site:" + formTopo.getNomSite());
 		
 		try {
 
@@ -148,14 +153,32 @@ public class TopoController {
 		topo.setLieu(formTopo.getLieu());
 		topo.setDate(formTopo.getDate());
 		topo.setDisponible(formTopo.isDisponibilite());
+		
+		try {
 		Site site = siteRepo.findByNom(formTopo.getNomSite());
 		Integer id = site.getId();
-		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setId(1);
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		topo.setProprietaire(utilisateur);
 		topo.setSite(site);
 		topoRepo.save(topo);
-		return "ok";
+		
+		} catch(NullPointerException e){
+			
+			System.out.println("traitement exception");
+			String nomSite = (String) request.getSession().getAttribute("NOMSITE");
+			System.out.println("nom du site récupéré par session: " + nomSite);
+			Site site = siteRepo.findByNom(nomSite);
+			Integer id = site.getId();
+			String email = request.getUserPrincipal().getName();
+			Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+			topo.setProprietaire(utilisateur);
+			topo.setSite(site);
+			topoRepo.save(topo);
+			
+		}
+		
+		return "espace";
 	}
 	
 	
@@ -292,8 +315,6 @@ public class TopoController {
 	@GetMapping("/modifier/topo")
 	public String modifierTopo(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
 			HttpSession session){
-		
-		
 		
 		return "ok";
 	}
