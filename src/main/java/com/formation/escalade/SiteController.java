@@ -461,6 +461,19 @@ public class SiteController {
 	public String informations(@PathVariable("id") Integer id ,FormSite formSite, HttpServletRequest request, 
 			Model model) {
 		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		System.out.println("Méthode post traitement modification informations site");
 		System.out.println("Id site: " + id);
 		System.out.println(formSite.toString());
@@ -470,7 +483,8 @@ public class SiteController {
 		site.setLocalisation(formSite.getLocalisationSite());
 		site.setDepartement(formSite.getDepartementSite());
 		siteRepo.save(site);
-		return "ok";
+		
+		return "espace";
 	}
 
 	@GetMapping("/modifier/secteur")
