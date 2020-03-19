@@ -551,17 +551,38 @@ public class SiteController {
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		FormSite formSite = new FormSite();
 		formSite.setIdSite(id);
-		formSite.setNomSecteur(secteur.getNom());
+		formSite.setNomSecteur(secteur.getNom());   // Nom de secteur à modifier
 		model.addAttribute("formSite", formSite);
 		
 		return "modifier_infos_secteur";
 	}
 	
-	@PostMapping("/modification/informations/secteur/{id}")
-	public String modifierInfosSecteur(String nomSecteur) {
+	@PostMapping("/modification/informations/secteur/{ancienNomSecteur}")
+	public String modifierInfosSecteur(@PathVariable("ancienNomSecteur") String ancienNomSecteur, 
+			String nomSecteur, HttpSession session
+			,HttpServletRequest request, Principal principal
+			, Model model) {
 		
 		// Methode de traitement du changement de nom du secteur
+		System.out.println("Méthode changement de nom pour un secteur");
+		System.out.println("Ancien nom de secteur récupéré: " + ancienNomSecteur);
+		System.out.println("Nouveau nom de secteur récupéré: " + nomSecteur);
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		
+		Secteur secteur = secteurRepo.findByNom(ancienNomSecteur);
+		secteur.setNom(nomSecteur);
+		secteurRepo.save(secteur);
 		return "espace";
 	}
 	

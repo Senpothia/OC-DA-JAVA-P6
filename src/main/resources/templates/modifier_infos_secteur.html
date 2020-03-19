@@ -41,14 +41,14 @@
 		<div class="message row">
 
 			<p>
-				<b>Pour créer un site, remplir ce formulaire.</b>
+				<b>Veuillez indiquer le nouveau nom du secteur.</b>
 			</p>
 
 		</div>
 		<!-- ********************************************* -->
 
 		<div class="container">
-			<form th:action="@{/modification/informations/secteur/{id}(id=${formSite.idSite})}" method="post"
+			<form th:action="@{/modification/informations/secteur/{nomSecteur}(nomSecteur=${formSite.nomSecteur})}" method="post"
 				th:object="${formSite}">
 				
 
