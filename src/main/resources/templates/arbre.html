@@ -54,32 +54,27 @@ ul, #myUL {
 	display: block;
 }
 
-.a_fragment{
-	
+.a_fragment {
 	text-decoration: none;
 	color: white;
 }
 
-.identif{
-			
+.identif {
 	border-radius: 5px;
 	padding: 5px 10px;
-		}
+}
 
-.identif2{
-			
+.identif2 {
 	marging: 0px;
 	border-radius: 5px;
-	border: 1px solid ;
+	border: 1px solid;
 	padding: 5px 5px;
-		}	
-		
-a:hover {
+}
 
+a:hover {
 	text-decoration: none;
 	color: white;
 }
-
 </style>
 
 <title>Les amis de l'escalade</title>
@@ -98,7 +93,8 @@ a:hover {
 
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt="" th:src="@{/images/bandeau3.png}" />
+				<img class="img-fluid" src="/images/bandeau3.png" alt=""
+					th:src="@{/images/bandeau3.png}" />
 			</div>
 		</div>
 
@@ -141,7 +137,13 @@ a:hover {
 			<div class="col-lg-4 mt-5">
 
 				<div class="form-group">
-					<a href="/modifiersecteur"><p type="text"
+					<a href="/modifier/site"><p type="text"
+							class="btn btn-primary btn-block" style="width: 250px;">Modifier
+							informations</p></a>
+				</div>
+
+				<div class="form-group">
+					<a href="/modifier/secteur"><p type="text"
 							class="btn btn-primary btn-block" style="width: 250px;">Modifier
 							un secteur</p></a>
 				</div>
@@ -149,14 +151,14 @@ a:hover {
 
 
 				<div class="form-group">
-					<a href="/modifiervoie"><p type="text"
+					<a href="/modifier/voie"><p type="text"
 							class="btn btn-primary btn-block" style="width: 250px;">Modifier
 							une voie</p></a>
 				</div>
 
 
 				<div class="form-group">
-					<a href="/modifierlongueur"><p type="text"
+					<a href="/modifier/longueur"><p type="text"
 							class="btn btn-primary btn-block" style="width: 250px;">Modifier
 							une longueur</p></a>
 				</div>

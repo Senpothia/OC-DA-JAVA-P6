@@ -405,6 +405,87 @@ public class SiteController {
 		return "site";
 	}
 
+	@GetMapping("/modifier/site")
+	public String modifierSite(HttpSession session,HttpServletRequest request
+			, Principal principal, Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		return "ok";
+	}
+
+	@GetMapping("/modifier/secteur")
+	public String modifierSecteur(HttpSession session,HttpServletRequest request
+			, Principal principal, Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		
+		return "ok";
+	}
 	
+	@GetMapping("/modifier/longueur")
+	public String modifierLongueur(HttpSession session
+			,HttpServletRequest request, Principal principal, Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		
+		return "ok";
+	}
+
+	@GetMapping("/modifier/voie")
+	public String modifierVoie(HttpSession session
+			,HttpServletRequest request, Principal principal, Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		
+		return "ok";
+	}
 
 }
