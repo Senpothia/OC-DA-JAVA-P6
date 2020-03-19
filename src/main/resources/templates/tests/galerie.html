@@ -50,19 +50,17 @@
 
 					<div class="row">
 
-						<div class="col" th:each="groupe: ${groupesLigne1}">
+						<div class="col" th:each="nomSite: ${ligne1}">
 							<div class="row">
 								<a class="col-8"
-									th:href="@{/viewsite/{nomSite}(nomSite=${groupe.nomSite})}"><img
+									th:href="@{/viewsite/{nomSite}(nomSite=${nomSite})}"><img
 									src="escalade.png" alt="" th:src="@{/images/escalade.png}" /></a>
 							</div>
 							<div class="row">
-								<div class="col-8" th:text="${groupe.nomSite}"></div>
+								<div class="col-8" th:text="${nomSite}"></div>
 								<div class="col-4">
 									<div class="row">
-										<span th:if="${groupe.officiel}">
-											<img src="tag01.png" alt="" th:src="@{/images/tag01.png}" />
-										</span>
+										<img src="tag01.png" alt="" th:src="@{/images/tag01.png}" />
 									</div>
 								</div>
 							</div>
@@ -72,19 +70,17 @@
 
 					<div class="row">
 
-						<div class="col" th:each="groupe: ${groupesLigne2}">
+						<div class="col" th:each="nomSite: ${ligne2}">
 							<div class="row">
 								<a class="col-8"
-									th:href="@{/viewsite/{nomSite}(nomSite=${groupe.nomSite})}"><img
+									th:href="@{/viewsite/{nomSite}(nomSite=${nomSite})}"><img
 									src="escalade2.png" alt="" th:src="@{/images/escalade2.png}" /></a>
 							</div>
 							<div class="row">
-								<div class="col-8" th:text="${groupe.nomSite}"></div>
+								<div class="col-8" th:text="${nomSite}"></div>
 								<div class="col-4">
 									<div class="row">
-										<span th:if="${groupe.officiel}">
-											<img src="tag01.png" alt="" th:src="@{/images/tag01.png}" />
-										</span>
+										<img src="tag01.png" alt="" th:src="@{/images/tag01.png}" />
 									</div>
 								</div>
 							</div>

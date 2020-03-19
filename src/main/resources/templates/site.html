@@ -32,7 +32,8 @@
 
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau4.png" alt="" th:src="@{/images/bandeau4.png}" />
+				<img class="img-fluid" src="/images/bandeau4.png" alt=""
+					th:src="@{/images/bandeau4.png}" />
 			</div>
 		</div>
 
@@ -44,7 +45,9 @@
 			</div>
 			<div class="col-6">
 				<div class="d-flex justify-content-end">
-					<img src="/images/tag01.png" alt="" / th:src="@{/images/tag01.png}">
+					<span th:if="${site.officiel}">
+						<img src="/images/tag01.png" alt="" / th:src="@{/images/tag01.png}">
+					</span>
 				</div>
 			</div>
 
@@ -86,13 +89,16 @@
 					<div class="row">
 
 						<div class="col">
-							<img src="/images/escalade.png" alt="" th:src="@{/images/escalade.png}" />
+							<img src="/images/escalade.png" alt=""
+								th:src="@{/images/escalade.png}" />
 						</div>
 						<div class="col">
-							<img src="/images/escalade2.png" alt="" th:src="@{/images/escalade2.png}" />
+							<img src="/images/escalade2.png" alt=""
+								th:src="@{/images/escalade2.png}" />
 						</div>
 						<div class="col">
-							<img src="/images/escalade.png" alt="" th:src="@{/images/escalade.png}" />
+							<img src="/images/escalade.png" alt=""
+								th:src="@{/images/escalade.png}" />
 						</div>
 
 					</div>
@@ -100,13 +106,16 @@
 					<div class="row">
 
 						<div class="col">
-							<img src="/images/escalade2.png" alt="" th:src="@{/images/escalade2.png}" />
+							<img src="/images/escalade2.png" alt=""
+								th:src="@{/images/escalade2.png}" />
 						</div>
 						<div class="col">
-							<img src="/images/escalade.png" alt="" th:src="@{/images/escalade.png}" />
+							<img src="/images/escalade.png" alt=""
+								th:src="@{/images/escalade.png}" />
 						</div>
 						<div class="col">
-							<img src="/images/escalade2.png" alt="" th:src="@{/images/escalade2.png}" />
+							<img src="/images/escalade2.png" alt=""
+								th:src="@{/images/escalade2.png}" />
 						</div>
 
 					</div>
@@ -134,6 +143,9 @@
 									type="text" class="bouton btn btn-primary mr-1">Supprimer</button></a>
 							<a th:href="@{/modifier/informations/site/{id}(id=${site.id})}"><button
 									type="text" class="bouton btn btn-primary mr-1">Modifier</button></a>
+							<a th:href="@{/officialiser/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-primary mr-1"><span th:if="${site.officiel}">Désofficialiser</span>
+									<span th:unless="${site.officiel}">Officialiser</span></button></a>
 
 						</div>
 					</div>

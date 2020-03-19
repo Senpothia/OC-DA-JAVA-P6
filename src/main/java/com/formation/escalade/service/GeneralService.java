@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 
 import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.GroupeGal;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
@@ -60,14 +61,24 @@ public class GeneralService{
    public void pagination(int page, Model model){
    
 		List<String> nomsSites = new ArrayList<>();
+		List<Boolean> tags = new ArrayList<>();
+		List<GroupeGal> groupes = new ArrayList<>();
 		List<Site> sites = siteRepo.findAll();
 		for (Site site : sites) {
 			nomsSites.add(site.getNom());
+			tags.add(site.isOfficiel());
+			GroupeGal groupe = new GroupeGal();
+			groupe.setNomSite(site.getNom());
+			groupe.setOfficiel(site.isOfficiel());
+			System.out.println(groupe.toString());
+			groupes.add(groupe);
 		}
-
+		
+		int tailleGroupes = groupes.size();
 		int taille = nomsSites.size(); // nombre de sites enregistrés
 		// taille = taille + 29; // test calcul nbre de pages
 		System.out.println("nbre de sites: " + taille);
+		System.out.println("nbre de groupes: " + tailleGroupes);
 		int nbrePages = taille / (2 * LIGNE); // nbre de pages pleines
 		int reste = taille % (2 * LIGNE); // nbre de sites contenus dans page incomplète
 
@@ -80,8 +91,12 @@ public class GeneralService{
 		System.out.println("reste: " + reste);
 
 		List<String> ligne1 = new ArrayList<>();
+		List<Boolean> tagsLigne1 = new ArrayList<>();
+		List<GroupeGal> groupesLigne1 = new ArrayList<>();
 		List<String> ligne2 = new ArrayList<>();
-
+		List<Boolean> tagsLigne2 = new ArrayList<>();
+		List<GroupeGal> groupesLigne2 = new ArrayList<>();
+		
 		int borneInf = (page - 1) * 2 * LIGNE;
 		int borneSup = borneInf + LIGNE - 1;
 
@@ -94,22 +109,32 @@ public class GeneralService{
 				for (int i = borneInf; i < borneInf + reste; i++) {
 					System.out.println("indice ligne partielle unique derniere page: " + i);
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
+					tagsLigne1.add(tags.get(i));
+					groupesLigne1.add(groupes.get(i));
 				}
 
 			} else {		// Deux lignes à remplir
 				for (int i = borneInf; i < borneSup + 1; i++) { // Remplissage ligne 1 normalement
 					System.out.println("indice ligne pleine deniere page: " + i);
 					ligne1.add(nomsSites.get(i)); // determiner l'indice i
+					tagsLigne1.add(tags.get(i));
+					groupesLigne1.add(groupes.get(i));
 				}
 
 				for (int i = borneInf + LIGNE; i < borneInf + LIGNE +(reste - LIGNE); i++) { // Remplissage ligne 2 partiellement
 					System.out.println("indice ligne partielle derniere page: " + i);
 					ligne2.add(nomsSites.get(i)); // determiner l'indice i
+					tagsLigne2.add(tags.get(i));
+					groupesLigne2.add(groupes.get(i));
 				}
 			}
 			
 			model.addAttribute("ligne1", ligne1);
+			model.addAttribute("tagsLigne1", tagsLigne1);
+			model.addAttribute("groupesLigne1", groupesLigne1);
 			model.addAttribute("ligne2", ligne2);
+			model.addAttribute("tagsLigne2", tagsLigne2);
+			model.addAttribute("groupesLigne2", groupesLigne2);
 			
 		} // fin traitement de la dernière page
 
@@ -118,16 +143,25 @@ public class GeneralService{
 			for (int i = borneInf; i < borneSup + 1; i++) { // Remplissage lignes pleines - ligne 1
 				System.out.println("indice ligne pleine: " + i);
 				ligne1.add(nomsSites.get(i));
+				tagsLigne1.add(tags.get(i));
+				groupesLigne1.add(groupes.get(i));
 			}
 
 			model.addAttribute("ligne1", ligne1);
+			model.addAttribute("tagsLigne1", tagsLigne1);
+			model.addAttribute("groupesLigne1", groupesLigne1);
 
 			for (int i = borneInf + LIGNE; i < borneSup + LIGNE + 1; i++) { // Remplissage lignes pleines - ligne 2
 				System.out.println("indice ligne pleine: " + i);
 				ligne2.add(nomsSites.get(i));
+				tagsLigne2.add(tags.get(i));
+				groupesLigne2.add(groupes.get(i));
 			}
 
 			model.addAttribute("ligne2", ligne2);
+			model.addAttribute("tagsLigne2", tagsLigne2);
+			model.addAttribute("groupesLigne2", groupesLigne2);
+			
 		} // fin traitement ligne pleine
 
 		List<String> numPages = new ArrayList<>();

@@ -724,5 +724,29 @@ public class SiteController {
 		
 		return "ok";
 	}
+	
+	@GetMapping("/officialiser/{id}")
+	public String officialiser(@PathVariable("id") Integer id, HttpSession session
+			,HttpServletRequest request, Principal principal, Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		Site site = siteRepo.getOne(id);
+		Boolean officiel = site.isOfficiel();
+		site.setOfficiel(!officiel);
+		siteRepo.save(site);
+		return "espace";
+	}
 
 }
