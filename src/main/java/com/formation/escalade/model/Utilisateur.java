@@ -29,7 +29,7 @@ public class Utilisateur {
 	@OneToMany(mappedBy="auteur")
 	private List<Commentaire> commentaires;
 	
-
+	
 	@OneToMany(mappedBy="proprietaire")
 	private List<Topo> topos;
 	
@@ -40,6 +40,9 @@ public class Utilisateur {
 				inverseJoinColumns = @JoinColumn(name = "topo")
 			)
 	private List<Topo> demandes;
+	
+	@OneToMany(mappedBy="demandeur")
+	private List<Demande1> demandes1;
 	/*
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="UserProfil",

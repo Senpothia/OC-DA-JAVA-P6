@@ -1,9 +1,20 @@
 package com.formation.escalade.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Demande1 {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
+	
+	@ManyToOne
 	private Utilisateur demandeur;
+	@ManyToOne
 	private Topo topo;
 	private Boolean active;
 	private Boolean acceptee;
