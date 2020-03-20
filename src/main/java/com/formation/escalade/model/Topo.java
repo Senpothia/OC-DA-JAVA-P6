@@ -26,6 +26,7 @@ public class Topo {
 	@ManyToOne
 	private Site site;
 	
+	
 	@ManyToOne
 	private Utilisateur proprietaire;
 	

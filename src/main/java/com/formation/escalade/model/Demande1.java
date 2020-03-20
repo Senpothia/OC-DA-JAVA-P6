@@ -14,6 +14,7 @@ public class Demande1 {
 	
 	@ManyToOne
 	private Utilisateur demandeur;
+	
 	@ManyToOne
 	private Topo topo;
 	private Boolean active;

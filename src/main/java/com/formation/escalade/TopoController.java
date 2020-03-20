@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
-
+import com.formation.escalade.model.Demande1;
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.FormTopo;
 import com.formation.escalade.model.GroupeSite;
@@ -31,7 +31,7 @@ import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
-
+import com.formation.escalade.repository.IDemande1;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -51,11 +51,12 @@ public class TopoController {
 	private final ICommentaire commentaireRepo;
 	private final IUtilisateur utilisateurRepo;
 	private final ITopo topoRepo;
+	private final IDemande1 demande1Repo;
 	
 
 
 	public TopoController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo ) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo, IDemande1 demande1Repo ) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
@@ -64,6 +65,7 @@ public class TopoController {
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
 		this.topoRepo = topoRepo;
+		this.demande1Repo = demande1Repo;
 		
 	}
 
@@ -276,6 +278,7 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		/*
 		List<Topo> demandes = utilisateur.getDemandes();
 		Site site = siteRepo.getOne(siteId);
 		List<Topo> topos = site.getTopos();
@@ -290,6 +293,19 @@ public class TopoController {
 		}
 			demandes.add(topo);
 			utilisateurRepo.save(utilisateur);
+		*/
+		
+		Demande1 demande1 = new Demande1();
+		demande1.setDemandeur(utilisateur);
+		demande1.setAcceptee(false);
+		demande1.setActive(true);
+		
+		Site site = siteRepo.getOne(siteId);
+		List<Topo> topos = site.getTopos();
+		Topo topo = topos.get(num);
+		
+		demande1.setTopo(topo);
+		demande1Repo.save(demande1);
 		
 		return "espace";
 	}
@@ -456,11 +472,17 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		Integer demandeur = utilisateur.getId();
+		List<Demande1> demandes = utilisateur.getDemandes1();
+		List<Topo> topos = new ArrayList<>();
 		
+		for (Demande1 demande : demandes) {
+			
+			topos.add(demande.getTopo());
+			
+		}
 		
-		
-		return "listes_demandes";
+		model.addAttribute("topos" , topos);
+		return "liste_demandes";
 	}
 	
 }
