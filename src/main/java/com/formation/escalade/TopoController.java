@@ -223,9 +223,8 @@ public class TopoController {
 	}
 	*/
 	
-	@GetMapping("/reservation/topo")  // Reservation à partir de la liste des topos du site
-	public String reservation(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num
-			, Model model,
+	@GetMapping("/topo/emprunts")  // Visualisation des topos réservées
+	public String reservation(Model model,
 			HttpSession session , HttpServletRequest request){
 		
 		try {
@@ -241,28 +240,58 @@ public class TopoController {
 			model.addAttribute("authentification", false);
 		}
 		
-		System.out.println("Id site: " + siteId);
-		System.out.println("num top: " + num);
-		Site site = siteRepo.getOne(siteId);
-		List<Topo> topos = topoRepo.findBySite(site);
-		Topo topo = topos.get(num);	
-		/*
-		Demande demande = new Demande();
-		demande.setDemandeur(utilisateurRepo.getOne(1));
-		demande.setTopo(topo);
-		demandeRepo.save(demande);
-		*/
-		return "ok";
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List <Topo> emprunts = utilisateur.getEmprunts();
+		int taille = emprunts.size();
+		Boolean vide = false;
+		if (taille == 0) { 
+			vide = true;
+		}
+		model.addAttribute("topos", emprunts);
+		model.addAttribute("vide", vide);
+		
+		return "liste_emprunts";
 	}
 	
-	@GetMapping("/reservation/liste/{id}")
-	public String listerReservation (@PathVariable("id") Integer id, Model model){
+	@GetMapping("/topo/reserver")   // Reserver une topo
+	public String listerReservation (@RequestParam("siteId") Integer siteId
+			, @RequestParam("num") int num
+			, Model model , HttpServletRequest request){
 		
-		Site site = siteRepo.getOne(id);
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: *****" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		
-		//System.out.println("Nbre de demande" + demandes.size());
-	
-		return "ok";
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Topo> emprunts = utilisateur.getEmprunts();
+		Site site = siteRepo.getOne(siteId);
+		List<Topo> topos = site.getTopos();
+		Topo topo = topos.get(num);
+		
+		
+		if (emprunts == null) {
+			
+			emprunts = new ArrayList<Topo>();
+			emprunts.add(topo);
+			
+		}
+			emprunts.add(topo);
+			utilisateurRepo.save(utilisateur);
+		
+		return "espace";
 	}
 	
 	@GetMapping("topos/site/{id}")  // accès à liste topo depuis la page de site
@@ -317,14 +346,14 @@ public class TopoController {
 		return "topos";
 	}
 	
-	@GetMapping("/modifier/topo")
+	@GetMapping("/topo/modifier")      // Modification d'une topo
 	public String modifierTopo(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
 			HttpSession session){
 		
 		return "ok";
 	}
 	
-	@GetMapping("/topo/personnelles")
+	@GetMapping("/topo/personnelles")   // Accès à la liste des topos personnelles
 	public String mesTopos(HttpServletRequest request
 			,Model model,Principal principal) {
 		
@@ -356,7 +385,7 @@ public class TopoController {
 		return "liste_topos";
 	}
 	
-	@GetMapping("/topo/status")
+	@GetMapping("/topo/status")   // Changement du status d'une topo
 	public String modifierStatusTopo(@RequestParam("num") int num , HttpServletRequest request
 			,Model model,Principal principal){
 		
@@ -408,4 +437,6 @@ public class TopoController {
 		topoRepo.delete(topo);
 		return "espace";
 	}
+	
+	
 }

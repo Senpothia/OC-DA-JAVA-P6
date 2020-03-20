@@ -35,7 +35,7 @@ public class Utilisateur {
 	
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="Demande",
+	@JoinTable(name="Demande2",
 				joinColumns=@JoinColumn(name = "demandeur"), 
 				inverseJoinColumns = @JoinColumn(name = "topo")
 			)
