@@ -704,8 +704,8 @@ public class SiteController {
 		
 	}
 	
-	@GetMapping("/modifier/longueur")
-	public String modifierLongueur(HttpSession session
+	@GetMapping("/modifier/longueur/site/{id}")
+	public String modifierLongueur(@PathVariable("id") Integer id, HttpSession session
 			,HttpServletRequest request, Principal principal, Model model) {
 		
 		try {
@@ -721,8 +721,140 @@ public class SiteController {
 			model.addAttribute("authentification", false);
 		}
 		
+		Site site = siteRepo.getOne(id);
+		model.addAttribute("site", site);
+		String nomSecteur = new String();
+		model.addAttribute("nomSecteur", nomSecteur);
 		
-		return "ok";
+		
+		return "choisirsecteur_long";
+	}
+	
+	@PostMapping("/modifier/longueur/site/{id}")
+	public String modifierLongSecteur(@PathVariable("id") Integer id
+			, HttpSession session
+			,HttpServletRequest request, Principal principal
+			, Model model,String nomSecteur) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		Site site = siteRepo.getOne(id);
+		model.addAttribute("site", site);
+		System.out.println("nom secteur récupéré: " + nomSecteur);
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
+		model.addAttribute("secteur", secteur);
+		String nomVoie = new String();
+		model.addAttribute("nomVoie", nomVoie);
+		return "choisirvoie_long";
+		
+	}
+	
+	@PostMapping("/modifier/longueur/voie/site/{id}")
+	public String modifierLongSecteurVoie(@PathVariable("id") Integer id
+			, HttpSession session
+			,HttpServletRequest request, Principal principal
+			, Model model,String nomVoie) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		Site site = siteRepo.getOne(id);
+		model.addAttribute("site", site);
+		System.out.println("nom voie récupéré: " + nomVoie);
+		
+		Voie voie = voieRepo.findByNom(nomVoie);
+		model.addAttribute("voie", voie);
+		String nomLongueur = new String();
+		model.addAttribute("nomLongueur", nomLongueur);
+		
+		
+		return "choisirlong_long";
+	}
+	
+	@PostMapping("/modifier/longueur/longueur/site/{id}")
+	public String modifierLongSecteurVoieFinalisation(@PathVariable("id") Integer id
+			, HttpSession session
+			,HttpServletRequest request, Principal principal
+			, Model model,String nomLongueur) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		Site site = siteRepo.getOne(id);
+		model.addAttribute("site", site);
+		System.out.println("nom longueur récupéré: " + nomLongueur);
+		
+		Longueur longueur = longueurRepo.findByNom(nomLongueur);
+		FormSite formSite = new FormSite();
+		formSite.setNomLongueur(longueur.getNom());
+		formSite.setNbreSpit(longueur.getSpit());
+		formSite.setCotationLongueur(longueur.getCotation());
+		model.addAttribute("formSite", formSite);
+		
+		return "modifier_infos_long";
+	}
+	
+	
+
+	@PostMapping("/modification/informations/longueur/{nomLongueur}")
+	public String modifierInfosLongueur(@PathVariable("nomLongueur") String nomLongueur
+			,HttpSession session
+			,HttpServletRequest request, Principal principal
+			, FormSite formSite, Model model) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		System.out.println("nom longueur récupéré pour modif finale: " + nomLongueur);
+		
+		Longueur longueur = longueurRepo.findByNom(nomLongueur);
+		longueur.setNom(formSite.getNomLongueur());
+		longueur.setSpit(formSite.getNbreSpit());
+		longueur.setCotation(formSite.getCotationLongueur());
+		longueurRepo.save(longueur);
+		
+		return "espace";
 	}
 	
 	@GetMapping("/officialiser/{id}")

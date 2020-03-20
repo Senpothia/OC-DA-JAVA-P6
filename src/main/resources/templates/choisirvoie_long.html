@@ -1,19 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<title>Les amis de l'écalade</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<head>
-<!-- Required meta tags -->
-
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
 
 <style>
 ul, #myUL {
@@ -82,19 +69,34 @@ a:hover {
 
 </style>
 
+
+<title>Les amis de l'écalade</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<!-- Required meta tags -->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+
 <title>Les amis de l'escalade</title>
 </head>
 <body>
 	<div class="container">
 
-		<!-- Entete -->
+			<!-- Entete -->
 		<span th:if="${authentification}">
 			<div th:replace="fragments/entete_post :: entete_post"></div>
 		</span> <span th:unless="${authentification}">
 			<div th:replace="fragments/entete_init :: entete_init"></div>
 		</span>
 		<!-- ---------------- -->
-
 
 		<div class="row">
 			<div class="col">
@@ -137,15 +139,15 @@ a:hover {
 
 			<div class="col-4 ">
 
-				<h3 class="mt-2">Ajouter une longueur à un site existant</h3>
+				<h3 class="mt-2">Ajouter une longueur à un site existant </h3>
 
-				<form method="post" th:action="@{/modifier/longueur/site/{id}(id=${site.id})}"
-					th:object="${nomSecteur}">
+				<form method="post" th:action="@{/modifier/longueur/voie/site/{id}(id=${site.id})}"
+					th:object="${nomVoie}">
 					<div class="form-group mt-3">
-						<label for="exampleFormControlSelect1">Sélectionnez un
-							secteur</label> <select class="form-control" name="nomSecteur">
-							<option th:each="secteur: ${site.getSecteurs()}"
-								th:text="${secteur.getNom()}"></option>
+						<label for="exampleFormControlSelect1">Sélectionnez une
+							voie</label> <select class="form-control" name="nomVoie">
+							<option th:each="voie: ${secteur.getVoies()}"
+								th:text="${voie.getNom()}"></option>
 
 						</select>
 					</div>

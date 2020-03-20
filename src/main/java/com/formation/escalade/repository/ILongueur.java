@@ -12,6 +12,8 @@ public interface ILongueur extends JpaRepository <Longueur, Integer> {
 
 	List<Longueur> findByVoie(Voie s);
 
+	Longueur findByNom(String nomLongueur);
+
 	
 
 	

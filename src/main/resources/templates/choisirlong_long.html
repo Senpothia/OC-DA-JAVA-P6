@@ -139,13 +139,13 @@ a:hover {
 
 				<h3 class="mt-2">Ajouter une longueur à un site existant</h3>
 
-				<form method="post" th:action="@{/modifier/longueur/site/{id}(id=${site.id})}"
-					th:object="${nomSecteur}">
+				<form method="post" th:action="@{/modifier/longueur/longueur/site/{id}(id=${site.id})}"
+					th:object="${nomLongueur}">
 					<div class="form-group mt-3">
 						<label for="exampleFormControlSelect1">Sélectionnez un
-							secteur</label> <select class="form-control" name="nomSecteur">
-							<option th:each="secteur: ${site.getSecteurs()}"
-								th:text="${secteur.getNom()}"></option>
+							secteur</label> <select class="form-control" name="nomLongueur">
+							<option th:each="longueur: ${voie.getLongueurs()}"
+								th:text="${longueur.getNom()}"></option>
 
 						</select>
 					</div>
