@@ -39,7 +39,7 @@ public class Utilisateur {
 				joinColumns=@JoinColumn(name = "demandeur"), 
 				inverseJoinColumns = @JoinColumn(name = "topo")
 			)
-	private List<Topo> emprunts;
+	private List<Topo> demandes;
 	/*
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="UserProfil",
@@ -53,7 +53,7 @@ public class Utilisateur {
 		// TODO Auto-generated constructor stub
 	}
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Topo> topos, List<Topo> emprunts) {
+			boolean membre, List<Commentaire> commentaires, List<Topo> topos, List<Topo> demandes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -64,7 +64,7 @@ public class Utilisateur {
 		this.membre = membre;
 		this.commentaires = commentaires;
 		this.topos = topos;
-		this.emprunts = emprunts;
+		this.demandes = demandes;
 	}
 	public Integer getId() {
 		return id;
@@ -120,13 +120,13 @@ public class Utilisateur {
 	public void setTopos(List<Topo> topos) {
 		this.topos = topos;
 	}
-	public List<Topo> getEmprunts() {
-		return emprunts;
+	public List<Topo> getDemandes() {
+		return demandes;
 	}
-	public void setEmprunts(List<Topo> emprunts) {
-		this.emprunts = emprunts;
+	public void setDemandes(List<Topo> demandes) {
+		this.demandes = demandes;
 	}
-
+	
 	
 	
 	

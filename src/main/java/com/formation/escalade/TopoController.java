@@ -223,7 +223,7 @@ public class TopoController {
 	}
 	*/
 	
-	@GetMapping("/topo/emprunts")  // Visualisation des topos réservées
+	@GetMapping("/topo/liste/demandes")  // Visualisation des topos empruntées
 	public String reservation(Model model,
 			HttpSession session , HttpServletRequest request){
 		
@@ -243,7 +243,7 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		List <Topo> emprunts = utilisateur.getEmprunts();
+		List <Topo> emprunts = utilisateur.getDemandes();
 		int taille = emprunts.size();
 		Boolean vide = false;
 		if (taille == 0) { 
@@ -276,19 +276,19 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		List<Topo> emprunts = utilisateur.getEmprunts();
+		List<Topo> demandes = utilisateur.getDemandes();
 		Site site = siteRepo.getOne(siteId);
 		List<Topo> topos = site.getTopos();
 		Topo topo = topos.get(num);
 		
 		
-		if (emprunts == null) {
+		if (demandes == null) {
 			
-			emprunts = new ArrayList<Topo>();
-			emprunts.add(topo);
+			demandes = new ArrayList<Topo>();
+			demandes.add(topo);
 			
 		}
-			emprunts.add(topo);
+			demandes.add(topo);
 			utilisateurRepo.save(utilisateur);
 		
 		return "espace";
@@ -380,12 +380,10 @@ public class TopoController {
 		
 		model.addAttribute("topos", topos);
 		
-		
-		
 		return "liste_topos";
 	}
 	
-	@GetMapping("/topo/status")   // Changement du status d'une topo
+	@GetMapping("/topo/status")   // Changement du status d'une topo (dispo / indisponible)
 	public String modifierStatusTopo(@RequestParam("num") int num , HttpServletRequest request
 			,Model model,Principal principal){
 		
@@ -412,7 +410,7 @@ public class TopoController {
 		return "espace";
 	}
 	
-	@GetMapping("/topo/supprimer")
+	@GetMapping("/topo/supprimer")   // Suppression des topos
 	public String supprimerTopo(@RequestParam("num") int num , HttpServletRequest request
 			,Model model,Principal principal){
 		
@@ -438,5 +436,31 @@ public class TopoController {
 		return "espace";
 	}
 	
+	@GetMapping("/topo/demandes/faites")  
+	public String demandesFaites(HttpServletRequest request
+			,Model model,Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		Integer demandeur = utilisateur.getId();
+		
+		
+		
+		return "listes_demandes";
+	}
 	
 }
