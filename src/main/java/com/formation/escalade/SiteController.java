@@ -324,7 +324,9 @@ public class SiteController {
 		System.out.println("site id: " + siteId);
 		Commentaire commentaire = new Commentaire();
 		Utilisateur auteur = new Utilisateur();
-		auteur = utilisateurRepo.getOne(1);
+		String email = request.getUserPrincipal().getName();
+		auteur = utilisateurRepo.findByEmail(email);
+		//auteur = utilisateurRepo.getOne(1);
 		commentaire.setAuteur(auteur);
 		Site site = siteRepo.getOne(siteId);
 		commentaire.setSite(site);

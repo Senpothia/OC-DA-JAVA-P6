@@ -21,29 +21,21 @@ public class Topo {
 	private String lieu;
 	private Date date;
 	private boolean disponible;
-	//private Integer idUtilisateur;
-	//private Integer idSite;
+	
 	
 	@ManyToOne
-	//@JoinColumn(name="id_site")
 	private Site site;
 	
 	@ManyToOne
 	private Utilisateur proprietaire;
 	
-	@ManyToOne
-	private Utilisateur demandeur;
-	
-	@ManyToOne
-	private Utilisateur emprunteur;
-
 	public Topo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Topo(Integer id, String nom, String description, String lieu, Date date, boolean disponible, Site site,
-			Utilisateur proprietaire, Utilisateur demandeur, Utilisateur emprunteur) {
+			Utilisateur proprietaire) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -53,8 +45,6 @@ public class Topo {
 		this.disponible = disponible;
 		this.site = site;
 		this.proprietaire = proprietaire;
-		this.demandeur = demandeur;
-		this.emprunteur = emprunteur;
 	}
 
 	public Integer getId() {
@@ -121,22 +111,11 @@ public class Topo {
 		this.proprietaire = proprietaire;
 	}
 
-	public Utilisateur getDemandeur() {
-		return demandeur;
+	@Override
+	public String toString() {
+		return "Topo [id=" + id + ", nom=" + nom + ", description=" + description + ", lieu=" + lieu + ", date=" + date
+				+ ", disponible=" + disponible + ", site=" + site + ", proprietaire=" + proprietaire + "]";
 	}
 
-	public void setDemandeur(Utilisateur demandeur) {
-		this.demandeur = demandeur;
-	}
-
-	public Utilisateur getEmprunteur() {
-		return emprunteur;
-	}
-
-	public void setEmprunteur(Utilisateur emprunteur) {
-		this.emprunteur = emprunteur;
-	}
-
-	
 	
 }

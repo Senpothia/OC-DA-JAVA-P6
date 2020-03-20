@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
-import com.formation.escalade.model.Demande;
+
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.FormTopo;
 import com.formation.escalade.model.GroupeSite;
@@ -31,7 +31,7 @@ import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
-import com.formation.escalade.repository.IDemande;
+
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -51,16 +51,11 @@ public class TopoController {
 	private final ICommentaire commentaireRepo;
 	private final IUtilisateur utilisateurRepo;
 	private final ITopo topoRepo;
-	private final IDemande demandeRepo;
+	
 
-	/**
-	 * @Autowired SiteService siteService;
-	 * 
-	 * @Autowired GeneralService generalService;
-	 */
 
 	public TopoController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo, IDemande demandeRepo) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo ) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
@@ -69,12 +64,12 @@ public class TopoController {
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
 		this.topoRepo = topoRepo;
-		this.demandeRepo = demandeRepo;
+		
 	}
 
-	@GetMapping("/creationtopo")
+	@GetMapping("/topo/creation")   // A partir de l'espace personnel
 	public String creationTopo(Model model, HttpServletRequest request
-			,Principal principal) {
+			, Principal principal) {
 		
 		try {
 
@@ -97,7 +92,7 @@ public class TopoController {
 	}
 	
 	
-	@GetMapping("/creationtopo/{nomSite}")
+	@GetMapping("/topo/creation/{nomSite}") // A partir de la page d'un site
 	public String creationTopoPageTopos(@PathVariable ("nomSite") String nomSite, Model model 
 			, HttpServletRequest request, Principal principal, HttpSession session) {
 		
@@ -126,7 +121,7 @@ public class TopoController {
 		
 	}
 
-	@PostMapping("/creationtopo")
+	@PostMapping("/topo/creation")      // Enregistrement topo crée
 	public String retourFormTopo(FormTopo formTopo, HttpServletRequest request
 			,Model model,Principal principal) {
 		
@@ -181,9 +176,8 @@ public class TopoController {
 		return "espace";
 	}
 	
-	
-
-	@GetMapping("/choisirtopo")
+	/**
+	@GetMapping("/choisirtopo")  // Sélection site pour visualisation des topos du site
 	public String selectionSiteTopo(Model model) {
 
 		List<Site> sites = siteRepo.findAll();
@@ -195,7 +189,7 @@ public class TopoController {
 
 	}
 
-	@PostMapping("/choisirtopo")
+	@PostMapping("/choisirtopo")   // Liste des topos pour un site
 	public String choixSite(String nomSite, Model model) {
 		
 		System.out.println(nomSite);
@@ -209,10 +203,7 @@ public class TopoController {
 			Utilisateur proprietaire = topo.getProprietaire();
 			prenoms.add(proprietaire.getPrenom());
 			noms.add(proprietaire.getNom());
-			
 		}
-		
-		
 			for (int i = 0; i < noms.size(); i++) {
 
 			System.out.println("nom: " + noms.get(i));
@@ -223,7 +214,6 @@ public class TopoController {
 				System.out.println("prenom: " + prenoms.get(i));
 			}
 
-
 		model.addAttribute("noms", noms);
 		model.addAttribute("prenoms", prenoms);
 		model.addAttribute("topos", topos);
@@ -231,21 +221,37 @@ public class TopoController {
 
 		return "topos";
 	}
+	*/
 	
-	@GetMapping("/reservation/topo")
-	public String reservation(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
-			HttpSession session){
+	@GetMapping("/reservation/topo")  // Reservation à partir de la liste des topos du site
+	public String reservation(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num
+			, Model model,
+			HttpSession session , HttpServletRequest request){
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		
 		System.out.println("Id site: " + siteId);
 		System.out.println("num top: " + num);
 		Site site = siteRepo.getOne(siteId);
 		List<Topo> topos = topoRepo.findBySite(site);
 		Topo topo = topos.get(num);	
+		/*
 		Demande demande = new Demande();
 		demande.setDemandeur(utilisateurRepo.getOne(1));
 		demande.setTopo(topo);
 		demandeRepo.save(demande);
-	
+		*/
 		return "ok";
 	}
 	
@@ -259,7 +265,7 @@ public class TopoController {
 		return "ok";
 	}
 	
-	@GetMapping("topos/site/{id}")
+	@GetMapping("topos/site/{id}")  // accès à liste topo depuis la page de site
 	public String listeTopos(@PathVariable("id") Integer id, HttpServletRequest request
 			,Model model,Principal principal) {
 		
@@ -292,7 +298,6 @@ public class TopoController {
 			
 		}
 		
-		
 			for (int i = 0; i < noms.size(); i++) {
 
 			System.out.println("nom: " + noms.get(i));
@@ -319,5 +324,88 @@ public class TopoController {
 		return "ok";
 	}
 	
+	@GetMapping("/topo/personnelles")
+	public String mesTopos(HttpServletRequest request
+			,Model model,Principal principal) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Topo> topos = utilisateur.getTopos();
+		
+		System.out.println("Nombre de topos: " + topos.size());
+		System.out.println("Topo 1: " + topos.get(0));
+		
+		model.addAttribute("topos", topos);
+		
+		
+		
+		return "liste_topos";
+	}
+	
+	@GetMapping("/topo/status")
+	public String modifierStatusTopo(@RequestParam("num") int num , HttpServletRequest request
+			,Model model,Principal principal){
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Topo> topos = utilisateur.getTopos();
+		Topo topo = topos.get(num);
+		topo.setDisponible(!topo.isDisponible());
+		topoRepo.save(topo);
+		return "espace";
+	}
+	
+	@GetMapping("/topo/supprimer")
+	public String supprimerTopo(@RequestParam("num") int num , HttpServletRequest request
+			,Model model,Principal principal){
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Topo> topos = utilisateur.getTopos();
+		Topo topo = topos.get(num);
+		topoRepo.delete(topo);
+		return "espace";
+	}
 }
