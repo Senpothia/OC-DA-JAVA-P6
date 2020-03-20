@@ -1,0 +1,132 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/styles.css">
+<title>Les amis de l'escalade</title>
+
+<style>
+.comment {
+	border: 1px solid;
+	border-radius: 8px;
+	margin: 10px;
+	color: black;
+}
+}
+</style>
+</head>
+<body>
+	<div class="container">
+
+
+		<!-- Entete -->
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+
+
+		<!-- ********************************************* -->
+
+		<!-- IMAGE -->
+		<div class="row">
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau1.png" alt=""
+					th:src="@{/images/bandeau1.png}" />
+			</div>
+		</div>
+
+		<div class="message row">
+			<div class="col">
+				<h1>Liste des topos personnelles</h1>
+
+			</div>
+		</div>
+		<div class="row">
+
+			<div class="col">
+
+				<span th:if="${vide}">
+
+					<h2 style="color:blue;">Vous n'avez emprunté aucune topo!</h2>
+				</span>
+				
+				 <span th:unless="${vide}">
+					<div th:each="topo, iStat  : ${topos}">
+
+
+						<div class="comment">
+
+							<strong><p th:text="${topo.getSite().getNom()}"></p></strong> <strong><p
+									th:text="${topo.getProprietaire().getNom()}"></p></strong> <strong><p
+									th:text="${topo.nom}"></p></strong>
+							<p th:text="${topo.lieu}"></p>
+							<p th:text="${topo.description}"></p>
+							<p th:text="${topo.date}"></p>
+
+
+							<div class="row justify-content-end" style="margin-right: 10px;">
+
+								<a style="margin-right: 10px;"
+									th:href="@{/topo/supprimer(num=${iStat.index})}"
+									class="text-primary">Supprimer</a> <a
+									th:href="@{/topo/status(num=${iStat.index})}"
+									class="text-primary">Status</a>
+							</div>
+
+						</div>
+
+					</div>
+				</span>
+			</div>
+		</div>
+
+		<div class="row pt-3">
+
+			<div class="col">
+				<div class="d-flex justify-content-end">
+					<a href="/espace"><button type="text"
+							class="bouton btn btn-primary mr-1">Retour</button></a>
+
+				</div>
+			</div>
+
+		</div>
+		<!-- PIED DE PAGE -->
+
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+
+	</div>
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>

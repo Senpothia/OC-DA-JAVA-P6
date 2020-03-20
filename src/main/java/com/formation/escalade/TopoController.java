@@ -225,7 +225,7 @@ public class TopoController {
 	}
 	*/
 	
-	@GetMapping("/topo/liste/demandes")  // Visualisation des topos empruntées
+	@GetMapping("/topo/emprunts")  // Visualisation des topos empruntées
 	public String reservation(Model model,
 			HttpSession session , HttpServletRequest request){
 		
@@ -245,6 +245,7 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		/**
 		List <Topo> emprunts = utilisateur.getDemandes();
 		int taille = emprunts.size();
 		Boolean vide = false;
@@ -253,6 +254,27 @@ public class TopoController {
 		}
 		model.addAttribute("topos", emprunts);
 		model.addAttribute("vide", vide);
+		*/
+		
+		List<Demande1> demandes = utilisateur.getDemandes1();
+		List<Topo> topos = new ArrayList<>();
+		for (Demande1 demande: demandes) {
+			boolean emprunt = demande.getAcceptee();
+			if (emprunt) {
+			Topo topo = demande.getTopo();
+			 topos.add(topo);
+			}
+			
+		}
+		
+		int taille = topos.size();
+		Boolean vide = false;
+		if (taille == 0) { 
+			vide = true;
+		}
+		
+		model.addAttribute("vide", vide);
+		model.addAttribute("topos", topos);
 		
 		return "liste_emprunts";
 	}
@@ -484,5 +506,52 @@ public class TopoController {
 		model.addAttribute("topos" , topos);
 		return "liste_demandes";
 	}
+	
+	@GetMapping("/topo/demandes/recues")  
+	public String demandesRecus(HttpServletRequest request
+			,Model model,Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		Integer idUser = utilisateur.getId();
+		List<Demande1> demandes = demande1Repo.findAll();
+		List<Topo> topos = new ArrayList<>();
+		for (Demande1 demande: demandes) {
+			
+			Topo topo = demande.getTopo();
+			Utilisateur user = topo.getProprietaire();
+			Integer id = user.getId();
+			if (id == idUser) {
+				
+				topos.add(topo);
+			}
+			
+		}
+		
+		int taille = topos.size();
+		Boolean vide = false;
+		if (taille == 0) { 
+			vide = true;
+		}
+		
+		model.addAttribute("vide", vide);
+		model.addAttribute("topos", topos);
+		return "demandes_recues";
+	}
+	
 	
 }
