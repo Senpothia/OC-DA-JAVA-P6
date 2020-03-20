@@ -14,10 +14,6 @@ public class Demande {
 	@GeneratedValue
 	private Integer id;
 	
-	//private Integer id_topo;
-	//private Integer id_utilisateur;
-	//private Integer idTopo;
-	//private Integer idUtilisateur;
 	
 	@ManyToOne
 	private Utilisateur demandeur;

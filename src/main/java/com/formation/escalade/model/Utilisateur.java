@@ -30,10 +30,13 @@ public class Utilisateur {
 	private List<Commentaire> commentaires;
 	
 	@OneToMany(mappedBy="demandeur")
-	private List<Demande> demandes;
+	private List<Topo> demandes;
 	
 	@OneToMany(mappedBy="proprietaire")
 	private List<Topo> topos;
+	
+	@OneToMany(mappedBy="emprunteur")
+	private List<Topo> emprunts;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="UserProfil",
@@ -46,27 +49,6 @@ public class Utilisateur {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
-
-	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Demande> demandes, List<Topo> topos,
-			List<Profil> profils) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.departement = departement;
-		this.email = email;
-		this.passe = passe;
-		this.membre = membre;
-		this.commentaires = commentaires;
-		this.demandes = demandes;
-		this.topos = topos;
-		this.profils = profils;
-	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -132,11 +114,11 @@ public class Utilisateur {
 		this.commentaires = commentaires;
 	}
 
-	public List<Demande> getDemandes() {
+	public List<Topo> getDemandes() {
 		return demandes;
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	public void setDemandes(List<Topo> demandes) {
 		this.demandes = demandes;
 	}
 
@@ -155,6 +137,8 @@ public class Utilisateur {
 	public void setProfils(List<Profil> profils) {
 		this.profils = profils;
 	}
+
+	
 
 	
 	
