@@ -359,11 +359,79 @@ public class TopoController {
 		return "topos";
 	}
 	
-	@GetMapping("/topo/modifier")      // Modification d'une topo
-	public String modifierTopo(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
-			HttpSession session){
+	@GetMapping("/topo/modifier")      // Modification d'une topo - Get
+	public String modifierTopo(@RequestParam("num") int num, HttpServletRequest request
+			,Model model,Principal principal){
 		
-		return "ok";
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Topo> topos = utilisateur.getTopos();
+		
+		Topo topo = topos.get(num);
+		Site site = topo.getSite();
+		
+		FormTopo formTopo = new FormTopo();
+		formTopo.setNom(topo.getNom());
+		formTopo.setDescription(topo.getDescription());
+		formTopo.setLieu(topo.getLieu());
+		formTopo.setDate(topo.getDate());
+		formTopo.setDisponibilite(topo.isDisponible());
+		
+		model.addAttribute("formTopo", formTopo);
+		model.addAttribute("num", num);
+		
+		return "modification_topo";
+	}
+	
+	@PostMapping("/topo/modifier/{num}")    // Modification d'une topo - Post
+	public String modifierTopoPost(@PathVariable("num") int num, HttpServletRequest request
+			,Model model,Principal principal, FormTopo formTopo) {
+		
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		System.out.println("Méthode modif topo - post");
+		System.out.println("num récupéré: " + num);
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Topo> topos = utilisateur.getTopos();
+		
+		Topo topo = topos.get(num);
+		topo.setNom(formTopo.getNom());
+		topo.setDescription(formTopo.getDescription());
+		topo.setLieu(formTopo.getLieu());
+		topo.setDisponible(formTopo.isDisponibilite());
+		topoRepo.save(topo);
+		
+		return "espace";
 	}
 	
 	@GetMapping("/topo/personnelles")   // Accès à la liste des topos personnelles

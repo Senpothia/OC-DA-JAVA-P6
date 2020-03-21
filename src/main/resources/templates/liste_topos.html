@@ -81,7 +81,13 @@
 
 							<a style="margin-right: 10px;"
 								th:href="@{/topo/supprimer(num=${iStat.index})}"
-								class="text-primary">Supprimer</a> <a
+								class="text-primary">Supprimer</a> 
+								
+								 <a style="margin-right: 10px;"
+								th:href="@{/topo/modifier(num=${iStat.index})}"
+								class="text-primary">Modifier</a>
+								
+								<a
 								th:href="@{/topo/status(num=${iStat.index})}"
 								class="text-primary">Status</a>
 						</div>
