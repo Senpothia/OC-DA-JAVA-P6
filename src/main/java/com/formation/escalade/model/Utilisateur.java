@@ -43,6 +43,7 @@ public class Utilisateur {
 	
 	@OneToMany(mappedBy="demandeur")
 	private List<Demande1> demandes1;
+	
 	/*
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="UserProfil",
@@ -50,7 +51,8 @@ public class Utilisateur {
 				inverseJoinColumns = @JoinColumn(name ="idProfil")
 			)
 	private List<Profil> profils; 
-*/
+	 */
+	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub

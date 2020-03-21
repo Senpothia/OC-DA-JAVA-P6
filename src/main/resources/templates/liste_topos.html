@@ -57,45 +57,46 @@
 
 			<div class="col">
 
-				<div th:each="topo, iStat  : ${topos}">
+				<span th:if="${vide}">
+
+					<h2 style="color: blue;">Vous n'avez aucune topo personnelle!</h2>
+				</span> <span th:unless="${vide}">
+
+					<div th:each="topo, iStat  : ${topos}">
 
 
-					<div class="comment">
-						
-						<strong><p th:text="${topo.getSite().getNom()}"></p></strong>
-						<strong><p th:text="${topo.nom}"></p></strong>
-						<p th:text="${topo.lieu}"></p>
-						<p th:text="${topo.description}"></p>
-						<p th:text="${topo.date}"></p>
-						
-						
-						<span th:if="${topo.isDisponible()}">
-							<strong><p style="color:green;">Disponible</p></strong>
-						</span>
-						
-						<span th:unless="${topo.isDisponible()}">
-							<strong><p style="color:red;">Indisponible</p></strong>
-						</span>
+						<div class="comment">
 
-						<div class="row justify-content-end" style="margin-right: 10px;">
+							<strong><p th:text="${topo.getSite().getNom()}"></p></strong> <strong><p
+									th:text="${topo.nom}"></p></strong>
+							<p th:text="${topo.lieu}"></p>
+							<p th:text="${topo.description}"></p>
+							<p th:text="${topo.date}"></p>
 
-							<a style="margin-right: 10px;"
-								th:href="@{/topo/supprimer(num=${iStat.index})}"
-								class="text-primary">Supprimer</a> 
-								
-								 <a style="margin-right: 10px;"
-								th:href="@{/topo/modifier(num=${iStat.index})}"
-								class="text-primary">Modifier</a>
-								
-								<a
-								th:href="@{/topo/status(num=${iStat.index})}"
-								class="text-primary">Status</a>
+
+							<span th:if="${topo.isDisponible()}"> <strong><p
+										style="color: green;">Disponible</p></strong>
+							</span>
+							 <span th:unless="${topo.isDisponible()}"> <strong><p
+										style="color: red;">Indisponible</p></strong>
+						
+
+							<div class="row justify-content-end" style="margin-right: 10px;">
+
+								<a style="margin-right: 10px;"
+									th:href="@{/topo/supprimer(num=${iStat.index})}"
+									class="text-primary">Supprimer</a> <a
+									style="margin-right: 10px;"
+									th:href="@{/topo/modifier(num=${iStat.index})}"
+									class="text-primary">Modifier</a> <a
+									th:href="@{/topo/status(num=${iStat.index})}"
+									class="text-primary">Status</a>
+							</div>
+
 						</div>
 
 					</div>
-
-				</div>
-
+				</span>
 			</div>
 		</div>
 

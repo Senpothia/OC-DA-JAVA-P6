@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.formation.escalade.model.FormCompte;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.repository.IUtilisateur;
 import com.sun.xml.bind.v2.model.core.ID;
@@ -51,16 +53,7 @@ public class CompteController {
 		return "accueil";
 	}
 
-	@PostMapping("/modificationCompte")
-	public String compteModification(@ModelAttribute Utilisateur utilisateur, Model model) {
-		model.addAttribute("utilisateur", utilisateur);
-		System.out.println(utilisateur.toString());
-
-		utilisateur.setMembre(false);
-
-		utilisateurRepo.save(utilisateur);
-		return "espace";
-	}
+	
 
 	@GetMapping("/espace")    // Accès espace personnel
 	public String espace( Model model, HttpServletRequest request, Principal principal) {
@@ -70,7 +63,7 @@ public class CompteController {
 	}
 	
 	
-	@GetMapping("/suppressionCompte/{id}")
+	@GetMapping("/Compte/supprimer/{id}")
 
 	public String supprimerCompte(@PathVariable("id") int id, Model model) {
 
@@ -80,7 +73,7 @@ public class CompteController {
 		return "test";
 	}
 
-	@PostMapping("/suppressionCompte")
+	@PostMapping("/compte/supprimer")
 
 	public String deleteAccount(@ModelAttribute Utilisateur utilisateur, Model model) {
 		model.addAttribute("utilisateur", utilisateur);
@@ -88,7 +81,7 @@ public class CompteController {
 		return "test";
 	}
 
-	@GetMapping("/modificationCompte")
+	@GetMapping("/compte/modifier")
 	public String modificationCompte(Utilisateur utilisateur, 
 			Model model, HttpServletRequest request) {
 		
@@ -104,10 +97,47 @@ public class CompteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
+		String email = request.getUserPrincipal().getName();
+		utilisateur = utilisateurRepo.findByEmail(email);
+		FormCompte formCompte = new FormCompte();
+		formCompte.setPrenom(utilisateur.getPrenom());
+		formCompte.setNom(utilisateur.getNom());
+		formCompte.setDepartement(utilisateur.getDepartement());
+		formCompte.setEmail(utilisateur.getEmail());
+		
+		model.addAttribute("formCompte", formCompte);	
 		
 		return "modificationCompte";
 	}
 
+	@PostMapping("/compte/modifier")
+	public String compteModification(@ModelAttribute Utilisateur utilisateur
+			, Model model, FormCompte formCompte, HttpServletRequest request) {
+		
+		try {
+			
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
 	
+		} catch (NullPointerException e) {
+	
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		utilisateur = utilisateurRepo.findByEmail(email);
+		
+		utilisateur.setPrenom(formCompte.getPrenom());
+		utilisateur.setNom(formCompte.getNom());
+		utilisateur.setDepartement(formCompte.getDepartement());
+		utilisateur.setEmail(formCompte.getEmail());
+		
+		utilisateurRepo.save(utilisateur);
+		
+		return "espace";
+	}
 
 }

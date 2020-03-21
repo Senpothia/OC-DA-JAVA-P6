@@ -178,52 +178,7 @@ public class TopoController {
 		return "espace";
 	}
 	
-	/**
-	@GetMapping("/choisirtopo")  // Sélection site pour visualisation des topos du site
-	public String selectionSiteTopo(Model model) {
-
-		List<Site> sites = siteRepo.findAll();
-		model.addAttribute("sites", sites);
-		String nomSite = new String();
-		model.addAttribute("nomSite", nomSite);
-
-		return "choisirtopo";
-
-	}
-
-	@PostMapping("/choisirtopo")   // Liste des topos pour un site
-	public String choixSite(String nomSite, Model model) {
-		
-		System.out.println(nomSite);
-		Site site = siteRepo.findByNom(nomSite);
-		Integer id_site = site.getId();
-		List<Topo> topos = topoRepo.findBySite(site);
-		List<String> noms = new ArrayList<>();
-		List<String> prenoms = new ArrayList<>();
-		
-		for (Topo topo:topos ) {
-			Utilisateur proprietaire = topo.getProprietaire();
-			prenoms.add(proprietaire.getPrenom());
-			noms.add(proprietaire.getNom());
-		}
-			for (int i = 0; i < noms.size(); i++) {
-
-			System.out.println("nom: " + noms.get(i));
-		}
-			
-			for (int i = 0; i < prenoms.size(); i++) {
-
-				System.out.println("prenom: " + prenoms.get(i));
-			}
-
-		model.addAttribute("noms", noms);
-		model.addAttribute("prenoms", prenoms);
-		model.addAttribute("topos", topos);
-		model.addAttribute("site", site);
-
-		return "topos";
-	}
-	*/
+	
 	
 	@GetMapping("/topo/emprunts")  // Visualisation des topos empruntées
 	public String reservation(Model model,
@@ -350,7 +305,14 @@ public class TopoController {
 				System.out.println("prenom: " + prenoms.get(i));
 			}
 
-
+			int taille = topos.size();
+			Boolean vide = false;
+			if (taille == 0) { 
+				vide = true;
+			}
+			
+		model.addAttribute("vide", vide);
+			
 		model.addAttribute("noms", noms);
 		model.addAttribute("prenoms", prenoms);
 		model.addAttribute("topos", topos);
@@ -456,9 +418,16 @@ public class TopoController {
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		List<Topo> topos = utilisateur.getTopos();
 		
-		System.out.println("Nombre de topos: " + topos.size());
-		System.out.println("Topo 1: " + topos.get(0));
+		//System.out.println("Nombre de topos: " + topos.size());
+		//System.out.println("Topo 1: " + topos.get(0));
 		
+		int taille = topos.size();
+		Boolean vide = false;
+		if (taille == 0) { 
+			vide = true;
+		}
+		
+		model.addAttribute("vide", vide);
 		model.addAttribute("topos", topos);
 		
 		return "liste_topos";
@@ -545,6 +514,14 @@ public class TopoController {
 			topos.add(demande.getTopo());
 			
 		}
+		
+		int taille = topos.size();
+		Boolean vide = false;
+		if (taille == 0) { 
+			vide = true;
+		}
+		
+		model.addAttribute("vide", vide);
 		
 		model.addAttribute("topos" , topos);
 		return "liste_demandes";
