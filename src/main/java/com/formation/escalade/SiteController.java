@@ -87,9 +87,25 @@ public class SiteController {
 
 	@PostMapping("/creationsite")
 
-	public String siteSubmit(FormSite formSite) {
+	public String siteSubmit(FormSite formSite, HttpServletRequest request,
+			Principal principal, Model model) {
+		
+		try {
 
-		siteService.createSite(formSite);
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		siteService.createSite(formSite, utilisateur);
 
 		return "creation_site";
 	}
@@ -248,6 +264,9 @@ public class SiteController {
 
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
+		Integer idCreateur = site.getCreateur();
+		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
+		model.addAttribute("createur", createur);
 
 		return "site";
 

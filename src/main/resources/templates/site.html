@@ -61,10 +61,12 @@
 				<div class="informations col-3">
 					<h1>Informations</h1>
 
-					<strong><div th:text="'Nom:'+ ${site.nom}"></div></strong> <br>
+					<strong><div th:text="'Nom: '+ ${site.nom}"></div></strong> <br>
 					<strong><div
-							th:text="'Localisation:'+ ${site.localisation}"></div></strong> <br>
-					<strong><div th:text="'Département:'+ ${site.departement}"></div></strong>
+							th:text="'Localisation: '+ ${site.localisation}"></div></strong> <br>
+					<strong><div th:text="'Département: '+ ${site.departement}"></div></strong>
+					<br>
+						<strong><div th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></div></strong>
 					<br>
 					<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 						Sed non risus. Suspendisse lectus tortor, dignissim sit amet,

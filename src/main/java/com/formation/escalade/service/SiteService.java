@@ -55,7 +55,7 @@ public class SiteService implements GestionSiteService {
 	}
 
 	@Override
-	public void createSite(FormSite formSite) {
+	public void createSite(FormSite formSite, Utilisateur utilisateur) {
 
 		System.out.println(formSite.toString());
 
@@ -81,6 +81,8 @@ public class SiteService implements GestionSiteService {
 		site.setLocalisation(localisationSite);
 		site.setDepartement(departementSite);
 		site.setOfficiel(officielSite);
+		
+		site.setCreateur(utilisateur.getId());  // Affectation du créateur du site
 
 		siteRepo.save(site);
 
