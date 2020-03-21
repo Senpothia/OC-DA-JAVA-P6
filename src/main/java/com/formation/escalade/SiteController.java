@@ -239,10 +239,16 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
+		
+		List<Site> sites = siteRepo.findAll();
+		if (sites.size()>0) {
+			
+			generalService.pagination(page, model);
+			return "galerie";
 
-		generalService.pagination(page, model);
-		return "galerie";
+		} else return "galerie0";
 
+		
 	}
 
 	@GetMapping("/viewsite/{nomSite}")

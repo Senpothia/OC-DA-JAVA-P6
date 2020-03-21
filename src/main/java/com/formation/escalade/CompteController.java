@@ -43,10 +43,20 @@ public class CompteController {
 
 	@PostMapping("/compte")	// Création de compte
 	public String compteSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
-		model.addAttribute("utilisateur", utilisateur);
-		System.out.println(utilisateur.toString());
-
-		utilisateur.setMembre(false);
+		
+		
+		List<Utilisateur> users = utilisateurRepo.findAll();
+		if (users.size() == 0) {
+			
+			utilisateur.setMembre(true);
+			System.out.println("Premier utilisateur créée: membre d'office");
+			
+		} else {
+			
+			utilisateur.setMembre(false);
+			System.out.println("Création membre ordinaire");
+		}
+		
 		utilisateur.setPasse(passwordEncoder.encode(utilisateur.getPasse()));
 
 		utilisateurRepo.save(utilisateur);
