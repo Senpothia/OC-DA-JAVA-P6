@@ -245,16 +245,7 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		/**
-		List <Topo> emprunts = utilisateur.getDemandes();
-		int taille = emprunts.size();
-		Boolean vide = false;
-		if (taille == 0) { 
-			vide = true;
-		}
-		model.addAttribute("topos", emprunts);
-		model.addAttribute("vide", vide);
-		*/
+	
 		
 		List<Demande1> demandes = utilisateur.getDemandes1();
 		List<Topo> topos = new ArrayList<>();
@@ -300,22 +291,6 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		/*
-		List<Topo> demandes = utilisateur.getDemandes();
-		Site site = siteRepo.getOne(siteId);
-		List<Topo> topos = site.getTopos();
-		Topo topo = topos.get(num);
-		
-		
-		if (demandes == null) {
-			
-			demandes = new ArrayList<Topo>();
-			demandes.add(topo);
-			
-		}
-			demandes.add(topo);
-			utilisateurRepo.save(utilisateur);
-		*/
 		
 		Demande1 demande1 = new Demande1();
 		demande1.setDemandeur(utilisateur);
@@ -474,7 +449,7 @@ public class TopoController {
 		return "espace";
 	}
 	
-	@GetMapping("/topo/demandes/faites")  
+	@GetMapping("/topo/demandes/faites")        // Visualisation des demandes de topos adressée aux propriétaires
 	public String demandesFaites(HttpServletRequest request
 			,Model model,Principal principal) {
 		
@@ -507,7 +482,7 @@ public class TopoController {
 		return "liste_demandes";
 	}
 	
-	@GetMapping("/topo/demandes/recues")  
+	@GetMapping("/topo/demandes/recues")     // Visualisation des demandes de topos reçues
 	public String demandesRecus(HttpServletRequest request
 			,Model model,Principal principal) {
 		
