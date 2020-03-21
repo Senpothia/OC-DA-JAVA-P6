@@ -58,7 +58,7 @@ public class CompteController {
 		}
 		
 		utilisateur.setPasse(passwordEncoder.encode(utilisateur.getPasse()));
-
+		utilisateur.setActif(true);
 		utilisateurRepo.save(utilisateur);
 		return "accueil";
 	}
