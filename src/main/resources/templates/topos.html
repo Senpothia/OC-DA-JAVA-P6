@@ -28,17 +28,15 @@
 <body>
 	<div class="container">
 
-		
+
 		<!-- Entete -->
-			<span th:if="${authentification}">
+		<span th:if="${authentification}">
 			<div th:replace="fragments/entete_post :: entete_post"></div>
-		</span>
-		
-		<span th:unless="${authentification}">
+		</span> <span th:unless="${authentification}">
 			<div th:replace="fragments/entete_init :: entete_init"></div>
 		</span>
 
-	
+
 		<!-- ********************************************* -->
 
 		<!-- IMAGE -->
@@ -69,14 +67,19 @@
 						<p th:text="${topo.nom}"></p>
 						<p th:text="${topo.lieu}"></p>
 						<p th:text="${topo.description}"></p>
+						<p th:text="${topo.date}"></p>
 
-						<div class="row justify-content-end" style="margin-right: 10px;">
-							<a style="margin-right: 10px;"
-								th:href="@{/topo/modifier(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Modifier</a> <a
-								th:href="@{/topo/reserver(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Reserver</a>
-						</div>
+						<span th:if="${topo.isDisponible()}"> <strong><p
+									style="color: green;">Disponible</p></strong>
+						</span> <span th:unless="${topo.isDisponible()}"> <strong><p
+									style="color: red;">Indisponible</p></strong>
+						</span> <span th:if="${topo.isDisponible()}">
+							<div class="row justify-content-end" style="margin-right: 10px;">
+								<a
+									th:href="@{/topo/reserver(siteId=${site.id},num=${iStat.index})}"
+									class="text-primary">Reserver</a>
+							</div>
+						</span>
 					</div>
 
 				</div>
@@ -89,9 +92,10 @@
 			<div class="col">
 				<div class="d-flex justify-content-end">
 					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button
-							type="text" class="bouton btn btn-primary mr-1">Retour</button></a> 
-					<a th:href="@{/topo/creation/{nomSite}(nomSite=${site.nom})}"><button
-							type="button" class="bouton btn btn-primary mr-1">Ajouter une topo</button></a>
+							type="text" class="bouton btn btn-primary mr-1">Retour</button></a> <a
+						th:href="@{/topo/creation/{nomSite}(nomSite=${site.nom})}"><button
+							type="button" class="bouton btn btn-primary mr-1">Ajouter
+							une topo</button></a>
 				</div>
 			</div>
 

@@ -123,7 +123,7 @@ public class TopoController {
 		
 	}
 
-	@PostMapping("/topo/creation")      // Enregistrement topo crée
+	@PostMapping("/topo/creation")      // Enregistrement topo créée
 	public String retourFormTopo(FormTopo formTopo, HttpServletRequest request
 			,Model model,Principal principal) {
 		
