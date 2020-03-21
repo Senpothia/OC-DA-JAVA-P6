@@ -127,6 +127,8 @@ public class CompteController {
 			model.addAttribute("authentification", false);
 		}
 		
+		
+		
 		String email = request.getUserPrincipal().getName();
 		utilisateur = utilisateurRepo.findByEmail(email);
 		
@@ -134,7 +136,8 @@ public class CompteController {
 		utilisateur.setNom(formCompte.getNom());
 		utilisateur.setDepartement(formCompte.getDepartement());
 		utilisateur.setEmail(formCompte.getEmail());
-		
+
+		utilisateur.setPasse(passwordEncoder.encode(formCompte.getPassword()));
 		utilisateurRepo.save(utilisateur);
 		
 		return "espace";
