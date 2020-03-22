@@ -25,7 +25,7 @@ public class Utilisateur {
 	private String email;
 	private String passe;
 	private boolean membre;
-	private boolean actif;
+	//private boolean actif;
 	
 	@OneToMany(mappedBy="auteur")
 	private List<Commentaire> commentaires;
@@ -60,7 +60,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, boolean actif, List<Commentaire> commentaires, List<Topo> topos, List<Topo> demandes,
+			boolean membre, List<Commentaire> commentaires, List<Topo> topos, List<Topo> demandes,
 			List<Demande1> demandes1) {
 		super();
 		this.id = id;
@@ -70,7 +70,6 @@ public class Utilisateur {
 		this.email = email;
 		this.passe = passe;
 		this.membre = membre;
-		this.actif = actif;
 		this.commentaires = commentaires;
 		this.topos = topos;
 		this.demandes = demandes;
@@ -133,14 +132,6 @@ public class Utilisateur {
 		this.membre = membre;
 	}
 
-	public boolean isActif() {
-		return actif;
-	}
-
-	public void setActif(boolean actif) {
-		this.actif = actif;
-	}
-
 	public List<Commentaire> getCommentaires() {
 		return commentaires;
 	}
@@ -172,6 +163,7 @@ public class Utilisateur {
 	public void setDemandes1(List<Demande1> demandes1) {
 		this.demandes1 = demandes1;
 	}
+
 	
 
 }

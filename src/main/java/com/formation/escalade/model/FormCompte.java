@@ -7,19 +7,21 @@ public class FormCompte {
 	private Integer departement;
 	private String email;
 	private String password;
+	private Boolean membre;
 	
 	public FormCompte() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormCompte(String prenom, String nom, Integer departement, String email, String password) {
+	public FormCompte(String prenom, String nom, Integer departement, String email, String password, Boolean membre) {
 		super();
 		this.prenom = prenom;
 		this.nom = nom;
 		this.departement = departement;
 		this.email = email;
 		this.password = password;
+		this.membre = membre;
 	}
 
 	public String getPrenom() {
@@ -62,10 +64,14 @@ public class FormCompte {
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "FormCompte [prenom=" + prenom + ", nom=" + nom + ", departement=" + departement + ", email=" + email
-				+ ", password=" + password + "]";
+	public Boolean getMembre() {
+		return membre;
 	}
+
+	public void setMembre(Boolean membre) {
+		this.membre = membre;
+	}
+
+	
 	
 }

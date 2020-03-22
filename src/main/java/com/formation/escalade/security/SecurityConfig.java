@@ -47,19 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .failureUrl("/connexion?error=true").permitAll();
         
     }
-	/*
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().
-		dataSource(dataSource).
-		usersByUsernameQuery("select email, passe, membre from utilisateur where email=?")
-		.authoritiesByUsernameQuery(
-		"select u.email, p.role from user_profil up " + 
-		"inner join utilisateur u on u.id = up.id_user " + 
-	    "inner join profil p on p.id = up.id_profil " + 
-		"where u.email = ?");
-		}
-	*/
+	
 	@Bean
 	public PasswordEncoder passwordEncoder () {
 		
