@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Demande1 {
+public class Demande {
 	
 	@Id
 	@GeneratedValue
@@ -20,12 +20,12 @@ public class Demande1 {
 	private Boolean active;
 	private Boolean acceptee;
 	
-	public Demande1() {
+	public Demande() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Demande1(Integer id, Utilisateur demandeur, Topo topo, Boolean active, Boolean acceptee) {
+	public Demande(Integer id, Utilisateur demandeur, Topo topo, Boolean active, Boolean acceptee) {
 		
 		super();
 		this.id = id;

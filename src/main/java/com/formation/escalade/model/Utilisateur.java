@@ -37,16 +37,8 @@ public class Utilisateur {
 	@OneToMany(mappedBy="proprietaire")
 	private List<Topo> topos;
 	
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="Demande2",
-				joinColumns=@JoinColumn(name = "demandeur"), 
-				inverseJoinColumns = @JoinColumn(name = "topo")
-			)
-	private List<Topo> demandes;
-	
 	@OneToMany(mappedBy="demandeur")
-	private List<Demande1> demandes1;
+	private List<Demande> demandes;
 	
 	public Utilisateur() {
 		super();
@@ -54,8 +46,8 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Topo> topos, List<Topo> demandes,
-			List<Demande1> demandes1) {
+			boolean membre, List<Commentaire> commentaires, List<Topo> topos, 
+			List<Demande> demandes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -67,7 +59,7 @@ public class Utilisateur {
 		this.commentaires = commentaires;
 		this.topos = topos;
 		this.demandes = demandes;
-		this.demandes1 = demandes1;
+		
 	}
 
 	public Integer getId() {
@@ -142,20 +134,12 @@ public class Utilisateur {
 		this.topos = topos;
 	}
 
-	public List<Topo> getDemandes() {
+	public List<Demande> getDemandes1() {
 		return demandes;
 	}
 
-	public void setDemandes(List<Topo> demandes) {
-		this.demandes = demandes;
-	}
-
-	public List<Demande1> getDemandes1() {
-		return demandes1;
-	}
-
-	public void setDemandes1(List<Demande1> demandes1) {
-		this.demandes1 = demandes1;
+	public void setDemandes1(List<Demande> demandes1) {
+		this.demandes = demandes1;
 	}
 
 	

@@ -23,12 +23,14 @@ import com.formation.escalade.model.LigneSite;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
+import com.formation.escalade.repository.ITopo;
 import com.formation.escalade.repository.IUtilisateur;
 import com.formation.escalade.repository.IVoie;
 import com.formation.escalade.service.GeneralService;
@@ -43,7 +45,7 @@ public class SiteController {
 	private final ILongueur longueurRepo;
 	private final ICommentaire commentaireRepo;
 	private final IUtilisateur utilisateurRepo;
-
+	private final ITopo topoRepo;
 	final int LIGNE = 5; // nombre de site afficher par ligne de la galerie
 
 	@Autowired
@@ -53,7 +55,7 @@ public class SiteController {
 	GeneralService generalService;
 
 	public SiteController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
@@ -61,12 +63,12 @@ public class SiteController {
 		this.longueurRepo = longueurRepo;
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
+		this.topoRepo = topoRepo;
 	}
 
 	@GetMapping("/creationsite")
-	public String creationSite(Model model, HttpServletRequest request,
-			Principal principal) {
-		
+	public String creationSite(Model model, HttpServletRequest request, Principal principal) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -79,7 +81,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		model.addAttribute("formSite", new FormSite());
 
 		return "creation_site";
@@ -87,9 +89,8 @@ public class SiteController {
 
 	@PostMapping("/creationsite")
 
-	public String siteSubmit(FormSite formSite, HttpServletRequest request,
-			Principal principal, Model model) {
-		
+	public String siteSubmit(FormSite formSite, HttpServletRequest request, Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -102,17 +103,16 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		siteService.createSite(formSite, utilisateur);
 
-		return "creation_site";
+		return "espace";
 	}
 
 	@GetMapping("/annuler")
-	public String annulation(HttpServletRequest request, Model model,
-			Principal principal) {
+	public String annulation(HttpServletRequest request, Model model, Principal principal) {
 		System.out.println("entrée dans annulation()");
 		try {
 
@@ -126,14 +126,14 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		return "espace";
 	}
 
 	@GetMapping("/structure/site/{id}")
-	public String structureSite(@PathVariable("id") Integer id, Model model,HttpServletRequest request,
+	public String structureSite(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
 			Principal principal) {
-		
+
 		System.out.println("entrée structureSite()");
 
 		try {
@@ -148,7 +148,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		System.out.println("Nom du site: " + site.getNom());
 		model.addAttribute("site", site);
@@ -156,8 +156,8 @@ public class SiteController {
 	}
 
 	@GetMapping("/modifier/site/{id}")
-	public String modifierSite(@PathVariable("id") Integer id, Model model,
-			HttpServletRequest request, Principal principal) {
+	public String modifierSite(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
+			Principal principal) {
 
 		try {
 
@@ -177,8 +177,7 @@ public class SiteController {
 	}
 
 	@GetMapping("/choisirsite")
-	public String choisirSite(Model model, HttpServletRequest request,
-			Principal principal) {
+	public String choisirSite(Model model, HttpServletRequest request, Principal principal) {
 
 		try {
 
@@ -192,7 +191,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
@@ -202,7 +201,7 @@ public class SiteController {
 
 	@PostMapping("/choisirsite")
 	public String choixSite(String nomSite, Model model, HttpServletRequest request) {
-		
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -215,7 +214,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
 
@@ -239,16 +238,16 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		List<Site> sites = siteRepo.findAll();
-		if (sites.size()>0) {
-			
+		if (sites.size() > 0) {
+
 			generalService.pagination(page, model);
 			return "galerie";
 
-		} else return "galerie0";
+		} else
+			return "galerie0";
 
-		
 	}
 
 	@GetMapping("/viewsite/{nomSite}")
@@ -273,13 +272,14 @@ public class SiteController {
 		Integer idCreateur = site.getCreateur();
 		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
 		model.addAttribute("createur", createur);
-
+		System.out.println("Sortie vueSite()");
 		return "site";
 
 	}
 
 	@GetMapping("/commentaires/site/{id}")
-	public String getComments(@PathVariable("id") Integer id, Model model, HttpServletRequest request, Principal principal) {
+	public String getComments(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
+			Principal principal) {
 		System.out.println("entrée getComments()");
 		try {
 
@@ -293,20 +293,20 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		List<Commentaire> commentaires = site.getCommentaires();
 		model.addAttribute("commentaires", commentaires);
 		model.addAttribute("site", site);
-		
+
 		return "commentaires";
 
 	}
 
 	@GetMapping("/commenter/site/{id}")
-	public String commenter(@PathVariable("id") Integer id, Model model, 
-			HttpServletRequest request, HttpSession session) {
-		
+	public String commenter(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
+			HttpSession session) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -321,8 +321,10 @@ public class SiteController {
 		}
 		Site site = siteRepo.getOne(id);
 		session.setAttribute("IDSITE", id);
+		Integer idCreateur = site.getCreateur();
+		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
+		model.addAttribute("createur", createur);
 		model.addAttribute("site", site);
-		
 
 		return "commenter";
 
@@ -330,8 +332,7 @@ public class SiteController {
 
 	@PostMapping("/commenter")
 	public String saveComment(String comment, HttpServletRequest request, Model model) {
-		
-		
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -351,21 +352,24 @@ public class SiteController {
 		Utilisateur auteur = new Utilisateur();
 		String email = request.getUserPrincipal().getName();
 		auteur = utilisateurRepo.findByEmail(email);
-		//auteur = utilisateurRepo.getOne(1);
+		// auteur = utilisateurRepo.getOne(1);
 		commentaire.setAuteur(auteur);
 		Site site = siteRepo.getOne(siteId);
 		commentaire.setSite(site);
 		commentaire.setText(comment);
 		commentaireRepo.save(commentaire);
 		model.addAttribute("site", site);
-		
+		Integer idCreateur = site.getCreateur();
+		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
+		model.addAttribute("createur", createur);
+
 		return "site";
 	}
 
 	@GetMapping("/commentaire/supprimer/comment")
-	public String supprimerCommentaire(@RequestParam("siteId") Integer siteId, 
-			@RequestParam("num") int num, HttpServletRequest request, Model model) {
-		
+	public String supprimerCommentaire(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num,
+			HttpServletRequest request, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -378,21 +382,23 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(siteId);
 		model.addAttribute(site);
 		List<Commentaire> commentaires = site.getCommentaires();
 		Commentaire commentaire = commentaires.get(num);
 		System.out.println(commentaire.getText());
 		commentaireRepo.delete(commentaire);
+		Integer idCreateur = site.getCreateur();
+		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
+		model.addAttribute("createur", createur);
 		return "site";
 	}
 
 	@GetMapping("/commentaire/modifier/comment")
-	public String modifierCommentaire(@RequestParam("siteId") Integer siteId, 
-			@RequestParam("num") int num, Model model,
+	public String modifierCommentaire(@RequestParam("siteId") Integer siteId, @RequestParam("num") int num, Model model,
 			HttpSession session, HttpServletRequest request) {
-		
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -405,7 +411,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		session.setAttribute("IDSITE", siteId);
 		Site site = siteRepo.getOne(siteId);
 		List<Commentaire> commentaires = site.getCommentaires();
@@ -420,9 +426,8 @@ public class SiteController {
 	}
 
 	@PostMapping("/commentaire/modification")
-	public String modificationCommentaire(String comment, HttpServletRequest request, 
-			Model model) {
-		
+	public String modificationCommentaire(String comment, HttpServletRequest request, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -435,7 +440,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		Site site = siteRepo.getOne(siteId);
 		model.addAttribute(site);
@@ -443,13 +448,15 @@ public class SiteController {
 		System.out.println(comment);
 		commentaire.setText(comment);
 		commentaireRepo.save(commentaire);
+		Integer idCreateur = site.getCreateur();
+		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
+		model.addAttribute("createur", createur);
 		return "site";
 	}
 
 	@GetMapping("/modifier/site")
-	public String modifierSite(HttpSession session,HttpServletRequest request
-			, Principal principal, Model model) {
-		
+	public String modifierSite(HttpSession session, HttpServletRequest request, Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -462,18 +469,18 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		List<Site> sites = siteRepo.findAll();
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
 		model.addAttribute("nomSite", nomSite);
 		return "choisirsite";
 	}
-	
+
 	@GetMapping("/modifier/informations/site/{id}")
-	public String modifierSiteInfos(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request
-			, Principal principal, Model model) {
-		
+	public String modifierSiteInfos(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request,
+			Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -486,7 +493,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		FormSite formSite = new FormSite();
 		formSite.setIdSite(id);
@@ -496,12 +503,11 @@ public class SiteController {
 		model.addAttribute("formSite", formSite);
 		return "modifier_infos";
 	}
-	
-	
+
 	@PostMapping("/modification/informations/{id}")
-	public String informations(@PathVariable("id") Integer id ,FormSite formSite, HttpServletRequest request, 
+	public String informations(@PathVariable("id") Integer id, FormSite formSite, HttpServletRequest request,
 			Model model) {
-		
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -514,25 +520,24 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		System.out.println("Méthode post traitement modification informations site");
 		System.out.println("Id site: " + id);
 		System.out.println(formSite.toString());
-		
+
 		Site site = siteRepo.getOne(id);
 		site.setNom(formSite.getNomSite());
 		site.setLocalisation(formSite.getLocalisationSite());
 		site.setDepartement(formSite.getDepartementSite());
 		siteRepo.save(site);
-		
+
 		return "espace";
 	}
 
 	@GetMapping("/modifier/secteur/site/{id}")
-	public String modifierSecteur(@PathVariable("id") Integer id, HttpSession session
-			,HttpServletRequest request
-			, Principal principal, Model model) {
-		
+	public String modifierSecteur(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request,
+			Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -545,23 +550,22 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
-		
+
 		session.setAttribute("IDSITE", id);
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		String nomSecteur = new String();
 		model.addAttribute("nomSite", nomSecteur);
 		return "choisir_secteur_modification";
-		
+
 	}
-	
+
 	@PostMapping("/modifier/secteur/site/{id}")
-	public String choixSecteurModification(@PathVariable("id") Integer id,Model model, HttpServletRequest request
-			, Principal principal, String nomSecteur) {
-		
+	public String choixSecteurModification(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
+			Principal principal, String nomSecteur) {
+
 		System.out.println("Entrée post choixSecteurModification");
-		System.out.println("nom secteur récupéré: " + nomSecteur );
+		System.out.println("nom secteur récupéré: " + nomSecteur);
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -574,22 +578,20 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		FormSite formSite = new FormSite();
 		formSite.setIdSite(id);
-		formSite.setNomSecteur(secteur.getNom());   // Nom de secteur à modifier
+		formSite.setNomSecteur(secteur.getNom()); // Nom de secteur à modifier
 		model.addAttribute("formSite", formSite);
-		
+
 		return "modifier_infos_secteur";
 	}
-	
+
 	@PostMapping("/modification/informations/secteur/{ancienNomSecteur}")
-	public String modifierInfosSecteur(@PathVariable("ancienNomSecteur") String ancienNomSecteur, 
-			String nomSecteur, HttpSession session
-			,HttpServletRequest request, Principal principal
-			, Model model) {
-		
+	public String modifierInfosSecteur(@PathVariable("ancienNomSecteur") String ancienNomSecteur, String nomSecteur,
+			HttpSession session, HttpServletRequest request, Principal principal, Model model) {
+
 		// Methode de traitement du changement de nom du secteur
 		System.out.println("Méthode changement de nom pour un secteur");
 		System.out.println("Ancien nom de secteur récupéré: " + ancienNomSecteur);
@@ -606,19 +608,17 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Secteur secteur = secteurRepo.findByNom(ancienNomSecteur);
 		secteur.setNom(nomSecteur);
 		secteurRepo.save(secteur);
 		return "espace";
 	}
-	
 
 	@GetMapping("/modifier/voie/site/{id}")
-	public String modifierVoie(@PathVariable("id") Integer id, HttpSession session
-			,HttpServletRequest request, Principal principal, Model model) {
-		
-		
+	public String modifierVoie(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request,
+			Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -631,25 +631,22 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
-		String nomSecteur = new String ();
+		String nomSecteur = new String();
 		model.addAttribute("nomSecteur", nomSecteur);
 		return "choisirsecteur_voie";
 	}
-	
-	
+
 	@PostMapping("/modifier/voie/site/{id}")
-	public String modifierVoieSecteur(@PathVariable("id") Integer id, 
-			String nomSecteur,HttpSession session
-			,HttpServletRequest request, Principal principal, Model model ) {
-		
-		
+	public String modifierVoieSecteur(@PathVariable("id") Integer id, String nomSecteur, HttpSession session,
+			HttpServletRequest request, Principal principal, Model model) {
+
 		System.out.println("Méthode modifierVoieSecteur");
 		System.out.println("id site:" + id);
 		System.out.println("nom de secteur récupéré: " + nomSecteur);
-		
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -662,7 +659,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		String nomVoie = new String();
@@ -671,12 +668,11 @@ public class SiteController {
 		model.addAttribute("secteur", secteur);
 		return "modification_choisirvoie";
 	}
-	
+
 	@PostMapping("/modifier/voie/site/voie/{id}")
-	public String ModificationVoie(@PathVariable("id") Integer id, 
-			String nomVoie,HttpSession session
-			,HttpServletRequest request, Principal principal, Model model ) {
-		
+	public String ModificationVoie(@PathVariable("id") Integer id, String nomVoie, HttpSession session,
+			HttpServletRequest request, Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -689,27 +685,26 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		System.out.println("Méthode modificationVoie");
 		System.out.println("id site:" + id);
 		System.out.println("nom de voie récupéré: " + nomVoie);
-		
+
 		Voie voie = voieRepo.findByNom(nomVoie);
-		
+
 		FormSite formSite = new FormSite();
 		formSite.setIdSite(id);
 		formSite.setNomVoie(nomVoie);
 		formSite.setCotationVoie(voie.getCotation());
-		
+
 		model.addAttribute("formSite", formSite);
 		return "modifier_infos_voie";
 	}
-	
+
 	@PostMapping("/modification/informations/voie/{nomVoie}")
-	public String modificationInfosVoie(@PathVariable("nomVoie") String nomVoie 
-			,HttpSession session, FormSite formSite
-			,HttpServletRequest request, Principal principal, Model model ) {
-		
+	public String modificationInfosVoie(@PathVariable("nomVoie") String nomVoie, HttpSession session, FormSite formSite,
+			HttpServletRequest request, Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -722,19 +717,19 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Voie voie = voieRepo.findByNom(nomVoie);
 		voie.setNom(formSite.getNomVoie());
 		voie.setCotation(formSite.getCotationVoie());
 		voieRepo.save(voie);
 		return "espace";
-		
+
 	}
-	
+
 	@GetMapping("/modifier/longueur/site/{id}")
-	public String modifierLongueur(@PathVariable("id") Integer id, HttpSession session
-			,HttpServletRequest request, Principal principal, Model model) {
-		
+	public String modifierLongueur(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request,
+			Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -747,22 +742,19 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		String nomSecteur = new String();
 		model.addAttribute("nomSecteur", nomSecteur);
-		
-		
+
 		return "choisirsecteur_long";
 	}
-	
+
 	@PostMapping("/modifier/longueur/site/{id}")
-	public String modifierLongSecteur(@PathVariable("id") Integer id
-			, HttpSession session
-			,HttpServletRequest request, Principal principal
-			, Model model,String nomSecteur) {
-		
+	public String modifierLongSecteur(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request,
+			Principal principal, Model model, String nomSecteur) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -775,7 +767,7 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		System.out.println("nom secteur récupéré: " + nomSecteur);
@@ -784,15 +776,13 @@ public class SiteController {
 		String nomVoie = new String();
 		model.addAttribute("nomVoie", nomVoie);
 		return "choisirvoie_long";
-		
+
 	}
-	
+
 	@PostMapping("/modifier/longueur/voie/site/{id}")
-	public String modifierLongSecteurVoie(@PathVariable("id") Integer id
-			, HttpSession session
-			,HttpServletRequest request, Principal principal
-			, Model model,String nomVoie) {
-		
+	public String modifierLongSecteurVoie(@PathVariable("id") Integer id, HttpSession session,
+			HttpServletRequest request, Principal principal, Model model, String nomVoie) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -805,26 +795,23 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		System.out.println("nom voie récupéré: " + nomVoie);
-		
+
 		Voie voie = voieRepo.findByNom(nomVoie);
 		model.addAttribute("voie", voie);
 		String nomLongueur = new String();
 		model.addAttribute("nomLongueur", nomLongueur);
-		
-		
+
 		return "choisirlong_long";
 	}
-	
+
 	@PostMapping("/modifier/longueur/longueur/site/{id}")
-	public String modifierLongSecteurVoieFinalisation(@PathVariable("id") Integer id
-			, HttpSession session
-			,HttpServletRequest request, Principal principal
-			, Model model,String nomLongueur) {
-		
+	public String modifierLongSecteurVoieFinalisation(@PathVariable("id") Integer id, HttpSession session,
+			HttpServletRequest request, Principal principal, Model model, String nomLongueur) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -837,29 +824,25 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		System.out.println("nom longueur récupéré: " + nomLongueur);
-		
+
 		Longueur longueur = longueurRepo.findByNom(nomLongueur);
 		FormSite formSite = new FormSite();
 		formSite.setNomLongueur(longueur.getNom());
 		formSite.setNbreSpit(longueur.getSpit());
 		formSite.setCotationLongueur(longueur.getCotation());
 		model.addAttribute("formSite", formSite);
-		
+
 		return "modifier_infos_long";
 	}
-	
-	
 
 	@PostMapping("/modification/informations/longueur/{nomLongueur}")
-	public String modifierInfosLongueur(@PathVariable("nomLongueur") String nomLongueur
-			,HttpSession session
-			,HttpServletRequest request, Principal principal
-			, FormSite formSite, Model model) {
-		
+	public String modifierInfosLongueur(@PathVariable("nomLongueur") String nomLongueur, HttpSession session,
+			HttpServletRequest request, Principal principal, FormSite formSite, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -872,22 +855,22 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		System.out.println("nom longueur récupéré pour modif finale: " + nomLongueur);
-		
+
 		Longueur longueur = longueurRepo.findByNom(nomLongueur);
 		longueur.setNom(formSite.getNomLongueur());
 		longueur.setSpit(formSite.getNbreSpit());
 		longueur.setCotation(formSite.getCotationLongueur());
 		longueurRepo.save(longueur);
-		
+
 		return "espace";
 	}
-	
+
 	@GetMapping("/officialiser/{id}")
-	public String officialiser(@PathVariable("id") Integer id, HttpSession session
-			,HttpServletRequest request, Principal principal, Model model) {
-		
+	public String officialiser(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request,
+			Principal principal, Model model) {
+
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -900,11 +883,86 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		Site site = siteRepo.getOne(id);
 		Boolean officiel = site.isOfficiel();
 		site.setOfficiel(!officiel);
 		siteRepo.save(site);
+		return "espace";
+	}
+
+	@GetMapping("/supprimer/site/{id}")
+	public String supprimerSite(@PathVariable("id") Integer id, HttpSession session, HttpServletRequest request,
+			Principal principal, Model model) {
+
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+
+		Site site = siteRepo.getOne(id);
+		List<Commentaire> commentaires = site.getCommentaires();
+		for (Commentaire commentaire : commentaires) {
+
+			commentaireRepo.delete(commentaire);
+		}
+
+		List<Topo> topos = site.getTopos();
+		for (Topo topo : topos) {
+
+			topoRepo.delete(topo);
+		}
+
+		List<Secteur> secteurs = site.getSecteurs();
+		List<Voie> voies = new ArrayList<Voie>();
+		List<Longueur> longueurs = new ArrayList<Longueur>();
+
+		for (Secteur secteur : secteurs) {
+
+			List<Voie> voies1 = secteur.getVoies();
+			for (int i = 0; i < voies1.size(); i++) {
+
+				voies.add(voies1.get(i));
+			}
+		}
+
+		for (Voie voie : voies) {
+
+			List<Longueur> longueur1 = voie.getLongueurs();
+			for (int i = 0; i < longueur1.size(); i++) {
+
+				longueurs.add(longueur1.get(i));
+			}
+		}
+
+		for (int i = 0; i < longueurs.size(); i++) {
+
+			longueurRepo.delete(longueurs.get(i));
+
+		}
+
+		for (int i = 0; i < voies.size(); i++) {
+
+			voieRepo.delete(voies.get(i));
+
+		}
+		
+		for (int i = 0; i < secteurs.size(); i++) {
+
+			secteurRepo.delete(secteurs.get(i));
+
+		}
+
+		siteRepo.delete(site);
+
 		return "espace";
 	}
 

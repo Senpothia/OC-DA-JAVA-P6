@@ -11,8 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 @Entity
-
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"nom"})})
 public class Secteur {
 	
 	@Id

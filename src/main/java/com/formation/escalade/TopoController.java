@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
-import com.formation.escalade.model.Demande1;
+import com.formation.escalade.model.Demande;
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.FormTopo;
 import com.formation.escalade.model.GroupeSite;
@@ -202,9 +202,9 @@ public class TopoController {
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 	
 		
-		List<Demande1> demandes = utilisateur.getDemandes1();
+		List<Demande> demandes = utilisateur.getDemandes1();
 		List<Topo> topos = new ArrayList<>();
-		for (Demande1 demande: demandes) {
+		for (Demande demande: demandes) {
 			boolean emprunt = demande.getAcceptee();
 			if (emprunt) {
 			Topo topo = demande.getTopo();
@@ -247,7 +247,7 @@ public class TopoController {
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		
-		Demande1 demande1 = new Demande1();
+		Demande demande1 = new Demande();
 		demande1.setDemandeur(utilisateur);
 		demande1.setAcceptee(false);
 		demande1.setActive(true);
@@ -506,10 +506,10 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		List<Demande1> demandes = utilisateur.getDemandes1();
+		List<Demande> demandes = utilisateur.getDemandes1();
 		List<Topo> topos = new ArrayList<>();
 		
-		for (Demande1 demande : demandes) {
+		for (Demande demande : demandes) {
 			
 			topos.add(demande.getTopo());
 			
@@ -548,9 +548,9 @@ public class TopoController {
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		Integer idUser = utilisateur.getId();
-		List<Demande1> demandes = demande1Repo.findAll();
+		List<Demande> demandes = demande1Repo.findAll();
 		List<Topo> topos = new ArrayList<>();
-		for (Demande1 demande: demandes) {
+		for (Demande demande: demandes) {
 			
 			Topo topo = demande.getTopo();
 			Utilisateur user = topo.getProprietaire();
