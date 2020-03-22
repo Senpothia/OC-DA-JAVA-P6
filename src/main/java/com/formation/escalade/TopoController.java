@@ -202,7 +202,7 @@ public class TopoController {
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 	
 		
-		List<Demande> demandes = utilisateur.getDemandes1();
+		List<Demande> demandes = utilisateur.getDemandes();
 		List<Topo> topos = new ArrayList<>();
 		for (Demande demande: demandes) {
 			boolean emprunt = demande.getAcceptee();
@@ -506,7 +506,7 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		List<Demande> demandes = utilisateur.getDemandes1();
+		List<Demande> demandes = utilisateur.getDemandes();
 		List<Topo> topos = new ArrayList<>();
 		
 		for (Demande demande : demandes) {
