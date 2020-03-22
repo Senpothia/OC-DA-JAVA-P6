@@ -86,7 +86,21 @@ public class HomeController {
 	}
 	
 	@PostMapping("/connexion")
-	public String getCompte(User user, HttpSession session,HttpServletRequest request ) {
+	public String getCompte(User user, HttpSession session,HttpServletRequest request, Model model ) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		
 		return "redirect:espace";
 	}

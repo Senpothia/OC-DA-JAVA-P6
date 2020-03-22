@@ -115,6 +115,7 @@ public class AdminController {
 				formCompte.setDepartement(user.getDepartement());
 				formCompte.setEmail(user.getEmail());
 				formCompte.setMembre(user.isMembre());
+				formCompte.setActif(user.isActif());
 				
 				model.addAttribute("formCompte", formCompte);
 				model.addAttribute("user", user);
@@ -158,6 +159,7 @@ public class AdminController {
 		user.setDepartement(formCompte.getDepartement());
 		user.setEmail(formCompte.getEmail());
 		user.setMembre(formCompte.getMembre());
+		user.setActif(formCompte.getActif());
 		utilisateurRepo.save(user);
 		
 		return "espace";

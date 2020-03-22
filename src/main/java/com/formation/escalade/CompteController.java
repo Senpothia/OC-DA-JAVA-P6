@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,7 +60,7 @@ public class CompteController {
 		}
 		
 		utilisateur.setPasse(passwordEncoder.encode(utilisateur.getPasse()));
-		//utilisateur.setActif(true);
+		utilisateur.setActif(true);
 		
 		try {
 			
@@ -77,33 +78,56 @@ public class CompteController {
 		
 	}
 
-	
-
 	@GetMapping("/espace")    // Accès espace personnel
 	public String espace( Model model, HttpServletRequest request, Principal principal) {
 		String email = request.getUserPrincipal().getName();
 		model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
-		return "espace";
+		
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		if (utilisateur.isActif()) {
+			
+			System.out.println("User actif");
+			return "espace";
+		} else {
+			
+			System.out.println("User inactif!!!");
+			return "index";
+		
+		}
+		
 	}
 	
 	
-	@GetMapping("/Compte/supprimer/{id}")
+	@GetMapping("/compte/supprimer")
 
-	public String supprimerCompte(@PathVariable("id") int id, Model model) {
+	public String supprimerCompte(HttpSession session,
+			HttpServletRequest request, Model model) {
 
-		model.addAttribute("id", id);
-		utilisateurRepo.delete(utilisateurRepo.getOne(id));
-		System.out.println("Utilisateur id: " + id + "Supprimé");
-		return "test";
+		System.out.println("Entrée supprimerCompte");
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		utilisateur.setActif(false);
+		utilisateurRepo.save(utilisateur);
+		// Logout ....
+		model.addAttribute("authentification", false);
+		System.out.println("Utilisateur désactivé!");
+		return "index";
 	}
 
-	@PostMapping("/compte/supprimer")
-
-	public String deleteAccount(@ModelAttribute Utilisateur utilisateur, Model model) {
-		model.addAttribute("utilisateur", utilisateur);
-		utilisateurRepo.delete(utilisateur);
-		return "test";
-	}
+	
 
 	@GetMapping("/compte/modifier")
 	public String modificationCompte(Utilisateur utilisateur, 

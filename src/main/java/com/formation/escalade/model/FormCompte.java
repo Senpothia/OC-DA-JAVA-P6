@@ -8,13 +8,15 @@ public class FormCompte {
 	private String email;
 	private String password;
 	private Boolean membre;
+	private Boolean actif;
 	
 	public FormCompte() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormCompte(String prenom, String nom, Integer departement, String email, String password, Boolean membre) {
+	public FormCompte(String prenom, String nom, Integer departement, String email, String password, Boolean membre,
+			Boolean actif) {
 		super();
 		this.prenom = prenom;
 		this.nom = nom;
@@ -22,6 +24,7 @@ public class FormCompte {
 		this.email = email;
 		this.password = password;
 		this.membre = membre;
+		this.actif = actif;
 	}
 
 	public String getPrenom() {
@@ -70,6 +73,14 @@ public class FormCompte {
 
 	public void setMembre(Boolean membre) {
 		this.membre = membre;
+	}
+
+	public Boolean getActif() {
+		return actif;
+	}
+
+	public void setActif(Boolean actif) {
+		this.actif = actif;
 	}
 
 	

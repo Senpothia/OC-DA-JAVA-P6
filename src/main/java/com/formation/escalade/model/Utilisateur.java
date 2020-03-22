@@ -46,8 +46,7 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Topo> topos, 
-			List<Demande> demandes) {
+			boolean membre, boolean actif, List<Commentaire> commentaires, List<Topo> topos, List<Demande> demandes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -56,10 +55,10 @@ public class Utilisateur {
 		this.email = email;
 		this.passe = passe;
 		this.membre = membre;
+		this.actif = actif;
 		this.commentaires = commentaires;
 		this.topos = topos;
 		this.demandes = demandes;
-		
 	}
 
 	public Integer getId() {
@@ -118,6 +117,14 @@ public class Utilisateur {
 		this.membre = membre;
 	}
 
+	public boolean isActif() {
+		return actif;
+	}
+
+	public void setActif(boolean actif) {
+		this.actif = actif;
+	}
+
 	public List<Commentaire> getCommentaires() {
 		return commentaires;
 	}
@@ -134,12 +141,12 @@ public class Utilisateur {
 		this.topos = topos;
 	}
 
-	public List<Demande> getDemandes1() {
+	public List<Demande> getDemandes() {
 		return demandes;
 	}
 
-	public void setDemandes1(List<Demande> demandes1) {
-		this.demandes = demandes1;
+	public void setDemandes(List<Demande> demandes) {
+		this.demandes = demandes;
 	}
 
 	
