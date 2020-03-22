@@ -10,10 +10,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
 public class Utilisateur {
 
 	@Id
@@ -25,7 +28,7 @@ public class Utilisateur {
 	private String email;
 	private String passe;
 	private boolean membre;
-	//private boolean actif;
+	private boolean actif;
 	
 	@OneToMany(mappedBy="auteur")
 	private List<Commentaire> commentaires;
@@ -44,15 +47,6 @@ public class Utilisateur {
 	
 	@OneToMany(mappedBy="demandeur")
 	private List<Demande1> demandes1;
-	
-	/*
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="UserProfil",
-				joinColumns=@JoinColumn(name = "idUser"), 
-				inverseJoinColumns = @JoinColumn(name ="idProfil")
-			)
-	private List<Profil> profils; 
-	 */
 	
 	public Utilisateur() {
 		super();

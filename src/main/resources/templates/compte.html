@@ -38,6 +38,16 @@
 			<h1>Completez ce formulaire pour créer votre compte.</h1>
 
 		</div>
+		
+			<span th:if="${echec}">
+
+					<div class="message row">
+
+						<h3 style="color: red;">L'adresse mail choisie existe déjà!</h3>
+
+					</div>
+
+				</span>
 
 		<!--********************************************* -->
 		<div class="row">

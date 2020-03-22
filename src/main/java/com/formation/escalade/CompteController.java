@@ -38,6 +38,7 @@ public class CompteController {
 	@GetMapping("/compte")   // Création de compte
 	public String compte(Model model) {
 		model.addAttribute("utilisateur", new Utilisateur());
+		model.addAttribute("echec", false);
 		return "compte";
 	}
 
@@ -59,8 +60,21 @@ public class CompteController {
 		
 		utilisateur.setPasse(passwordEncoder.encode(utilisateur.getPasse()));
 		//utilisateur.setActif(true);
-		utilisateurRepo.save(utilisateur);
-		return "accueil";
+		
+		try {
+			
+			utilisateurRepo.save(utilisateur);
+			return "accueil";
+			
+		} catch (Exception e) {   // enregistrement échoué, problème d'unicité sur email
+			
+			System.out.println("Violation unicité email");
+			model.addAttribute("utilisateur", new Utilisateur());
+			model.addAttribute("echec", true);
+			return "compte";
+		}
+		
+		
 	}
 
 	
