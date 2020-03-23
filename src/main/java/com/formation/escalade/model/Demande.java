@@ -74,5 +74,13 @@ public class Demande {
 	public void setAcceptee(Boolean acceptee) {
 		this.acceptee = acceptee;
 	}
+
+	@Override
+	public String toString() {
+		return "Demande [id=" + id + ", demandeur=" + demandeur + ", topo=" + topo + ", active=" + active
+				+ ", acceptee=" + acceptee + "]";
+	}
+	
+	
 	
 }

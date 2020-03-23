@@ -6,4 +6,6 @@ import com.formation.escalade.model.Demande;
 
 public interface IDemande1 extends JpaRepository<Demande, Integer> {
 
+	Demande findByDemandeurIdAndTopoId(Integer idDemandeur, Integer idTopo);
+
 }

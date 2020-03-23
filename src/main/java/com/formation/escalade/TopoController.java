@@ -560,8 +560,11 @@ public class TopoController {
 		
 		for (Demande demande : demandes) {
 			
+			if(demande.getActive()) {
+				
 			topos.add(demande.getTopo());
 			
+			}
 		}
 		
 		int taille = topos.size();
@@ -573,6 +576,11 @@ public class TopoController {
 		model.addAttribute("vide", vide);
 		
 		model.addAttribute("topos" , topos);
+		
+		List<Boolean> actives = new ArrayList<>();
+		/// transfert état actif de chaque topo pour déterminer si affichage ou non dans 
+		// page liste_demandes
+		
 		return "liste_demandes";
 	}
 	
@@ -580,6 +588,87 @@ public class TopoController {
 	public String demandesRecus(HttpServletRequest request
 			,Model model,Principal principal) {
 		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		Integer idUser = utilisateur.getId();   // id de l'utilisateur connecté
+		List<Demande> demandes = demande1Repo.findAll();
+		List<Topo> topos = new ArrayList<>();   // liste des topos demandées(demandes reçues)
+		List<Utilisateur> demandeurs = new ArrayList<>();
+		List<Boolean> acceptations = new ArrayList<>();
+		for (Demande demande: demandes) {
+			
+			Topo topo = demande.getTopo();
+			Utilisateur user = topo.getProprietaire();
+			Integer id = user.getId();   // id du proporiétaire de la topo 
+			if (id == idUser) {   // l'utilisateur possède la topo
+				
+				topos.add(topo);
+				demandeurs.add(demande.getDemandeur());
+				acceptations.add(demande.getAcceptee());
+			}
+			
+		}
+		
+		int taille = topos.size();
+		Boolean vide = false;
+		if (taille == 0) { 
+			vide = true;
+		}
+		
+		model.addAttribute("vide", vide);
+		model.addAttribute("topos", topos);
+		model.addAttribute("demandeurs", demandeurs);
+		model.addAttribute("acceptations", acceptations);
+		return "demandes_recues";
+	}
+	
+	@GetMapping("/topo/annuler")
+	public String annulation(@RequestParam("num") int num 
+			, HttpServletRequest request
+			,Model model,Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Demande> demandes = utilisateur.getDemandes();
+		Demande demande = demandes.get(num);
+		demande1Repo.delete(demande);
+		
+		
+		return "espace";
+	}
+	
+	@GetMapping("/topo/accepter")
+	public String topoAccepter(@RequestParam("num") int num 
+			, HttpServletRequest request
+			,Model model,Principal principal) { 
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -613,43 +702,21 @@ public class TopoController {
 			
 		}
 		
-		int taille = topos.size();
-		Boolean vide = false;
-		if (taille == 0) { 
-			vide = true;
-		}
+		Topo topo = topos.get(num);
+		topo.setDisponible(false);
+		topoRepo.save(topo);
 		
-		model.addAttribute("vide", vide);
-		model.addAttribute("topos", topos);
-		model.addAttribute("demandeurs", demandeurs);
-		return "demandes_recues";
-	}
-	
-	@GetMapping("/topo/annuler")
-	public String annulation(@RequestParam("num") int num 
-			, HttpServletRequest request
-			,Model model,Principal principal) {
+		Integer idTopo = topo.getId();
 		
-		try {
-
-			String email = request.getUserPrincipal().getName();
-			System.out.println("email récupéré:" + email);
-			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
-			Boolean authentification = true;
-			model.addAttribute("authentification", authentification);
-
-		} catch (NullPointerException e) {
-
-			System.out.println("email récupéré: aucun!!!");
-			model.addAttribute("authentification", false);
-		}
+		Utilisateur demandeur = demandeurs.get(num);
+		Integer idDemandeur = demandeur.getId();
+		Demande demande = demande1Repo.findByDemandeurIdAndTopoId(idDemandeur, idTopo);
 		
-		String email = request.getUserPrincipal().getName();
-		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		List<Demande> demandes = utilisateur.getDemandes();
-		Demande demande = demandes.get(num);
-		demande1Repo.delete(demande);
+		System.out.println(demande.toString());
 		
+		demande.setAcceptee(true);
+		demande.setActive(false);;
+		demande1Repo.save(demande);
 		
 		return "espace";
 	}
