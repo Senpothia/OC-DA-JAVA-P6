@@ -53,6 +53,17 @@
 				<h2 th:text=${site.nom}></h2>
 			</div>
 		</div>
+
+		<span th:if="${proprietaire}">
+
+			<div class="message row">
+				<div class="col">
+					<h2 style="color: red;">La topo vous appartient: vous ne pouvez pas l'emprunter!</h2>
+				
+				</div>
+			</div>
+
+		</span>
 		<div class="row">
 
 			<div class="col">

@@ -74,7 +74,7 @@
 							<p th:text="${topo.lieu}"></p>
 							<p th:text="${topo.description}"></p>
 							<p th:text="${topo.date}"></p>
-
+							<strong><p style="color: green;" th:text="'Demandée par: ' + ${demandeurs.get(iStat.index).getPrenom()}+ ' ' + ${demandeurs.get(iStat.index).getNom()} +'; ' + ${demandeurs.get(iStat.index).getEmail()}"></p></strong>
 
 							<div class="row justify-content-end" style="margin-right: 10px;">
 

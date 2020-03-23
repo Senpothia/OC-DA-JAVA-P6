@@ -225,7 +225,7 @@ public class TopoController {
 		return "liste_emprunts";
 	}
 	
-	@GetMapping("/topo/reserver")   // Reserver une topo
+	@GetMapping("/topo/reserver")   // Reserver / demander une topo
 	public String listerReservation (@RequestParam("siteId") Integer siteId
 			, @RequestParam("num") int num
 			, Model model , HttpServletRequest request){
@@ -233,7 +233,7 @@ public class TopoController {
 		try {
 
 			String email = request.getUserPrincipal().getName();
-			System.out.println("email récupéré: *****" + email);
+			System.out.println("email récupéré:" + email);
 			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
 			Boolean authentification = true;
 			model.addAttribute("authentification", authentification);
@@ -247,19 +247,67 @@ public class TopoController {
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		
-		Demande demande1 = new Demande();
-		demande1.setDemandeur(utilisateur);
-		demande1.setAcceptee(false);
-		demande1.setActive(true);
+	
 		
 		Site site = siteRepo.getOne(siteId);
 		List<Topo> topos = site.getTopos();
 		Topo topo = topos.get(num);
+		Utilisateur proprietaire = topo.getProprietaire();
+		Integer idUtilisateur = utilisateur.getId();
+		Integer idProprietaire = proprietaire.getId();
 		
-		demande1.setTopo(topo);
-		demande1Repo.save(demande1);
+		if (idUtilisateur == idProprietaire) {
+			
+			List<String> noms = new ArrayList<>();
+			List<String> prenoms = new ArrayList<>();
+			
+			for (Topo topo1:topos ) {
+				Utilisateur proprietaire1 = topo1.getProprietaire();
+				prenoms.add(proprietaire1.getPrenom());
+				noms.add(proprietaire1.getNom());
+				
+			}
+			
+				for (int i = 0; i < noms.size(); i++) {
+
+				System.out.println("nom: " + noms.get(i));
+			}
+				
+				for (int i = 0; i < prenoms.size(); i++) {
+
+					System.out.println("prenom: " + prenoms.get(i));
+				}
+
+				int taille = topos.size();
+				Boolean vide = false;
+				if (taille == 0) { 
+					vide = true;
+				}
+				
+			model.addAttribute("vide", vide);
+				
+			model.addAttribute("noms", noms);
+			model.addAttribute("prenoms", prenoms);
+			model.addAttribute("topos", topos);
+			model.addAttribute("site", site);
+			model.addAttribute("proprietaire", true);
+
+			return "topos";
+			
+		} else {
+			
+			
+			Demande demande1 = new Demande();
+			demande1.setDemandeur(utilisateur);
+			demande1.setAcceptee(false);
+			demande1.setActive(true);
+			demande1.setTopo(topo);
+			demande1Repo.save(demande1);
+			
+			return "espace";
+		}
 		
-		return "espace";
+	
 	}
 	
 	@GetMapping("topos/site/{id}")  // accès à liste topo depuis la page de site
@@ -317,6 +365,7 @@ public class TopoController {
 		model.addAttribute("prenoms", prenoms);
 		model.addAttribute("topos", topos);
 		model.addAttribute("site", site);
+		model.addAttribute("proprietaire", false);
 
 		return "topos";
 	}
@@ -547,17 +596,19 @@ public class TopoController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		Integer idUser = utilisateur.getId();
+		Integer idUser = utilisateur.getId();   // id de l'utilisateur connecté
 		List<Demande> demandes = demande1Repo.findAll();
-		List<Topo> topos = new ArrayList<>();
+		List<Topo> topos = new ArrayList<>();   // liste des topos demandées(demandes reçues)
+		List<Utilisateur> demandeurs = new ArrayList<>();
 		for (Demande demande: demandes) {
 			
 			Topo topo = demande.getTopo();
 			Utilisateur user = topo.getProprietaire();
-			Integer id = user.getId();
-			if (id == idUser) {
+			Integer id = user.getId();   // id du proporiétaire de la topo 
+			if (id == idUser) {   // l'utilisateur possède la topo
 				
 				topos.add(topo);
+				demandeurs.add(demande.getDemandeur());
 			}
 			
 		}
@@ -570,6 +621,7 @@ public class TopoController {
 		
 		model.addAttribute("vide", vide);
 		model.addAttribute("topos", topos);
+		model.addAttribute("demandeurs", demandeurs);
 		return "demandes_recues";
 	}
 	
