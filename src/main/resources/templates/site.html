@@ -137,18 +137,34 @@
 									type="text" class="bouton btn btn-primary mr-1">Commentaires</button></a>
 							<a th:href="@{/structure/site/{id}(id=${site.id})}"><button
 									type="text" class="bouton btn btn-primary mr-1">Structure</button></a>
+									<span th:if="${authentification}">
 							<a th:href="@{/commenter/site/{id}(id=${site.id})}"><button
-									type="text" class="bouton btn btn-primary mr-1">Commenter</button></a>
+									type="text" class="bouton btn btn-primary mr-1">Commenter</button></a></span>
 							<a th:href="@{/topos/site/{id}(id=${site.id})}"><button
 									type="text" class="bouton btn btn-primary mr-1">Topos</button></a>
+							
+							<span th:if="${authentification}">
+							<span th:if="${utilisateur.membre}">	
 							<a th:href="@{/supprimer/site/{id}(id=${site.id})}"><button
-									type="text" class="bouton btn btn-primary mr-1">Supprimer</button></a>
+									type="text" class="bouton btn btn-danger mr-1">Supprimer</button></a>
+							</span>		
+								</span>	
+								
+									<span th:if="${authentification}">
+							<span th:if="${utilisateur.id == site.createur}">
 							<a th:href="@{/modifier/informations/site/{id}(id=${site.id})}"><button
 									type="text" class="bouton btn btn-primary mr-1">Modifier</button></a>
+								
+								</span>		
+								</span>
+									
+							<span th:if="${authentification}">
+							<span th:if="${utilisateur.membre}">		
 							<a th:href="@{/officialiser/{id}(id=${site.id})}"><button
 									type="text" class="bouton btn btn-primary mr-1"><span th:if="${site.officiel}">Désofficialiser</span>
 									<span th:unless="${site.officiel}">Officialiser</span></button></a>
-
+							</span>		
+								</span>	
 						</div>
 					</div>
 

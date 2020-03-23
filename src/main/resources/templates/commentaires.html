@@ -35,10 +35,10 @@
 		</span> <span th:unless="${authentification}">
 			<div th:replace="fragments/entete_init :: entete_init"></div>
 		</span>
-		
+
 		<!-- ---------------- -->
 
-	
+
 
 		<!-- IMAGE -->
 		<div class="row">
@@ -67,13 +67,17 @@
 						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
 						<p th:text="${commentaire.text}"></p>
 
-						<div class="row justify-content-end" style="margin-right: 10px;">
-							<a style="margin-right: 10px;"
-								th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Supprimer</a> <a
-								th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Modifier</a>
-						</div>
+						<span th:if="${authentification}"> <span
+							th:if="${utilisateur.membre}">
+								<div class="row justify-content-end" style="margin-right: 10px;">
+									<a style="margin-right: 10px;"
+										th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
+										class="text-primary">Supprimer</a> <a
+										th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
+										class="text-primary">Modifier</a>
+								</div>
+						</span>
+						</span>
 					</div>
 
 				</div>

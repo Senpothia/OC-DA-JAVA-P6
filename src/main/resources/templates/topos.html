@@ -85,11 +85,13 @@
 						</span> <span th:unless="${topo.isDisponible()}"> <strong><p
 									style="color: red;">Indisponible</p></strong>
 						</span> <span th:if="${topo.isDisponible()}">
+						<span th:if="${authentification}">
 							<div class="row justify-content-end" style="margin-right: 10px;">
 								<a
 									th:href="@{/topo/reserver(siteId=${site.id},num=${iStat.index})}"
 									class="text-primary">Reserver</a>
 							</div>
+							</span>
 						</span>
 					</div>
 

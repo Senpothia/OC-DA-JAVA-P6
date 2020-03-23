@@ -466,10 +466,7 @@ public class TopoController {
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		List<Topo> topos = utilisateur.getTopos();
-		
-		//System.out.println("Nombre de topos: " + topos.size());
-		//System.out.println("Topo 1: " + topos.get(0));
-		
+			
 		int taille = topos.size();
 		Boolean vide = false;
 		if (taille == 0) { 
