@@ -103,5 +103,11 @@ public class LongueurController {
 		return "redirect:espace";
 	}
 	
-	
+	@GetMapping("/ajouter/longueur/site/{id}")
+	public String choixSecteur_longueur(String nomSecteur, Model model
+			, HttpServletRequest request, HttpSession session ) {
+		
+		
+		return "ok";
+	}
 }

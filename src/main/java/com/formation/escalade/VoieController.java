@@ -1,5 +1,7 @@
 package com.formation.escalade;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,7 @@ import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
+import com.formation.escalade.repository.IUtilisateur;
 import com.formation.escalade.repository.IVoie;
 import com.formation.escalade.service.SiteService;
 import com.formation.escalade.service.VoieService;
@@ -29,18 +32,20 @@ public class VoieController {
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
 	private final ICommentaire commentaireRepo;
-
+	private final IUtilisateur utilisateurRepo;
+	
 	@Autowired
 	VoieService voieService;
 
 	public VoieController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			ICommentaire commentaireRepo) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
 		this.voieRepo = voieRepo;
 		this.longueurRepo = longueurRepo;
 		this.commentaireRepo = commentaireRepo;
+		this.utilisateurRepo = utilisateurRepo;
 	}
 	
 	@GetMapping("/site/{id}/voies")
@@ -74,7 +79,21 @@ public class VoieController {
 	}
 	
 	@PostMapping("/ajoutervoie")
-	public String ajoutervoie(FormSite formSite, Site site,  HttpServletRequest request, Model model) {
+	public String ajoutervoie(FormSite formSite, Site site,  HttpServletRequest request
+			, Model model, Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		String nomSecteur = (String) request.getSession().getAttribute("NOMSECTEUR");
@@ -82,8 +101,10 @@ public class VoieController {
 		System.out.println("Site id session: " + siteId);
 		voieService.creervoie(formSite, siteId, nomSecteur);
 		Site siteActuel = siteRepo.getOne(siteId);
+		siteRepo.save(siteActuel);
 		model.addAttribute("site", siteActuel);
-		return "arbre";
+		
+		return "espace";
 		
 	}
 	

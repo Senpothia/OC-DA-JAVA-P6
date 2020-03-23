@@ -64,16 +64,7 @@ public class VoieService {
 		longueur.setSpit(nbreSpit);
 		longueur.setCotation(cotationLongueur);
 		longueur.setVoie(voie);
-		/**
-		List<Longueur> longueurs = new ArrayList<>();
-		longueurs.add(longueur);
-		voie.setLongueurs(longueurs);
 		
-		List<Voie> voies = secteur.getVoies();
-		voies.add(voie);
-		
-		secteurRepo.save(secteur); 
-		*/
 		voieRepo.save(voie);
 		longueurRepo.save(longueur);
 		
