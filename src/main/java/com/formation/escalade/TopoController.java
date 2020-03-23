@@ -576,10 +576,6 @@ public class TopoController {
 		model.addAttribute("vide", vide);
 		model.addAttribute("topos" , topos);
 		
-		List<Boolean> actives = new ArrayList<>();
-		/// transfert état actif de chaque topo pour déterminer si affichage ou non dans 
-		// page liste_demandes
-		
 		return "liste_demandes";
 	}
 	
