@@ -14,7 +14,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-
+<link rel="stylesheet" href="/css/styles.css">
 <style>
 ul, #myUL {
 	list-style-type: none;
@@ -107,14 +107,14 @@ a.arbre:hover {
 			<h2 class="mt-2" th:text="'Structure du site : ' + ${site.getNom()}"></h2>
 		</div>
 		<div class=row>
-			<div class="col-4">
+			<div class="informations col-6">
 
 				<!--  Début arbre -->
 
-				<div class="col">
+				
 
 					<h3 th:text="${site.getNom()}"></h3>
-				</div>
+			
 
 				<div>
 					<ul th:each="secteur: ${site.secteurs}">
@@ -155,11 +155,10 @@ a.arbre:hover {
 
 						<strong><span th:text="'Nom: '+ ${site.nom}"></span></strong><br>
 						<strong><span
-								th:text="'Localisation: '+ ${site.localisation}"></span></strong><br>
+							th:text="'Localisation: '+ ${site.localisation}"></span></strong><br>
 						<strong><span
-								th:text="'Département: '+ ${site.departement}"></span></strong><br>
-						<strong><span
-								th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></span></strong><br>
+							th:text="'Département: '+ ${site.departement}"></span></strong><br> <strong><span
+							th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></span></strong><br>
 						<br>
 
 
@@ -172,7 +171,7 @@ a.arbre:hover {
 
 				<div class="row">
 
-					<div class="col">
+					<div class="col informations">
 						<span th:if="${isSecteur}">
 							<h1>Informations secteur</h1>
 
@@ -210,20 +209,25 @@ a.arbre:hover {
 								</p>
 							</div>
 						</span>
-						
-						<div class="form-group">
+
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col ">
+
+						<div class="row justify-content-center form-group mt-3">
 							<a th:href="@{/topos/site/{id}(id=${site.id})}"><p
 									type="text" class="btn btn-primary btn-block"
 									style="width: 350px;">Voir les topos</p></a>
 						</div>
-
-						<div class="form-group">
+						
+						<div class="row justify-content-center form-group mt-1">
 							<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p
 									type="text" class="btn btn-primary btn-block"
 									style="width: 350px;">Retour</p></a>
 						</div>
-
-
 					</div>
 
 				</div>
