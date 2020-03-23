@@ -965,5 +965,69 @@ public class SiteController {
 
 		return "espace";
 	}
+	
+	@GetMapping("/informations")
+	public String informations(@RequestParam("nomSite") String nomSite
+			, @RequestParam("nomSecteur") String nomSecteur
+			, @RequestParam("nomVoie") String nomVoie
+			, @RequestParam("nomLongueur") String nomLongueur
+			, HttpSession session, HttpServletRequest request
+			, Principal principal, Model model) {
+		
+
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		
+		Boolean isSecteur = false;
+		Boolean isVoie = false;
+		Boolean isLongueur = false;
+		
+		Site site = siteRepo.findByNom(nomSite);
+		model.addAttribute("site", site);
+		Integer idCreateur = site.getCreateur();
+		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
+		model.addAttribute("createur", createur);
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
+		model.addAttribute("secteur", secteur);
+		
+		if (nomVoie.equals("0") && nomLongueur.equals("0")) {
+			
+			isSecteur = true;
+		}
+		
+		if (!nomVoie.equals("0") && nomLongueur.equals("0")) {
+			
+			isVoie = true;
+			Voie voie = voieRepo.findByNom(nomVoie);
+			model.addAttribute("voie", voie);
+			
+		} 
+		
+		if (!nomLongueur.equals("0")){
+			
+			isLongueur = true;
+			Longueur longueur = longueurRepo.findByNom(nomLongueur);
+			model.addAttribute("longueur", longueur);
+		}
+		
+		
+		model.addAttribute("isSecteur", isSecteur);
+		model.addAttribute("isVoie", isVoie);
+		model.addAttribute("isLongueur", isLongueur);
+		
+		return "structure_details";
+	}
+	
 
 }
