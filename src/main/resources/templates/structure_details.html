@@ -151,15 +151,15 @@ a.arbre:hover {
 				<div class="row">
 
 					<div class="informations col">
-						<h1>Informations</h1>
+						<h1>Informations sites</h1>
 
-						<strong><div th:text="'Nom: '+ ${site.nom}"></div></strong> <br>
-						<strong><div
-								th:text="'Localisation: '+ ${site.localisation}"></div></strong> <br>
-						<strong><div
-								th:text="'Département: '+ ${site.departement}"></div></strong> <br>
-						<strong><div
-								th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></div></strong>
+						<strong><span th:text="'Nom: '+ ${site.nom}"></span></strong><br>
+						<strong><span
+								th:text="'Localisation: '+ ${site.localisation}"></span></strong><br>
+						<strong><span
+								th:text="'Département: '+ ${site.departement}"></span></strong><br>
+						<strong><span
+								th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></span></strong><br>
 						<br>
 
 
@@ -168,66 +168,64 @@ a.arbre:hover {
 
 				</div>
 
-				<span th:if="${isSecteur}">
 
-					<div class="row">
 
-						<h1>Informations secteur</h1>
+				<div class="row">
 
-						<div></div>
-						<p>
-							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
-							</br> 
+					<div class="col">
+						<span th:if="${isSecteur}">
+							<h1>Informations secteur</h1>
 
-						</p>
+							<div>
+								<p>
+									<strong>Nom du secteur: </strong> <span
+										th:text="${secteur.nom}"></span> </br>
+
+								</p>
+							</div>
+						</span> <span th:if="${isVoie}">
+
+
+							<h1>Informations voie</h1>
+
+							<div>
+
+								<p>
+									<strong>Nom de la voie:</strong> <span th:text="${voie.nom}"></span></br>
+									<strong>Cotation: </strong><span th:text="${voie.cotation}"></span></br>
+								</p>
+
+							</div>
+						</span> <span th:if="${isLongueur}">
+
+
+
+							<h1>Informations longueur</h1>
+							<div>
+								<p>
+									<strong>Nom de la longueur:</strong> <span
+										th:text="${longueur.nom}"></span></br> <strong>Cotation: </strong><span
+										th:text="${longueur.cotation}"></span></br> <strong>Nombre
+										de spits: </strong><span th:text="${longueur.spit}"></span>
+								</p>
+							</div>
+						</span>
+
+						<div class="form-group">
+							<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p
+									type="text" class="btn btn-primary btn-block"
+									style="width: 350px;">Retour</p></a>
+						</div>
+
+
 					</div>
-					</div>
 
-
-
-				</span> <span th:if="${isVoie}">
-
-					<div class="row">
-
-						<h1>Informations voie</h1>
-
-					<div>
-
-						<p>
-							<strong>Nom de la voie:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
-							</strong><span th:text="${voie.cotation}"></span></br>
-						</p>
-
-					</div>
-					</div>
-
-				</span> <span th:if="${isLongueur}">
-
-					<div class="row">
-
-						<h1>Informations longueur</h1>
-						<div>
-						<p>
-							<strong>Nom de la longueur:</strong> <span th:text="${longueur.nom}"></span></br> <strong>Cotation:
-							</strong><span th:text="${longueur.cotation}"></span></br><strong>Nombre de spits:
-							</strong><span th:text="${longueur.spit}"></span>
-						</p>
-					</div>
-					</div>
-
-
-				</span>
-
-
-				<!--   Fin zone d'information     -->
-
-
-				<div class="form-group">
-					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 350px;">Retour</p></a>
 				</div>
 			</div>
+
+
+			<!--   Fin zone d'information     -->
+
 
 		</div>
 
@@ -237,8 +235,9 @@ a.arbre:hover {
 
 		<!-- ********************************************* -->
 
-
 	</div>
+
+
 	<!-- fin container -->
 
 	<!-- Optional JavaScript -->
