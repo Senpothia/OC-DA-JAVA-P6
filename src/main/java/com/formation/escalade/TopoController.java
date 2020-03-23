@@ -653,7 +653,15 @@ public class TopoController {
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		List<Demande> demandes = utilisateur.getDemandes();
-		Demande demande = demandes.get(num);
+		List<Demande> demandes1 = new ArrayList<Demande>();
+		for (Demande demande : demandes) {
+			
+			if (demande.getActive()) {
+				
+				demandes1.add(demande);  // Liste des demandes actives 
+			}
+		}
+		Demande demande = demandes1.get(num);
 		demande1Repo.delete(demande);
 		
 		
