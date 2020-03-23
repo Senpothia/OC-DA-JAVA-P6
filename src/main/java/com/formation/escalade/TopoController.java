@@ -573,5 +573,32 @@ public class TopoController {
 		return "demandes_recues";
 	}
 	
-	
+	@GetMapping("/topo/annuler")
+	public String annulation(@RequestParam("num") int num 
+			, HttpServletRequest request
+			,Model model,Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré:" + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			Boolean authentification = true;
+			model.addAttribute("authentification", authentification);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		List<Demande> demandes = utilisateur.getDemandes();
+		Demande demande = demandes.get(num);
+		demande1Repo.delete(demande);
+		
+		
+		return "espace";
+	}
 }
