@@ -75,11 +75,6 @@ a:hover {
 	text-decoration: none;
 	color: white;
 }
-
-a.arbre:hover {
-	text-decoration: none;
-	color: black;
-}
 </style>
 
 <title>Les amis de l'escalade</title>
@@ -119,11 +114,11 @@ a.arbre:hover {
 
 				<div>
 					<ul th:each="secteur: ${site.secteurs}">
-						<a class="arbre" th:href="@{/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()})}"><li th:text="${secteur.getNom()}"></li></a>
+						<li th:text="${secteur.getNom()}"></li>
 						<ul th:each="voie: ${secteur.voies}">
-							<a class="arbre" th:href="@{/informations(nomSite=${site.getNom()},nomVoie=${voie.getNom()})}"><li th:text="${voie.getNom()}"></li></a>
+							<li th:text="${voie.getNom()}"></li>
 							<ul th:each="longueur: ${voie.longueurs}">
-								<a class="arbre" th:href="@{/informations(nomSite=${site.getNom()},nomLongueur=${longueur.getNom()})}"><li th:text="${longueur.getNom()}"></li></a>
+								<li th:text="${longueur.getNom()}"></li>
 
 							</ul>
 						</ul>
