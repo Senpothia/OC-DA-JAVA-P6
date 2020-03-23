@@ -105,10 +105,12 @@
 			<div class="col">
 				<div class="d-flex justify-content-end">
 					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button
-							type="text" class="bouton btn btn-primary mr-1">Retour</button></a> <a
+							type="text" class="bouton btn btn-primary mr-1">Retour</button></a> 
+					<span th:if="${authentification}">
+							<a
 						th:href="@{/topo/creation/{nomSite}(nomSite=${site.nom})}"><button
 							type="button" class="bouton btn btn-primary mr-1">Ajouter
-							une topo</button></a>
+							une topo</button></a> </span>
 				</div>
 			</div>
 

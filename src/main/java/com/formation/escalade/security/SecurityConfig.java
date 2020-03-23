@@ -39,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		  	 	"/structure/**",
         		  	 	"/topos/**",
         		  	 	"/commentaires/**",
-        		  	 	"/compte").permitAll()
+        		  	 	"/compte",
+        		  	 	"/informations/**").permitAll()
           .anyRequest().authenticated()
           .and().formLogin()
           .loginPage("/connexion")
