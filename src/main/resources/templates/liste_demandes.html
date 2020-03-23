@@ -66,8 +66,13 @@
 						
 							<div class="comment">
 
-								<strong><p th:text="${topo.getSite().getNom()}"></p></strong> <strong><p
-										th:text="'Propriétaire: '+ ' ' + ${topo.getProprietaire().getPrenom() + ' ' + ${topo.getProprietaire().getNom()}"></p></strong> <strong><p
+								<strong><p th:text="${topo.getSite().getNom()}"></p></strong>
+								
+								 <strong>
+								<p
+										th:text="'Propriétaire: '+ ' ' + ${topo.getProprietaire().getPrenom()} + ' ' + ${topo.getProprietaire().getNom()}"></p></strong>
+								
+										 <strong><p
 										th:text="${topo.nom}"></p></strong>
 								<p th:text="${topo.lieu}"></p>
 								<p th:text="${topo.description}"></p>

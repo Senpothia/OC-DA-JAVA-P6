@@ -574,7 +574,6 @@ public class TopoController {
 		}
 		
 		model.addAttribute("vide", vide);
-		
 		model.addAttribute("topos" , topos);
 		
 		List<Boolean> actives = new ArrayList<>();
