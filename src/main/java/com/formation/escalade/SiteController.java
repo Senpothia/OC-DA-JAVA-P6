@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.Commentaire;
+import com.formation.escalade.model.Demande;
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.GroupeSite;
 import com.formation.escalade.model.LigneSite;
@@ -27,6 +28,7 @@ import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
+import com.formation.escalade.repository.IDemande1;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
@@ -46,6 +48,9 @@ public class SiteController {
 	private final ICommentaire commentaireRepo;
 	private final IUtilisateur utilisateurRepo;
 	private final ITopo topoRepo;
+	private final IDemande1 demandeRepo;
+		
+
 	final int LIGNE = 5; // nombre de site afficher par ligne de la galerie
 
 	@Autowired
@@ -55,7 +60,7 @@ public class SiteController {
 	GeneralService generalService;
 
 	public SiteController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo, IDemande1 demandeRepo) {
 
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
@@ -64,6 +69,7 @@ public class SiteController {
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
 		this.topoRepo = topoRepo;
+		this.demandeRepo = demandeRepo;
 	}
 
 	@GetMapping("/creationsite")
@@ -941,10 +947,14 @@ public class SiteController {
 
 			commentaireRepo.delete(commentaire);
 		}
-
+		
+		
+		
 		List<Topo> topos = site.getTopos();
 		for (Topo topo : topos) {
-
+			Integer idTopo = topo.getId();
+			List<Demande> demandes = demandeRepo.findByTopoId(idTopo);
+			demandeRepo.deleteAll(demandes);
 			topoRepo.delete(topo);
 		}
 

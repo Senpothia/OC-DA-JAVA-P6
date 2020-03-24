@@ -174,7 +174,6 @@ public class RechercheController {
 			}
 		}
 		
-		
 		// Recherche sur éléments d'utilisateur
 		Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenom(phrase, phrase);
 		Element e7 = new Element(utilisateurNomPrenom);
