@@ -1,6 +1,12 @@
 package com.formation.escalade;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
@@ -12,7 +18,7 @@ import com.formation.escalade.repository.IVoie;
 
 @Controller
 public class RechercheController {
-	
+
 	private final ISite siteRepo;
 	private final ISecteur secteurRepo;
 	private final IVoie voieRepo;
@@ -20,7 +26,7 @@ public class RechercheController {
 	private final ICommentaire commentaireRepo;
 	private final IUtilisateur utilisateurRepo;
 	private final ITopo topoRepo;
-	
+
 	public RechercheController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo) {
 		super();
@@ -32,8 +38,25 @@ public class RechercheController {
 		this.utilisateurRepo = utilisateurRepo;
 		this.topoRepo = topoRepo;
 	}
-	
-	
-	
+
+	@PostMapping("/rechercher")
+	public String rechercher(Model model, HttpServletRequest request, Principal principal, String phrase) {
+
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		System.out.println("Phrase: " + phrase);
+		return "ok";
+	}
 
 }

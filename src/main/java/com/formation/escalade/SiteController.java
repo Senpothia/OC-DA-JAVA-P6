@@ -83,7 +83,7 @@ public class SiteController {
 		}
 
 		model.addAttribute("formSite", new FormSite());
-
+		model.addAttribute("phrase", new String());
 		return "creation_site";
 	}
 
@@ -107,7 +107,8 @@ public class SiteController {
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		siteService.createSite(formSite, utilisateur);
-
+		model.addAttribute("phrase", new String());
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 
@@ -126,7 +127,8 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-
+		
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 
@@ -152,6 +154,7 @@ public class SiteController {
 		Site site = siteRepo.getOne(id);
 		System.out.println("Nom du site: " + site.getNom());
 		model.addAttribute("site", site);
+		model.addAttribute("phrase", new String());
 		return "structure";
 	}
 
@@ -173,6 +176,7 @@ public class SiteController {
 		}
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
+		model.addAttribute("phrase", new String());
 		return "arbre";
 	}
 
@@ -196,6 +200,7 @@ public class SiteController {
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
 		model.addAttribute("nomSite", nomSite);
+		model.addAttribute("phrase", new String());
 		return "choisirsite";
 	}
 
@@ -217,7 +222,7 @@ public class SiteController {
 
 		Site site = siteRepo.findByNom(nomSite);
 		model.addAttribute("site", site);
-
+		model.addAttribute("phrase", new String());
 		return "arbre";
 	}
 
@@ -246,6 +251,7 @@ public class SiteController {
 			return "galerie";
 
 		} else
+			model.addAttribute("phrase", new String());
 			return "galerie0";
 
 	}
@@ -273,6 +279,7 @@ public class SiteController {
 		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
 		model.addAttribute("createur", createur);
 		System.out.println("Sortie vueSite()");
+		model.addAttribute("phrase", new String());
 		return "site";
 
 	}
@@ -305,7 +312,7 @@ public class SiteController {
 		model.addAttribute("vide", vide);
 		model.addAttribute("commentaires", commentaires);
 		model.addAttribute("site", site);
-
+		model.addAttribute("phrase", new String());
 		return "commentaires";
 
 	}
@@ -332,7 +339,7 @@ public class SiteController {
 		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
 		model.addAttribute("createur", createur);
 		model.addAttribute("site", site);
-
+		model.addAttribute("phrase", new String());
 		return "commenter";
 
 	}
@@ -369,7 +376,7 @@ public class SiteController {
 		Integer idCreateur = site.getCreateur();
 		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
 		model.addAttribute("createur", createur);
-
+		model.addAttribute("phrase", new String());
 		return "site";
 	}
 
@@ -399,6 +406,7 @@ public class SiteController {
 		Integer idCreateur = site.getCreateur();
 		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
 		model.addAttribute("createur", createur);
+		model.addAttribute("phrase", new String());
 		return "site";
 	}
 
@@ -429,6 +437,7 @@ public class SiteController {
 		session.setAttribute("COMMENT", commentaire);
 		model.addAttribute("site", site);
 		model.addAttribute("comment", comment);
+		model.addAttribute("phrase", new String());
 		return "modifiercommentaire";
 	}
 
@@ -458,6 +467,7 @@ public class SiteController {
 		Integer idCreateur = site.getCreateur();
 		Utilisateur createur = utilisateurRepo.getOne(idCreateur);
 		model.addAttribute("createur", createur);
+		model.addAttribute("phrase", new String());
 		return "site";
 	}
 
@@ -481,6 +491,7 @@ public class SiteController {
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
 		model.addAttribute("nomSite", nomSite);
+		model.addAttribute("phrase", new String());
 		return "choisirsite";
 	}
 
@@ -508,6 +519,7 @@ public class SiteController {
 		formSite.setLocalisationSite(site.getLocalisation());
 		formSite.setDepartementSite(site.getDepartement());
 		model.addAttribute("formSite", formSite);
+		model.addAttribute("phrase", new String());
 		return "modifier_infos";
 	}
 
@@ -537,7 +549,7 @@ public class SiteController {
 		site.setLocalisation(formSite.getLocalisationSite());
 		site.setDepartement(formSite.getDepartementSite());
 		siteRepo.save(site);
-
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 
@@ -563,6 +575,7 @@ public class SiteController {
 		model.addAttribute("site", site);
 		String nomSecteur = new String();
 		model.addAttribute("nomSite", nomSecteur);
+		model.addAttribute("phrase", new String());
 		return "choisir_secteur_modification";
 
 	}
@@ -591,7 +604,7 @@ public class SiteController {
 		formSite.setIdSite(id);
 		formSite.setNomSecteur(secteur.getNom()); // Nom de secteur à modifier
 		model.addAttribute("formSite", formSite);
-
+		model.addAttribute("phrase", new String());
 		return "modifier_infos_secteur";
 	}
 
@@ -619,6 +632,7 @@ public class SiteController {
 		Secteur secteur = secteurRepo.findByNom(ancienNomSecteur);
 		secteur.setNom(nomSecteur);
 		secteurRepo.save(secteur);
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 
@@ -643,6 +657,7 @@ public class SiteController {
 		model.addAttribute("site", site);
 		String nomSecteur = new String();
 		model.addAttribute("nomSecteur", nomSecteur);
+		model.addAttribute("phrase", new String());
 		return "choisirsecteur_voie";
 	}
 
@@ -673,6 +688,7 @@ public class SiteController {
 		model.addAttribute("nomVoie", nomVoie);
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
 		model.addAttribute("secteur", secteur);
+		model.addAttribute("phrase", new String());
 		return "modification_choisirvoie";
 	}
 
@@ -705,6 +721,7 @@ public class SiteController {
 		formSite.setCotationVoie(voie.getCotation());
 
 		model.addAttribute("formSite", formSite);
+		model.addAttribute("phrase", new String());
 		return "modifier_infos_voie";
 	}
 
@@ -729,6 +746,7 @@ public class SiteController {
 		voie.setNom(formSite.getNomVoie());
 		voie.setCotation(formSite.getCotationVoie());
 		voieRepo.save(voie);
+		model.addAttribute("phrase", new String());
 		return "espace";
 
 	}
@@ -754,7 +772,7 @@ public class SiteController {
 		model.addAttribute("site", site);
 		String nomSecteur = new String();
 		model.addAttribute("nomSecteur", nomSecteur);
-
+		model.addAttribute("phrase", new String());
 		return "choisirsecteur_long";
 	}
 
@@ -782,6 +800,7 @@ public class SiteController {
 		model.addAttribute("secteur", secteur);
 		String nomVoie = new String();
 		model.addAttribute("nomVoie", nomVoie);
+		model.addAttribute("phrase", new String());
 		return "choisirvoie_long";
 
 	}
@@ -811,7 +830,7 @@ public class SiteController {
 		model.addAttribute("voie", voie);
 		String nomLongueur = new String();
 		model.addAttribute("nomLongueur", nomLongueur);
-
+		model.addAttribute("phrase", new String());
 		return "choisirlong_long";
 	}
 
@@ -842,7 +861,7 @@ public class SiteController {
 		formSite.setNbreSpit(longueur.getSpit());
 		formSite.setCotationLongueur(longueur.getCotation());
 		model.addAttribute("formSite", formSite);
-
+		model.addAttribute("phrase", new String());
 		return "modifier_infos_long";
 	}
 
@@ -870,7 +889,7 @@ public class SiteController {
 		longueur.setSpit(formSite.getNbreSpit());
 		longueur.setCotation(formSite.getCotationLongueur());
 		longueurRepo.save(longueur);
-
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 
@@ -895,6 +914,7 @@ public class SiteController {
 		Boolean officiel = site.isOfficiel();
 		site.setOfficiel(!officiel);
 		siteRepo.save(site);
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 
@@ -969,7 +989,7 @@ public class SiteController {
 		}
 
 		siteRepo.delete(site);
-
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 	
@@ -1032,7 +1052,7 @@ public class SiteController {
 		model.addAttribute("isSecteur", isSecteur);
 		model.addAttribute("isVoie", isVoie);
 		model.addAttribute("isLongueur", isLongueur);
-		
+		model.addAttribute("phrase", new String());
 		return "structure_details";
 	}
 	

@@ -53,7 +53,7 @@ public class HomeController {
 			model.addAttribute("authentification", false);
 		}
 		
-		
+		model.addAttribute("phrase", new String());
 		return "index";
 	}
 	
@@ -74,6 +74,7 @@ public class HomeController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
+		model.addAttribute("phrase", new String());
 		return "presentation";
 	}
 	
@@ -82,7 +83,7 @@ public class HomeController {
 		User user = new User();
 		model.addAttribute("user",user );
 		model.addAttribute("error", error);
-		
+		model.addAttribute("phrase", new String());
 		return "connexion";
 		
 	}
@@ -103,7 +104,7 @@ public class HomeController {
 			model.addAttribute("authentification", false);
 		}
 		
-		
+		model.addAttribute("phrase", new String());
 		return "redirect:espace";
 	}
 	
@@ -111,7 +112,7 @@ public class HomeController {
 	
 	
 	@GetMapping("/user")
-	public String user() {
+	public String user(Model model) {
 		
 		Collection<Utilisateur>  users1 = new ArrayList<Utilisateur>();
 		//users1 = utilisateurRepo.findAllActiveUsers();
@@ -129,7 +130,7 @@ public class HomeController {
 		//users2 = utilisateurRepo.findAllInactiveUsers();
 		users3 = utilisateurRepo.findAllMembresNative();
 		System.out.println("taille de la liste des utilisateurs membre (native): " + users3.size());
-		
+		model.addAttribute("phrase", new String());
 		return "ok";
 	}
 
