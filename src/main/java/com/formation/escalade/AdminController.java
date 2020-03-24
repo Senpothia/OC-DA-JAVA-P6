@@ -1,6 +1,9 @@
 package com.formation.escalade;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -93,6 +96,7 @@ public class AdminController {
 		formCompte.setDepartement(user.getDepartement());
 		formCompte.setEmail(user.getEmail());
 		formCompte.setMembre(user.isMembre());
+		formCompte.setActif(user.isActif());
 		
 		model.addAttribute("formCompte", formCompte);
 		model.addAttribute("user", user);
@@ -158,6 +162,19 @@ public class AdminController {
 		user.setNom(formCompte.getNom());
 		user.setDepartement(formCompte.getDepartement());
 		user.setEmail(formCompte.getEmail());
+		
+		List<Utilisateur>  membresActifs = new ArrayList<Utilisateur>();
+		membresActifs = utilisateurRepo.findAllMembresActifsNative();
+		System.out.println("Nbre de membres actifs: " + membresActifs.size());
+		System.out.println("Nom membre 1: " + membresActifs.get(0).getNom());
+		if(membresActifs.size() == 1) {
+			
+			Integer idMembre = membresActifs.get(0).getId();
+			if (idMembre == id && !formCompte.getActif() || idMembre == id && !formCompte.getMembre() ) {
+				
+				return "alert";
+			}
+		}
 		user.setMembre(formCompte.getMembre());
 		user.setActif(formCompte.getActif());
 		utilisateurRepo.save(user);
