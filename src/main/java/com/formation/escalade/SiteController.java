@@ -948,8 +948,6 @@ public class SiteController {
 			commentaireRepo.delete(commentaire);
 		}
 		
-		
-		
 		List<Topo> topos = site.getTopos();
 		for (Topo topo : topos) {
 			Integer idTopo = topo.getId();
