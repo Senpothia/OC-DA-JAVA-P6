@@ -1,6 +1,8 @@
 package com.formation.escalade;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,6 +107,30 @@ public class HomeController {
 		return "redirect:espace";
 	}
 	
+	// Méthodes de test  - @Query sur la table utilisateur
 	
+	
+	@GetMapping("/user")
+	public String user() {
+		
+		Collection<Utilisateur>  users1 = new ArrayList<Utilisateur>();
+		//users1 = utilisateurRepo.findAllActiveUsers();
+		users1 = utilisateurRepo.findAllMembres();
+		
+		System.out.println("taille de la liste des utilisateurs membre: " + users1.size());
+		
+		Collection<Utilisateur>  users2 = new ArrayList<Utilisateur>();
+		//users2 = utilisateurRepo.findAllInactiveUsers();
+		users2 = utilisateurRepo.findAllUtilisateurs();
+		System.out.println("taille de la liste des utilisateurs non membre: " + users2.size());
+		
+		
+		Collection<Utilisateur>  users3 = new ArrayList<Utilisateur>();
+		//users2 = utilisateurRepo.findAllInactiveUsers();
+		users3 = utilisateurRepo.findAllMembresNative();
+		System.out.println("taille de la liste des utilisateurs membre (native): " + users3.size());
+		
+		return "ok";
+	}
 
 }

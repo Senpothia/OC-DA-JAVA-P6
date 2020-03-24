@@ -296,6 +296,13 @@ public class SiteController {
 
 		Site site = siteRepo.getOne(id);
 		List<Commentaire> commentaires = site.getCommentaires();
+		Boolean vide = false;
+		if (commentaires.size() == 0) {
+			
+			vide = true;
+			
+		}
+		model.addAttribute("vide", vide);
 		model.addAttribute("commentaires", commentaires);
 		model.addAttribute("site", site);
 

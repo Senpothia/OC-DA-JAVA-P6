@@ -58,30 +58,40 @@
 
 			<div class="col">
 
-				<div th:each="commentaire, iStat  : ${commentaires}">
+				<span th:if="${vide}">
 
-
-					<div class="comment">
-						<strong><p
-								th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
-						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
-						<p th:text="${commentaire.text}"></p>
-
-						<span th:if="${authentification}"> <span
-							th:if="${utilisateur.membre}">
-								<div class="row justify-content-end" style="margin-right: 10px;">
-									<a style="margin-right: 10px;"
-										th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
-										class="text-primary">Supprimer</a> <a
-										th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
-										class="text-primary">Modifier</a>
-								</div>
-						</span>
-						</span>
+					<div>
+						<h3 style="color: red;">Il n'y a aucun commentaire pour le moment!</h3>
 					</div>
 
-				</div>
 
+				</span> <span th:unless="${vide}">
+
+					<div th:each="commentaire, iStat  : ${commentaires}">
+
+
+						<div class="comment">
+							<strong><p
+									th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
+							<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
+							<p th:text="${commentaire.text}"></p>
+
+							<span th:if="${authentification}"> <span
+								th:if="${utilisateur.membre}">
+									<div class="row justify-content-end"
+										style="margin-right: 10px;">
+										<a style="margin-right: 10px;"
+											th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
+											class="text-primary">Supprimer</a> <a
+											th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
+											class="text-primary">Modifier</a>
+									</div>
+							</span>
+							</span>
+						</div>
+
+					</div>
+				</span>
 			</div>
 		</div>
 
