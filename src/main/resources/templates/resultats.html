@@ -53,31 +53,43 @@
 				<p style="color: blue;" th:text="'Critère: ' + ' ' + ${phrase}"></p>
 			</div>
 		</div>
+		<span th:if="${vide}">
 
-		<div th:each="site , iStat: ${sites}">
-			<div class="row">
-
-
-				<div class="informations col">
-					<h1>Informations site</h1>
-
-					<strong><span th:text="'Nom: '+ ${site.nom}"></span></strong><br>
-					<strong><span
-						th:text="'Localisation: '+ ${site.localisation}"></span></strong><br>
-					<strong><span
-						th:text="'Département: '+ ${site.departement}"></span></strong><br> <strong><span
-						th:text="'Createur: '+ ${createurs.get(iStat.index).getPrenom()} + ' ' + ${createurs.get(iStat.index).getNom()}"></span></strong><br>
-					<br>
-
-					<div class="row justify-content-end" style="margin-right: 10px;">
-						<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"
-							class="text-primary">Voir site</a>
-					</div>
-
+			<div class="message row">
+				<div class="col">
+					<h3 style="color: red;">Aucun résultat ne correspond à votre critère de recherche!</h3>
+				
 				</div>
 			</div>
 
-		</div>
+
+		</span> <span th:unless="${vide}">
+			<div th:each="site , iStat: ${sites}">
+				<div class="row">
+
+
+					<div class="informations col">
+						<h1>Informations site</h1>
+
+						<strong><span th:text="'Nom: '+ ${site.nom}"></span></strong><br>
+						<strong><span
+							th:text="'Localisation: '+ ${site.localisation}"></span></strong><br>
+						<strong><span
+							th:text="'Département: '+ ${site.departement}"></span></strong><br> <strong><span
+							th:text="'Createur: '+ ${createurs.get(iStat.index).getPrenom()} + ' ' + ${createurs.get(iStat.index).getNom()}"></span></strong><br>
+						<br>
+
+						<div class="row justify-content-end" style="margin-right: 10px;">
+							<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"
+								class="text-primary">Voir site</a>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+		</span>
 		<!-- PIED DE PAGE -->
 
 

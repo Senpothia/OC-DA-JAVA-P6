@@ -72,13 +72,8 @@ public class RechercheController {
 		}
 		
 		System.out.println("Phrase: " + phrase);
-		 /*
-		//List<Site> sites = new ArrayList<Site>();  			// liste à transmettre page html
-		List<Secteur> secteurs = new ArrayList<Secteur>();  // liste à transmettre page html
-		List<Voie> voies = new ArrayList<Voie>();  			// liste à transmettre page html
-		List<Longueur> longueurs = new ArrayList<Longueur>();  // liste à transmettre page html
 		
-		*/
+		Boolean vide = true;
 		Set<Site> sites = new LinkedHashSet<>(new ArrayList<Site>());  // liste à transmettre page html
 		// Recherche sur éléments de site 
 		Site siteNom = siteRepo.findByNom(phrase);
@@ -230,6 +225,11 @@ public class RechercheController {
 		
 		System.out.println("Taille liste des sites: " + sites.size());
 		
+		if (sites.size()!= 0) {
+			
+			vide=false;
+		}
+		
 		model.addAttribute("sites", sites);
 		List<Utilisateur> createurs = new ArrayList<Utilisateur>();
 		for (Site site : sites) {
@@ -241,6 +241,8 @@ public class RechercheController {
 		
 		model.addAttribute("createurs", createurs);
 		model.addAttribute("phrase", phrase);
+		model.addAttribute("vide", vide);
+		
 		return "resultats";
 		
 	}
