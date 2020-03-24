@@ -104,8 +104,8 @@ public class RechercheController {
 		
 		
 		
-		
-		return "ok";
+		model.addAttribute("phrase", phrase);
+		return "resultats";
 	}
 
 }
