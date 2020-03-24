@@ -15,6 +15,8 @@ public interface ISite extends JpaRepository <Site, Integer>{
 
 	List<Site> findByLocalisation(String phrase);
 
+	List<Site> findByCreateur(Integer id);
+
 	
 
 	

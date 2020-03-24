@@ -28,7 +28,7 @@ import com.formation.escalade.repository.IVoie;
 @Service
 public class GeneralService{
 
-  @Autowired
+	@Autowired
 	GeneralService generalService;
 	@Autowired
 	private final ISite siteRepo;

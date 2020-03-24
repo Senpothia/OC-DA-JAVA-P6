@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
           .authorizeRequests()
           .antMatchers("/images/**",
-        		  	   "/css/**").permitAll()
+        		  	   "/css/**"
+        		  	   ).permitAll()
           .antMatchers("/",
         		  	 	"/galerie/**",
         		  	 	"/presentation",
@@ -40,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		  	 	"/topos/**",
         		  	 	"/commentaires/**",
         		  	 	"/compte",
-        		  	 	"/informations/**").permitAll()
+        		  	 	"/informations/**",
+        		  	 	"/rechercher").permitAll()
           .anyRequest().authenticated()
           .and().formLogin()
           .loginPage("/connexion")

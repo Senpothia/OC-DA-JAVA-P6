@@ -12,7 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/styles.css">
 <title>Les amis de l'escalade</title>
 
 <style>
@@ -54,71 +54,30 @@
 			</div>
 		</div>
 
-
-<!--
-		<span th:if="${proprietaire}">
-
-			<div class="message row">
-				<div class="col">
-					<h2 style="color: red;">La topo vous appartient: vous ne pouvez pas l'emprunter!</h2>
-				
-				</div>
-			</div>
-
-		</span>
-		<div class="row">
-
-			<div class="col">
-
-				<div th:each="topo, iStat  : ${topos}">
+		<div th:each="site , iStat: ${sites}">
+			<div class="row">
 
 
-					<div class="comment">
-						<strong><p
-								th:text="${'Proriétaire: ' + prenoms.get(iStat.index)}+ ' ' + ${noms.get(iStat.index)}"></p></strong>
-						
-						<p th:text="${topo.nom}"></p>
-						<p th:text="${topo.lieu}"></p>
-						<p th:text="${topo.description}"></p>
-						<p th:text="${topo.date}"></p>
+				<div class="informations col">
+					<h1>Informations site</h1>
 
-						<span th:if="${topo.isDisponible()}"> <strong><p
-									style="color: green;">Disponible</p></strong>
-						</span> <span th:unless="${topo.isDisponible()}"> <strong><p
-									style="color: red;">Indisponible</p></strong>
-						</span> <span th:if="${topo.isDisponible()}">
-						<span th:if="${authentification}">
-							<div class="row justify-content-end" style="margin-right: 10px;">
-								<a
-									th:href="@{/topo/reserver(siteId=${site.id},num=${iStat.index})}"
-									class="text-primary">Reserver</a>
-							</div>
-							</span>
-						</span>
+					<strong><span th:text="'Nom: '+ ${site.nom}"></span></strong><br>
+					<strong><span
+						th:text="'Localisation: '+ ${site.localisation}"></span></strong><br>
+					<strong><span
+						th:text="'Département: '+ ${site.departement}"></span></strong><br> <strong><span
+						th:text="'Createur: '+ ${createurs.get(iStat.index).getPrenom()} + ' ' + ${createurs.get(iStat.index).getNom()}"></span></strong><br>
+					<br>
+
+					<div class="row justify-content-end" style="margin-right: 10px;">
+						<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"
+							class="text-primary">Voir site</a>
 					</div>
 
 				</div>
-
-			</div>
-		</div>
-
-		<div class="row pt-3">
-
-			<div class="col">
-				<div class="d-flex justify-content-end">
-					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button
-							type="text" class="bouton btn btn-primary mr-1">Retour</button></a> 
-					<span th:if="${authentification}">
-							<a
-						th:href="@{/topo/creation/{nomSite}(nomSite=${site.nom})}"><button
-							type="button" class="bouton btn btn-primary mr-1">Ajouter
-							une topo</button></a> </span>
-				</div>
 			</div>
 
 		</div>
-		
-		  -->
 		<!-- PIED DE PAGE -->
 
 
