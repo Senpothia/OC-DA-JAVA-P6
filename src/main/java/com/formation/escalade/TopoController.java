@@ -90,6 +90,7 @@ public class TopoController {
 		model.addAttribute("sites", sites);
 		model.addAttribute("formTopo", new FormTopo());
 		model.addAttribute("listeSite", true);  // Avec affichage de la liste des sites
+		model.addAttribute("phrase", new String());
 		return "creation_topo";
 	}
 	
@@ -119,6 +120,7 @@ public class TopoController {
 		model.addAttribute("formTopo", formTopo);
 		//model.addAttribute("nomSite", nomSite);
 		model.addAttribute("listeSite", false);  // sans affichage de la liste des site
+		model.addAttribute("phrase", new String());
 		return "creation_topo";
 		
 	}
@@ -174,7 +176,7 @@ public class TopoController {
 			topoRepo.save(topo);
 			
 		}
-		
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 	
@@ -221,7 +223,7 @@ public class TopoController {
 		
 		model.addAttribute("vide", vide);
 		model.addAttribute("topos", topos);
-		
+		model.addAttribute("phrase", new String());
 		return "liste_emprunts";
 	}
 	
@@ -291,7 +293,7 @@ public class TopoController {
 			model.addAttribute("topos", topos);
 			model.addAttribute("site", site);
 			model.addAttribute("proprietaire", true);
-
+			model.addAttribute("phrase", new String());
 			return "topos";
 			
 		} else {
@@ -303,7 +305,7 @@ public class TopoController {
 			demande1.setActive(true);
 			demande1.setTopo(topo);
 			demande1Repo.save(demande1);
-			
+			model.addAttribute("phrase", new String());
 			return "espace";
 		}
 		
@@ -366,7 +368,7 @@ public class TopoController {
 		model.addAttribute("topos", topos);
 		model.addAttribute("site", site);
 		model.addAttribute("proprietaire", false);
-
+		model.addAttribute("phrase", new String());
 		return "topos";
 	}
 	
@@ -405,7 +407,7 @@ public class TopoController {
 		
 		model.addAttribute("formTopo", formTopo);
 		model.addAttribute("num", num);
-		
+		model.addAttribute("phrase", new String());
 		return "modification_topo";
 	}
 	
@@ -441,7 +443,7 @@ public class TopoController {
 		topo.setLieu(formTopo.getLieu());
 		topo.setDisponible(formTopo.isDisponibilite());
 		topoRepo.save(topo);
-		
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 	
@@ -475,7 +477,7 @@ public class TopoController {
 		
 		model.addAttribute("vide", vide);
 		model.addAttribute("topos", topos);
-		
+		model.addAttribute("phrase", new String());
 		return "liste_topos";
 	}
 	
@@ -503,6 +505,7 @@ public class TopoController {
 		Topo topo = topos.get(num);
 		topo.setDisponible(!topo.isDisponible());
 		topoRepo.save(topo);
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 	
@@ -529,6 +532,7 @@ public class TopoController {
 		List<Topo> topos = utilisateur.getTopos();
 		Topo topo = topos.get(num);
 		topoRepo.delete(topo);
+		model.addAttribute("phrase", new String());
 		return "espace";
 	}
 	
@@ -572,7 +576,7 @@ public class TopoController {
 		
 		model.addAttribute("vide", vide);
 		model.addAttribute("topos" , topos);
-		
+		model.addAttribute("phrase", new String());
 		return "liste_demandes";
 	}
 	
@@ -625,6 +629,7 @@ public class TopoController {
 		model.addAttribute("topos", topos);
 		model.addAttribute("demandeurs", demandeurs);
 		model.addAttribute("acceptations", acceptations);
+		model.addAttribute("phrase", new String());
 		return "demandes_recues";
 	}
 	
@@ -660,7 +665,7 @@ public class TopoController {
 		}
 		Demande demande = demandes1.get(num);
 		demande1Repo.delete(demande);
-		
+		model.addAttribute("phrase", new String());
 		
 		return "espace";
 	}
@@ -717,6 +722,7 @@ public class TopoController {
 		demande.setAcceptee(true);
 		demande.setActive(false);;
 		demande1Repo.save(demande);
+		model.addAttribute("phrase", new String());
 		
 		return "espace";
 	}

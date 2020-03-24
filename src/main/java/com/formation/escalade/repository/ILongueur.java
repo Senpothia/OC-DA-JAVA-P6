@@ -14,6 +14,8 @@ public interface ILongueur extends JpaRepository <Longueur, Integer> {
 
 	Longueur findByNom(String nomLongueur);
 
+	List<Longueur> findByCotation(String phrase);
+
 	
 
 	

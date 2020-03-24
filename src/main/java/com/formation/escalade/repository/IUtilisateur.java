@@ -33,4 +33,6 @@ public interface IUtilisateur extends JpaRepository<Utilisateur, Integer> {
 	@Query(value = "SELECT * FROM utilisateur u WHERE u.membre = TRUE", nativeQuery = true)
 	Collection<Utilisateur> findAllMembresNative();
 
+	Utilisateur findByNomOrPrenom(String phrase, String phrase2);
+
 }
