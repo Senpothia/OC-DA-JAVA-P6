@@ -33,12 +33,6 @@ public class SecteurService {
 	@Autowired
 	private final ICommentaire commentaireRepo;
 
-	/**
-	 * private Site site; private List<Secteur> secteurs; private List<Voie> voies;
-	 * private List<Longueur> longueurs;
-	 * 
-	 */
-
 	public SecteurService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			ICommentaire commentaireRepo) {
 		super();
@@ -49,9 +43,7 @@ public class SecteurService {
 		this.commentaireRepo = commentaireRepo;
 	}
 
-	public void createSecteur(FormSite formSite, Integer siteId) {
-		
-		
+	public Boolean createSecteur(FormSite formSite, Integer siteId) {
 		
 		System.out.println("Entrée service secteur");
 		String nomSecteur = formSite.getNomSecteur();
@@ -69,9 +61,16 @@ public class SecteurService {
 		
 		Site site = siteRepo.getOne(siteId);
 		secteur.setSite(site);
+		
+		try {
 
-		secteurRepo.save(secteur);
+			secteurRepo.save(secteur);
+			
+		} catch (Exception e) {
 
+			return false;
+		}
+		
 		Voie voie = new Voie();
 		voie.setNom(nomVoie);
 		voie.setCotation(cotationVoie);
@@ -92,8 +91,26 @@ public class SecteurService {
 		List<Longueur> longueurs = new ArrayList<>();
 		longueurs.add(longueur);
 		voie.setLongueurs(longueurs);
-		voieRepo.save(voie);
-		longueurRepo.save(longueur);
+		
+		try {
+
+			voieRepo.save(voie);
+			
+		} catch (Exception e) {
+
+			return false;
+		}
+		
+		try {
+
+			longueurRepo.save(longueur);
+			
+		} catch (Exception e) {
+
+			return false;
+		}
+		
+		return true;
 	}
 
 }

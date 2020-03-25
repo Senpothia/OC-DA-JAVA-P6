@@ -42,6 +42,21 @@
 			</p>
 
 		</div>
+		
+		
+			<!-- ***********   Alerte erreur  ************ -->
+
+		<span th:if="${erreur}">
+			<div class="message row">
+
+				<p>
+					<b style="color: red;">Les sites, secteurs, voies longueurs
+						doivent avoir un nom unique! Enregistrement impossible!</b>
+				</p>
+
+			</div>
+		</span>
+		<!-- ********************************************* -->
 		<!-- ********************************************* -->
 		<!-- <div class="container"> -->
 

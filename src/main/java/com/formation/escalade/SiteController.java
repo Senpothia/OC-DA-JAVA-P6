@@ -112,10 +112,17 @@ public class SiteController {
 
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		siteService.createSite(formSite, utilisateur);
+		Boolean creation = siteService.createSite(formSite, utilisateur);
+		if (creation) {
 		model.addAttribute("phrase", new String());
-		model.addAttribute("phrase", new String());
+		
 		return "espace";
+		
+		} else {
+			
+			model.addAttribute("erreur", true);
+			return "creation_site";
+		}
 	}
 
 	@GetMapping("/annuler")

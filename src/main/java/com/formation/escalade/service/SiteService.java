@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.formation.escalade.model.Commentaire;
 import com.formation.escalade.model.FormSite;
@@ -24,7 +25,7 @@ import com.formation.escalade.repository.IVoie;
 
 @Service
 public class SiteService implements GestionSiteService {
-	
+
 	@Autowired
 	SiteService siteService;
 	@Autowired
@@ -55,7 +56,7 @@ public class SiteService implements GestionSiteService {
 	}
 
 	@Override
-	public void createSite(FormSite formSite, Utilisateur utilisateur) {
+	public Boolean createSite(FormSite formSite, Utilisateur utilisateur) {
 
 		System.out.println(formSite.toString());
 
@@ -81,10 +82,17 @@ public class SiteService implements GestionSiteService {
 		site.setLocalisation(localisationSite);
 		site.setDepartement(departementSite);
 		site.setOfficiel(officielSite);
-		
-		site.setCreateur(utilisateur.getId());  // Affectation du créateur du site
 
-		siteRepo.save(site);
+		site.setCreateur(utilisateur.getId()); // Affectation du créateur du site
+
+		try {
+
+			siteRepo.save(site);
+
+		} catch (Exception e) {
+
+			return false;
+		}
 
 		Commentaire commentaire = new Commentaire();
 		Utilisateur auteur = new Utilisateur();
@@ -92,28 +100,65 @@ public class SiteService implements GestionSiteService {
 		commentaire.setAuteur(auteur);
 		commentaire.setSite(site);
 		commentaire.setText(remSite);
-		commentaireRepo.save(commentaire);
+
+		try {
+
+			commentaireRepo.save(commentaire);
+			
+		} catch (Exception e) {
+
+			return false;
+		}
+		
 
 		Secteur secteur = new Secteur();
 		secteur.setNom(nomSecteur);
 		secteur.setSite(site);
 
-		secteurRepo.save(secteur);
+		try {
+
+			secteurRepo.save(secteur);
+			
+		} catch (Exception e) {
+
+			return false;
+		}
+		
+		
 
 		Voie voie = new Voie();
 		voie.setNom(nomVoie);
 		voie.setCotation(cotationVoie);
 		voie.setSecteur(secteur);
-		voieRepo.save(voie);
+		
+		try {
+
+			voieRepo.save(voie);
+			
+		} catch (Exception e) {
+
+			return false;
+		}
+		
 
 		Longueur longueur = new Longueur();
 		longueur.setNom(nomLongueur);
 		longueur.setSpit(nbreSpit);
 		longueur.setCotation(cotationLongueur);
 		longueur.setVoie(voie);
+		
+		try {
 
-		longueurRepo.save(longueur);
+			longueurRepo.save(longueur);
 
+			
+		} catch (Exception e) {
+
+			return false;
+		}
+
+		
+		return true;
 	}
 
 	@Override
@@ -212,7 +257,7 @@ public class SiteService implements GestionSiteService {
 
 		String nomVoie = new String("");
 
-		//String nomLongueur = new String("");
+		// String nomLongueur = new String("");
 
 		List<String> nomsSecteurs = new ArrayList<String>();
 		for (int i = 0; i <= tableSite.size() - 1; i++) {
@@ -227,170 +272,167 @@ public class SiteService implements GestionSiteService {
 
 		return null;
 	}
-	
+
 	public void decomposerSite(int id) {
-		
+
 		Site site = siteRepo.getOne(id);
 		// Traitement des secteurs
-		List<Secteur> secteurs = secteurRepo.findBySite(site);  // Récupération de tous les secteurs du site
-		
-		for (Secteur s : secteurs) {  // Affichage de chaque secteur
+		List<Secteur> secteurs = secteurRepo.findBySite(site); // Récupération de tous les secteurs du site
+
+		for (Secteur s : secteurs) { // Affichage de chaque secteur
 
 			System.out.println(s.toString());
 		}
-		// Traitement des voies 
+		// Traitement des voies
 		List<Voie> voies = new ArrayList<Voie>();
 		List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
 
 		for (Secteur s : secteurs) {
-			voies = voieRepo.findBySecteur(s);  // Récupération de toutes les voies d'un secteur
-			listeVoies.add(voies);  // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
+			voies = voieRepo.findBySecteur(s); // Récupération de toutes les voies d'un secteur
+			listeVoies.add(voies); // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
 		}
 
 		for (List<Voie> v : listeVoies) {
-				for (Voie w: v) {
-					System.out.println(w.toString());  // Affichage de toutes les voies 
-				}
-			
+			for (Voie w : v) {
+				System.out.println(w.toString()); // Affichage de toutes les voies
+			}
+
 		}
 		// Traitement des longueurs
 		List<Longueur> longueurs = new ArrayList<Longueur>();
 		List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
 
-		for (List<Voie> v: listeVoies) {
-			
-			for (Voie w: v) {
+		for (List<Voie> v : listeVoies) {
+
+			for (Voie w : v) {
 				longueurs = longueurRepo.findByVoie(w);
-				listeLongueurs.add(longueurs); 
-				
+				listeLongueurs.add(longueurs);
+
 			}
 		}
-		
-		for (List<Longueur> l : listeLongueurs) {	
-			for (Longueur j: l) {
-				System.out.println(j.toString());  // Affichage de toutes les voies 
+
+		for (List<Longueur> l : listeLongueurs) {
+			for (Longueur j : l) {
+				System.out.println(j.toString()); // Affichage de toutes les voies
 			}
-		
+
 		}
-		
-		
-		}//
-	
-	
-		//  **************************************************
-	
-	   public List<String> decomposerSecteur(int id){
-		   
-		    Site site = siteRepo.getOne(id);
-			// Traitement des secteurs
-			List<Secteur> secteurs = secteurRepo.findBySite(site);  // Récupération de tous les secteurs du site
-			String nomSecteur = new String();
-			List<String> nomSecteurs = new ArrayList<String>();
-			for (Secteur s : secteurs) {  // Affichage de chaque secteur
 
-				System.out.println(s.toString());
-			}
-			
-			for (Secteur s: secteurs) {
-				
-				nomSecteur = s.getNom();
-				nomSecteurs.add(nomSecteur);
-			}
-			
-		   return nomSecteurs;
-		   
-	   }///
-	   
-	   public List<List<String>> decomposerVoie(List<Secteur> secteurs){
-		   
-		   	List<Voie> voies = new ArrayList<Voie>();
-			List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
-			String nomVoie = new String();
-			List<String> nomVoiesSecteur = new ArrayList<String>();
-			List<List<String>> listeNomsVoies = new ArrayList<List<String>>();
-			for (Secteur s : secteurs) {
-				voies = voieRepo.findBySecteur(s);  // Récupération de toutes les voies d'un secteur
-				listeVoies.add(voies);  // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
-			}
+	}//
 
-			for (List<Voie> v : listeVoies) {
-					for (Voie w: v) {
-						System.out.println(w.toString());  // Affichage de toutes les voies 
-						nomVoie = w.getNom();
-						nomVoiesSecteur.add(nomVoie);
-					}
-					listeNomsVoies.add(nomVoiesSecteur);
-			}
-			
-			
-		   return listeNomsVoies;
-	   }//
-	   
-	   public List<List<String>> decomposerLongueur(List<List<Voie>> listeVoies){
-		   
-		    List<Longueur> longueurs = new ArrayList<Longueur>();
-			List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
-			String nomLongueur = new String();
-			List<String> nomLongueursVoie = new ArrayList<String>();
-			List<List<String>> listeNomsLongueurs = new ArrayList<List<String>>();
+	// **************************************************
 
-			for (List<Voie> v: listeVoies) {
-				
-				for (Voie w: v) {
-					longueurs = longueurRepo.findByVoie(w);
-					listeLongueurs.add(longueurs); 
-					
-				}
-			}
-			
-			for (List<Longueur> l : listeLongueurs) {	
-				for (Longueur j: l) {
-					System.out.println(j.toString());  // Affichage de toutes les voies 
-					nomLongueur = j.getNom();
-					nomLongueursVoie.add(nomLongueur);
-				}
-				listeNomsLongueurs.add(nomLongueursVoie);
-			}
-			
-		   
-		   return listeNomsLongueurs;
-	   }
-	     
-	   //**********************************
-	   public List<Secteur> chercherSecteurs(int id){
-		   
-		   	Site site = siteRepo.getOne(id);
-			List<Secteur> secteurs = secteurRepo.findBySite(site);
-		   
-		   return secteurs;
-	   }
-	   
-	   public List<List<Voie>> chercherVoies(List<Secteur> secteurs){
-		   
-		   List<Voie> voies = new ArrayList<Voie>();
-		   List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
-		   
-		   for (Secteur s : secteurs) {
-				voies = voieRepo.findBySecteur(s);  // Récupération de toutes les voies d'un secteur
-				listeVoies.add(voies);  // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
-			}
-		   
-		   return listeVoies;
-		   
-	   }  //
-	   
-	   public List<List<Longueur>> chercherLongueurs(List<List<Voie>> listeVoies){
-		   
-		    List<Longueur> longueurs = new ArrayList<Longueur>();
-			List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
+	public List<String> decomposerSecteur(int id) {
 
-			for (List<Voie> v: listeVoies) {
-				
-				for (Voie w: v) {
-					longueurs = longueurRepo.findByVoie(w);
-					listeLongueurs.add(longueurs); 	
-				}
+		Site site = siteRepo.getOne(id);
+		// Traitement des secteurs
+		List<Secteur> secteurs = secteurRepo.findBySite(site); // Récupération de tous les secteurs du site
+		String nomSecteur = new String();
+		List<String> nomSecteurs = new ArrayList<String>();
+		for (Secteur s : secteurs) { // Affichage de chaque secteur
+
+			System.out.println(s.toString());
+		}
+
+		for (Secteur s : secteurs) {
+
+			nomSecteur = s.getNom();
+			nomSecteurs.add(nomSecteur);
+		}
+
+		return nomSecteurs;
+
+	}///
+
+	public List<List<String>> decomposerVoie(List<Secteur> secteurs) {
+
+		List<Voie> voies = new ArrayList<Voie>();
+		List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
+		String nomVoie = new String();
+		List<String> nomVoiesSecteur = new ArrayList<String>();
+		List<List<String>> listeNomsVoies = new ArrayList<List<String>>();
+		for (Secteur s : secteurs) {
+			voies = voieRepo.findBySecteur(s); // Récupération de toutes les voies d'un secteur
+			listeVoies.add(voies); // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
+		}
+
+		for (List<Voie> v : listeVoies) {
+			for (Voie w : v) {
+				System.out.println(w.toString()); // Affichage de toutes les voies
+				nomVoie = w.getNom();
+				nomVoiesSecteur.add(nomVoie);
 			}
-			return listeLongueurs;
-	   	}
-}//***
+			listeNomsVoies.add(nomVoiesSecteur);
+		}
+
+		return listeNomsVoies;
+	}//
+
+	public List<List<String>> decomposerLongueur(List<List<Voie>> listeVoies) {
+
+		List<Longueur> longueurs = new ArrayList<Longueur>();
+		List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
+		String nomLongueur = new String();
+		List<String> nomLongueursVoie = new ArrayList<String>();
+		List<List<String>> listeNomsLongueurs = new ArrayList<List<String>>();
+
+		for (List<Voie> v : listeVoies) {
+
+			for (Voie w : v) {
+				longueurs = longueurRepo.findByVoie(w);
+				listeLongueurs.add(longueurs);
+
+			}
+		}
+
+		for (List<Longueur> l : listeLongueurs) {
+			for (Longueur j : l) {
+				System.out.println(j.toString()); // Affichage de toutes les voies
+				nomLongueur = j.getNom();
+				nomLongueursVoie.add(nomLongueur);
+			}
+			listeNomsLongueurs.add(nomLongueursVoie);
+		}
+
+		return listeNomsLongueurs;
+	}
+
+	// **********************************
+	public List<Secteur> chercherSecteurs(int id) {
+
+		Site site = siteRepo.getOne(id);
+		List<Secteur> secteurs = secteurRepo.findBySite(site);
+
+		return secteurs;
+	}
+
+	public List<List<Voie>> chercherVoies(List<Secteur> secteurs) {
+
+		List<Voie> voies = new ArrayList<Voie>();
+		List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
+
+		for (Secteur s : secteurs) {
+			voies = voieRepo.findBySecteur(s); // Récupération de toutes les voies d'un secteur
+			listeVoies.add(voies); // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
+		}
+
+		return listeVoies;
+
+	} //
+
+	public List<List<Longueur>> chercherLongueurs(List<List<Voie>> listeVoies) {
+
+		List<Longueur> longueurs = new ArrayList<Longueur>();
+		List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
+
+		for (List<Voie> v : listeVoies) {
+
+			for (Voie w : v) {
+				longueurs = longueurRepo.findByVoie(w);
+				listeLongueurs.add(longueurs);
+			}
+		}
+		return listeLongueurs;
+	}
+
+}// ***

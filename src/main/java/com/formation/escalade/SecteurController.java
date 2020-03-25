@@ -22,7 +22,7 @@ import com.formation.escalade.service.SiteService;
 
 @Controller
 public class SecteurController {
-	
+
 	@Autowired
 	SecteurService secteurService;
 
@@ -31,8 +31,6 @@ public class SecteurController {
 	private final IVoie voieRepo;
 	private final ILongueur longueurRepo;
 	private final ICommentaire commentaireRepo;
-
-	
 
 	public SecteurController(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			ICommentaire commentaireRepo) {
@@ -43,40 +41,52 @@ public class SecteurController {
 		this.longueurRepo = longueurRepo;
 		this.commentaireRepo = commentaireRepo;
 	}
-	
+
 	@GetMapping("/creation_secteur")
 	public String addsecteur(Model model) {
 		model.addAttribute("formSite", new FormSite());
 		return "creation_secteur";
 	}
-	
+
 	@GetMapping("/site/{id}/secteurs")
 	public String modifierSecteur(@PathVariable("id") Integer idSite, Model model, HttpSession session) {
-		
+
 		Integer siteId = idSite;
 		session.setAttribute("IDSITE", siteId);
-		//Integer siteId = (Integer) session.getAttribute("IDSITE");
+		// Integer siteId = (Integer) session.getAttribute("IDSITE");
 		Site site = siteRepo.getOne(idSite);
 		FormSite formSite = new FormSite();
 		formSite.setIdSite(idSite);
-		model.addAttribute("formSite", formSite );
+		model.addAttribute("formSite", formSite);
 		model.addAttribute("site", site);
-		model.addAttribute("siteId", siteId );
+		model.addAttribute("siteId", siteId);
 		System.out.println("GET: " + formSite.toString());
 		return "creation_secteur";
 	}
-	
+
 	@PostMapping("/creationsecteur")
 
-	public String secteurSubmit(FormSite formSite, Site site,  HttpServletRequest request, Model model) {
-		
+	public String secteurSubmit(FormSite formSite, Site site, HttpServletRequest request, Model model) {
+
 		Integer siteId = (Integer) request.getSession().getAttribute("IDSITE");
 		System.out.println("POST: " + formSite.toString());
 		System.out.println("Site id session: " + siteId);
-		secteurService.createSecteur(formSite, siteId);
-		Site siteActuel = siteRepo.getOne(siteId);
-		model.addAttribute("site", siteActuel);
-		return "arbre";
+		Boolean creation = secteurService.createSecteur(formSite, siteId);
+
+
+		if (creation) {
+
+			Site siteActuel = siteRepo.getOne(siteId);
+			model.addAttribute("site", siteActuel);
+			return "arbre";
+
+		} else {
+
+			model.addAttribute("erreur", true);
+			return "creation_secteur";
+		}
+
+		
 	}
 
 }
