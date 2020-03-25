@@ -99,16 +99,28 @@ public class VoieController {
 		String nomSecteur = (String) request.getSession().getAttribute("NOMSECTEUR");
 		System.out.println("POST: " + formSite.toString());
 		System.out.println("Site id session: " + siteId);
-		voieService.creervoie(formSite, siteId, nomSecteur);
-		Site siteActuel = siteRepo.getOne(siteId);
-		siteRepo.save(siteActuel);
-		model.addAttribute("site", siteActuel);
+		Boolean creation = voieService.creervoie(formSite, siteId, nomSecteur);
 		
-		return "espace";
+		if (creation) {
+			
+			Site siteActuel = siteRepo.getOne(siteId);
+			siteRepo.save(siteActuel);
+			model.addAttribute("site", siteActuel);
+			
+			return "espace";
+		}else {
+			
+			model.addAttribute("erreur", true);
+			
+			Site siteActuel = siteRepo.getOne(siteId);
+			model.addAttribute("site", siteActuel);
+			Secteur secteur = secteurRepo.findByNom(nomSecteur);			
+			model.addAttribute("secteur", secteur);
+			model.addAttribute("formSite", new FormSite());
+			return "creation_voie";
+			
+		}
 		
 	}
 	
-	
-
-
 }
