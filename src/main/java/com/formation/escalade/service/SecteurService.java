@@ -106,7 +106,8 @@ public class SecteurService {
 			longueurRepo.save(longueur);
 			
 		} catch (Exception e) {
-
+			
+			voieRepo.delete(voie);
 			return false;
 		}
 		

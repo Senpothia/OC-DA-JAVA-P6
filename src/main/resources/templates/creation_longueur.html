@@ -49,66 +49,68 @@
 		<!-- ********************************************* -->
 		<form th:action="@{/creationlongueur}" method="post"
 			th:object="${formSite}">
-			
-			<div class="row">
-			
-				<div class="col">
-				
-						<p>
-							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
-							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
-								th:text="${site.departement}"></span></br>
-						</p>
-					
-				
-				</div>
-				
-				
-				
-				<div class="col-lg-6">
-				
-					<h1>Secteur</h1>
-					
-					
-						<p>
-							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
-							</br> </br> </br>
 
-						</p>
-					
-				
-				
-				
-				</div>
-			
-			
-			
-			
-			</div>
-			
-		
-		
-		
 			<div class="row">
-			
-				<div class="col-lg-6">
-				
-					<h1>Voie</h1>
-					
+
+				<div class="col">
+
 					<p>
-							<strong>Site:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
-							</strong><span th:text="${voie.cotation}"></span></br>
-						</p>
-					
-				
+						<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
+						</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
+							th:text="${site.departement}"></span></br>
+					</p>
 				</div>
-				
-				
+
 				<div class="col-lg-6">
-				
+
+					<h1>Secteur</h1>
+
+
+					<p>
+						<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
+						</br> </br> </br>
+
+					</p>
+
+
+					<!-- ***********   Alerte erreur  ************ -->
+
+					<span th:if="${erreur}">
+						<div class="message row">
+
+							<p>
+								<b style="color: red;">Les sites, secteurs, voies longueurs
+									doivent avoir un nom unique! Enregistrement impossible!</b>
+							</p>
+
+						</div>
+					</span>
+					<!-- ********************************************* -->
+
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-lg-6">
+
+					<h1>Voie</h1>
+
+					<p>
+						<strong>Nom:</strong> <span th:text="${voie.nom}"></span></br> <strong>Cotation:
+						</strong><span th:text="${voie.cotation}"></span></br>
+					</p>
+
+
+				</div>
+
+
+				<div class="col-lg-6">
+
 					<h1>Longueur</h1>
-					
-						<div class="row">
+
+					<div class="row">
 
 
 						<label for="text">Nom</label> <input type="text"
@@ -124,49 +126,50 @@
 						<label for="text">Cotation</label> <input type="text"
 							class="form-control" th:field="${formSite.cotationLongueur}">
 					</div>
-				
-					
-				
+
+
+
 				</div>
-			
-			
-			
-			
+
+
+
+
 			</div>
-			
-			
+
+
 			<div class="row mt-3">
 
-					<div class="col">
-	
-						<div class="d-flex justify-content-end">
-	
-							<a href="/espace"><button type="button" class="btn btn-primary mr-1">Annuler</button></a>
-							<button type="submit" class="btn btn-primary">Enregistrer</button>
-						</div>
-	
-	
+				<div class="col">
+
+					<div class="d-flex justify-content-end">
+
+						<a href="/espace"><button type="button"
+								class="btn btn-primary mr-1">Annuler</button></a>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
 					</div>
 
+
+				</div>
+
 			</div>
-			
-			
+
+
 		</form>
-		
-		
-	<!-- PIED DE PAGE -->
-	<div th:replace="fragments/footer :: footer"></div>
 
-	<!-- PIED DE PAGE -->
 
-		
-		
-		
-		
+		<!-- PIED DE PAGE -->
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- PIED DE PAGE -->
+
+
+
+
+
 	</div>
-			
-			
-	
+
+
+
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

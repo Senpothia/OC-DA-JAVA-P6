@@ -106,7 +106,8 @@ public class SiteService implements GestionSiteService {
 			commentaireRepo.save(commentaire);
 			
 		} catch (Exception e) {
-
+			
+			siteRepo.delete(site);
 			return false;
 		}
 		
@@ -120,7 +121,9 @@ public class SiteService implements GestionSiteService {
 			secteurRepo.save(secteur);
 			
 		} catch (Exception e) {
-
+			
+			siteRepo.delete(site);
+			commentaireRepo.delete(commentaire);
 			return false;
 		}
 		
@@ -137,6 +140,9 @@ public class SiteService implements GestionSiteService {
 			
 		} catch (Exception e) {
 
+			siteRepo.delete(site);
+			commentaireRepo.delete(commentaire);
+			secteurRepo.delete(secteur);
 			return false;
 		}
 		
@@ -153,7 +159,11 @@ public class SiteService implements GestionSiteService {
 
 			
 		} catch (Exception e) {
-
+			
+			siteRepo.delete(site);
+			commentaireRepo.delete(commentaire);
+			secteurRepo.delete(secteur);
+			voieRepo.delete(voie);
 			return false;
 		}
 

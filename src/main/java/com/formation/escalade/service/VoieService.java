@@ -81,7 +81,8 @@ public class VoieService {
 			return true;
 			
 		} catch (Exception e) {
-
+			
+			voieRepo.delete(voie);
 			return false;
 		}
 		
