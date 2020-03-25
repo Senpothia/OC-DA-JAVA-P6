@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.Longueur;
@@ -97,8 +98,12 @@ public class SecteurController {
 		}
 	}
 	
-	@GetMapping("/supprimer/site/{id}/secteur")
-	public String choixSecteur_del(@PathVariable("id") Integer id, Model model
+	@GetMapping("/supprimer/site/details/{id}")
+	public String choixSecteur_del(@PathVariable("id") Integer id
+			,@RequestParam(name = "secteur", required=false) Boolean del_secteur
+			,@RequestParam(name="voie", required=false) Boolean del_voie
+			,@RequestParam(name="longueur", required=false) Boolean del_longueur
+			, Model model
 			, HttpSession session, Principal principal
 			, HttpServletRequest request) {
 		
@@ -118,7 +123,9 @@ public class SecteurController {
 		Site site = siteRepo.getOne(id);
 		List<Secteur> secteurs = site.getSecteurs();
 		model.addAttribute("site", site);
-		
+		model.addAttribute("del_secteur", del_secteur);
+		model.addAttribute("del_voie", del_voie);
+		model.addAttribute("del_longueur", del_longueur);
 		return "choisirsecteur_delete";
 	}
 	
@@ -143,15 +150,11 @@ public class SecteurController {
 		
 		System.out.println("nom secteur récupéré à supprimer: " + nomSecteur);
 		
-		Site site = siteRepo.getOne(id);
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
-		List<Voie> voies = voieRepo.findBySecteur(secteur);
-		List<Longueur> longueurs = new ArrayList<Longueur>();
-		
-		for (Voie voie: voies ) {
+		List<Voie> voies = secteur.getVoies();
+		for (Voie voie : voies) {
 			
-			longueurs.addAll(voie.getLongueurs());
-			longueurRepo.deleteAll(longueurs);
+			longueurRepo.deleteAll(voie.getLongueurs());
 		}
 		
 		voieRepo.deleteAll(voies);

@@ -1,19 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<title>Les amis de l'écalade</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<head>
-<!-- Required meta tags -->
-
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
 
 <style>
 ul, #myUL {
@@ -77,6 +64,22 @@ a:hover {
 }
 </style>
 
+
+<title>Les amis de l'écalade</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<!-- Required meta tags -->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+
 <title>Les amis de l'escalade</title>
 </head>
 <body>
@@ -90,20 +93,16 @@ a:hover {
 		</span>
 		<!-- ---------------- -->
 
-
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt=""
+				<img class="img-fluid" src="/images/bandeau3.png" alt="Bandeau"
 					th:src="@{/images/bandeau3.png}" />
 			</div>
 		</div>
 
 		<div class="row d-flex justify-content-center">
-			<h2 class="mt-2"
-				th:text="'Modification du site : ' + ${site.getNom()}"></h2>
-		</div>
-		<div class=row>
-			<div class="col-lg-3">
+
+			<div class="col-lg-4">
 
 				<!--  Début arbre -->
 
@@ -134,87 +133,47 @@ a:hover {
 
 			</div>
 
-			<div class="col-lg-3 mt-5">
+			<div class="col-4 ">
 
-				<div class="form-group">
-					<a th:href="@{modifier/informations/site/{id}(id=${site.id})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Modifier informations</p></a>
+			
+
+				<span th:if="${del_voie}">
+					<h3 class="mt-2">Supprimer une voie à un site existant</h3>
+					<form method="post"
+						th:action="@{/supprimer/site/secteur/voie/{id}(id=${site.id})}"
+						th:object="${nomVoie}">
+				</span>
+				
+				 <span th:if="${del_longueur}">
+				 	<h3 class="mt-2">Supprimer une longueur à un site existant</h3>
+					<form method="post"
+						th:action="@{/supprimer/site/secteur/voie/longueur/{id}(id=${site.id})}"
+						th:object="${nomVoie}">
+				</span>
+
+				<div class="form-group mt-3">
+					<label for="exampleFormControlSelect1">Sélectionnez une
+						voie</label> <select class="form-control" name="nomVoie">
+						<option th:each="voie: ${secteur.getVoies()}"
+							th:text="${voie.getNom()}"></option>
+
+					</select>
 				</div>
 
-				<div class="form-group">
-					<a th:href="@{/modifier/secteur/site/{id}(id=${site.id})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Modifier un secteur</p></a>
-				</div>
+				<button type="submit" class="btn btn-primary mb-2"
+					style="width: 350px;">Valider</button>
 
 
-
-				<div class="form-group">
-					<a th:href="@{/modifier/voie/site/{id}(id=${site.id})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Modifier une voie</p></a>
-				</div>
-
-
-				<div class="form-group">
-					<a th:href="@{/modifier/longueur/site/{id}(id=${site.id})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Modifier une longueur</p></a>
-				</div>
-			</div>
-
-			<div class="col-lg-3 mt-5">
-
-				<div class="form-group">
-					<a th:href="@{/supprimer/site/details/{id}(id=${site.id},secteur='true')}"><p
-							type="text" class="btn btn-danger btn-block"
-							style="width: 250px;">Supprimer secteur</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/supprimer/site/details/{id}(id=${site.id},voie='true')}"><p
-							type="text" class="btn btn-danger btn-block"
-							style="width: 250px;">Supprimer voie</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/supprimer/site/details/{id}(id=${site.id},longueur='true')}"><p
-							type="text" class="btn btn-danger btn-block"
-							style="width: 250px;">Supprimer longueur</p></a>
-				</div>
-
-
-			</div>
-
-			<div class="col-lg-3 mt-5">
-
-				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/secteurs'"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Ajouter secteur</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/voies'"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Ajouter voie</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/site/{id}(id=${site.id})}+'/longueurs'"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Ajouter longueur</p></a>
-				</div>
 
 				<div class="form-group">
 					<a href="/espace"><p type="text"
-							class="btn btn-primary btn-block" style="width: 250px;">Annuler</p></a>
+							class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
 				</div>
 
+				</form>
 			</div>
-
 		</div>
+
 
 		<!-- PIED DE PAGE -->
 

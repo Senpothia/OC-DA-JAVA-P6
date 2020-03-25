@@ -54,32 +54,27 @@ ul, #myUL {
 	display: block;
 }
 
-.a_fragment{
-	
+.a_fragment {
 	text-decoration: none;
 	color: white;
 }
 
-.identif{
-			
+.identif {
 	border-radius: 5px;
 	padding: 5px 10px;
-		}
+}
 
-.identif2{
-			
+.identif2 {
 	marging: 0px;
 	border-radius: 5px;
-	border: 1px solid ;
+	border: 1px solid;
 	padding: 5px 5px;
-		}	
-		
-a:hover {
+}
 
+a:hover {
 	text-decoration: none;
 	color: white;
 }
-
 </style>
 
 <title>Les amis de l'escalade</title>
@@ -98,7 +93,8 @@ a:hover {
 
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/images/bandeau3.png" alt="Bandeau" th:src="@{/images/bandeau3.png}" />
+				<img class="img-fluid" src="/images/bandeau3.png" alt="Bandeau"
+					th:src="@{/images/bandeau3.png}" />
 			</div>
 		</div>
 
@@ -137,28 +133,52 @@ a:hover {
 
 			<div class="col-4 ">
 
-				<h3 class="mt-2">Ajouter une longueur à un site existant</h3>
+				
+				<span th:if="${del_secteur}">
+				<h3 class="mt-2">Supprimer un secteur à un site existant</h3>
+				
+					<form method="post"
+						th:action="@{/supprimer/site/secteur/{id}(id=${site.id})}"
+						th:object="${nomSecteur}">
+				</span> 
+				
+				<span th:if="${del_voie}">
+				<h3 class="mt-2">Supprimer une voie à un site existant</h3>
+				
+					<form method="post"
+						th:action="@{/supprimer/site/voie/{id}(id=${site.id})}"
+						th:object="${nomSecteur}">
+				</span>
+				
+				 <span th:if="${del_longueur}">
+				 <h3 class="mt-2">Supprimer une longueur à un site existant</h3>
+				 
+					<form method="post"
+						th:action="@{/supprimer/site/longueur{id}(id=${site.id})}"
+						th:object="${nomSecteur}">
+				</span>
 
-				<form method="post" th:action="@{/supprimer/site/secteur/{id}(id=${site.id})}"
-					th:object="${nomSecteur}">
-					<div class="form-group mt-3">
-						<label for="exampleFormControlSelect1">Sélectionnez un
-							secteur</label> <select class="form-control" name="nomSecteur">
-							<option th:each="secteur: ${site.getSecteurs()}"
-								th:text="${secteur.getNom()}"></option>
-
-						</select>
-					</div>
-
-					<button type="submit" class="btn btn-primary mb-2"
-						style="width: 350px;">Valider</button>
 
 
 
-					<div class="form-group">
-						<a href="/espace"><p type="text"
-								class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
-					</div>
+				<div class="form-group mt-3">
+					<label for="exampleFormControlSelect1">Sélectionnez un
+						secteur</label> <select class="form-control" name="nomSecteur">
+						<option th:each="secteur: ${site.getSecteurs()}"
+							th:text="${secteur.getNom()}"></option>
+
+					</select>
+				</div>
+
+				<button type="submit" class="btn btn-primary mb-2"
+					style="width: 350px;">Valider</button>
+
+
+
+				<div class="form-group">
+					<a href="/espace"><p type="text"
+							class="btn btn-primary btn-block" style="width: 350px;">Annuler</p></a>
+				</div>
 
 				</form>
 			</div>

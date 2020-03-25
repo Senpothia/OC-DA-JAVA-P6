@@ -1,6 +1,8 @@
 package com.formation.escalade;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.formation.escalade.model.FormSite;
+import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
@@ -123,4 +127,59 @@ public class VoieController {
 		
 	}
 	
+	@PostMapping("/supprimer/site/voie/{id}")
+	public String supprimerSecteur(@PathVariable("id") Integer id, Model model
+			, HttpSession session, Principal principal
+			, HttpServletRequest request, String nomSecteur) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		System.out.println("nom secteur récupéré à supprimer***: " + nomSecteur);
+		
+		Site site = siteRepo.getOne(id);
+		model.addAttribute("site", site);
+		model.addAttribute("del_voie", true);
+		Secteur secteur = secteurRepo.findByNom(nomSecteur);
+		model.addAttribute("secteur", secteur);
+		
+		return "choisirvoie_delete";
+	}
+
+	@PostMapping("/supprimer/site/secteur/voie/{id}")
+	public String supprimerVoie(@PathVariable("id") Integer id, Model model
+			, HttpSession session, Principal principal
+			, HttpServletRequest request, String nomVoie) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
+		System.out.println("nom voie récupéré à supprimer***: " + nomVoie);
+		
+		Voie voie = voieRepo.findByNom(nomVoie);
+		List<Longueur> longueurs = longueurRepo.findByVoie(voie);
+		longueurRepo.deleteAll(longueurs);
+		voieRepo.delete(voie);
+		return "espace";
+	}
 }
