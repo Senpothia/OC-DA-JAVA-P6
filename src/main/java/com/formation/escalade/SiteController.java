@@ -208,8 +208,13 @@ public class SiteController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-
-		List<Site> sites = siteRepo.findAll();
+		
+		String email = request.getUserPrincipal().getName();
+		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+		Integer id =utilisateur.getId();
+		//List<Site> sites = siteRepo.findAll();
+		List<Site> sites = siteRepo.findByCreateur(id);
+		
 		model.addAttribute("sites", sites);
 		String nomSite = new String();
 		model.addAttribute("nomSite", nomSite);
