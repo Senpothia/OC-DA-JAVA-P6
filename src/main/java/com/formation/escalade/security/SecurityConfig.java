@@ -42,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		  	 	"/commentaires/**",
         		  	 	"/compte",
         		  	 	"/informations/**",
-        		  	 	"/rechercher").permitAll()
+        		  	 	"/rechercher",
+        		  	 	"/user").permitAll()
           .anyRequest().authenticated()
           .and().formLogin()
           .loginPage("/connexion")
