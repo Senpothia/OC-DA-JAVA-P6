@@ -46,13 +46,14 @@
 					th:src="@{/images/bandeau1.png}" />
 			</div>
 		</div>
-
+		<span th:unless="${avance}">
 		<div class="message row">
 			<div class="col">
 				<h1>Résultats de recherche</h1>
 				<p style="color: blue;" th:text="'Critère: ' + ' ' + ${phrase}"></p>
 			</div>
 		</div>
+		</span>
 		<span th:if="${vide}">
 
 			<div class="message row">

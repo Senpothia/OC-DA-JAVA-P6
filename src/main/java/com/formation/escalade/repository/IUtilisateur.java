@@ -35,7 +35,7 @@ public interface IUtilisateur extends JpaRepository<Utilisateur, Integer> {
 
 	Utilisateur findByNomOrPrenom(String phrase, String phrase2);
 	
-	Utilisateur findByNomOrPrenomIgnoreCase(String phrase, String phrase2);
+	List<Utilisateur> findByNomOrPrenomIgnoreCase(String phrase, String phrase2);
 
 	@Query(value = "SELECT * FROM utilisateur u WHERE u.membre = TRUE  AND u.actif = TRUE", nativeQuery = true)
 	List<Utilisateur> findAllMembresActifsNative();

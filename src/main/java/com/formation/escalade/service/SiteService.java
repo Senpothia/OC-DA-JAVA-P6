@@ -40,11 +40,6 @@ public class SiteService implements GestionSiteService {
 	@Autowired
 	private final ICommentaire commentaireRepo;
 
-	/**
-	 * private Site site; private List<Secteur> secteurs; private List<Voie> voies;
-	 * private List<Longueur> longueurs;
-	 * 
-	 */
 
 	public SiteService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
 			ICommentaire commentaireRepo) {

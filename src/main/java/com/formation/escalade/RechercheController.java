@@ -179,15 +179,18 @@ public class RechercheController {
 		// Recherche sur éléments d'utilisateur
 		// Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenom(phrase,
 		// phrase);
-		Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenomIgnoreCase(phrase, phrase);
-		Element e7 = new Element(utilisateurNomPrenom);
-		Boolean UtiliseurNomPrenomPresent = e7.isPresent();
+		List<Utilisateur> utilisateursNomPrenom = utilisateurRepo.findByNomOrPrenomIgnoreCase(phrase, phrase);
+		Element e7 = new Element(utilisateursNomPrenom);
+		Boolean UtiliseursNomPrenomPresent = e7.isPresent();
 		List<Site> sitesCreateur = new ArrayList<Site>();
-		if (UtiliseurNomPrenomPresent) {
+		if (UtiliseursNomPrenomPresent) {
+			for (Utilisateur createur : utilisateursNomPrenom) {
 
-			Integer id = utilisateurNomPrenom.getId();
-			sitesCreateur = siteRepo.findByCreateur(id);
-			sites.addAll(sitesCreateur);
+				Integer id = createur.getId();
+				sitesCreateur = siteRepo.findByCreateur(id);
+				sites.addAll(sitesCreateur);
+			}
+
 		}
 
 		// Recherche sur éléments de topo
@@ -232,7 +235,6 @@ public class RechercheController {
 			vide = false;
 		}
 
-		model.addAttribute("sites", sites);
 		List<Utilisateur> createurs = new ArrayList<Utilisateur>();
 		for (Site site : sites) {
 
@@ -241,10 +243,11 @@ public class RechercheController {
 			createurs.add(createur);
 		}
 
+		model.addAttribute("sites", sites);
 		model.addAttribute("createurs", createurs);
 		model.addAttribute("phrase", phrase);
 		model.addAttribute("vide", vide);
-
+		model.addAttribute("avance", false);
 		return "resultats";
 
 	}
@@ -264,21 +267,56 @@ public class RechercheController {
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
 		}
-		
+
 		model.addAttribute("formSearch", new FormSearch());
 
 		return "recherche";
 	}
-	
+
 	@PostMapping("/recherche/avancee")
-	public String traitementRecherche(Model model, HttpServletRequest request
-			, Principal principal, FormSearch formSearch) {
-		
+	public String traitementRecherche(Model model, HttpServletRequest request, Principal principal,
+			FormSearch formSearch) {
+
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+
 		System.out.println("Formulaire de recherche récupéré: " + formSearch.toString());
+
+		
+		Set<Site> sites = new LinkedHashSet<>(new ArrayList<Site>()); // liste à transmettre page html
+		sites = rechercheService.recherche(formSearch);
 		
 		
-		
-		return "resultat";
+		System.out.println("taille de la liste sites, recherche avancées: " + sites.size());
+		//System.out.println("site 1 récupéré: " + ((ArrayList<Site>) sites).get(0).getNom());
+		model.addAttribute("sites", sites);
+		List<Utilisateur> createurs = rechercheService.rechercheCreateur(sites);
+
+		model.addAttribute("createurs", createurs);
+
+		if (sites.isEmpty()) {
+
+			model.addAttribute("vide", true);
+		} else {
+
+			model.addAttribute("vide", false);
+
+		}
+
+		model.addAttribute("sites", sites);
+		model.addAttribute("createurs", createurs);
+		model.addAttribute("avance", true);
+		return "resultats";
 	}
 
 }
