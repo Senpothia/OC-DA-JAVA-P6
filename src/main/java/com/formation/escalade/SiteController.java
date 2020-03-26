@@ -190,6 +190,10 @@ public class SiteController {
 		Site site = siteRepo.getOne(id);
 		model.addAttribute("site", site);
 		model.addAttribute("phrase", new String());
+		Boolean[] arePresent = siteService.decomposerSite(id);
+		model.addAttribute("noSecteur", arePresent[0]);
+		model.addAttribute("noVoie", arePresent[1]);
+		model.addAttribute("noLongueur", arePresent[2]);
 		return "arbre";
 	}
 
@@ -239,8 +243,16 @@ public class SiteController {
 		}
 
 		Site site = siteRepo.findByNom(nomSite);
+		Integer id = site.getId();
 		model.addAttribute("site", site);
 		model.addAttribute("phrase", new String());
+		Boolean[] arePresent = siteService.decomposerSite(id);
+		System.out.println("Depuis siteControler(), arePresent0: " + arePresent[0] );
+		System.out.println("Depuis siteControler(), arePresent1: " + arePresent[1] );
+		System.out.println("Depuis siteControler(), arePresent2: " + arePresent[2] );
+		model.addAttribute("noSecteur", arePresent[0]);
+		model.addAttribute("noVoie", arePresent[1]);
+		model.addAttribute("noLongueur", arePresent[2]);
 		return "arbre";
 	}
 

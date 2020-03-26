@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.formation.escalade.model.Commentaire;
+import com.formation.escalade.model.Element;
 import com.formation.escalade.model.FormSite;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
@@ -104,13 +105,12 @@ public class SiteService implements GestionSiteService {
 		try {
 
 			commentaireRepo.save(commentaire);
-			
+
 		} catch (Exception e) {
-			
+
 			siteRepo.delete(site);
 			return false;
 		}
-		
 
 		Secteur secteur = new Secteur();
 		secteur.setNom(nomSecteur);
@@ -119,25 +119,23 @@ public class SiteService implements GestionSiteService {
 		try {
 
 			secteurRepo.save(secteur);
-			
+
 		} catch (Exception e) {
-			
+
 			siteRepo.delete(site);
 			commentaireRepo.delete(commentaire);
 			return false;
 		}
-		
-		
 
 		Voie voie = new Voie();
 		voie.setNom(nomVoie);
 		voie.setCotation(cotationVoie);
 		voie.setSecteur(secteur);
-		
+
 		try {
 
 			voieRepo.save(voie);
-			
+
 		} catch (Exception e) {
 
 			siteRepo.delete(site);
@@ -145,21 +143,19 @@ public class SiteService implements GestionSiteService {
 			secteurRepo.delete(secteur);
 			return false;
 		}
-		
 
 		Longueur longueur = new Longueur();
 		longueur.setNom(nomLongueur);
 		longueur.setSpit(nbreSpit);
 		longueur.setCotation(cotationLongueur);
 		longueur.setVoie(voie);
-		
+
 		try {
 
 			longueurRepo.save(longueur);
 
-			
 		} catch (Exception e) {
-			
+
 			siteRepo.delete(site);
 			commentaireRepo.delete(commentaire);
 			secteurRepo.delete(secteur);
@@ -167,7 +163,6 @@ public class SiteService implements GestionSiteService {
 			return false;
 		}
 
-		
 		return true;
 	}
 
@@ -283,52 +278,51 @@ public class SiteService implements GestionSiteService {
 		return null;
 	}
 
-	public void decomposerSite(int id) {
-
+	public Boolean[] decomposerSite(int id) {
+		
+		System.out.println("*** Entrée décomposerSite() *** ");
+		Boolean [] arePresent = {false, false, false};
+		
 		Site site = siteRepo.getOne(id);
 		// Traitement des secteurs
 		List<Secteur> secteurs = secteurRepo.findBySite(site); // Récupération de tous les secteurs du site
-
-		for (Secteur s : secteurs) { // Affichage de chaque secteur
-
-			System.out.println(s.toString());
-		}
+		
+	
+		arePresent[0]=secteurs.isEmpty();
+		System.out.println("presence secteur: " + arePresent[0]);
 		// Traitement des voies
-		List<Voie> voies = new ArrayList<Voie>();
-		List<List<Voie>> listeVoies = new ArrayList<List<Voie>>();
+
+		List<Voie> listeVoies = new ArrayList<Voie>();
 
 		for (Secteur s : secteurs) {
+
+			List<Voie> voies = new ArrayList<Voie>();
 			voies = voieRepo.findBySecteur(s); // Récupération de toutes les voies d'un secteur
-			listeVoies.add(voies); // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
+			listeVoies.addAll(voies); // Une liste de voie par secteur dans une liste globale de voie (listeVoies)
 		}
-
-		for (List<Voie> v : listeVoies) {
-			for (Voie w : v) {
-				System.out.println(w.toString()); // Affichage de toutes les voies
-			}
-
-		}
+		
+		
+		arePresent[1] = listeVoies.isEmpty();
+		System.out.println("presence voie: " + arePresent[1]);
 		// Traitement des longueurs
-		List<Longueur> longueurs = new ArrayList<Longueur>();
-		List<List<Longueur>> listeLongueurs = new ArrayList<List<Longueur>>();
 
-		for (List<Voie> v : listeVoies) {
+		List<Longueur> listeLongueurs = new ArrayList<Longueur>();
 
-			for (Voie w : v) {
-				longueurs = longueurRepo.findByVoie(w);
-				listeLongueurs.add(longueurs);
+		for (Voie v : listeVoies)
 
-			}
-		}
-
-		for (List<Longueur> l : listeLongueurs) {
-			for (Longueur j : l) {
-				System.out.println(j.toString()); // Affichage de toutes les voies
-			}
+		{
+			List<Longueur> longueurs = new ArrayList<Longueur>();
+			longueurs = longueurRepo.findByVoie(v);
+			listeLongueurs.addAll(longueurs);
 
 		}
-
-	}//
+		
+		
+		arePresent[2] = listeLongueurs.isEmpty();
+		System.out.println("presence longueur: " + arePresent[2]);
+		
+		return arePresent;
+	}
 
 	// **************************************************
 

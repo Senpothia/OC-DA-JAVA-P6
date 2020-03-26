@@ -134,6 +134,7 @@ a:hover {
 
 			</div>
 
+
 			<div class="col-lg-3 mt-5">
 
 				<div class="form-group">
@@ -141,51 +142,58 @@ a:hover {
 							type="text" class="btn btn-primary btn-block"
 							style="width: 250px;">Modifier informations</p></a>
 				</div>
+				<span th:unless="${noSecteur}">
+					<div class="form-group">
+						<a th:href="@{/modifier/secteur/site/{id}(id=${site.id})}"><p
+								type="text" class="btn btn-primary btn-block"
+								style="width: 250px;">Modifier un secteur</p></a>
+					</div> <span th:unless="${noVoie}">
 
-				<div class="form-group">
-					<a th:href="@{/modifier/secteur/site/{id}(id=${site.id})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Modifier un secteur</p></a>
-				</div>
-
-
-
-				<div class="form-group">
-					<a th:href="@{/modifier/voie/site/{id}(id=${site.id})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Modifier une voie</p></a>
-				</div>
-
-
-				<div class="form-group">
-					<a th:href="@{/modifier/longueur/site/{id}(id=${site.id})}"><p
-							type="text" class="btn btn-primary btn-block"
-							style="width: 250px;">Modifier une longueur</p></a>
-				</div>
+						<div class="form-group">
+							<a th:href="@{/modifier/voie/site/{id}(id=${site.id})}"><p
+									type="text" class="btn btn-primary btn-block"
+									style="width: 250px;">Modifier une voie</p></a>
+						</div>
+				</span> <span th:unless="${noLongueur}">
+						<div class="form-group">
+							<a th:href="@{/modifier/longueur/site/{id}(id=${site.id})}"><p
+									type="text" class="btn btn-primary btn-block"
+									style="width: 250px;">Modifier une longueur</p></a>
+						</div>
+				</span>
 			</div>
 
-			<div class="col-lg-3 mt-5">
+			</span> <span th:unless="${noSecteur}">
+				<div class="col-lg-3 mt-5">
 
-				<div class="form-group">
-					<a th:href="@{/supprimer/site/details/{id}(id=${site.id},secteur='true')}"><p
-							type="text" class="btn btn-danger btn-block"
-							style="width: 250px;">Supprimer secteur</p></a>
+					<div class="form-group">
+						<a
+							th:href="@{/supprimer/site/details/{id}(id=${site.id},secteur='true')}"><p
+								type="text" class="btn btn-danger btn-block"
+								style="width: 250px;">Supprimer secteur</p></a>
+					</div>
+					<span th:unless="${noVoie}">
+
+						<div class="form-group">
+							<a
+								th:href="@{/supprimer/site/details/{id}(id=${site.id},voie='true')}"><p
+									type="text" class="btn btn-danger btn-block"
+									style="width: 250px;">Supprimer voie</p></a>
+						</div>
+
+					</span> <span th:unless="${noLongueur}">
+
+						<div class="form-group">
+							<a
+								th:href="@{/supprimer/site/details/{id}(id=${site.id},longueur='true')}"><p
+									type="text" class="btn btn-danger btn-block"
+									style="width: 250px;">Supprimer longueur</p></a>
+						</div>
+
+					</span>
 				</div>
 
-				<div class="form-group">
-					<a th:href="@{/supprimer/site/details/{id}(id=${site.id},voie='true')}"><p
-							type="text" class="btn btn-danger btn-block"
-							style="width: 250px;">Supprimer voie</p></a>
-				</div>
-
-				<div class="form-group">
-					<a th:href="@{/supprimer/site/details/{id}(id=${site.id},longueur='true')}"><p
-							type="text" class="btn btn-danger btn-block"
-							style="width: 250px;">Supprimer longueur</p></a>
-				</div>
-
-
-			</div>
+			</span>
 
 			<div class="col-lg-3 mt-5">
 
