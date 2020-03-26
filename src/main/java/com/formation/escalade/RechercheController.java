@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.formation.escalade.model.Element;
+import com.formation.escalade.model.FormSearch;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
@@ -264,9 +265,18 @@ public class RechercheController {
 			model.addAttribute("authentification", false);
 		}
 		
-		
+		model.addAttribute("formSearch", new FormSearch());
 
 		return "recherche";
+	}
+	
+	@PostMapping("/recherche/avancee")
+	public String traitementRecherche(Model model, HttpServletRequest request
+			, Principal principal, FormSearch formSearch) {
+		
+		System.out.println("Formulaire de recherche récupéré: " + formSearch.toString());
+		
+		return "resultat";
 	}
 
 }

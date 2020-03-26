@@ -7,14 +7,14 @@ public class FormSearch {
 	private String createur;
 	private int departement;
 	private String localisation;
-	private int secteur;
-	private String secteur_crit;
-	private int voie;
-	private String voie_crit;
-	private int longueur;
-	private String longueur_crit;
+	private int secteurs;
+	private String secteurs_crit;
+	private int voies;
+	private String voies_crit;
+	private int longueurs;
+	private String longueurs_crit;
 	private int spits;
-	private String spitsr_crit;
+	private String spits_crit;
 	private int topos;
 	private String topos_crit;
 	private int topos_dispo;
@@ -27,9 +27,9 @@ public class FormSearch {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FormSearch(String nom, String type, String createur, int departement, String localisation, int secteur,
-			String secteur_crit, int voie, String voie_crit, int longueur, String longueur_crit, int spits,
-			String spitsr_crit, int topos, String topos_crit, int topos_dispo, String topos_dispo_crit, String cotation,
+	public FormSearch(String nom, String type, String createur, int departement, String localisation, int secteurs,
+			String secteurs_crit, int voies, String voies_crit, int longueurs, String longueurs_crit, int spits,
+			String spits_crit, int topos, String topos_crit, int topos_dispo, String topos_dispo_crit, String cotation,
 			String cotation_crit) {
 		super();
 		this.nom = nom;
@@ -37,14 +37,14 @@ public class FormSearch {
 		this.createur = createur;
 		this.departement = departement;
 		this.localisation = localisation;
-		this.secteur = secteur;
-		this.secteur_crit = secteur_crit;
-		this.voie = voie;
-		this.voie_crit = voie_crit;
-		this.longueur = longueur;
-		this.longueur_crit = longueur_crit;
+		this.secteurs = secteurs;
+		this.secteurs_crit = secteurs_crit;
+		this.voies = voies;
+		this.voies_crit = voies_crit;
+		this.longueurs = longueurs;
+		this.longueurs_crit = longueurs_crit;
 		this.spits = spits;
-		this.spitsr_crit = spitsr_crit;
+		this.spits_crit = spits_crit;
 		this.topos = topos;
 		this.topos_crit = topos_crit;
 		this.topos_dispo = topos_dispo;
@@ -93,52 +93,52 @@ public class FormSearch {
 		this.localisation = localisation;
 	}
 
-	public int getSecteur() {
-		return secteur;
+	public int getSecteurs() {
+		return secteurs;
 	}
 
-	public void setSecteur(int secteur) {
-		this.secteur = secteur;
+	public void setSecteurs(int secteurs) {
+		this.secteurs = secteurs;
 	}
 
-	public String getSecteur_crit() {
-		return secteur_crit;
+	public String getSecteurs_crit() {
+		return secteurs_crit;
 	}
 
-	public void setSecteur_crit(String secteur_crit) {
-		this.secteur_crit = secteur_crit;
+	public void setSecteurs_crit(String secteurs_crit) {
+		this.secteurs_crit = secteurs_crit;
 	}
 
-	public int getVoie() {
-		return voie;
+	public int getVoies() {
+		return voies;
 	}
 
-	public void setVoie(int voie) {
-		this.voie = voie;
+	public void setVoies(int voies) {
+		this.voies = voies;
 	}
 
-	public String getVoie_crit() {
-		return voie_crit;
+	public String getVoies_crit() {
+		return voies_crit;
 	}
 
-	public void setVoie_crit(String voie_crit) {
-		this.voie_crit = voie_crit;
+	public void setVoies_crit(String voies_crit) {
+		this.voies_crit = voies_crit;
 	}
 
-	public int getLongueur() {
-		return longueur;
+	public int getLongueurs() {
+		return longueurs;
 	}
 
-	public void setLongueur(int longueur) {
-		this.longueur = longueur;
+	public void setLongueurs(int longueurs) {
+		this.longueurs = longueurs;
 	}
 
-	public String getLongueur_crit() {
-		return longueur_crit;
+	public String getLongueurs_crit() {
+		return longueurs_crit;
 	}
 
-	public void setLongueur_crit(String longueur_crit) {
-		this.longueur_crit = longueur_crit;
+	public void setLongueurs_crit(String longueurs_crit) {
+		this.longueurs_crit = longueurs_crit;
 	}
 
 	public int getSpits() {
@@ -149,12 +149,12 @@ public class FormSearch {
 		this.spits = spits;
 	}
 
-	public String getSpitsr_crit() {
-		return spitsr_crit;
+	public String getSpits_crit() {
+		return spits_crit;
 	}
 
-	public void setSpitsr_crit(String spitsr_crit) {
-		this.spitsr_crit = spitsr_crit;
+	public void setSpits_crit(String spits_crit) {
+		this.spits_crit = spits_crit;
 	}
 
 	public int getTopos() {
@@ -205,4 +205,16 @@ public class FormSearch {
 		this.cotation_crit = cotation_crit;
 	}
 
+	@Override
+	public String toString() {
+		return "FormSearch [nom=" + nom + ", type=" + type + ", createur=" + createur + ", departement=" + departement
+				+ ", localisation=" + localisation + ", secteurs=" + secteurs + ", secteurs_crit=" + secteurs_crit
+				+ ", voies=" + voies + ", voies_crit=" + voies_crit + ", longueurs=" + longueurs + ", longueurs_crit="
+				+ longueurs_crit + ", spits=" + spits + ", spits_crit=" + spits_crit + ", topos=" + topos
+				+ ", topos_crit=" + topos_crit + ", topos_dispo=" + topos_dispo + ", topos_dispo_crit="
+				+ topos_dispo_crit + ", cotation=" + cotation + ", cotation_crit=" + cotation_crit + "]";
+	}
+
+	
+	
 }

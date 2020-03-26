@@ -43,7 +43,10 @@
 		<div class="row">
 			<h3>Indiquez vos critères de recherche</h3>
 		</div>
-		<form method="post" th:action="@{/#}" th:object="${formSearch}">
+		
+		
+		
+		<form method="post" th:action="@{/recherche/avancee}" th:object="${formSearch}">
 			<div class="row">
 				<!-- Début grande ligne -->
 
@@ -56,15 +59,15 @@
 
 					<div class="row mr-1">
 						<label for="text">Nom de site, secteur, voie ou longueur</label> <input
-							type="text" class="form-control">
+							type="text" class="form-control" th:field="*{nom}">
 					</div>
 					<div class="row mr-1 mt-2">
 						<div class="form-group">
 							<label for="text">Type de sites</label> <select
-								class="form-control" id="exampleFormControlSelect1">
-								<option>Tous</option>
-								<option>Officiel</option>
-								<option>Autres</option>
+								class="form-control" id="exampleFormControlSelect1" th:field="*{type}">
+								<option value="Tous">Tous</option>
+								<option value="Officiel">Officiel</option>
+								<option value="Autres">Autres</option>
 
 							</select>
 						</div>
@@ -72,18 +75,18 @@
 
 					<div class="row mr-1 mt-2">
 						<label for="text">Créateur</label> <input type="text"
-							class="form-control">
+							class="form-control" th:field="*{createur}">
 					</div>
 
 
 					<div class="row mr-1">
 						<label for="text">Département</label> <input type="number"
-							class="form-control">
+							class="form-control" th:field="*{departement}">
 					</div>
 
 					<div class="row mr-1">
 						<label for="text">Localisation</label> <input type="text"
-							class="form-control">
+							class="form-control" th:field="*{localisation}">
 					</div>
 
 
@@ -98,16 +101,16 @@
 
 						<div class="col">
 							<label for="text">Nombre de secteurs</label> <input type="number"
-								class="form-control">
+								class="form-control" th:field="*{secteurs}">
 						</div>
 
 
 						<div class="col  align-self-end">
 							<div>
-								<select class="form-control">
-									<option>Egal</option>
-									<option>Moins</option>
-									<option>Plus</option>
+								<select class="form-control" th:field="*{secteurs_crit}">
+									<option value="Egale">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
 
 								</select>
 							</div>
@@ -119,16 +122,16 @@
 
 						<div class="col">
 							<label for="text">Nombre de voies</label> <input type="number"
-								class="form-control">
+								class="form-control" th:field="*{voies}">
 						</div>
 
 
 						<div class="col  align-self-end">
 							<div>
-								<select class="form-control">
-									<option>Egal</option>
-									<option>Moins</option>
-									<option>Plus</option>
+								<select class="form-control" th:field="*{voies_crit}">
+									<option value="Egale">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
 
 								</select>
 							</div>
@@ -140,16 +143,16 @@
 
 						<div class="col">
 							<label for="text">Nombre de longueurs</label> <input
-								type="number" class="form-control">
+								type="number" class="form-control" th:field="*{longueurs}">
 						</div>
 
 
 						<div class="col  align-self-end">
 							<div>
-								<select class="form-control">
-									<option>Egal</option>
-									<option>Moins</option>
-									<option>Plus</option>
+								<select class="form-control" th:field="*{longueurs_crit}">
+									<option value="Egale">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
 
 								</select>
 							</div>
@@ -162,16 +165,16 @@
 
 						<div class="col">
 							<label for="text">Nombre de spits</label> <input type="number"
-								class="form-control">
+								class="form-control" th:field="*{spits}">
 						</div>
 
 
 						<div class="col  align-self-end">
 							<div>
-								<select class="form-control">
-									<option>Egal</option>
-									<option>Moins</option>
-									<option>Plus</option>
+								<select class="form-control" th:field="*{spits_crit}">
+									<option value="Egale">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
 
 								</select>
 							</div>
@@ -183,16 +186,16 @@
 
 						<div class="col">
 							<label for="text">Nombre de topos</label> <input type="number"
-								class="form-control">
+								class="form-control" th:field="*{topos}">
 						</div>
 
 
 						<div class="col  align-self-end">
 							<div>
-								<select class="form-control">
-									<option>Egal</option>
-									<option>Moins</option>
-									<option>Plus</option>
+								<select class="form-control" th:field="*{topos_crit}">
+									<option value="Egale">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
 
 								</select>
 							</div>
@@ -203,16 +206,16 @@
 
 						<div class="col">
 							<label for="text">Nombre de topos disponibles</label> <input
-								type="number" class="form-control">
+								type="number" class="form-control" th:field="*{topos_dispo}">
 						</div>
 
 
 						<div class="col  align-self-end">
 							<div>
-								<select class="form-control">
-									<option>Egal</option>
-									<option>Moins</option>
-									<option>Plus</option>
+								<select class="form-control" th:field="*{topos_dispo_crit}">
+									<option value="Egale">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
 
 								</select>
 							</div>
@@ -225,16 +228,16 @@
 
 						<div class="col">
 							<label for="text">Cotations</label> <input type="number"
-								class="form-control">
+								class="form-control" th:field="*{cotation}">
 						</div>
 
 
 						<div class="col  align-self-end">
 							<div>
-								<select class="form-control">
-									<option>Egal</option>
-									<option>Moins</option>
-									<option>Plus</option>
+								<select class="form-control" th:field="*{cotation_crit}">
+									<option value="Egale">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
 
 								</select>
 							</div>
