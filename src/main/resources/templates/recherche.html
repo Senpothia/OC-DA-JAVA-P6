@@ -43,16 +43,237 @@
 		<div class="row">
 			<h3>Indiquez vos critères de recherche</h3>
 		</div>
+		<form method="post" th:action="@{/#}" th:object="${formSearch}">
+			<div class="row">
+				<!-- Début grande ligne -->
 
+
+				<div class="col-lg-6">
+					<!-- début colonne gauche -->
+
+
+
+
+					<div class="row mr-1">
+						<label for="text">Nom de site, secteur, voie ou longueur</label> <input
+							type="text" class="form-control">
+					</div>
+					<div class="row mr-1 mt-2">
+						<div class="form-group">
+							<label for="text">Type de sites</label> <select
+								class="form-control" id="exampleFormControlSelect1">
+								<option>Tous</option>
+								<option>Officiel</option>
+								<option>Autres</option>
+
+							</select>
+						</div>
+					</div>
+
+					<div class="row mr-1 mt-2">
+						<label for="text">Créateur</label> <input type="text"
+							class="form-control">
+					</div>
+
+
+					<div class="row mr-1">
+						<label for="text">Département</label> <input type="number"
+							class="form-control">
+					</div>
+
+					<div class="row mr-1">
+						<label for="text">Localisation</label> <input type="text"
+							class="form-control">
+					</div>
+
+
+
+				</div>
+				<!-- Fin colonne gauche -->
+
+				<div class="col-lg-6">
+					<!-- Début colonne droite -->
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de secteurs</label> <input type="number"
+								class="form-control">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control">
+									<option>Egal</option>
+									<option>Moins</option>
+									<option>Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row mr-1 mt-3 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de voies</label> <input type="number"
+								class="form-control">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control">
+									<option>Egal</option>
+									<option>Moins</option>
+									<option>Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row mr-1 mt-3 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de longueurs</label> <input
+								type="number" class="form-control">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control">
+									<option>Egal</option>
+									<option>Moins</option>
+									<option>Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de spits</label> <input type="number"
+								class="form-control">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control">
+									<option>Egal</option>
+									<option>Moins</option>
+									<option>Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de topos</label> <input type="number"
+								class="form-control">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control">
+									<option>Egal</option>
+									<option>Moins</option>
+									<option>Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de topos disponibles</label> <input
+								type="number" class="form-control">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control">
+									<option>Egal</option>
+									<option>Moins</option>
+									<option>Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Cotations</label> <input type="number"
+								class="form-control">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control">
+									<option>Egal</option>
+									<option>Moins</option>
+									<option>Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<!-- Fin colonne droite -->
+
+
+			</div>
+			<!-- Fin grande ligne -->
+
+			<div class="row pt-3">
+
+				<div class="col">
+
+					<div class="row justify-content-end">
+						<a href="/"><button type="text"
+								class="bouton btn btn-primary mr-1">Retour</button></a>
+						<button type="submit" class="bouton btn btn-primary">Recherche
+							avancée</button>
+					</div>
+				</div>
+
+			</div>
+		</form>
 		<!-- PIED DE PAGE -->
 
 		<div th:replace="fragments/footer :: footer"></div>
 
 		<!-- ********************************************* -->
+
+
 	</div>
-
-
-
+	<!-- grande ligne -->
+	</div>
+	<!-- container -->
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
