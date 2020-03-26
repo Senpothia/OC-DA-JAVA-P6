@@ -276,6 +276,8 @@ public class RechercheController {
 		
 		System.out.println("Formulaire de recherche récupéré: " + formSearch.toString());
 		
+		
+		
 		return "resultat";
 	}
 
