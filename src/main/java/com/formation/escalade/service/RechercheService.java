@@ -244,6 +244,8 @@ public class RechercheService {
 					List<Site> sites1 = siteRepo.findByCreateur(id);
 					sites_parCreateur.addAll(sites1);
 				}
+				
+				sites_aux.addAll(sites_parCreateur);
 
 			} catch (NullPointerException e) {
 			}
@@ -259,7 +261,7 @@ public class RechercheService {
 			
 			if (sites_ParDepartement != null) {
 				
-				sites.addAll(sites_ParDepartement);
+				sites_aux.addAll(sites_ParDepartement);
 			}
 		}
 		
@@ -271,13 +273,38 @@ public class RechercheService {
 			
 			if (sites_ParLocalisation != null) {
 				
-				sites.addAll(sites_ParLocalisation);
+				sites_aux.addAll(sites_ParLocalisation);
 			}
 		}
 		
 		
-	
-		sites.addAll(sites_parCreateur);
+		// Tri selon officiel 
+		
+		String typeChoisi = formSearch.getType();
+		System.out.println("Type choisi: " + typeChoisi);
+		System.out.println("Test officiel: " + typeChoisi.equals("Officiel"));
+		sites_copie.addAll(sites_aux);
+		if (!typeChoisi.equals("Tous")) {
+			for (Site site : sites_copie) {
+
+				Boolean status = site.isOfficiel();
+
+				if (typeChoisi.equals("Officiel") && !status) {
+
+					sites_aux.remove(site);
+				}
+
+				if (typeChoisi.equals("Autres") && status) {
+
+					sites_aux.remove(site);
+				}
+
+			}
+
+		}
+		
+		//////////////////
+		sites.addAll(sites_aux);
 		sites.addAll(sites_parNom);
 		return sites;
 	}
