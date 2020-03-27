@@ -15,6 +15,8 @@ public interface IVoie extends JpaRepository <Voie, Integer>{
 
 	List<Voie> findByCotation(String phrase);
 
+	Voie findByNomIgnoreCase(String nom);
+
 	//<Secteur> IVoie findAllBySecteurs(List<Secteur> secteurs);
 
 }
