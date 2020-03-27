@@ -71,6 +71,8 @@ public class RechercheService {
 
 	public Set<Site> recherche(FormSearch formSearch) {
 
+		List<Site> tousLesSites = new ArrayList<Site>();
+		tousLesSites = siteRepo.findAll();
 		Set<Site> sites = new LinkedHashSet<>(new ArrayList<Site>()); // liste à transmettre page html
 		Set<Site> sites_copie = new LinkedHashSet<>(new ArrayList<Site>());
 		Set<Site> sites_aux = new LinkedHashSet<>(new ArrayList<Site>());
@@ -79,6 +81,8 @@ public class RechercheService {
 		List<Site> sites_ParDepartement = new ArrayList<Site>();
 		List<Site> sites_ParLocalisation = new ArrayList<Site>();
 		List<Site> sites_Nbre_Secteurs = new ArrayList<Site>();
+		List<Site> sites_Nbre_Voies = new ArrayList<Site>();
+		List<Site> sites_Nbre_Longueurs = new ArrayList<Site>();
 		/*
 		 * try { // recherche par nom de site Site site =
 		 * siteRepo.findByNomIgnoreCase(formSearch.getNom()); if (site != null) {
@@ -282,18 +286,16 @@ public class RechercheService {
 
 		int nbreSecteur = formSearch.getSecteurs();
 		String secteur_crit = formSearch.getSecteurs_crit();
-		
+
 		System.out.println("Critère nbre de secteur: " + nbreSecteur);
 		System.out.println("Critère de qte sur secteur: " + secteur_crit);
-		
+
 		if (nbreSecteur != 0) {
 
-			List<Site> sites_n_secteur = new ArrayList<Site>();
-			sites_n_secteur = siteRepo.findAll();
-			System.out.println("Nbre de sites total en base: " + sites_n_secteur.size());
-			if (sites_n_secteur != null) {
+			System.out.println("Nbre de sites total en base: " + tousLesSites.size());
+			if (tousLesSites != null) {
 
-				for (Site site : sites_n_secteur) {
+				for (Site site : tousLesSites) {
 
 					List<Secteur> secteurs = site.getSecteurs();
 					if (secteurs.size() == nbreSecteur && secteur_crit.equals("Egal")) {
@@ -305,7 +307,7 @@ public class RechercheService {
 
 						sites_Nbre_Secteurs.add(site);
 					}
-					
+
 					if (secteurs.size() > nbreSecteur && secteur_crit.equals("Plus")) {
 
 						sites_Nbre_Secteurs.add(site);
@@ -315,11 +317,64 @@ public class RechercheService {
 
 		}
 
-		//////////////////
+		// Recherche par nombre de voies
+
+		int nbreVoies = formSearch.getVoies(); // critère de nbre de voie reçu
+		String voie_crit = formSearch.getVoies_crit(); // critère de qté
+
+		System.out.println("Critère nbre de voie: " + nbreVoies);
+		System.out.println("Critère de qte sur voie: " + voie_crit);
+		System.out.println("Nbre total de site en bdd: " + tousLesSites.size());
+		int nbreVoiesComptees = 0;
+		int nbreVoiesListees = 0;
+		if (nbreVoies != 0) {
+			System.out.println("***************");
+			
+			for (Site site : tousLesSites) {
+				nbreVoiesComptees = 0;
+				nbreVoiesListees = 0;
+				List<Secteur> secteurs = site.getSecteurs();
+				if (!secteurs.isEmpty()) {
+					System.out.println("sssssssssssss");
+					for (Secteur secteur : secteurs) {
+						nbreVoiesListees = 0;
+						List<Voie> voies = secteur.getVoies();
+						nbreVoiesListees = voies.size();
+						nbreVoiesComptees = nbreVoiesComptees + nbreVoiesListees;
+					}
+				}
+				
+				System.out.println("NbreVoieComptees = " + nbreVoiesComptees);
+				if (nbreVoiesComptees == nbreVoies && voie_crit.equals("Egal")) {
+					
+					System.out.println("=======");
+					sites_Nbre_Voies.add(site);
+				}
+
+				if (nbreVoiesComptees < nbreVoies && voie_crit.equals("Moins")) {
+					
+					System.out.println("--------");
+					sites_Nbre_Voies.add(site);
+				}
+				
+				if (nbreVoiesComptees > nbreVoies && voie_crit.equals("Plus")) {
+					
+					System.out.println("++++++++");
+					sites_Nbre_Voies.add(site);
+				}
+			}
+					System.out.println("Taille liste de site pour recherche par voie: " + sites_Nbre_Voies.size() );
+		}
 		
+		// Recherche par nombre de longueur
+
+		//////////////////
+
 		sites.addAll(sites_aux);
 		sites.addAll(sites_parNom);
 		sites.addAll(sites_Nbre_Secteurs);
+		sites.addAll(sites_Nbre_Voies);
+
 		return sites;
 	}
 
