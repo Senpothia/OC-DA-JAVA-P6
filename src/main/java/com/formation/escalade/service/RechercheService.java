@@ -77,6 +77,7 @@ public class RechercheService {
 		Set<Site> sites_parNom = new LinkedHashSet<>(new ArrayList<Site>()); 
 		Set<Site> sites_parCreateur = new LinkedHashSet<>(new ArrayList<Site>()); 
 		List<Site> sites_ParDepartement = new ArrayList<Site>();
+		List<Site> sites_ParLocalisation = new ArrayList<Site>();
 		/*
 		try {
 			// recherche par nom de site
@@ -260,7 +261,18 @@ public class RechercheService {
 				
 				sites.addAll(sites_ParDepartement);
 			}
+		}
+		
+		// Recherche par localisation
+		
+		if (formSearch.getLocalisation() != "") {
 			
+			sites_ParLocalisation = siteRepo.findByLocalisationIgnoreCase(formSearch.getLocalisation());
+			
+			if (sites_ParLocalisation != null) {
+				
+				sites.addAll(sites_ParLocalisation);
+			}
 		}
 		
 		

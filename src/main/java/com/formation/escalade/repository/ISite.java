@@ -22,6 +22,8 @@ public interface ISite extends JpaRepository <Site, Integer>{
 
 	List<Site> findByDepartement(Integer departement);
 
+	List<Site> findByLocalisationIgnoreCase(String localisation);
+
 	
 
 	
