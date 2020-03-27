@@ -18,6 +18,12 @@ public interface ILongueur extends JpaRepository <Longueur, Integer> {
 
 	Longueur findByNomIgnoreCase(String nom);
 
+	List<Longueur> findBySpit(int nbreSpits);
+
+	List<Longueur> findBySpitLessThan(int nbreSpits);
+
+	List<Longueur> findBySpitGreaterThan(int nbreSpits);
+
 	
 
 	

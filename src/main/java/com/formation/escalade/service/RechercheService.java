@@ -83,6 +83,7 @@ public class RechercheService {
 		List<Site> sites_Nbre_Secteurs = new ArrayList<Site>();
 		List<Site> sites_Nbre_Voies = new ArrayList<Site>();
 		List<Site> sites_Nbre_Longueurs = new ArrayList<Site>();
+		List<Site> sites_Nbre_Spits = new ArrayList<Site>();
 		/*
 		 * try { // recherche par nom de site Site site =
 		 * siteRepo.findByNomIgnoreCase(formSearch.getNom()); if (site != null) {
@@ -370,11 +371,11 @@ public class RechercheService {
 		System.out.println("llllllllllllllllllllllllllll");
 		int nbreLongueurs = formSearch.getLongueurs(); // critère de nbre de longueur reçu
 		String longueur_crit = formSearch.getLongueurs_crit(); // critère de qté
-		
+
 		System.out.println("Critère nbre de longueurs: " + nbreLongueurs);
 		System.out.println("Critère de qte sur voie: " + longueur_crit);
 		System.out.println("Nbre total de site en bdd: " + tousLesSites.size());
-		
+
 		int nbreLongueursComptees = 0;
 		int nbreLongueursListees = 0;
 
@@ -390,7 +391,7 @@ public class RechercheService {
 
 					List<Voie> voies = secteur.getVoies();
 					for (Voie voie : voies) {
-						
+
 						List<Longueur> longueurs = voie.getLongueurs();
 						nbreLongueursListees = longueurs.size();
 						nbreLongueursComptees = nbreLongueursComptees + nbreLongueursListees;
@@ -398,26 +399,75 @@ public class RechercheService {
 					}
 
 				}
-				
+
 				System.out.println("NbreLongueursComptees = " + nbreLongueursComptees);
 				if (nbreLongueursComptees == nbreLongueurs && longueur_crit.equals("Egal")) {
 
 					System.out.println("++++++++");
 					sites_Nbre_Longueurs.add(site);
 				}
-				
+
 				if (nbreLongueursComptees < nbreLongueurs && longueur_crit.equals("Moins")) {
 
 					System.out.println("++++++++");
 					sites_Nbre_Longueurs.add(site);
 				}
-				
+
 				if (nbreLongueursComptees > nbreLongueurs && longueur_crit.equals("Plus")) {
 
 					System.out.println("++++++++");
 					sites_Nbre_Longueurs.add(site);
 				}
 
+			}
+
+		}
+		// Recherche par nombre de spits
+
+		System.out.println("ppppppppppppppppppppppppp");
+
+		int nbreSpits = formSearch.getSpits(); // critère de nbre de spits reçu
+		String spits_crit = formSearch.getSpits_crit(); // critère de qté
+
+		if (nbreSpits != 0) {
+
+			if (spits_crit.equals("Egal")) {
+
+				List<Longueur> longueurs = longueurRepo.findBySpit(nbreSpits);
+				if (longueurs != null) {
+
+					for (Longueur longueur : longueurs) {
+
+						Voie voie = longueur.getVoie();
+						Secteur secteur = voie.getSecteur();
+						Site site = secteur.getSite();
+						sites_Nbre_Spits.add(site);
+					}
+				}
+
+			}
+
+			if (spits_crit.equals("Moins")) {
+
+				List<Longueur> longueurs = longueurRepo.findBySpitLessThan(nbreSpits);
+				for (Longueur longueur : longueurs) {
+
+					Voie voie = longueur.getVoie();
+					Secteur secteur = voie.getSecteur();
+					Site site = secteur.getSite();
+					sites_Nbre_Spits.add(site);
+				}
+			}
+
+			if (spits_crit.equals("Plus")) {
+				List<Longueur> longueurs = longueurRepo.findBySpitGreaterThan(nbreSpits);
+				for (Longueur longueur : longueurs) {
+
+					Voie voie = longueur.getVoie();
+					Secteur secteur = voie.getSecteur();
+					Site site = secteur.getSite();
+					sites_Nbre_Spits.add(site);
+				}
 			}
 
 		}
@@ -429,6 +479,8 @@ public class RechercheService {
 		sites.addAll(sites_Nbre_Secteurs);
 		sites.addAll(sites_Nbre_Voies);
 		sites.addAll(sites_Nbre_Longueurs);
+		sites.addAll(sites_Nbre_Spits);
+		
 		return sites;
 	}
 
