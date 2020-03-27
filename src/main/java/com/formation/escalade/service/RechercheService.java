@@ -458,12 +458,28 @@ public class RechercheService {
 				}
 
 			}
-			
-		// Recherche par cotation
-			
-			
-			
 		}
+		
+		// Recherche par cotation
+		System.out.println("cccccccccccccccccc");
+		
+		String cotation = formSearch.getCotation();
+		System.out.println("Cotation récupérée: " + cotation);
+		String cotation_crit = formSearch.getCotation_crit();
+		System.out.println("Cotation critère récupérée: " + cotation_crit);
+		
+		if (!cotation.equals("")) {
+			
+			/*
+			System.out.println("c-c-c-c-c-c");
+			
+			String st1 = "8a";
+			String st2 = "8a";
+			int res = st1.compareTo(st2);
+			System.out.println("res = " + res);
+			*/
+		}
+		
 		// Transmission liste
 
 		sites.addAll(sites_aux);
