@@ -76,6 +76,7 @@ public class RechercheService {
 		Set<Site> sites_aux = new LinkedHashSet<>(new ArrayList<Site>());
 		Set<Site> sites_parNom = new LinkedHashSet<>(new ArrayList<Site>()); 
 		Set<Site> sites_parCreateur = new LinkedHashSet<>(new ArrayList<Site>()); 
+		List<Site> sites_ParDepartement = new ArrayList<Site>();
 		/*
 		try {
 			// recherche par nom de site
@@ -245,17 +246,25 @@ public class RechercheService {
 
 			} catch (NullPointerException e) {
 			}
-
 			
 		}
 		
 		// Recherche par département
 		
 		
+		if (formSearch.getDepartement() != 0) {
+			
+			sites_ParDepartement = siteRepo.findByDepartement(formSearch.getDepartement());
+			
+			if (sites_ParDepartement != null) {
+				
+				sites.addAll(sites_ParDepartement);
+			}
+			
+		}
 		
 		
-		
-		
+	
 		sites.addAll(sites_parCreateur);
 		sites.addAll(sites_parNom);
 		return sites;

@@ -20,7 +20,7 @@ public interface ISite extends JpaRepository <Site, Integer>{
 
 	Site findByNomIgnoreCase(String nom);
 
-	Collection<? extends Site> findByDepartement(Integer departement);
+	List<Site> findByDepartement(Integer departement);
 
 	
 
