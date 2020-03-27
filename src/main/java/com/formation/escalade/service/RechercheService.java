@@ -329,7 +329,7 @@ public class RechercheService {
 		int nbreVoiesListees = 0;
 		if (nbreVoies != 0) {
 			System.out.println("***************");
-			
+
 			for (Site site : tousLesSites) {
 				nbreVoiesComptees = 0;
 				nbreVoiesListees = 0;
@@ -343,38 +343,92 @@ public class RechercheService {
 						nbreVoiesComptees = nbreVoiesComptees + nbreVoiesListees;
 					}
 				}
-				
+
 				System.out.println("NbreVoieComptees = " + nbreVoiesComptees);
 				if (nbreVoiesComptees == nbreVoies && voie_crit.equals("Egal")) {
-					
+
 					System.out.println("=======");
 					sites_Nbre_Voies.add(site);
 				}
 
 				if (nbreVoiesComptees < nbreVoies && voie_crit.equals("Moins")) {
-					
+
 					System.out.println("--------");
 					sites_Nbre_Voies.add(site);
 				}
-				
+
 				if (nbreVoiesComptees > nbreVoies && voie_crit.equals("Plus")) {
-					
+
 					System.out.println("++++++++");
 					sites_Nbre_Voies.add(site);
 				}
 			}
-					System.out.println("Taille liste de site pour recherche par voie: " + sites_Nbre_Voies.size() );
+			System.out.println("Taille liste de site pour recherche par voie: " + sites_Nbre_Voies.size());
 		}
-		
-		// Recherche par nombre de longueur
 
-		//////////////////
+		// Recherche par nombre de longueur
+		System.out.println("llllllllllllllllllllllllllll");
+		int nbreLongueurs = formSearch.getLongueurs(); // critère de nbre de longueur reçu
+		String longueur_crit = formSearch.getLongueurs_crit(); // critère de qté
+		
+		System.out.println("Critère nbre de longueurs: " + nbreLongueurs);
+		System.out.println("Critère de qte sur voie: " + longueur_crit);
+		System.out.println("Nbre total de site en bdd: " + tousLesSites.size());
+		
+		int nbreLongueursComptees = 0;
+		int nbreLongueursListees = 0;
+
+		if (nbreLongueurs != 0) {
+			System.out.println("llllllllllllllllllllllllllll");
+			for (Site site : tousLesSites) {
+
+				nbreLongueursComptees = 0;
+				nbreLongueursListees = 0;
+
+				List<Secteur> secteurs = site.getSecteurs();
+				for (Secteur secteur : secteurs) {
+
+					List<Voie> voies = secteur.getVoies();
+					for (Voie voie : voies) {
+						
+						List<Longueur> longueurs = voie.getLongueurs();
+						nbreLongueursListees = longueurs.size();
+						nbreLongueursComptees = nbreLongueursComptees + nbreLongueursListees;
+						System.out.println("NbreVoieComptees inter boucle= " + nbreLongueursComptees);
+					}
+
+				}
+				
+				System.out.println("NbreLongueursComptees = " + nbreLongueursComptees);
+				if (nbreLongueursComptees == nbreLongueurs && longueur_crit.equals("Egal")) {
+
+					System.out.println("++++++++");
+					sites_Nbre_Longueurs.add(site);
+				}
+				
+				if (nbreLongueursComptees < nbreLongueurs && longueur_crit.equals("Moins")) {
+
+					System.out.println("++++++++");
+					sites_Nbre_Longueurs.add(site);
+				}
+				
+				if (nbreLongueursComptees > nbreLongueurs && longueur_crit.equals("Plus")) {
+
+					System.out.println("++++++++");
+					sites_Nbre_Longueurs.add(site);
+				}
+
+			}
+
+		}
+
+		// Transmission liste
 
 		sites.addAll(sites_aux);
 		sites.addAll(sites_parNom);
 		sites.addAll(sites_Nbre_Secteurs);
 		sites.addAll(sites_Nbre_Voies);
-
+		sites.addAll(sites_Nbre_Longueurs);
 		return sites;
 	}
 
