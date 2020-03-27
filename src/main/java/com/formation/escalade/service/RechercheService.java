@@ -15,6 +15,7 @@ import com.formation.escalade.model.FormSearch;
 import com.formation.escalade.model.Longueur;
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Topo;
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.model.Voie;
 import com.formation.escalade.repository.ICommentaire;
@@ -84,6 +85,7 @@ public class RechercheService {
 		List<Site> sites_Nbre_Voies = new ArrayList<Site>();
 		List<Site> sites_Nbre_Longueurs = new ArrayList<Site>();
 		List<Site> sites_Nbre_Spits = new ArrayList<Site>();
+		List<Site> sites_Nbre_Topos = new ArrayList<Site>();
 		/*
 		 * try { // recherche par nom de site Site site =
 		 * siteRepo.findByNomIgnoreCase(formSearch.getNom()); if (site != null) {
@@ -471,7 +473,37 @@ public class RechercheService {
 			}
 
 		}
+		// Recherche par nombre de topos
+		
+		System.out.println("tttttttttttttttttttt");
 
+		int nbreTopos = formSearch.getTopos(); // critère de nbre de spits reçu
+		String topos_crit = formSearch.getTopos_crit(); // critère de qté
+		
+		if (nbreTopos != 0) {
+			
+			for (Site site : tousLesSites) {
+				
+				List<Topo> topos = site.getTopos();
+				int nbreTopoListee = topos.size();
+				if (nbreTopoListee == nbreTopos && topos_crit.equals("Egal")) {
+					
+					sites_Nbre_Topos.add(site);
+				}
+				
+				if (nbreTopoListee < nbreTopos && topos_crit.equals("Moins")) {
+					
+					sites_Nbre_Topos.add(site);
+				}
+				
+				if (nbreTopoListee > nbreTopos && topos_crit.equals("Plus")) {
+					
+					sites_Nbre_Topos.add(site);
+				}
+			}
+			
+		}
+		
 		// Transmission liste
 
 		sites.addAll(sites_aux);
@@ -480,8 +512,10 @@ public class RechercheService {
 		sites.addAll(sites_Nbre_Voies);
 		sites.addAll(sites_Nbre_Longueurs);
 		sites.addAll(sites_Nbre_Spits);
+		sites.addAll(sites_Nbre_Topos);
 		
 		return sites;
 	}
-
+	
+	
 }
