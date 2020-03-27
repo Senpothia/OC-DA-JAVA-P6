@@ -22,6 +22,7 @@ import com.formation.escalade.repository.ICommentaire;
 import com.formation.escalade.repository.ILongueur;
 import com.formation.escalade.repository.ISecteur;
 import com.formation.escalade.repository.ISite;
+import com.formation.escalade.repository.ITopo;
 import com.formation.escalade.repository.IUtilisateur;
 import com.formation.escalade.repository.IVoie;
 
@@ -40,12 +41,14 @@ public class RechercheService {
 	private final ICommentaire commentaireRepo;
 	@Autowired
 	private final IUtilisateur utilisateurRepo;
+	
+	private final ITopo topoRepo;
 
 	String[] listeTypes = { "Tous", "Officiel", "Autres" };
 	List<String> types = Arrays.asList(listeTypes);
 
 	public RechercheService(ISite siteRepo, ISecteur secteurRepo, IVoie voieRepo, ILongueur longueurRepo,
-			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo) {
+			ICommentaire commentaireRepo, IUtilisateur utilisateurRepo, ITopo topoRepo) {
 		super();
 		this.siteRepo = siteRepo;
 		this.secteurRepo = secteurRepo;
@@ -53,6 +56,7 @@ public class RechercheService {
 		this.longueurRepo = longueurRepo;
 		this.commentaireRepo = commentaireRepo;
 		this.utilisateurRepo = utilisateurRepo;
+		this.topoRepo = topoRepo;
 	}
 
 	public List<Utilisateur> rechercheCreateur(Set<Site> sites) {
@@ -86,6 +90,7 @@ public class RechercheService {
 		List<Site> sites_Nbre_Longueurs = new ArrayList<Site>();
 		List<Site> sites_Nbre_Spits = new ArrayList<Site>();
 		List<Site> sites_Nbre_Topos = new ArrayList<Site>();
+		List<Site> sites_Nbre_Topos_dispo = new ArrayList<Site>();
 		/*
 		 * try { // recherche par nom de site Site site =
 		 * siteRepo.findByNomIgnoreCase(formSearch.getNom()); if (site != null) {
@@ -474,36 +479,78 @@ public class RechercheService {
 
 		}
 		// Recherche par nombre de topos
-		
+
 		System.out.println("tttttttttttttttttttt");
 
 		int nbreTopos = formSearch.getTopos(); // critère de nbre de spits reçu
 		String topos_crit = formSearch.getTopos_crit(); // critère de qté
-		
+
 		if (nbreTopos != 0) {
-			
+
 			for (Site site : tousLesSites) {
-				
+
 				List<Topo> topos = site.getTopos();
 				int nbreTopoListee = topos.size();
 				if (nbreTopoListee == nbreTopos && topos_crit.equals("Egal")) {
-					
+
 					sites_Nbre_Topos.add(site);
 				}
-				
+
 				if (nbreTopoListee < nbreTopos && topos_crit.equals("Moins")) {
-					
+
 					sites_Nbre_Topos.add(site);
 				}
-				
+
 				if (nbreTopoListee > nbreTopos && topos_crit.equals("Plus")) {
-					
+
 					sites_Nbre_Topos.add(site);
 				}
 			}
+
+		}
+		// Recherche par nombre de topos disponibles
+
+		System.out.println("ddddddddddddddddddd");
+
+		int nbreToposDisponibles = formSearch.getTopos_dispo(); // critère de nbre de spits reçu
+		String topos_dispo_crit = formSearch.getTopos_dispo_crit();// critère de qté
+
+		if (nbreToposDisponibles != 0) {
+			int NbreToposDispos = 0;
+			for (Site site : tousLesSites) {
+				
+				NbreToposDispos = 0;
+				List<Topo> toposSite = site.getTopos();
+				for (Topo topo : toposSite) {
+					
+					Boolean disponible = topo.isDisponible();
+					if (disponible) {
+						NbreToposDispos++;
+					}
+				}
+				
+				if (NbreToposDispos == nbreToposDisponibles 
+						&& topos_dispo_crit.equals("Egal")) {
+					
+					sites_Nbre_Topos_dispo.add(site);
+				}
+				
+				if (NbreToposDispos < nbreToposDisponibles 
+						&& topos_dispo_crit.equals("Moins")) {
+					
+					sites_Nbre_Topos_dispo.add(site);
+				}
+				
+				if (NbreToposDispos > nbreToposDisponibles 
+						&& topos_dispo_crit.equals("Plus")) {
+					
+					sites_Nbre_Topos_dispo.add(site);
+				}
+
+			}
+			
 			
 		}
-		
 		// Transmission liste
 
 		sites.addAll(sites_aux);
@@ -513,9 +560,9 @@ public class RechercheService {
 		sites.addAll(sites_Nbre_Longueurs);
 		sites.addAll(sites_Nbre_Spits);
 		sites.addAll(sites_Nbre_Topos);
-		
+		sites.addAll(sites_Nbre_Topos_dispo);
+
 		return sites;
 	}
-	
-	
+
 }
