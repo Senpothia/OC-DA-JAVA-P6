@@ -58,7 +58,7 @@
 
 			<div class="row">
 
-				<div class="informations col-3">
+				<div class="informations col-lg-3 col-sm-6">
 					<h1>Informations</h1>
 
 					<strong><div th:text="'Nom: '+ ${site.nom}"></div></strong> <br>
@@ -68,6 +68,8 @@
 					<br>
 						<strong><div th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></div></strong>
 					<br>
+					<!-- 
+					
 					<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 						Sed non risus. Suspendisse lectus tortor, dignissim sit amet,
 						adipiscing nec, ultricies sed, dolor. Cras elementum ultrices
@@ -78,11 +80,13 @@
 						Pellentesque congue. Ut in risus volutpat libero pharetra tempor.
 						Cras vestibulum bibendum augue. Praesent egestas leo in pede.
 						Praesent blandit odio eu enim. Pellentesque sed dui ut augue
-						blandit sodales. Vestibulum ante ipsum primis i</div>
+						blandit sodales. Vestibulum ante ipsum primis i</div>    
+						
+						-->
 
 				</div>
 
-				<div class="informations col-8">
+				<div class="informations col-lg-8  col-sm-6">
 
 
 					<h1>Images</h1>
@@ -120,6 +124,10 @@
 								th:src="@{/images/escalade2.png}" />
 						</div>
 
+					</div>
+					
+					<div class="row">
+					<p></p>
 					</div>
 
 
