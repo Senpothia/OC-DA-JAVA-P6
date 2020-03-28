@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		  	 	"/informations/**",
         		  	 	"/rechercher",
         		  	 	"/user",
-        		  	 	"/recherche/avancee").permitAll()
+        		  	 	"/recherche/**").permitAll()
           .anyRequest().authenticated()
           .and().formLogin()
           .loginPage("/connexion")

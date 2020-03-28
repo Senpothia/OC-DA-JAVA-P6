@@ -91,8 +91,7 @@ public class RechercheService {
 		List<Site> sites_Nbre_Spits = new ArrayList<Site>();
 		List<Site> sites_Nbre_Topos = new ArrayList<Site>();
 		List<Site> sites_Nbre_Topos_dispo = new ArrayList<Site>();
-		List<Site> sites_Par_Cotation = new ArrayList<Site>();
-
+		
 		// Recherche par nom de site, secteur, voie, longueur
 
 		if (formSearch.getNom() != "") {

@@ -56,7 +56,209 @@ public class RechercheController {
 		this.utilisateurRepo = utilisateurRepo;
 		this.topoRepo = topoRepo;
 	}
+	
+	
+	@GetMapping("/recherche/simple")
+	
+	public String rechercheSimple(Model model, HttpServletRequest request, Principal principal, String phrase) {
+		
+		try {
 
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+
+		System.out.println("Phrase: " + phrase);
+
+		Boolean vide = true;
+		Set<Site> sites = new LinkedHashSet<>(new ArrayList<Site>()); // liste à transmettre page html
+		// Recherche sur éléments de site
+		Site siteNom = siteRepo.findByNom(phrase);
+		Element e1 = new Element(siteNom);
+		Boolean siteNomPresent = e1.isPresent();
+		System.out.println(" boolean sitePresent :" + siteNomPresent);
+		List<Site> sitesLocalisation = siteRepo.findByLocalisation(phrase);
+		Element e1a = new Element(sitesLocalisation);
+		Boolean siteLocalisationPresent = e1a.isPresent();
+
+		if (siteLocalisationPresent) {
+
+			sites.addAll(sitesLocalisation);
+		}
+
+		if (siteNomPresent) {
+
+			sites.add(siteNom);
+		}
+
+		// Recherche sur éléments de secteur
+		Secteur secteurNom = secteurRepo.findByNom(phrase);
+		Element e2 = new Element(secteurNom);
+		Boolean secteurNomPresent = e2.isPresent();
+
+		if (secteurNomPresent) {
+
+			sites.add(secteurNom.getSite());
+		}
+
+		// Recherche sur éléments de voie
+		Voie voieNom = voieRepo.findByNom(phrase);
+		Element e3 = new Element(voieNom);
+		Boolean voiesNomPresent = e3.isPresent();
+		List<Voie> voiesCotation = voieRepo.findByCotation(phrase);
+		Element e4 = new Element(voiesCotation);
+		Boolean voiesCotationPresent = e4.isPresent();
+
+		if (voiesCotationPresent) {
+
+			List<Secteur> secteursVoie = new ArrayList<Secteur>();
+			for (Voie voie : voiesCotation) {
+
+				secteursVoie.add(voie.getSecteur());
+			}
+			List<Site> sitesVoie = new ArrayList<Site>();
+			for (Secteur secteur : secteursVoie) {
+
+				sitesVoie.add(secteur.getSite());
+			}
+
+			sites.addAll(sitesVoie);
+		}
+
+		if (voiesNomPresent) {
+
+			Secteur secteur = voieNom.getSecteur();
+			Site site = secteur.getSite();
+			sites.add(site);
+		}
+
+		// Recherche sur éléments de longueur
+		Longueur longueurNom = longueurRepo.findByNom(phrase);
+		Element e5 = new Element(longueurNom);
+		Boolean longueurNomPresent = e5.isPresent();
+		List<Longueur> longueursCotation = longueurRepo.findByCotation(phrase);
+		Element e6 = new Element(longueursCotation);
+		Boolean longueursCotationPresent = e6.isPresent();
+		Set<Longueur> setLongueurs = new LinkedHashSet<>(new ArrayList<Longueur>());
+		if (longueurNomPresent) {
+
+			setLongueurs.add(longueurNom);
+
+		}
+
+		if (longueursCotationPresent) {
+
+			setLongueurs.addAll(longueursCotation);
+
+			Set<Voie> setVoiesLongueurs = new LinkedHashSet<>(new ArrayList<Voie>());
+			for (Longueur longueur : setLongueurs) {
+
+				setVoiesLongueurs.add(longueur.getVoie());
+
+			}
+
+			Set<Secteur> setSecteursLongueurs = new LinkedHashSet<>(new ArrayList<Secteur>());
+			for (Voie voie : setVoiesLongueurs) {
+
+				setSecteursLongueurs.add(voie.getSecteur());
+			}
+
+			// Set<Site> setSitesLongueurs = new LinkedHashSet<>(new ArrayList<Site>());
+			for (Secteur secteur : setSecteursLongueurs) {
+
+				sites.add(secteur.getSite());
+
+			}
+		}
+
+		// Recherche sur éléments d'utilisateur
+		// Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenom(phrase,
+		// phrase);
+		List<Utilisateur> utilisateursNomPrenom = utilisateurRepo.findByNomOrPrenomIgnoreCase(phrase, phrase);
+		Element e7 = new Element(utilisateursNomPrenom);
+		Boolean UtiliseursNomPrenomPresent = e7.isPresent();
+		List<Site> sitesCreateur = new ArrayList<Site>();
+		if (UtiliseursNomPrenomPresent) {
+			for (Utilisateur createur : utilisateursNomPrenom) {
+
+				Integer id = createur.getId();
+				sitesCreateur = siteRepo.findByCreateur(id);
+				sites.addAll(sitesCreateur);
+			}
+
+		}
+
+		// Recherche sur éléments de topo
+		Topo topoNom = topoRepo.findByNom(phrase);
+		Element e8 = new Element(topoNom);
+		Boolean topoNomPresent = e8.isPresent();
+
+		List<Topo> toposDescription = topoRepo.findByDescription(phrase);
+		Element e9 = new Element(toposDescription);
+		Boolean toposDescriptionPresent = e9.isPresent();
+
+		List<Topo> toposLieu = topoRepo.findByLieu(phrase);
+		Element e10 = new Element(toposLieu);
+		Boolean toposLieuPresent = e10.isPresent();
+		Set<Topo> setTopos = new LinkedHashSet<>(new ArrayList<Topo>());
+		if (toposDescriptionPresent) {
+
+			setTopos.addAll(toposDescription);
+		}
+
+		if (toposLieuPresent) {
+
+			setTopos.addAll(toposLieu);
+		}
+
+		if (topoNomPresent) {
+
+			setTopos.add(topoNom);
+		}
+
+		List<Site> sitesTopo = new ArrayList<Site>();
+		for (Topo topo : setTopos) {
+
+			sites.add(topo.getSite());
+
+		}
+
+		System.out.println("Taille liste des sites: " + sites.size());
+
+		if (sites.size() != 0) {
+
+			vide = false;
+		}
+
+		List<Utilisateur> createurs = new ArrayList<Utilisateur>();
+		for (Site site : sites) {
+
+			Integer idCreateur = site.getCreateur();
+			Utilisateur createur = utilisateurRepo.getOne(idCreateur);
+			createurs.add(createur);
+		}
+
+		model.addAttribute("sites", sites);
+		model.addAttribute("createurs", createurs);
+		model.addAttribute("phrase", phrase);
+		model.addAttribute("vide", vide);
+		model.addAttribute("avance", false);
+		return "resultats";
+
+	}
+	
+	
+	
+	
+	
+	
 	@PostMapping("/rechercher")
 	public String rechercher(Model model, HttpServletRequest request, Principal principal, String phrase) {
 
