@@ -41,7 +41,7 @@ public class RechercheService {
 	private final ICommentaire commentaireRepo;
 	@Autowired
 	private final IUtilisateur utilisateurRepo;
-	
+
 	private final ITopo topoRepo;
 
 	String[] listeTypes = { "Tous", "Officiel", "Autres" };
@@ -92,7 +92,6 @@ public class RechercheService {
 		List<Site> sites_Nbre_Topos = new ArrayList<Site>();
 		List<Site> sites_Nbre_Topos_dispo = new ArrayList<Site>();
 		List<Site> sites_Par_Cotation = new ArrayList<Site>();
-		
 
 		// Recherche par nom de site, secteur, voie, longueur
 
@@ -295,7 +294,7 @@ public class RechercheService {
 
 		int nbreLongueursComptees = 0;
 		int nbreLongueursListees = 0;
-
+		
 		if (nbreLongueurs != 0) {
 			System.out.println("llllllllllllllllllllllllllll");
 			for (Site site : tousLesSites) {
@@ -428,58 +427,132 @@ public class RechercheService {
 		if (nbreToposDisponibles != 0) {
 			int NbreToposDispos = 0;
 			for (Site site : tousLesSites) {
-				
+
 				NbreToposDispos = 0;
 				List<Topo> toposSite = site.getTopos();
 				for (Topo topo : toposSite) {
-					
+
 					Boolean disponible = topo.isDisponible();
 					if (disponible) {
 						NbreToposDispos++;
 					}
 				}
-				
-				if (NbreToposDispos == nbreToposDisponibles 
-						&& topos_dispo_crit.equals("Egal")) {
-					
+
+				if (NbreToposDispos == nbreToposDisponibles && topos_dispo_crit.equals("Egal")) {
+
 					sites_Nbre_Topos_dispo.add(site);
 				}
-				
-				if (NbreToposDispos < nbreToposDisponibles 
-						&& topos_dispo_crit.equals("Moins")) {
-					
+
+				if (NbreToposDispos < nbreToposDisponibles && topos_dispo_crit.equals("Moins")) {
+
 					sites_Nbre_Topos_dispo.add(site);
 				}
-				
-				if (NbreToposDispos > nbreToposDisponibles 
-						&& topos_dispo_crit.equals("Plus")) {
-					
+
+				if (NbreToposDispos > nbreToposDisponibles && topos_dispo_crit.equals("Plus")) {
+
 					sites_Nbre_Topos_dispo.add(site);
 				}
 
 			}
 		}
-		
+
 		// Recherche par cotation
 		System.out.println("cccccccccccccccccc");
-		
+
 		String cotation = formSearch.getCotation();
 		System.out.println("Cotation récupérée: " + cotation);
 		String cotation_crit = formSearch.getCotation_crit();
 		System.out.println("Cotation critère récupérée: " + cotation_crit);
+		Set<Site> sitesCotationsEgal = new LinkedHashSet<>(new ArrayList<Site>());
+		Set<Site> sitesCotationsMoins = new LinkedHashSet<>(new ArrayList<Site>());
+		Set<Site> sitesCotationsPlus = new LinkedHashSet<>(new ArrayList<Site>());
+		
+		String cot = new String();
+		int resultCompare = 0;
+		Integer id; 
 		
 		if (!cotation.equals("")) {
+
+			System.out.println("-------------- Recherche par cotation -------------");
 			
-			/*
-			System.out.println("c-c-c-c-c-c");
+			List<Longueur> longueurs = longueurRepo.findAllLongueurByCotation(); 
+			List<Voie> voies = voieRepo.findAllVoieByCotation();
+			System.out.println("Taille liste longueurs: " + longueurs.size());
+			System.out.println("Taille liste voies: " + voies.size());
 			
-			String st1 = "8a";
-			String st2 = "8a";
-			int res = st1.compareTo(st2);
-			System.out.println("res = " + res);
-			*/
+			if (longueurs != null) {
+				
+				for (Longueur longueur : longueurs) {
+					
+					cot = longueur.getCotation();
+					resultCompare = cotation.compareTo(cot);
+					System.out.println("Result compare: " + resultCompare);
+					if (resultCompare == 0) {
+						
+						 Site site = demandeSiteLong(longueur);
+						 sitesCotationsEgal.add(site);
+					}
+					
+					if (resultCompare > 0) {
+						
+						 Site site = demandeSiteLong(longueur);
+						 sitesCotationsMoins.add(site);
+					}
+					
+					if (resultCompare < 0) {
+								
+						 Site site = demandeSiteLong(longueur);
+						 sitesCotationsPlus.add(site);
+					}
+					
+				}
+				
+			}
+			
+			if (voies != null) {
+				
+				for (Voie voie : voies) {
+					
+					cot = voie.getCotation();
+					resultCompare = cotation_crit.compareTo(cot);
+					
+					if (resultCompare == 0) {
+									
+						 Site site = demandeSiteVoie(voie);
+						 sitesCotationsEgal.add(site);
+					}
+					
+					if (resultCompare > 0) {
+											
+						 Site site = demandeSiteVoie(voie);
+						 sitesCotationsMoins.add(site);
+					}
+					
+					if (resultCompare < 0) {
+							
+						 Site site = demandeSiteVoie(voie);
+						 sitesCotationsPlus.add(site);
+					}
+					
+				}
+			}
+			
+			if (cotation_crit.equals("Egal")){
+				
+				sites.addAll(sitesCotationsEgal);
+			}
+			
+			if (cotation_crit.equals("Moins")){
+				
+				sites.addAll(sitesCotationsMoins);
+			}
+			
+			if (cotation_crit.equals("Plus")){
+				
+				sites.addAll(sitesCotationsPlus);
+			}
+			
 		}
-		
 		// Transmission liste
 
 		sites.addAll(sites_aux);
@@ -490,8 +563,22 @@ public class RechercheService {
 		sites.addAll(sites_Nbre_Spits);
 		sites.addAll(sites_Nbre_Topos);
 		sites.addAll(sites_Nbre_Topos_dispo);
-
+		
 		return sites;
 	}
-
+	
+	public Site demandeSiteLong(Longueur longueur) {
+		
+		 Voie voie = longueur.getVoie();
+		 Secteur secteur = voie.getSecteur();
+		 Site site = secteur.getSite();
+		 return site;
+	}
+	
+	public Site demandeSiteVoie(Voie voie) {
+		
+		 Secteur secteur = voie.getSecteur();
+		 Site site = secteur.getSite();
+		 return site;
+	}
 }
