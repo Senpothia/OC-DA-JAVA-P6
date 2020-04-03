@@ -1,0 +1,294 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" href="/css/styles.css">
+
+<title>Les amis de l'escalade</title>
+</head>
+<body>
+	<div class="container">
+
+
+		<!-- Entete -->
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+		<!-- ---------------- -->
+
+		<div class="row">
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau7.png"
+					th:src="@{/images/bandeau7.png}" />
+			</div>
+		</div>
+
+		<div class="row">
+
+			<h1>Recherche avancée</h1>
+		</div>
+		<div class="row">
+			<h3>Indiquez vos critères de recherche</h3>
+		</div>
+		
+		
+		
+		<form method="post" th:action="@{/recherche/avancee}" th:object="${formSearch}">
+			<div class="row">
+				<!-- Début grande ligne -->
+
+
+				<div class="col-lg-6">
+					<!-- début colonne gauche -->
+
+
+
+
+					<div class="row mr-1">
+						<label for="text">Nom de site, secteur, voie ou longueur</label> <input
+							type="text" class="form-control" th:field="*{nom}">
+					</div>
+					<div class="row mr-1 mt-2">
+						<div class="form-group">
+							<label for="text">Type de sites</label> <select
+								class="form-control" id="exampleFormControlSelect1" th:field="*{type}">
+								<option value="Tous">Tous</option>
+								<option value="Officiel">Officiel</option>
+								<option value="Autres">Autres</option>
+
+							</select>
+						</div>
+					</div>
+
+					<div class="row mr-1 mt-2">
+						<label for="text">Créateur</label> <input type="text"
+							class="form-control" th:field="*{createur}">
+					</div>
+
+
+					<div class="row mr-1">
+						<label for="text">Département</label> <input type="number"
+							class="form-control" th:field="*{departement}">
+					</div>
+
+					<div class="row mr-1">
+						<label for="text">Localisation</label> <input type="text"
+							class="form-control" th:field="*{localisation}">
+					</div>
+
+
+
+				</div>
+				<!-- Fin colonne gauche -->
+
+				<div class="col-lg-6">
+					<!-- Début colonne droite -->
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de secteurs</label> <input type="number"
+								class="form-control" th:field="*{secteurs}">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control" th:field="*{secteurs_crit}">
+									<option value="Egal">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row mr-1 mt-3 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de voies</label> <input type="number"
+								class="form-control" th:field="*{voies}">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control" th:field="*{voies_crit}">
+									<option value="Egal">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row mr-1 mt-3 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de longueurs</label> <input
+								type="number" class="form-control" th:field="*{longueurs}">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control" th:field="*{longueurs_crit}">
+									<option value="Egal">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de spits</label> <input type="number"
+								class="form-control" th:field="*{spits}">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control" th:field="*{spits_crit}">
+									<option value="Egal">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de topos</label> <input type="number"
+								class="form-control" th:field="*{topos}">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control" th:field="*{topos_crit}">
+									<option value="Egal">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Nombre de topos disponibles</label> <input
+								type="number" class="form-control" th:field="*{topos_dispo}">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control" th:field="*{topos_dispo_crit}">
+									<option value="Egal">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="row mr-1 justify-content-start">
+
+						<div class="col">
+							<label for="text">Cotations</label> <input type="text"
+								class="form-control" th:field="*{cotation}">
+						</div>
+
+
+						<div class="col  align-self-end">
+							<div>
+								<select class="form-control" th:field="*{cotation_crit}">
+									<option value="Egal">Egal</option>
+									<option value="Moins">Moins</option>
+									<option value="Plus">Plus</option>
+
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<!-- Fin colonne droite -->
+
+
+			</div>
+			<!-- Fin grande ligne -->
+
+			<div class="row pt-3">
+
+				<div class="col">
+
+					<div class="row justify-content-end">
+						<a href="/"><button type="text"
+								class="bouton btn btn-primary mr-1">Retour</button></a>
+						<button type="submit" class="bouton btn btn-primary">Recherche
+							avancée</button>
+					</div>
+				</div>
+
+			</div>
+		</form>
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+
+	</div>
+	<!-- grande ligne -->
+	</div>
+	<!-- container -->
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>

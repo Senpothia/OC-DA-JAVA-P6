@@ -10,10 +10,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
 public class Utilisateur {
 
 	@Id
@@ -25,23 +28,25 @@ public class Utilisateur {
 	private String email;
 	private String passe;
 	private boolean membre;
+	private boolean actif;
 	
 	@OneToMany(mappedBy="auteur")
 	private List<Commentaire> commentaires;
 	
-	@OneToMany(mappedBy="demandeur")
-	private List<Demande> demandes;
 	
 	@OneToMany(mappedBy="proprietaire")
 	private List<Topo> topos;
-
+	
+	@OneToMany(mappedBy="demandeur")
+	private List<Demande> demandes;
+	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Utilisateur(Integer id, String nom, String prenom, int departement, String email, String passe,
-			boolean membre, List<Commentaire> commentaires, List<Demande> demandes, List<Topo> topos) {
+			boolean membre, boolean actif, List<Commentaire> commentaires, List<Topo> topos, List<Demande> demandes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -50,9 +55,10 @@ public class Utilisateur {
 		this.email = email;
 		this.passe = passe;
 		this.membre = membre;
+		this.actif = actif;
 		this.commentaires = commentaires;
-		this.demandes = demandes;
 		this.topos = topos;
+		this.demandes = demandes;
 	}
 
 	public Integer getId() {
@@ -111,20 +117,20 @@ public class Utilisateur {
 		this.membre = membre;
 	}
 
+	public boolean isActif() {
+		return actif;
+	}
+
+	public void setActif(boolean actif) {
+		this.actif = actif;
+	}
+
 	public List<Commentaire> getCommentaires() {
 		return commentaires;
 	}
 
 	public void setCommentaires(List<Commentaire> commentaires) {
 		this.commentaires = commentaires;
-	}
-
-	public List<Demande> getDemandes() {
-		return demandes;
-	}
-
-	public void setDemandes(List<Demande> demandes) {
-		this.demandes = demandes;
 	}
 
 	public List<Topo> getTopos() {
@@ -135,7 +141,14 @@ public class Utilisateur {
 		this.topos = topos;
 	}
 
+	public List<Demande> getDemandes() {
+		return demandes;
+	}
+
+	public void setDemandes(List<Demande> demandes) {
+		this.demandes = demandes;
+	}
+
 	
-	
-	
+
 }

@@ -4,7 +4,7 @@
 
 
 		<div class="col-2">
-			<a href="/"> <img src="logo0.png" alt="" /></a>
+			<a href="/"> <img src="logo0.png" alt=""  th:src="@{/logo0.png}"/></a>
 
 		</div>
 
@@ -12,18 +12,18 @@
 		<div class="col-10">
 			<div class="identif d-flex justify-content-end">
 
-				<a href="presentation">
+				<a href="/presentation">
 					<button type="button" class="btn btn-secondary mb-0 mr-1">Qui
 						sommes-nous?</button>
 				</a> 
 				
-				<a href="galerie">
+				<a href="/galerie/1">
 					<button type="button" class="btn btn-secondary mb-0 mr-1">Galerie</button>
 				</a> 
 				<input class="mr-1" type="text" placeholder="Search..">
 				<button type="button" class="btn btn-secondary mb-0 mr-1">Search</button>
 				
-				<a href="connexion">
+				<a href="/connexion">
 					<button type="button" class="btn btn-secondary mb-0 mr-1">Login</button>
 				</a>
 			</div>

@@ -1,5 +1,6 @@
 package com.formation.escalade.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,16 @@ public interface ISite extends JpaRepository <Site, Integer>{
 	
 
 	Site findByNom(String nomSite);
+
+	List<Site> findByLocalisation(String phrase);
+
+	List<Site> findByCreateur(Integer id);
+
+	Site findByNomIgnoreCase(String nom);
+
+	List<Site> findByDepartement(Integer departement);
+
+	List<Site> findByLocalisationIgnoreCase(String localisation);
 
 	
 

@@ -18,19 +18,19 @@
 <body>
 	<div class="container">
 
-		<!-- ENTETE DEBUT-->
-
-
-		<div th:replace="fragments/entete_init :: entete_init"></div>
-
-
-		<!-- ENTETE FIN -->
+			<!-- Entete -->
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+		<!-- ---------------- -->
 
 		<!-- IMAGE -->
 
 		<div class="row">
 			<div class="col">
-				<img src="bandeau3.png" alt="Bandeau" th:src="@{/bandeau3.png}" />
+				<img class="img-fluid" src="/images/bandeau3.png" alt="Bandeau" th:src="@{/images/bandeau3.png}" />
 			</div>
 		</div>
 
@@ -42,6 +42,21 @@
 			</p>
 
 		</div>
+		
+		
+			<!-- ***********   Alerte erreur  ************ -->
+
+		<span th:if="${erreur}">
+			<div class="message row">
+
+				<p>
+					<b style="color: red;">Les sites, secteurs, voies longueurs
+						doivent avoir un nom unique! Enregistrement impossible!</b>
+				</p>
+
+			</div>
+		</span>
+		<!-- ********************************************* -->
 		<!-- ********************************************* -->
 		<!-- <div class="container"> -->
 
@@ -50,55 +65,10 @@
 			<div class="row">
 
 
-				<div class="validations col-3">
-
-					<div class="bouton2">
-
-						<a href="addsecteur"><p class="btn btn-primary btn-block">Ajouter
-								secteur</p></a>
-
-					</div>
-
-					<div class="bouton2">
-
-						<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
-								voie</p></a>
-
-					</div>
-					<div class="bouton2">
-
-						<a href="addlongueur"><p class="btn btn-primary btn-block">Ajouter
-								longueur</p></a>
-
-					</div>
-					<div class="bouton2">
-
-						<a href="visualisersite"><p class="btn btn-primary btn-block">Visualiser
-								site</p></a>
-
-					</div>
-					<div class="bouton2">
-
-						<a href="modifiersite"><p class="btn btn-primary btn-block">Modifier
-								site</p></a>
-
-					</div>
-
-					<div class="bouton mb-3">
-						<button type="submit" class="btn btn-primary btn-block"
-							style="width: 255px;">Enregistrer site</button>
-					</div>
-					<div class="bouton2">
-
-						<a href="selection"><p class="btn btn-primary btn-block">Annuler</p></a>
-
-					</div>
-
-				</div>
 
 
 
-				<div class="col">
+				<div class="col-lg-6">
 					<h1>Site</h1>
 
 					<div class="row mr-1 d-flex flex-column informations">
@@ -128,7 +98,7 @@
 				</div>
 
 
-				<div class="col">
+				<div class="col-lg-6">
 
 					<h1 class="ml-3">Voie</h1>
 
@@ -163,6 +133,21 @@
 
 				</div>
 
+
+			</div>
+			
+				<div class="row mt-3">
+
+				<div class="col">
+
+					<div class="d-flex justify-content-end">
+
+						<a href="/annuler"><button type="button" class="btn btn-primary mr-1">Annuler</button></a>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
+					</div>
+
+
+				</div>
 
 			</div>
 		</form>

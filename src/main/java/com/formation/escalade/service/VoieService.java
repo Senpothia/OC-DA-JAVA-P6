@@ -42,7 +42,7 @@ public class VoieService {
 		this.commentaireRepo = commentaireRepo;
 	}
 
-	public void creervoie(FormSite formSite, Integer siteId, String nomSecteur) {
+	public Boolean creervoie(FormSite formSite, Integer siteId, String nomSecteur) {
 		
 		Site site = siteRepo.getOne(siteId);
 		Secteur secteur = secteurRepo.findByNom(nomSecteur);
@@ -64,18 +64,27 @@ public class VoieService {
 		longueur.setSpit(nbreSpit);
 		longueur.setCotation(cotationLongueur);
 		longueur.setVoie(voie);
-		/**
-		List<Longueur> longueurs = new ArrayList<>();
-		longueurs.add(longueur);
-		voie.setLongueurs(longueurs);
 		
-		List<Voie> voies = secteur.getVoies();
-		voies.add(voie);
+		try {
+
+			voieRepo.save(voie);
+			
+			
+		} catch (Exception e) {
+
+			return false;
+		}
 		
-		secteurRepo.save(secteur); 
-		*/
-		voieRepo.save(voie);
-		longueurRepo.save(longueur);
+		try {
+
+			longueurRepo.save(longueur);
+			return true;
+			
+		} catch (Exception e) {
+			
+			voieRepo.delete(voie);
+			return false;
+		}
 		
 	}
 

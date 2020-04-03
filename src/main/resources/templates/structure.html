@@ -53,6 +53,33 @@ ul, #myUL {
 .active {
 	display: block;
 }
+
+.a_fragment {
+	text-decoration: none;
+	color: white;
+}
+
+.identif {
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+.identif2 {
+	marging: 0px;
+	border-radius: 5px;
+	border: 1px solid;
+	padding: 5px 5px;
+}
+
+a:hover {
+	text-decoration: none;
+	color: white;
+}
+
+a.arbre:hover {
+	text-decoration: none;
+	color: black;
+}
 </style>
 
 <title>Les amis de l'escalade</title>
@@ -61,19 +88,23 @@ ul, #myUL {
 	<div class="container">
 
 		<!-- Entete -->
-		<div th:replace="fragments/entete_init :: entete_init"></div>
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
 		<!-- ---------------- -->
 
 
 		<div class="row">
 			<div class="col">
-				<img src="bandeau3.png" alt="" th:src="@{/bandeau3.png}"/>
+				<img class="img-fluid" src="/images/bandeau3.png" alt=""
+					th:src="@{/images/bandeau3.png}" />
 			</div>
 		</div>
 
 		<div class="row d-flex justify-content-center">
-			<h2 class="mt-2"
-				th:text="'Structure du site : ' + ${site.getNom()}"></h2>
+			<h2 class="mt-2" th:text="'Structure du site : ' + ${site.getNom()}"></h2>
 		</div>
 		<div class=row>
 			<div class="col-4">
@@ -88,11 +119,17 @@ ul, #myUL {
 
 				<div>
 					<ul th:each="secteur: ${site.secteurs}">
-						<li th:text="${secteur.getNom()}"></li>
+						<a class="arbre"
+							th:href="@{/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()},nomVoie='0',nomLongueur='0')}"><li
+							th:text="${secteur.getNom()}"></li></a>
 						<ul th:each="voie: ${secteur.voies}">
-							<li th:text="${voie.getNom()}"></li>
+							<a class="arbre"
+								th:href="@{/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur='0')}"><li
+								th:text="${voie.getNom()}"></li></a>
 							<ul th:each="longueur: ${voie.longueurs}">
-								<li th:text="${longueur.getNom()}"></li>
+								<a class="arbre"
+									th:href="@{/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur=${longueur.getNom()})}"><li
+									th:text="${longueur.getNom()}"></li></a>
 
 							</ul>
 						</ul>
@@ -107,25 +144,28 @@ ul, #myUL {
 
 			</div>
 
-			
 
 			<div class="col-4 mt-5">
 
-				
+				<span th:if="${authentification}"> <span
+					th:if="${utilisateur.id == site.createur}">
 
+						<div class="form-group">
+							<a th:href="@{/modifier/site/{id}(id=${site.id})}"><p
+									type="text" class="btn btn-primary btn-block"
+									style="width: 350px;">Modifier</p></a>
+						</div>
+
+
+				</span>
+
+				</span>
 				<div class="form-group">
-					<a th:href="@{/modifiersite/site/{id}(id=${site.id})}"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Modifier</p></a>
+					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p
+							type="text" class="btn btn-primary btn-block"
+							style="width: 350px;">Retour</p></a>
 				</div>
-
-				<div class="form-group">
-					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p type="text"
-							class="btn btn-primary btn-block" style="width: 350px;">Retour</p></a>
-				</div>
-
-
 			</div>
-
 
 		</div>
 

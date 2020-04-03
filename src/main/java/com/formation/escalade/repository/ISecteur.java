@@ -14,6 +14,8 @@ public interface ISecteur extends JpaRepository <Secteur, Integer>{
 
 	List<Secteur> findBySite(Site site);
 
+	Secteur findByNomIgnoreCase(String nom);
+
 
 
 	

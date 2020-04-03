@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Les amis de l'écalade</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<!-- Required meta tags -->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+ul, #myUL {
+	list-style-type: none;
+}
+
+#myUL {
+	margin: 0;
+	padding: 0;
+}
+
+.caret {
+	cursor: pointer;
+	-webkit-user-select: none; /* Safari 3.1+ */
+	-moz-user-select: none; /* Firefox 2+ */
+	-ms-user-select: none; /* IE 10+ */
+	user-select: none;
+}
+
+.caret::before {
+	content: "\25B6";
+	color: black;
+	display: inline-block;
+	margin-right: 6px;
+}
+
+.caret-down::before {
+	-ms-transform: rotate(90deg); /* IE 9 */
+	-webkit-transform: rotate(90deg); /* Safari */ '
+	transform: rotate(90deg);
+}
+
+.nested {
+	display: none;
+}
+
+.active {
+	display: block;
+}
+
+.a_fragment {
+	text-decoration: none;
+	color: white;
+}
+
+.identif {
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+.identif2 {
+	marging: 0px;
+	border-radius: 5px;
+	border: 1px solid;
+	padding: 5px 5px;
+}
+
+a:hover {
+	text-decoration: none;
+	color: white;
+}
+
+a.arbre:hover {
+	text-decoration: none;
+	color: black;
+}
+</style>
+
+<title>Les amis de l'escalade</title>
+</head>
+<body>
+	<div class="container">
+
+		<!-- Entete -->
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+		<!-- ---------------- -->
+
+
+		<div class="row">
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau3.png" alt=""
+					th:src="@{/images/bandeau3.png}" />
+			</div>
+		</div>
+
+		<div class="row d-flex justify-content-center">
+			<h2 class="mt-2" th:text="'Structure du site : ' + ${site.getNom()}"></h2>
+		</div>
+		<div class=row>
+			<div class="informations col-6">
+
+				<!--  Début arbre -->
+
+				
+
+					<h3 th:text="${site.getNom()}"></h3>
+			
+
+				<div>
+					<ul th:each="secteur: ${site.secteurs}">
+						<a class="arbre"
+							th:href="@{/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()},nomVoie='0',nomLongueur='0')}"><li
+							th:text="${secteur.getNom()}"></li></a>
+						<ul th:each="voie: ${secteur.voies}">
+							<a class="arbre"
+								th:href="@{/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur='0')}"><li
+								th:text="${voie.getNom()}"></li></a>
+							<ul th:each="longueur: ${voie.longueurs}">
+								<a class="arbre"
+									th:href="@{/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur=${longueur.getNom()})}"><li
+									th:text="${longueur.getNom()}"></li></a>
+
+							</ul>
+						</ul>
+
+					</ul>
+
+
+				</div>
+
+				<!-- Fin arbre -->
+
+
+			</div>
+
+
+			<div class="col mt-5">
+
+				<!--   Début zone d'information   -->
+
+				<div class="row">
+
+					<div class="informations col">
+						<h1>Informations sites</h1>
+
+						<strong><span th:text="'Nom: '+ ${site.nom}"></span></strong><br>
+						<strong><span
+							th:text="'Localisation: '+ ${site.localisation}"></span></strong><br>
+						<strong><span
+							th:text="'Département: '+ ${site.departement}"></span></strong><br> <strong><span
+							th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></span></strong><br>
+						<br>
+
+
+					</div>
+
+
+				</div>
+
+
+
+				<div class="row">
+
+					<div class="col informations">
+						<span th:if="${isSecteur}">
+							<h1>Informations secteur</h1>
+
+							<div>
+								<p>
+									<strong>Nom du secteur: </strong> <span
+										th:text="${secteur.nom}"></span> </br>
+
+								</p>
+							</div>
+						</span> <span th:if="${isVoie}">
+
+
+							<h1>Informations voie</h1>
+
+							<div>
+
+								<p>
+									<strong>Nom de la voie:</strong> <span th:text="${voie.nom}"></span></br>
+									<strong>Cotation: </strong><span th:text="${voie.cotation}"></span></br>
+								</p>
+
+							</div>
+						</span> <span th:if="${isLongueur}">
+
+
+
+							<h1>Informations longueur</h1>
+							<div>
+								<p>
+									<strong>Nom de la longueur:</strong> <span
+										th:text="${longueur.nom}"></span></br> <strong>Cotation: </strong><span
+										th:text="${longueur.cotation}"></span></br> <strong>Nombre
+										de spits: </strong><span th:text="${longueur.spit}"></span>
+								</p>
+							</div>
+						</span>
+
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col ">
+
+						<div class="row justify-content-center form-group mt-3">
+							<a th:href="@{/topos/site/{id}(id=${site.id})}"><p
+									type="text" class="btn btn-primary btn-block"
+									style="width: 350px;">Voir les topos</p></a>
+						</div>
+						
+						<div class="row justify-content-center form-group mt-1">
+							<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p
+									type="text" class="btn btn-primary btn-block"
+									style="width: 350px;">Retour</p></a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+			<!--   Fin zone d'information     -->
+
+
+		</div>
+
+		<!-- PIED DE PAGE -->
+
+		<div th:replace="fragments/footer :: footer"></div>
+
+		<!-- ********************************************* -->
+
+	</div>
+
+
+	<!-- fin container -->
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+	<script>
+		var toggler = document.getElementsByClassName("caret");
+		var i;
+
+		for (i = 0; i < toggler.length; i++) {
+			toggler[i].addEventListener("click", function() {
+				this.parentElement.querySelector(".nested").classList
+						.toggle("active");
+				this.classList.toggle("caret-down");
+			});
+		}
+	</script>
+</body>
+</html>
