@@ -18,137 +18,123 @@
 <body>
 	<div class="container">
 
-		<!-- ENTETE -->
-
 		<!-- Entete -->
-		<div th:replace="fragments/entete_init :: entete_init"></div>
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
 		<!-- ---------------- -->
-
-		<!-- ********************************************* -->
 
 		<!-- IMAGE -->
 
 		<div class="row">
 			<div class="col">
-				<img src="bandeau3.png" alt="" />
+				<img class="img-fluid" src="/images/bandeau3.png" alt="" />
 			</div>
 		</div>
 
 		<!-- ********************************************* -->
 		<div class="message row">
+			<div class="col">
 
-			<p>
-				<b>Ajout d'une voie à un secteur existant.</b>
-			</p>
+				<p>
+					<b>Ajout d'une voie à un secteur existant.</b>
+				</p>
+			</div>
+			
 
 		</div>
 		<!-- ********************************************* -->
-
-	<form th:action="@{/ajoutervoie}" method="post"
-				th:object="${formSite}">
-
-		<div class="row">
-
 		
-				<div class="col-3">
+			<!-- ***********   Alerte erreur  ************ -->
+
+		<span th:if="${erreur}">
+			<div class="message row">
+
+				<p>
+					<b style="color: red;">Les sites, secteurs, voies longueurs
+						doivent avoir un nom unique! Enregistrement impossible!</b>
+				</p>
+
+			</div>
+		</span>
+		<!-- ********************************************* -->
+
+		<form th:action="@{/ajoutervoie}" method="post"
+			th:object="${formSite}">
 
 
-					<div class="bouton2">
+			<div class="row">
 
-						<a href="espace"><p class="btn btn-primary btn-block">Visualiser
-								site</p></a>
+				<div class="col-lg-6">
 
-					</div>
+					<p>
+						<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
+						</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
+							th:text="${site.departement}"></span></br>
+					</p>
+				</div>
 
-					<div class="bouton2">
+				<div class="col-lg-6">
 
-						<a href="espace"><p class="btn btn-primary btn-block">Modifier
-								site</p></a>
+					<p>
+						<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
+						</br> </br> </br>
 
-					</div>
-
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
-					</div>
-
-					<div class="bouton2">
-
-						<a href="espace"><p class="btn btn-primary btn-block">Annuler</p></a>
-
-					</div>
-
-
+					</p>
 				</div>
 
 
-				<div class="col">
-					<h1>Site</h1>
+			</div>
 
-					<div class="row">
-						<p>
-							<strong>Site:</strong> <span th:text="${site.nom}"></span></br> <strong>Lieu:
-							</strong><span th:text="${site.localisation}"></span></br> <strong>Département:</strong><span
-								th:text="${site.departement}"></span></br>
-						</p>
+			<div class="row">
 
-					</div>
-
-
+				<div class="col-lg-6">
 					<h1>Voie</h1>
 
-					<div class="row mr-2">
-						<label for="email">Nom de la voie:</label> <input type="text"
-							class="form-control" th:field="*{nomVoie}">
-					</div>
 
-					<div class="row mr-2">
-						<label for="email">Cotation:</label> <input type="text"
-							class="form-control" th:field="*{cotationVoie}">
-					</div>
+					<label for="email">Nom de la voie:</label> <input type="text"
+						class="form-control" th:field="*{nomVoie}"> <label
+						for="email">Cotation:</label> <input type="text"
+						class="form-control" th:field="*{cotationVoie}">
+
+
 				</div>
 
+				<div class="col-lg-6">
+
+					<h1>Longueur</h1>
+
+					<label for="email">Nom:</label> <input type="text"
+						class="form-control" th:field="*{nomLongueur}"> <label
+						for="text">Nombre de spits</label> <input type="number"
+						class="form-control" th:field="*{nbreSpit}"> <label
+						for="email">Cotation</label> <input type="text"
+						class="form-control" th:field="*{cotationLongueur}">
+
+				</div>
+
+			</div>
+
+
+			<div class="row mt-3">
 
 				<div class="col">
-					<h1>Secteur</h1>
 
-					<div class="row">
+					<div class="d-flex justify-content-end">
 
-
-						<p>
-							<strong>Nom du secteur: </strong> <span th:text="${secteur.nom}"></span>
-							</br> </br> </br>
-
-						</p>
-
-					</div>
-
-					<div class="row">
-
-						<h1>Longueur</h1>
+						<a th:href="@{/espace}"><button type="button" class="btn btn-primary mr-1">Annuler</button></a>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
 					</div>
 
 
-					<div class="row ml-2">
-
-
-						<label for="email">Nom:</label> <input type="text"
-							class="form-control" th:field="*{nomLongueur}">
-					</div>
-					
-					<div class="row ml-1">
-						<label for="text">Nombre de spits</label> <input type="number"
-							class="form-control" th:field="*{nbreSpit}">
-					</div>
-
-					<div class="row ml-2">
-						<label for="email">Cotation</label> <input type="text"
-							class="form-control" th:field="*{cotationLongueur}">
-					</div>
 				</div>
 
-			
-		</div>
-</form>
+			</div>
+
+
+		</form>
 		<!-- PIED DE PAGE -->
 
 		<div th:replace="fragments/footer :: footer"></div>

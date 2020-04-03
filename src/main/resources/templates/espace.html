@@ -12,7 +12,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="styles.css">
+
+<link rel="stylesheet" href="/css/styles.css">
 <title>Les amis de l'escalade</title>
 </head>
 <body>
@@ -20,15 +21,16 @@
 
 		<!-- ENTETE -->
 
-		
-		<div th:replace="fragments/entete_init :: entete_init"></div>
+
+		<div th:replace="fragments/entete_post :: entete_post"></div>
 		<!-- ---------------- -->
 
-		
+
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img src="bandeau1.png" alt="" />
+				<img class="img-fluid" src="/images/bandeau1.png" alt=""
+					th:src="@{/images/bandeau1.png}" />
 			</div>
 		</div>
 		<!-- ----------------- -->
@@ -39,7 +41,7 @@
 
 
 		<div class="row">
-			<div class="donnees col-3">
+			<div class="donnees col-lg-6" style="margin: 5px;">
 
 				<div class="row d-flex justify-content-center">
 					<h3>
@@ -63,22 +65,24 @@
 				<div class="row d-flex justify-content-center">
 					<p th:text="'email: ' + ${utilisateur.email}"></p>
 				</div>
+
+
 				<div class="row d-flex justify-content-center">
-					<p th:text="'Password: ' + ${utilisateur.passe}"></p>
-				</div>
-				
-				<div class="row d-flex justify-content-center">
-					<a href="modificationCompte"><button type="button"
+					<a href="/compte/supprimer"><button type="button"
 							class="btn btn-primary mb-1 bouton2">Supprimer compte</button></a>
 				</div>
 
 				<div class="row d-flex justify-content-center">
-					<a href="modificationCompte"><button type="button"
+					<a href="/compte/modifier"><button type="button"
 							class="btn btn-primary mb-1 bouton2">Modifier</button></a>
+				</div>
+				
+				<div class="row d-flex justify-content-center">
+					<a class="btn btn-primary mb-1 bouton2" th:href="@{/logout}">Déconnexion</a>
 				</div>
 
 			</div>
-			<div class="col-9 donnees">
+			<div class="col donnees" style="margin: 5px;">
 
 				<div class="row d-flex justify-content-center">
 					<h3>
@@ -86,42 +90,54 @@
 					</h3>
 				</div>
 
+				<span th:if="${utilisateur.membre}">
+					<div class="row d-flex justify-content-center">
+						<a href="/administration"><button type="button"
+								class="btn btn-success mb-1 bouton2">Administration</button></a>
+					</div>
+				</span>
 				<div class="row d-flex justify-content-center">
-					<a href="creationsite"><button type="button"
+					<a href="/creationsite"><button type="button"
 							class="btn btn-primary mb-1 bouton2">Créer un site</button></a>
 				</div>
-				
-				
+
+
 				<div class="row d-flex justify-content-center">
-					<a href="choisirsite"><button type="button"
+					<a href="/choisirsite"><button type="button"
 							class="btn btn-primary mb-1 bouton2">Modifier un site</button></a>
 				</div>
-				
+
 
 				<div class="row d-flex justify-content-center">
-					<a href="creationSite"><button type="button"
-							class="btn btn-primary mb-1 bouton2">Liste des topos
-							empruntées</button></a>
+					<a href="/topo/emprunts"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Topos empruntées</button></a>
 				</div>
 
 				<div class="row d-flex justify-content-center">
-					<a href="creationSite"><button type="button"
-							class="btn btn-primary mb-1 bouton2">Mes demandes
-							de topos</button></a>
-				</div>
-				
-				<div class="row d-flex justify-content-center">
-					<a href="creationSite"><button type="button"
-							class="btn btn-primary mb-1 bouton2">Demandes de topos reçues</button></a>
+					<a href="/topo/demandes/faites"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Mes demandes de
+							topos</button></a>
 				</div>
 
 				<div class="row d-flex justify-content-center">
-					<a href="creationSite"><button type="button"
+					<a href="/topo/demandes/recues"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Demandes de topos
+							reçues</button></a>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<a href="/galerie/1"><button type="button"
 							class="btn btn-primary mb-1 bouton2">Demander une topo</button></a>
 				</div>
-		
+
 				<div class="row d-flex justify-content-center">
-					<a href="creationSite"><button type="button"
+					<a href="/topo/personnelles"><button type="button"
+							class="btn btn-primary mb-1 bouton2">Mes topos
+							personnelles</button></a>
+				</div>
+
+				<div class="row d-flex justify-content-center">
+					<a href="/topo/creation"><button type="button"
 							class="btn btn-primary mb-1 bouton2">Ajouter une topo</button></a>
 				</div>
 

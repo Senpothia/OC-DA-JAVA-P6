@@ -40,7 +40,7 @@ public class LongueurService {
 		this.commentaireRepo = commentaireRepo;
 	}
 
-	public void createLongueur(FormSite formSite, HttpServletRequest request) {
+	public Boolean createLongueur(FormSite formSite, HttpServletRequest request) {
 		
 		Longueur longueur = new Longueur();
 		
@@ -60,7 +60,16 @@ public class LongueurService {
 		Voie voie = voieRepo.findByNom(nomVoie);
 		longueur.setVoie(voie);
 		
-		longueurRepo.save(longueur);
+		try {
+
+			longueurRepo.save(longueur);
+			return true;
+
+		} catch (Exception e) {
+
+			return false;
+		}
+	
 		
 	}
 

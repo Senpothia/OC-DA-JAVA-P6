@@ -1,131 +1,207 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	 <link rel="stylesheet" href="styles.css">
-    <title>Les amis de l'escalade</title>
-  </head>
-  <body>
-    <div class="container">
-	
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/styles.css">
+<title>Les amis de l'escalade</title>
+</head>
+<body>
+	<div class="container">
+
 		<!-- ENTETE -->
-		
-		<div th:replace="fragments/entete_init :: entete_init"></div>
-		
-		
-		
-		 <!-- ********************************************* -->
-		 
-		 	 <!-- IMAGE -->
-			 
+
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+
+		<!-- ********************************************* -->
+
+		<!-- IMAGE -->
+
 		<div class="row">
-		<div class="col">
-			<img src="bandeau4.png" alt="" th:src="@{/bandeau4.png}" />
+			<div class="col">
+				<img class="img-fluid" src="/images/bandeau4.png" alt=""
+					th:src="@{/images/bandeau4.png}" />
+			</div>
 		</div>
-		</div>
-	
-		 <!-- ********************************************* -->
+
+		<!-- ********************************************* -->
 		<div class="message row">
-		
-		<div class="col-6">
-		<strong><h2 th:text=${site.getNom()}></h2></strong>
-		</div>
-		<div class="col-6">
+
+			<div class="col-6">
+				<strong><h2 th:text=${site.nom}></h2></strong>
+			</div>
+			<div class="col-6">
 				<div class="d-flex justify-content-end">
-					<img src="tag01.png" alt="" / th:src="@{/tag01.png}">		
+					<span th:if="${site.officiel}">
+						<img src="/images/tag01.png" alt="" / th:src="@{/images/tag01.png}">
+					</span>
 				</div>
+			</div>
+
 		</div>
-	
-		</div>
-		 <!-- ********************************************* -->
-		 
+		<!-- ********************************************* -->
+
 		<div class="container">
-		
+
 			<div class="row">
-		
-					<div class="informations col-4"> 
-					 <h1>Informations</h1>
-					 
-					 <strong><div th:text="'Nom:'+ ${site.nom}"></div></strong> <br> <strong><div
-								th:text="'Localisation:'+ ${site.localisation}"></div></strong> <br> <strong><div
-								th:text="'Département:'+ ${site.departement}"></div></strong> <br>
-					 <div> 
-					 
-					 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, 
-					 adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-					 Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, 
-					 scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue.
-					 Praesent egestas
-					 leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis i</div>
+
+				<div class="informations col-lg-3 col-sm-6">
+					<h1>Informations</h1>
+
+					<strong><div th:text="'Nom: '+ ${site.nom}"></div></strong> <br>
+					<strong><div
+							th:text="'Localisation: '+ ${site.localisation}"></div></strong> <br>
+					<strong><div th:text="'Département: '+ ${site.departement}"></div></strong>
+					<br>
+						<strong><div th:text="'Createur: '+ ${createur.prenom} + ' ' + ${createur.nom}"></div></strong>
+					<br>
+					<!-- 
 					
-					</div>
-					
-					<div class="informations col-8"> 
+					<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						Sed non risus. Suspendisse lectus tortor, dignissim sit amet,
+						adipiscing nec, ultricies sed, dolor. Cras elementum ultrices
+						diam. Maecenas ligula massa, varius a, semper congue, euismod non,
+						mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend
+						mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu
+						massa, scelerisque vitae, consequat in, pretium a, enim.
+						Pellentesque congue. Ut in risus volutpat libero pharetra tempor.
+						Cras vestibulum bibendum augue. Praesent egestas leo in pede.
+						Praesent blandit odio eu enim. Pellentesque sed dui ut augue
+						blandit sodales. Vestibulum ante ipsum primis i</div>    
 						
-				
-						<h1>Images</h1>
-				
-					
+						-->
+
+				</div>
+
+				<div class="informations col-lg-8  col-sm-6">
+
+
+					<h1>Images</h1>
+
+
 					<div class="row">
-					
-						<div class="col"><img src="escalade.png" alt=""  th:src="@{/escalade.png}" /></div>
-						<div class="col"><img src="escalade2.png" alt="" th:src="@{/escalade2.png}"/></div>
-						<div class="col"><img src="escalade.png" alt="" th:src="@{/escalade.png}"/></div>
-					
-					</div>
-					
-					<div class="row">
-					
-						<div class="col"><img src="escalade2.png" alt="" th:src="@{/escalade2.png}"/></div>
-						<div class="col"><img src="escalade.png" alt="" th:src="@{/escalade.png}"/></div>
-						<div class="col"><img src="escalade2.png" alt="" th:src="@{/escalade2.png}" /></div>
-					
-					</div>
-					
-					
-					</div>
-		
-			</div>
-			
-			<div class="container">
-			
-					<div class="row pt-3">
-						
+
 						<div class="col">
-							<div class="d-flex justify-content-end">
-								<a th:href="@{/commentaires/site/{id}(id=${site.id})}"><button type="text" class="bouton btn btn-primary mr-1">Commentaires</button></a>
-								<a th:href="@{/structure/site/{id}(id=${site.id})}"><button type="text" class="bouton btn btn-primary mr-1">Structure</button></a>		
-								<a th:href="@{/commenter/site/{id}(id=${site.id})}"><button type="text" class="bouton btn btn-primary mr-1">Commenter</button></a>
-								<a th:href="@{/supprimer/site/{id}(id=${site.id})}"><button type="text" class="bouton btn btn-primary mr-1">Supprimer</button></a>
-								<a th:href="@{/modifier/site/{id}(id=${site.id})}"><button type="text" class="bouton btn btn-primary mr-1">Modifier</button></a>
-								
-							</div>
-						</div>		
-									
+							<img src="/images/escalade.png" alt=""
+								th:src="@{/images/escalade.png}" />
+						</div>
+						<div class="col">
+							<img src="/images/escalade2.png" alt=""
+								th:src="@{/images/escalade2.png}" />
+						</div>
+						<div class="col">
+							<img src="/images/escalade.png" alt=""
+								th:src="@{/images/escalade.png}" />
+						</div>
+
 					</div>
+
+					<div class="row">
+
+						<div class="col">
+							<img src="/images/escalade2.png" alt=""
+								th:src="@{/images/escalade2.png}" />
+						</div>
+						<div class="col">
+							<img src="/images/escalade.png" alt=""
+								th:src="@{/images/escalade.png}" />
+						</div>
+						<div class="col">
+							<img src="/images/escalade2.png" alt=""
+								th:src="@{/images/escalade2.png}" />
+						</div>
+
+					</div>
+					
+					<div class="row">
+					<p></p>
+					</div>
+
+
+				</div>
+
 			</div>
-			
-			
+
+			<div class="container">
+
+				<div class="row pt-3">
+
+					<div class="col">
+						<div class="d-flex justify-content-end">
+							<a th:href="@{/commentaires/site/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-primary mr-1">Commentaires</button></a>
+							<a th:href="@{/structure/site/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-primary mr-1">Structure</button></a>
+									<span th:if="${authentification}">
+							<a th:href="@{/commenter/site/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-primary mr-1">Commenter</button></a></span>
+							<a th:href="@{/topos/site/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-primary mr-1">Topos</button></a>
+							
+							<span th:if="${authentification}">
+							<span th:if="${utilisateur.membre}">	
+							<a th:href="@{/supprimer/site/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-danger mr-1">Supprimer</button></a>
+							</span>		
+								</span>	
+								
+									<span th:if="${authentification}">
+							<span th:if="${utilisateur.id == site.createur}">
+							<a th:href="@{/modifier/informations/site/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-primary mr-1">Modifier</button></a>
+								
+								</span>		
+								</span>
+									
+							<span th:if="${authentification}">
+							<span th:if="${utilisateur.membre}">		
+							<a th:href="@{/officialiser/{id}(id=${site.id})}"><button
+									type="text" class="bouton btn btn-primary mr-1"><span th:if="${site.officiel}">Désofficialiser</span>
+									<span th:unless="${site.officiel}">Officialiser</span></button></a>
+							</span>		
+								</span>	
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
 		</div>
-		
-	
-		 <!-- PIED DE PAGE -->
-		
+
+
+		<!-- PIED DE PAGE -->
+
 		<div th:replace="fragments/footer :: footer"></div>
-		
-		 <!-- ********************************************* -->
+
+		<!-- ********************************************* -->
 	</div>
-	
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
 </html>

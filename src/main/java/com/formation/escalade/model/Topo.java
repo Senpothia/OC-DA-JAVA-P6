@@ -10,7 +10,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"nom"})})
 public class Topo {
 
 	@Id
@@ -21,26 +24,22 @@ public class Topo {
 	private String lieu;
 	private Date date;
 	private boolean disponible;
-	//private Integer idUtilisateur;
-	//private Integer idSite;
 	
-	@OneToMany(mappedBy = "topo")
-	List<Demande> demandes;
 	
 	@ManyToOne
-	//@JoinColumn(name="id_site")
 	private Site site;
+	
 	
 	@ManyToOne
 	private Utilisateur proprietaire;
-
+	
 	public Topo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Topo(Integer id, String nom, String description, String lieu, Date date, boolean disponible,
-			List<Demande> demandes, Site site, Utilisateur proprietaire) {
+	public Topo(Integer id, String nom, String description, String lieu, Date date, boolean disponible, Site site,
+			Utilisateur proprietaire) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -48,7 +47,6 @@ public class Topo {
 		this.lieu = lieu;
 		this.date = date;
 		this.disponible = disponible;
-		this.demandes = demandes;
 		this.site = site;
 		this.proprietaire = proprietaire;
 	}
@@ -101,14 +99,6 @@ public class Topo {
 		this.disponible = disponible;
 	}
 
-	public List<Demande> getDemandes() {
-		return demandes;
-	}
-
-	public void setDemandes(List<Demande> demandes) {
-		this.demandes = demandes;
-	}
-
 	public Site getSite() {
 		return site;
 	}
@@ -125,7 +115,11 @@ public class Topo {
 		this.proprietaire = proprietaire;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Topo [id=" + id + ", nom=" + nom + ", description=" + description + ", lieu=" + lieu + ", date=" + date
+				+ ", disponible=" + disponible + ", site=" + site + ", proprietaire=" + proprietaire + "]";
+	}
 
 	
 }

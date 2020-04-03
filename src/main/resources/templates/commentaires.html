@@ -12,7 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/css/styles.css">
 <title>Les amis de l'escalade</title>
 
 <style>
@@ -30,16 +30,21 @@
 
 		<!-- ENTETE -->
 
-		<!-- Entete -->
-		<div th:replace="fragments/entete_init :: entete_init"></div>
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span> <span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+
 		<!-- ---------------- -->
 
-		<!-- ********************************************* -->
+
 
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img src="bandeau1.png" alt="" th:src="@{/bandeau1.png}" />
+				<img class="img-fluid" src="/images/bandeau1.png" alt=""
+					th:src="@{/images/bandeau1.png}" />
 			</div>
 		</div>
 
@@ -53,35 +58,40 @@
 
 			<div class="col">
 
-				<div th:each="commentaire, iStat  : ${commentaires}">
+				<span th:if="${vide}">
 
-
-					<div class="comment">
-						<strong><p
-								th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
-						<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
-						<p th:text="${commentaire.text}"></p>
-
-						<div class="row justify-content-end" style="margin-right: 10px;">
-							<a style="margin-right: 10px;"
-								th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Supprimer</a> <a
-								th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Modifier</a>
-								
-								
-								<!-- A retravailler -->
-								<a style="margin-right: 10px;"
-								th:href="@{/commentaire/${commentaire.getId()}/supprimer"  
-								class="text-primary">Supprimer</a> <a
-								th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
-								class="text-primary">Modifier</a>
-								
-						</div>
+					<div>
+						<h3 style="color: red;">Il n'y a aucun commentaire pour le moment!</h3>
 					</div>
 
-				</div>
 
+				</span> <span th:unless="${vide}">
+
+					<div th:each="commentaire, iStat  : ${commentaires}">
+
+
+						<div class="comment">
+							<strong><p
+									th:text="${commentaire.getAuteur().getPrenom()}+ ' ' + ${commentaire.getAuteur().getNom()}"></p></strong>
+							<!-- <p th:text="'Nom: ' + ${commentaire.getAuteur().getNom()}"></p> -->
+							<p th:text="${commentaire.text}"></p>
+
+							<span th:if="${authentification}"> <span
+								th:if="${utilisateur.membre}">
+									<div class="row justify-content-end"
+										style="margin-right: 10px;">
+										<a style="margin-right: 10px;"
+											th:href="@{/commentaire/supprimer/comment(siteId=${site.id},num=${iStat.index})}"
+											class="text-primary">Supprimer</a> <a
+											th:href="@{/commentaire/modifier/comment(siteId=${site.id},num=${iStat.index})}"
+											class="text-primary">Modifier</a>
+									</div>
+							</span>
+							</span>
+						</div>
+
+					</div>
+				</span>
 			</div>
 		</div>
 
@@ -90,7 +100,7 @@
 			<div class="col">
 				<div class="d-flex justify-content-end">
 					<a th:href="@{/viewsite/{nomSite}(nomSite=${site.nom})}"><button
-							type="text" class="bouton btn btn-primary mr-1">Retour</button></a>
+							type="button" class="bouton btn btn-primary mr-1">Retour</button></a>
 				</div>
 			</div>
 

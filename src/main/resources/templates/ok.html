@@ -16,14 +16,11 @@
 <title>Les amis de l'escalade</title>
 
 <style>
-.comment { 
- 
- 	border: 1px solid ;
+.comment {
+	border: 1px solid;
 	border-radius: 8px;
 	margin: 10px;
-	
 }
-
 </style>
 </head>
 <body>
@@ -32,17 +29,26 @@
 
 		<!-- ENTETE DEBUT-->
 
+		<!-- <div th:replace="fragments/entete_init :: entete_init"></div> -->
 
-		<div th:replace="fragments/entete_init :: entete_init"></div>
-
+		<span th:if="${authentification}">
+			<div th:replace="fragments/entete_post :: entete_post"></div>
+		</span>
+		
+		<span th:unless="${authentification}">
+			<div th:replace="fragments/entete_init :: entete_init"></div>
+		</span>
+		
+		<!-- <td th:text="${teacher.active} ? 'ACTIVE' : 'RETIRED'" />	 -->
 
 		<!-- ENTETE FIN -->
 
 
 		<h1>OK!</h1>
-		<a href="#" class="text-primary">Modifier</a>
-		<a href="#" class="text-primary">Primary link</a>
-		
+		<a href="#" class="text-primary">Modifier</a> <a href="#"
+			class="text-primary">Primary link</a>
+		<div
+			th:text="${authentification} ? 'Authentification OK' : 'Authentification NOK'"></div>
 		<!-- PIED DE PAGE -->
 
 
