@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.formation.escalade.model.Utilisateur;
 import com.formation.escalade.repository.IUtilisateur;
-import com.sun.tools.javac.util.List;
+//import com.sun.tools.javac.util.List;
 
 @Service
 public class UtilisateurService implements UserDetailsService {
@@ -61,7 +61,7 @@ public class UtilisateurService implements UserDetailsService {
 				// TODO Auto-generated method stub
 				return user.getPasse();
 			}
-
+/**
 			@Override
 			public Collection<? extends GrantedAuthority> getAuthorities() {
 				// TODO Auto-generated method stub
@@ -80,6 +80,12 @@ public class UtilisateurService implements UserDetailsService {
 
 				);
 
+			}//  */
+
+			@Override
+			public Collection<? extends GrantedAuthority> getAuthorities() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 	}

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,157 +18,161 @@
 <body>
 	<div class="container">
 
-		<!-- ENTETE -->
+		<!-- ENTETE DEBUT-->
 
-		<!-- Entete -->
+
 		<div th:replace="fragments/entete_init :: entete_init"></div>
-		<!-- ---------------- -->
-		
-		<!-- ********************************************* -->
+
+
+		<!-- ENTETE FIN -->
 
 		<!-- IMAGE -->
 
 		<div class="row">
 			<div class="col">
-				<img src="bandeau3.png" alt="" />
+				<img src="bandeau3.png" alt="Bandeau" th:src="@{/bandeau3.png}" />
 			</div>
 		</div>
 
-		<!-- ********************************************* -->
+		<!-- IMAGE  -->
 		<div class="message row">
 
 			<p>
-				<b>Ajout d'un secteur à un site existant.</b>
+				<b>Pour créer un secteur, remplir ce formulaire.</b>
 			</p>
 
 		</div>
 		<!-- ********************************************* -->
+		<!-- <div class="container"> -->
 
-		<div class="container">
-
+		<form th:action="@{/creationsecteur}" method="post"      
+			th:object="${formSite}">
 			<div class="row">
+
 
 				<div class="validations col-3">
 
+					<div class="bouton2">
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Ajouter
-							secteur</button>
+						<a href="addsecteur"><p class="btn btn-primary btn-block">Ajouter
+								secteur</p></a>
 
 					</div>
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Ajouter
-							voie</button>
+					<div class="bouton2">
+
+						<a href="addvoie"><p class="btn btn-primary btn-block">Ajouter
+								voie</p></a>
+
+					</div>
+					<div class="bouton2">
+
+						<a href="addlongueur"><p class="btn btn-primary btn-block">Ajouter
+								longueur</p></a>
+
+					</div>
+					<div class="bouton2">
+
+						<a href="visualisersite"><p class="btn btn-primary btn-block">Visualiser
+								site</p></a>
+
+					</div>
+					<div class="bouton2">
+
+						<a href="modifiersite"><p class="btn btn-primary btn-block">Modifier
+								site</p></a>
+
 					</div>
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Ajouter
-							longueur</button>
+					<div class="bouton mb-3">
+						<button type="submit" class="btn btn-primary btn-block"
+							style="width: 255px;">Enregistrer site</button>
 					</div>
+					<div class="bouton2">
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Visualiser
-							site</button>
-					</div>
+						<a href="selection"><p class="btn btn-primary btn-block">Annuler</p></a>
 
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Modifier
-							site</button>
-					</div>
-
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Valider</button>
-					</div>
-
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Enregistrer
-							site</button>
-					</div>
-					<div class="bouton row">
-						<button type="submit" class="btn btn-primary btn-block">Annuler</button>
 					</div>
 
 				</div>
+
 
 
 				<div class="col">
 					<h1>Site</h1>
 
-					<div class="row">
-						<p>
-							Site: nom du site</br> Lieu: lieu du site</br> Département: département du
-							site</br> </br> </br> </br> </br> </br>
-						</p>
+					<div class="row mr-1 d-flex flex-column informations">
+
+						<strong><p th:text="'Nom:'+ ${site.nom}"></p></strong> <br> <strong><p
+								th:text="'Localisation:'+ ${site.localisation}"></p></strong> <br> <strong><p
+								th:text="'Département:'+ ${site.departement}"></p></strong> <br>
 
 					</div>
 
 
-					<h1>Voie</h1>
 
-					<div class="row">
-						<label for="email">Numéro</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+					<h1>Secteur</h1>
+
+					<div class="row  mr-1">
+						<label for="text">Nom</label> <input type="text"
+							class="form-control" th:field="*{nomSecteur}">
 					</div>
 
-					<div class="row">
-						<label for="email">Cotation</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+
+
+
+					<div class="row  mr-1">
+						<label for="text">Cotation</label> <input type="text"
+							class="form-control" th:field="*{cotationVoie}">
 					</div>
 				</div>
 
 
 				<div class="col">
-					<h1>Secteur</h1>
 
-					<div class="row">
-						<label for="email">Nom</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+					<h1 class="ml-3">Voie</h1>
+
+					<div class="row ml-1">
+						<label for="text">Nom</label> <input type="text"
+							class="form-control" th:field="*{nomVoie}">
 					</div>
 
-					<div class="row">
-						<label for="email">Numéro</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+					<div class="row ml-1" style="height: 50px"></div>
+
+					<h1 class="ml-3">Longueur</h1>
+
+					<div class="row ml-1">
+						<label for="text">Nom</label> <input type="text"
+							class="form-control" th:field="*{nomLongueur}">
 					</div>
 
-					<div class="row">
-						<label for="email">Remarque</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+					<div class="row ml-1">
+						<label for="text">Nombre de spits</label> <input type="number"
+							class="form-control" th:field="*{nbreSpit}">
 					</div>
 
-					<h1>Longueur</h1>
-
-					<div class="row">
-						<label for="email">Numéro</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
+					<div class="row ml-1">
+						<label for="text">Cotation</label> <input type="text"
+							class="form-control" th:field="*{cotationLongueur}">
 					</div>
 
-					<div class="row">
-						<label for="email">Cotation</label> <input type="email"
-							class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp">
-					</div>
+					<div class="row ml-1" style="height: 70px"></div>
+
+
+
+
 				</div>
+
+
 			</div>
+		</form>
 
-		</div>
+		<!-- PIED DE PAGE -->
 
-	</div>
+		<div th:replace="fragments/footer :: footer"></div>
 
+		<!-- ********************************************* -->
 
-	<!-- PIED DE PAGE -->
-	<!-- PIED DE PAGE -->
-
-	<div th:replace="fragments/footer :: footer"></div>
-
-	<!-- ********************************************* -->
-	<!-- ********************************************* -->
 	</div>
 
 	<!-- Optional JavaScript -->
