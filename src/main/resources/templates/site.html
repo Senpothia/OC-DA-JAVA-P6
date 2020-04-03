@@ -12,7 +12,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/escalade/css/styles.css">
 <title>Les amis de l'escalade</title>
 </head>
 <body>
@@ -153,7 +153,7 @@
 							
 							<span th:if="${authentification}">
 							<span th:if="${utilisateur.membre}">	
-							<a th:href="@{/supprimer/site/{id}(id=${site.id})}"><button
+							<a th:href="@{/escalade/supprimer/site/{id}(id=${site.id})}"><button
 									type="text" class="bouton btn btn-danger mr-1">Supprimer</button></a>
 							</span>		
 								</span>	
