@@ -120,12 +120,23 @@ public class CompteController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		utilisateur.setActif(false);
+		List<Utilisateur> membresActifs = utilisateurRepo.findAllMembresActifsNative();
+		
+		if (membresActifs.size()>1) {
+		
+			utilisateur.setActif(false);
 		utilisateurRepo.save(utilisateur);
 		// Logout ....
 		model.addAttribute("authentification", false);
 		System.out.println("Utilisateur désactivé!");
 		return "index";
+		
+		} else {
+			
+			return "alert";
+			
+		}
+		
 	}
 
 	
