@@ -119,15 +119,15 @@ a.arbre:hover {
 				<div>
 					<ul th:each="secteur: ${site.secteurs}">
 						<a class="arbre"
-							th:href="@{/escalade/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()},nomVoie='0',nomLongueur='0')}"><li
+							th:href="@{informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()},nomVoie='0',nomLongueur='0')}"><li
 							th:text="${secteur.getNom()}"></li></a>
 						<ul th:each="voie: ${secteur.voies}">
 							<a class="arbre"
-								th:href="@{/escalade/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur='0')}"><li
+								th:href="@{informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur='0')}"><li
 								th:text="${voie.getNom()}"></li></a>
 							<ul th:each="longueur: ${voie.longueurs}">
 								<a class="arbre"
-									th:href="@{/escalade/informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur=${longueur.getNom()})}"><li
+									th:href="@{informations(nomSite=${site.getNom()},nomSecteur=${secteur.getNom()}, nomVoie=${voie.getNom()}, nomLongueur=${longueur.getNom()})}"><li
 									th:text="${longueur.getNom()}"></li></a>
 
 							</ul>
@@ -218,13 +218,13 @@ a.arbre:hover {
 					<div class="col ">
 
 						<div class="row justify-content-center form-group mt-3">
-							<a th:href="@{/escalade/topos/site/{id}(id=${site.id})}"><p
+							<a th:href="@{/topos/site/{id}(id=${site.id})}"><p
 									type="text" class="btn btn-primary btn-block"
 									style="width: 350px;">Voir les topos</p></a>
 						</div>
 						
 						<div class="row justify-content-center form-group mt-1">
-							<a th:href="@{/escalade/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p
+							<a th:href="@{/viewsite/{nomSite}(nomSite=${site.getNom()})}"><p
 									type="text" class="btn btn-primary btn-block"
 									style="width: 350px;">Retour</p></a>
 						</div>
