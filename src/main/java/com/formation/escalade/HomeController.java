@@ -3,11 +3,17 @@ package com.formation.escalade;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,14 +66,17 @@ public class HomeController {
 	}
 	
 	@GetMapping("/presentation")
-	public String presentation(HttpSession session,HttpServletRequest request, Principal principal, Model model) {
+	public String presentation(HttpSession session,HttpServletRequest request, Principal principal
+			, Model model) {
 		
 		System.out.println("entrée presentation()");
 
 		try {
-
+			
+			
 			String email = request.getUserPrincipal().getName();
 			System.out.println("email récupéré: " + email);
+			
 			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
 			model.addAttribute("authentification", true);
 
@@ -158,17 +167,6 @@ public class HomeController {
 	    List<Utilisateur> users10 = utilisateurRepo.findByNomIgnoreCase("lopez");
 	    System.out.println("taille liste 10 ignore case: " + users10.size());
 	    System.out.println("Liste 10, nom user10: " + users10.get(0).getNom());
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
 	    
 		return "ok";
 	}

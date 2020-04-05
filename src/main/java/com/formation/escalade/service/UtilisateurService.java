@@ -2,6 +2,8 @@ package com.formation.escalade.service;
 
 import java.util.Collection;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +17,7 @@ import com.formation.escalade.repository.IUtilisateur;
 import com.sun.tools.javac.util.List;
 
 @Service
+@Transactional
 public class UtilisateurService implements UserDetailsService {
 
 	@Autowired
@@ -62,6 +65,10 @@ public class UtilisateurService implements UserDetailsService {
 				return user.getPasse();
 			}
 
+			
+			
+			
+			
 			@Override
 			public Collection<? extends GrantedAuthority> getAuthorities() {
 				// TODO Auto-generated method stub
@@ -72,8 +79,10 @@ public class UtilisateurService implements UserDetailsService {
 					public String getAuthority() {
 						// TODO Auto-generated method stub
 						if (user.isMembre()) {
+							
 							return "MEMBRE";
 						}
+						
 						return "USER";
 					}
 				}
@@ -81,7 +90,13 @@ public class UtilisateurService implements UserDetailsService {
 				);
 
 			}
+			
+			 
+			
+			
 		};
 	}
-
+	
+			
+			
 }
