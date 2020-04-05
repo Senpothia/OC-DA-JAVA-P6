@@ -1,5 +1,6 @@
 package com.formation.escalade;
 
+import java.awt.GradientPaint;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +9,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +65,24 @@ public class HomeController {
 	}
 	
 	@GetMapping("/presentation")
-	public String presentation(HttpSession session,HttpServletRequest request, Principal principal, Model model) {
+	public String presentation(HttpSession session,HttpServletRequest request
+			, Principal principal, Model model
+			, Authentication auth) {
+		
+		///////////////   Test récupération des rôles   ////////////////////////
+		
+		String userName = auth.getName();             // ok 
+		System.out.println("UserName: " + userName);  // ok 
+		Collection<? extends GrantedAuthority> roles = auth.getAuthorities();  //ok
+		for (GrantedAuthority rol: roles) {
+			
+			System.out.println("Role: " + rol.getAuthority());  // ok
+		}
+		
+		
+		
+		///////////////////////////////////////////////////////////////////////
+		
 		
 		System.out.println("entrée presentation()");
 

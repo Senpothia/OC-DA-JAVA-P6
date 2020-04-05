@@ -181,5 +181,12 @@ public class AdminController {
 		
 		return "espace";
 	}
+	
+	@GetMapping("/administration2")
+	public String test() {
+		
+		return "ok";
+	}
+
 
 }
