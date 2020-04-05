@@ -62,7 +62,7 @@ public class AdminController {
 			} else {
 				
 				model.addAttribute("authentification", true);
-				return "index";
+				return "alertAdmin";
 			}
 			
 		} catch (NullPointerException e) {
