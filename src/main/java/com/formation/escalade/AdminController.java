@@ -52,13 +52,24 @@ public class AdminController {
 
 			String email = request.getUserPrincipal().getName();
 			System.out.println("email récupéré: " + email);
-			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
-			model.addAttribute("authentification", true);
-
+			Utilisateur user = utilisateurRepo.findByEmail(email);
+			Boolean membreActif = user.isActif() && user.isMembre();
+			model.addAttribute("utilisateur", user);
+			if (membreActif) {
+			
+				model.addAttribute("authentification", true);
+			
+			} else {
+				
+				model.addAttribute("authentification", true);
+				return "alertAdmin";
+			}
+			
 		} catch (NullPointerException e) {
 
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
+			return "index";
 		}
 		
 		model.addAttribute("formUser", new FormUser());
