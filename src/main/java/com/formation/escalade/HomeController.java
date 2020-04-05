@@ -79,7 +79,9 @@ public class HomeController {
 			System.out.println("Role: " + rol.getAuthority());  // ok
 		}
 		
-		
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("MEMBER");
+		Boolean ouiMembre = roles.contains(grantedAuthority);  // false car égalité des objets non établie??
+		System.out.println("Membre? : " + ouiMembre);
 		
 		///////////////////////////////////////////////////////////////////////
 		
