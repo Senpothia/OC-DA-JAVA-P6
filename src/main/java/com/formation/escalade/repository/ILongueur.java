@@ -27,7 +27,9 @@ public interface ILongueur extends JpaRepository <Longueur, Integer> {
 
 	@Query( value = "select * from longueur order by cotation", nativeQuery = true)
 	List<Longueur> findAllLongueurByCotation();
-
+	
+	@Query(value = "select * from longueur u where u.nom like ?1", nativeQuery = true)
+	List<Longueur> findAllLongueurStartBy(String string);
 	
 	
 }

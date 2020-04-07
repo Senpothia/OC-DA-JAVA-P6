@@ -282,10 +282,10 @@ public class RechercheController {
 		
 		// Recherche sur éléments de site
 		
-		String phrase2 = convertString(phrase);
+		String phrase1 = convertString(phrase);
 		
 		//Site siteNom = siteRepo.findByNom(phrase);
-		List<Site> sitesStartBy = siteRepo.findAllSiteStartBy(phrase2);
+		List<Site> sitesStartBy = siteRepo.findAllSiteStartBy(phrase1);
 		//Element e1 = new Element(siteNom);
 		Element e1 = new Element(sitesStartBy);
 		Boolean siteNomPresent = e1.isPresent();
@@ -319,8 +319,9 @@ public class RechercheController {
 		}
 
 		// Recherche sur éléments de voie
-		Voie voieNom = voieRepo.findByNom(phrase);
-		Element e3 = new Element(voieNom);
+		//Voie voieNom = voieRepo.findByNom(phrase);
+		List<Voie> voieNoms = voieRepo.findAllVoieStartBy(phrase1);
+		Element e3 = new Element(voieNoms);
 		Boolean voiesNomPresent = e3.isPresent();
 		List<Voie> voiesCotation = voieRepo.findByCotation(phrase);
 		Element e4 = new Element(voiesCotation);
@@ -343,15 +344,20 @@ public class RechercheController {
 		}
 
 		if (voiesNomPresent) {
+			
+			for (Voie voie : voieNoms) {
+				
+				Secteur secteur = voie.getSecteur();
+				Site site = secteur.getSite();
+				sites.add(site);
+			}
 
-			Secteur secteur = voieNom.getSecteur();
-			Site site = secteur.getSite();
-			sites.add(site);
 		}
 
 		// Recherche sur éléments de longueur
-		Longueur longueurNom = longueurRepo.findByNom(phrase);
-		Element e5 = new Element(longueurNom);
+		//Longueur longueurNom = longueurRepo.findByNom(phrase);
+		List<Longueur> longueurNoms = longueurRepo.findAllLongueurStartBy(phrase1);
+		Element e5 = new Element(longueurNoms);
 		Boolean longueurNomPresent = e5.isPresent();
 		List<Longueur> longueursCotation = longueurRepo.findByCotation(phrase);
 		Element e6 = new Element(longueursCotation);
@@ -359,7 +365,7 @@ public class RechercheController {
 		Set<Longueur> setLongueurs = new LinkedHashSet<>(new ArrayList<Longueur>());
 		if (longueurNomPresent) {
 
-			setLongueurs.add(longueurNom);
+			setLongueurs.addAll(longueurNoms);
 
 		}
 
@@ -405,7 +411,7 @@ public class RechercheController {
 		}
 		
 		
-		String phrase1 = convertString(phrase);
+		
 		List<Utilisateur> createursCommenceUpper = utilisateurRepo.findAllUserStartBy(phrase1);
 		
 		
