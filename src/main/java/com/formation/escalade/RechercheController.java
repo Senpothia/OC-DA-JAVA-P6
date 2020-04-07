@@ -170,7 +170,7 @@ public class RechercheController {
 				setSecteursLongueurs.add(voie.getSecteur());
 			}
 
-			// Set<Site> setSitesLongueurs = new LinkedHashSet<>(new ArrayList<Site>());
+			
 			for (Secteur secteur : setSecteursLongueurs) {
 
 				sites.add(secteur.getSite());
@@ -178,9 +178,8 @@ public class RechercheController {
 			}
 		}
 
-		// Recherche sur éléments d'utilisateur
-		// Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenom(phrase,
-		// phrase);
+		// Recherche sur éléments de créateur
+		
 		List<Utilisateur> utilisateursNomPrenom = utilisateurRepo.findByNomOrPrenomIgnoreCase(phrase, phrase);
 		Element e7 = new Element(utilisateursNomPrenom);
 		Boolean UtiliseursNomPrenomPresent = e7.isPresent();
@@ -194,7 +193,8 @@ public class RechercheController {
 			}
 
 		}
-
+		
+		
 		// Recherche sur éléments de topo
 		Topo topoNom = topoRepo.findByNom(phrase);
 		Element e8 = new Element(topoNom);
@@ -279,11 +279,18 @@ public class RechercheController {
 
 		Boolean vide = true;
 		Set<Site> sites = new LinkedHashSet<>(new ArrayList<Site>()); // liste à transmettre page html
+		
 		// Recherche sur éléments de site
-		Site siteNom = siteRepo.findByNom(phrase);
-		Element e1 = new Element(siteNom);
+		
+		String phrase1 = convertString(phrase);
+		
+		//Site siteNom = siteRepo.findByNom(phrase);
+		List<Site> sitesStartBy = siteRepo.findAllSiteStartBy(phrase1);
+		//Element e1 = new Element(siteNom);
+		Element e1 = new Element(sitesStartBy);
 		Boolean siteNomPresent = e1.isPresent();
 		System.out.println(" boolean sitePresent :" + siteNomPresent);
+		/*
 		List<Site> sitesLocalisation = siteRepo.findByLocalisation(phrase);
 		Element e1a = new Element(sitesLocalisation);
 		Boolean siteLocalisationPresent = e1a.isPresent();
@@ -291,11 +298,14 @@ public class RechercheController {
 		if (siteLocalisationPresent) {
 
 			sites.addAll(sitesLocalisation);
+			
 		}
-
+		 */
+		
 		if (siteNomPresent) {
 
-			sites.add(siteNom);
+			//sites.add(siteNom);
+			sites.addAll(sitesStartBy);
 		}
 
 		// Recherche sur éléments de secteur
@@ -309,8 +319,9 @@ public class RechercheController {
 		}
 
 		// Recherche sur éléments de voie
-		Voie voieNom = voieRepo.findByNom(phrase);
-		Element e3 = new Element(voieNom);
+		//Voie voieNom = voieRepo.findByNom(phrase);
+		List<Voie> voieNoms = voieRepo.findAllVoieStartBy(phrase1);
+		Element e3 = new Element(voieNoms);
 		Boolean voiesNomPresent = e3.isPresent();
 		List<Voie> voiesCotation = voieRepo.findByCotation(phrase);
 		Element e4 = new Element(voiesCotation);
@@ -333,15 +344,20 @@ public class RechercheController {
 		}
 
 		if (voiesNomPresent) {
+			
+			for (Voie voie : voieNoms) {
+				
+				Secteur secteur = voie.getSecteur();
+				Site site = secteur.getSite();
+				sites.add(site);
+			}
 
-			Secteur secteur = voieNom.getSecteur();
-			Site site = secteur.getSite();
-			sites.add(site);
 		}
 
 		// Recherche sur éléments de longueur
-		Longueur longueurNom = longueurRepo.findByNom(phrase);
-		Element e5 = new Element(longueurNom);
+		//Longueur longueurNom = longueurRepo.findByNom(phrase);
+		List<Longueur> longueurNoms = longueurRepo.findAllLongueurStartBy(phrase1);
+		Element e5 = new Element(longueurNoms);
 		Boolean longueurNomPresent = e5.isPresent();
 		List<Longueur> longueursCotation = longueurRepo.findByCotation(phrase);
 		Element e6 = new Element(longueursCotation);
@@ -349,7 +365,7 @@ public class RechercheController {
 		Set<Longueur> setLongueurs = new LinkedHashSet<>(new ArrayList<Longueur>());
 		if (longueurNomPresent) {
 
-			setLongueurs.add(longueurNom);
+			setLongueurs.addAll(longueurNoms);
 
 		}
 
@@ -378,9 +394,8 @@ public class RechercheController {
 			}
 		}
 
-		// Recherche sur éléments d'utilisateur
-		// Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenom(phrase,
-		// phrase);
+		// Recherche sur éléments de créateur
+		
 		List<Utilisateur> utilisateursNomPrenom = utilisateurRepo.findByNomOrPrenomIgnoreCase(phrase, phrase);
 		Element e7 = new Element(utilisateursNomPrenom);
 		Boolean UtiliseursNomPrenomPresent = e7.isPresent();
@@ -394,12 +409,32 @@ public class RechercheController {
 			}
 
 		}
+		
+		
+		
+		List<Utilisateur> createursCommenceUpper = utilisateurRepo.findAllUserStartBy(phrase1);
+		
+		
+		Element e71 = new Element(createursCommenceUpper);
+		Boolean createursCommenceBool = e71.isPresent();
+		List<Site> sitesCreateurCommence = new ArrayList<Site>();
+		if (createursCommenceBool) {
+			for (Utilisateur createur : createursCommenceUpper) {
+
+				Integer id = createur.getId();
+				sitesCreateurCommence = siteRepo.findByCreateur(id);
+				sites.addAll(sitesCreateurCommence);
+			}
+
+		}
 
 		// Recherche sur éléments de topo
-		Topo topoNom = topoRepo.findByNom(phrase);
-		Element e8 = new Element(topoNom);
+		//Topo topoNom = topoRepo.findByNom(phrase);
+		List<Topo> topoNoms = topoRepo.findAllTopoStartBy(phrase1);
+		Element e8 = new Element(topoNoms);
 		Boolean topoNomPresent = e8.isPresent();
-
+		
+		/**
 		List<Topo> toposDescription = topoRepo.findByDescription(phrase);
 		Element e9 = new Element(toposDescription);
 		Boolean toposDescriptionPresent = e9.isPresent();
@@ -417,10 +452,12 @@ public class RechercheController {
 
 			setTopos.addAll(toposLieu);
 		}
-
+		 
+		 */
+		Set<Topo> setTopos = new LinkedHashSet<>(new ArrayList<Topo>());
 		if (topoNomPresent) {
 
-			setTopos.add(topoNom);
+			setTopos.addAll(topoNoms);
 		}
 
 		List<Site> sitesTopo = new ArrayList<Site>();
@@ -519,6 +556,17 @@ public class RechercheController {
 		model.addAttribute("createurs", createurs);
 		model.addAttribute("avance", true);
 		return "resultats";
+	}
+	
+	String convertString (String phrase) {
+		
+		char car0 = phrase.charAt(0);
+		String stringCar0 = String.valueOf(car0);
+		String stringCar0Low = stringCar0.toUpperCase();
+		String reste = phrase.substring(1);
+		String phrase1 = stringCar0Low + reste + "%";
+		System.out.println("phrase1: " + phrase1);
+		return phrase1;
 	}
 
 }

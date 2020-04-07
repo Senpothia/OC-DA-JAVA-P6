@@ -53,4 +53,6 @@ public interface IUtilisateur extends JpaRepository<Utilisateur, Integer> {
 	@Query(value = "select * from utilisateur u where u.nom like ?1", nativeQuery = true)
 	List<Utilisateur> findAllStartBy(String string);
 
+	List<Utilisateur> findAllUserStartBy(String phrase1);
+
 }

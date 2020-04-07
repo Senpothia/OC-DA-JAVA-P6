@@ -21,12 +21,7 @@ public interface ITopo extends JpaRepository <Topo, Integer>{
 
 	List<Topo> findByDisponible(boolean b);
 
-	
+	List<Topo> findAllTopoStartBy(String phrase1);
 
 	
-
-	
-
-	
-
 }
