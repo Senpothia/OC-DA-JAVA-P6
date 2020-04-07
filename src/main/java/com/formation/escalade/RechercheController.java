@@ -170,7 +170,7 @@ public class RechercheController {
 				setSecteursLongueurs.add(voie.getSecteur());
 			}
 
-			// Set<Site> setSitesLongueurs = new LinkedHashSet<>(new ArrayList<Site>());
+			
 			for (Secteur secteur : setSecteursLongueurs) {
 
 				sites.add(secteur.getSite());
@@ -178,9 +178,8 @@ public class RechercheController {
 			}
 		}
 
-		// Recherche sur éléments d'utilisateur
-		// Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenom(phrase,
-		// phrase);
+		// Recherche sur éléments de créateur
+		
 		List<Utilisateur> utilisateursNomPrenom = utilisateurRepo.findByNomOrPrenomIgnoreCase(phrase, phrase);
 		Element e7 = new Element(utilisateursNomPrenom);
 		Boolean UtiliseursNomPrenomPresent = e7.isPresent();
@@ -194,7 +193,8 @@ public class RechercheController {
 			}
 
 		}
-
+		
+		
 		// Recherche sur éléments de topo
 		Topo topoNom = topoRepo.findByNom(phrase);
 		Element e8 = new Element(topoNom);
@@ -378,9 +378,8 @@ public class RechercheController {
 			}
 		}
 
-		// Recherche sur éléments d'utilisateur
-		// Utilisateur utilisateurNomPrenom = utilisateurRepo.findByNomOrPrenom(phrase,
-		// phrase);
+		// Recherche sur éléments de créateur
+		
 		List<Utilisateur> utilisateursNomPrenom = utilisateurRepo.findByNomOrPrenomIgnoreCase(phrase, phrase);
 		Element e7 = new Element(utilisateursNomPrenom);
 		Boolean UtiliseursNomPrenomPresent = e7.isPresent();
@@ -391,6 +390,29 @@ public class RechercheController {
 				Integer id = createur.getId();
 				sitesCreateur = siteRepo.findByCreateur(id);
 				sites.addAll(sitesCreateur);
+			}
+
+		}
+		
+		char car0 = phrase.charAt(0);
+		String stringCar0 = String.valueOf(car0);
+		String stringCar0Low = stringCar0.toUpperCase();
+		String reste = phrase.substring(1);
+		String phrase1 = stringCar0Low + reste + "%";
+		System.out.println("phrase1: " + phrase1);
+		
+		List<Utilisateur> createursCommenceLow = utilisateurRepo.findAllUserStartBy(phrase1);
+		
+		
+		Element e71 = new Element(createursCommenceLow);
+		Boolean createursCommenceBool = e71.isPresent();
+		List<Site> sitesCreateurCommence = new ArrayList<Site>();
+		if (createursCommenceBool) {
+			for (Utilisateur createur : createursCommenceLow) {
+
+				Integer id = createur.getId();
+				sitesCreateurCommence = siteRepo.findByCreateur(id);
+				sites.addAll(sitesCreateurCommence);
 			}
 
 		}

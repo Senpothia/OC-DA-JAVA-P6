@@ -50,7 +50,7 @@ public interface IUtilisateur extends JpaRepository<Utilisateur, Integer> {
 	@Query(value = "SELECT * FROM utilisateur WHERE email = ?1", nativeQuery = true)
 	Utilisateur findByEmailAddress(String emailAddress);
 
-	@Query(value = "select * from utilisateur u where u.nom like ?1", nativeQuery = true)
-	List<Utilisateur> findAllStartBy(String string);
+	@Query(value = "select * from utilisateur u where u.nom like ?1 or u.prenom like ?1", nativeQuery = true)
+	List<Utilisateur> findAllUserStartBy(String string);
 
 }

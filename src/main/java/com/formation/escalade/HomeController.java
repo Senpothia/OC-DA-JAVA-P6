@@ -160,7 +160,7 @@ public class HomeController {
 		Utilisateur users8 = utilisateurRepo.findByEmailAddress("michel@gmail.com");
 	    System.out.println("taille liste 8 par mail native: " + users8.getNom());
 		
-		List<Utilisateur> users9 = utilisateurRepo.findAllStartBy("Lop%");
+		List<Utilisateur> users9 = utilisateurRepo.findAllUserStartBy("Lop%");
 		System.out.println("taille liste 9 start by...: " + users9.size());
 		System.out.println("Liste 9, nom user9: " + users9.get(0).getNom());
 	    
@@ -168,7 +168,7 @@ public class HomeController {
 	    System.out.println("taille liste 10 ignore case: " + users10.size());
 	    System.out.println("Liste 10, nom user10: " + users10.get(0).getNom());
 	    
-		return "ok";
+		return "index";
 	}
 
 }
