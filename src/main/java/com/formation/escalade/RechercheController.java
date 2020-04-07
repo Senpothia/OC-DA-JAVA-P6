@@ -423,10 +423,12 @@ public class RechercheController {
 		}
 
 		// Recherche sur éléments de topo
-		Topo topoNom = topoRepo.findByNom(phrase);
-		Element e8 = new Element(topoNom);
+		//Topo topoNom = topoRepo.findByNom(phrase);
+		List<Topo> topoNoms = topoRepo.findAllTopoStartBy(phrase1);
+		Element e8 = new Element(topoNoms);
 		Boolean topoNomPresent = e8.isPresent();
-
+		
+		/**
 		List<Topo> toposDescription = topoRepo.findByDescription(phrase);
 		Element e9 = new Element(toposDescription);
 		Boolean toposDescriptionPresent = e9.isPresent();
@@ -444,10 +446,12 @@ public class RechercheController {
 
 			setTopos.addAll(toposLieu);
 		}
-
+		 
+		 */
+		Set<Topo> setTopos = new LinkedHashSet<>(new ArrayList<Topo>());
 		if (topoNomPresent) {
 
-			setTopos.add(topoNom);
+			setTopos.addAll(topoNoms);
 		}
 
 		List<Site> sitesTopo = new ArrayList<Site>();
