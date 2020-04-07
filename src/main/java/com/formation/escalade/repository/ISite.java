@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Utilisateur;
 
 public interface ISite extends JpaRepository <Site, Integer>{
 
@@ -23,7 +25,9 @@ public interface ISite extends JpaRepository <Site, Integer>{
 	List<Site> findByDepartement(Integer departement);
 
 	List<Site> findByLocalisationIgnoreCase(String localisation);
-
+	
+	@Query(value = "select * from site u where u.nom like ?1 or u.localisation like ?1", nativeQuery = true)
+	List<Site> findAllSiteStartBy(String string);
 	
 
 	

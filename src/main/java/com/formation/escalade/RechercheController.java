@@ -279,11 +279,18 @@ public class RechercheController {
 
 		Boolean vide = true;
 		Set<Site> sites = new LinkedHashSet<>(new ArrayList<Site>()); // liste à transmettre page html
+		
 		// Recherche sur éléments de site
-		Site siteNom = siteRepo.findByNom(phrase);
-		Element e1 = new Element(siteNom);
+		
+		String phrase2 = convertString(phrase);
+		
+		//Site siteNom = siteRepo.findByNom(phrase);
+		List<Site> sitesStartBy = siteRepo.findAllSiteStartBy(phrase2);
+		//Element e1 = new Element(siteNom);
+		Element e1 = new Element(sitesStartBy);
 		Boolean siteNomPresent = e1.isPresent();
 		System.out.println(" boolean sitePresent :" + siteNomPresent);
+		/*
 		List<Site> sitesLocalisation = siteRepo.findByLocalisation(phrase);
 		Element e1a = new Element(sitesLocalisation);
 		Boolean siteLocalisationPresent = e1a.isPresent();
@@ -291,11 +298,14 @@ public class RechercheController {
 		if (siteLocalisationPresent) {
 
 			sites.addAll(sitesLocalisation);
+			
 		}
-
+		 */
+		
 		if (siteNomPresent) {
 
-			sites.add(siteNom);
+			//sites.add(siteNom);
+			sites.addAll(sitesStartBy);
 		}
 
 		// Recherche sur éléments de secteur
@@ -394,21 +404,16 @@ public class RechercheController {
 
 		}
 		
-		char car0 = phrase.charAt(0);
-		String stringCar0 = String.valueOf(car0);
-		String stringCar0Low = stringCar0.toUpperCase();
-		String reste = phrase.substring(1);
-		String phrase1 = stringCar0Low + reste + "%";
-		System.out.println("phrase1: " + phrase1);
 		
-		List<Utilisateur> createursCommenceLow = utilisateurRepo.findAllUserStartBy(phrase1);
+		String phrase1 = convertString(phrase);
+		List<Utilisateur> createursCommenceUpper = utilisateurRepo.findAllUserStartBy(phrase1);
 		
 		
-		Element e71 = new Element(createursCommenceLow);
+		Element e71 = new Element(createursCommenceUpper);
 		Boolean createursCommenceBool = e71.isPresent();
 		List<Site> sitesCreateurCommence = new ArrayList<Site>();
 		if (createursCommenceBool) {
-			for (Utilisateur createur : createursCommenceLow) {
+			for (Utilisateur createur : createursCommenceUpper) {
 
 				Integer id = createur.getId();
 				sitesCreateurCommence = siteRepo.findByCreateur(id);
@@ -541,6 +546,17 @@ public class RechercheController {
 		model.addAttribute("createurs", createurs);
 		model.addAttribute("avance", true);
 		return "resultats";
+	}
+	
+	String convertString (String phrase) {
+		
+		char car0 = phrase.charAt(0);
+		String stringCar0 = String.valueOf(car0);
+		String stringCar0Low = stringCar0.toUpperCase();
+		String reste = phrase.substring(1);
+		String phrase1 = stringCar0Low + reste + "%";
+		System.out.println("phrase1: " + phrase1);
+		return phrase1;
 	}
 
 }
