@@ -309,13 +309,19 @@ public class RechercheController {
 		}
 
 		// Recherche sur éléments de secteur
-		Secteur secteurNom = secteurRepo.findByNom(phrase);
-		Element e2 = new Element(secteurNom);
+		//Secteur secteurNom = secteurRepo.findByNom(phrase);
+		List<Secteur> secteurNoms = secteurRepo.findAllSecteurStartBy(phrase1);
+		Element e2 = new Element(secteurNoms);
 		Boolean secteurNomPresent = e2.isPresent();
 
 		if (secteurNomPresent) {
-
-			sites.add(secteurNom.getSite());
+			
+			for (Secteur secteur : secteurNoms) {
+				
+				Site site = secteur.getSite();
+				sites.add(site);
+			}
+			
 		}
 
 		// Recherche sur éléments de voie
