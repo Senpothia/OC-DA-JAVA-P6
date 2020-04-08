@@ -113,6 +113,7 @@ public class HomeController {
 
 			System.out.println("email récupéré: aucun!!!");
 			model.addAttribute("authentification", false);
+			return "connexion";
 		}
 		
 		model.addAttribute("phrase", new String());

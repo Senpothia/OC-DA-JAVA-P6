@@ -128,7 +128,6 @@ public class CompteController {
 		return "index";
 	}
 
-	
 
 	@GetMapping("/compte/modifier")
 	public String modificationCompte(Utilisateur utilisateur, 
@@ -176,7 +175,11 @@ public class CompteController {
 			model.addAttribute("authentification", false);
 		}
 		
-		
+		String password = formCompte.getPassword();
+		if (password.equals("")) {
+			
+			return "modificationCompte";
+		}
 		
 		String email = request.getUserPrincipal().getName();
 		utilisateur = utilisateurRepo.findByEmail(email);
