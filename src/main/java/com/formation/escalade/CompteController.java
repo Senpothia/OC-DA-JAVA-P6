@@ -1,6 +1,6 @@
 package com.formation.escalade;
 
-//import java.lang.module.FindException;
+import java.lang.module.FindException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -120,26 +120,14 @@ public class CompteController {
 		
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		List<Utilisateur> membresActifs = utilisateurRepo.findAllMembresActifsNative();
-		
-		if (membresActifs.size()>1) {
-		
-			utilisateur.setActif(false);
+		utilisateur.setActif(false);
 		utilisateurRepo.save(utilisateur);
 		// Logout ....
 		model.addAttribute("authentification", false);
 		System.out.println("Utilisateur désactivé!");
 		return "index";
-		
-		} else {
-			
-			return "alert";
-			
-		}
-		
 	}
 
-	
 
 	@GetMapping("/compte/modifier")
 	public String modificationCompte(Utilisateur utilisateur, 
@@ -187,7 +175,11 @@ public class CompteController {
 			model.addAttribute("authentification", false);
 		}
 		
-		
+		String password = formCompte.getPassword();
+		if (password.equals("")) {
+			
+			return "modificationCompte";
+		}
 		
 		String email = request.getUserPrincipal().getName();
 		utilisateur = utilisateurRepo.findByEmail(email);
