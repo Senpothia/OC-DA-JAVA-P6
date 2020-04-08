@@ -150,6 +150,7 @@ public class TopoController {
 		topo.setNom(formTopo.getNom());
 		topo.setDescription(formTopo.getDescription());
 		topo.setLieu(formTopo.getLieu());
+		System.out.println("date : " + formTopo.getDate());
 		topo.setDate(formTopo.getDate());
 		topo.setDisponible(formTopo.isDisponibilite());
 		
@@ -249,11 +250,10 @@ public class TopoController {
 		String email = request.getUserPrincipal().getName();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		
-	
-		
 		Site site = siteRepo.getOne(siteId);
 		List<Topo> topos = site.getTopos();
 		Topo topo = topos.get(num);
+		Integer idTopo = topo.getId();
 		Utilisateur proprietaire = topo.getProprietaire();
 		Integer idUtilisateur = utilisateur.getId();
 		Integer idProprietaire = proprietaire.getId();
@@ -286,8 +286,7 @@ public class TopoController {
 					vide = true;
 				}
 				
-			model.addAttribute("vide", vide);
-				
+			model.addAttribute("vide", vide);	
 			model.addAttribute("noms", noms);
 			model.addAttribute("prenoms", prenoms);
 			model.addAttribute("topos", topos);
@@ -298,7 +297,48 @@ public class TopoController {
 			
 		} else {
 			
+			// cas où la topo a déjà été demandée
 			
+			Demande userDemande = demande1Repo.findByDemandeurIdAndTopoId(idUtilisateur, idTopo);
+			if (userDemande != null) {
+				
+				model.addAttribute("demandeExiste", true);
+				List<String> noms = new ArrayList<>();
+				List<String> prenoms = new ArrayList<>();
+				
+				for (Topo topo1:topos ) {
+					Utilisateur proprietaire1 = topo1.getProprietaire();
+					prenoms.add(proprietaire1.getPrenom());
+					noms.add(proprietaire1.getNom());
+					
+				}
+				
+					for (int i = 0; i < noms.size(); i++) {
+
+					System.out.println("nom: " + noms.get(i));
+				}
+					
+					for (int i = 0; i < prenoms.size(); i++) {
+
+						System.out.println("prenom: " + prenoms.get(i));
+					}
+
+					int taille = topos.size();
+					Boolean vide = false;
+					if (taille == 0) { 
+						vide = true;
+					}
+					
+				model.addAttribute("vide", vide);	
+				model.addAttribute("noms", noms);
+				model.addAttribute("prenoms", prenoms);
+				model.addAttribute("topos", topos);
+				model.addAttribute("site", site);
+				model.addAttribute("phrase", new String());
+				return "topos";
+				
+			}
+			// cas où la top n'a pas été demandée
 			Demande demande1 = new Demande();
 			demande1.setDemandeur(utilisateur);
 			demande1.setAcceptee(false);
