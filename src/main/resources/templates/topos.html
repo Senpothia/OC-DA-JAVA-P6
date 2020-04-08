@@ -42,8 +42,8 @@
 		<!-- IMAGE -->
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="/escalade/images/bandeau1.png" alt="" />
-				
+				<img class="img-fluid" src="/images/bandeau1.png" alt=""
+					th:src="@{/images/bandeau1.png}" />
 			</div>
 		</div>
 
@@ -64,6 +64,18 @@
 			</div>
 
 		</span>
+		
+			<span th:if="${demandeExiste}">
+
+			<div class="message row">
+				<div class="col">
+					<h2 style="color: red;">Vous avez déjà demandé cette topo!</h2>
+				
+				</div>
+			</div>
+
+		</span>
+		
 		<div class="row">
 
 			<div class="col">
