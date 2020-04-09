@@ -91,50 +91,73 @@ public class RechercheService {
 		List<Site> sites_Nbre_Spits = new ArrayList<Site>();
 		List<Site> sites_Nbre_Topos = new ArrayList<Site>();
 		List<Site> sites_Nbre_Topos_dispo = new ArrayList<Site>();
+		List<Site> sitesParNomSite  = new ArrayList<Site>();
+		List<Secteur> sitesParNomSecteur  = new ArrayList<Secteur>();
+		List<Voie> sitesParNomVoie  = new ArrayList<Voie>();
+		List<Longueur> sitesParNomLongueur  = new ArrayList<Longueur>();
 		
 		// Recherche par nom de site, secteur, voie, longueur
 
 		if (formSearch.getNom() != "") {
 
-			Site site = siteRepo.findByNomIgnoreCase(formSearch.getNom());
-			if (site != null) {
-				sites_parNom.add(site);
-
+			//Site site = siteRepo.findByNomIgnoreCase(formSearch.getNom());
+			String nom = convertString(formSearch.getNom());
+			System.out.println("critère de recherche par nom: " + nom);
+			///////////////////////////////////////////
+			
+			if (!nom.equals("StringIndexOutOfBoundsException")) {
+				
+				// Recherche par nom de site
+				
+				sitesParNomSite = siteRepo.findAllSiteNomStartBy(nom);
+				if (sitesParNomSite != null) {
+					
+					sites_parNom.addAll(sitesParNomSite);
+					
+				}
+				
+				// Recherche par nom de secteur
+				
+				sitesParNomSecteur = secteurRepo.findAllSecteurNomStartBy(nom);
+				
+				if (sitesParNomSecteur != null) {
+					
+					
+					sites_parNom.addAll(demandeSiteSecteur(sitesParNomSecteur));
+				}
+				
+				// Recherche par nom de voie
+				
+				sitesParNomVoie = voieRepo.findAllVoieNomStartBy(nom);
+				
+				if (sitesParNomVoie != null) {
+					
+					sites_parNom.addAll(demandeSiteVoie(sitesParNomVoie));
+				}
+				
+				// Recherche par nom de longueur
+				
+				sitesParNomLongueur = longueurRepo.findAllLongueurStartBy(nom);
+				
+				if (sitesParNomLongueur != null) {
+					
+					sites_parNom.addAll(demandeSiteLong(sitesParNomLongueur));
+				}
+				
 			}
-
-			Secteur secteur = secteurRepo.findByNomIgnoreCase(formSearch.getNom());
-			if (secteur != null) {
-
-				Site site_nom_secteur = secteur.getSite();
-				sites_parNom.add(site_nom_secteur);
-			}
-
-			Voie voie = voieRepo.findByNomIgnoreCase(formSearch.getNom());
-			if (voie != null) {
-
-				Secteur secteur_voie = voie.getSecteur();
-				Site site_voie = secteur_voie.getSite();
-				sites_parNom.add(site_voie);
-			}
-
-			Longueur longueur = longueurRepo.findByNomIgnoreCase(formSearch.getNom());
-			if (longueur != null) {
-				Voie voie_longueur = longueur.getVoie();
-				Secteur secteur_longueur = voie_longueur.getSecteur();
-				Site site_longueur = secteur_longueur.getSite();
-				sites_parNom.add(site_longueur);
-			}
-
-		}
+			
+		}   // fin recherche par nom
 
 		// Recherche par nom de createur
 
 		if (formSearch.getCreateur() != "") {
-
+			
+			String nom = convertString(formSearch.getCreateur());
+			System.out.println("critère de recherche par nom createur: " + nom);
+			
 			try {
 
-				List<Utilisateur> createurs = utilisateurRepo.findByNomOrPrenomIgnoreCase(formSearch.getCreateur(),
-						formSearch.getCreateur());
+				List<Utilisateur> createurs = utilisateurRepo.findAllUserStartBy(nom);
 				for (Utilisateur createur : createurs) {
 
 					Integer id = createur.getId();
@@ -164,8 +187,11 @@ public class RechercheService {
 		// Recherche par localisation
 
 		if (formSearch.getLocalisation() != "") {
+			
+			String nom = convertString(formSearch.getLocalisation());
+			System.out.println("critère de recherche par localisation: " + nom);
 
-			sites_ParLocalisation = siteRepo.findByLocalisationIgnoreCase(formSearch.getLocalisation());
+			sites_ParLocalisation = siteRepo.findAllSiteLocalisationStartBy(nom);
 
 			if (sites_ParLocalisation != null) {
 
@@ -566,6 +592,48 @@ public class RechercheService {
 		return sites;
 	}
 	
+	public List<Site> demandeSiteLong(List<Longueur> longueurs) {
+		
+		 List<Site> sites = new ArrayList<Site>();
+		 
+		 for (Longueur longueur : longueurs) {
+			 
+			 Voie voie = longueur.getVoie();
+			 Secteur secteur = voie.getSecteur();
+			 Site site = secteur.getSite();
+			 sites.add(site);
+		 }
+		 
+		 return sites;
+	}
+	
+	public List<Site> demandeSiteVoie(List<Voie> voies) {
+		
+		 List<Site> sites = new ArrayList<Site>();
+		 for (Voie voie : voies) {
+			 
+			 Secteur secteur = voie.getSecteur();
+			 Site site = secteur.getSite();
+			 sites.add(site);
+		 }
+		
+		 return sites;
+	}
+	
+	public List<Site> demandeSiteSecteur(List<Secteur> secteurs) {
+		
+		 List<Site> sites = new ArrayList<Site>();
+		 
+		 for (Secteur secteur : secteurs) {
+			 
+		 Site site = secteur.getSite();
+		 sites.add(site);
+		 
+		 }
+		 
+		 return sites;
+	}
+	
 	public Site demandeSiteLong(Longueur longueur) {
 		
 		 Voie voie = longueur.getVoie();
@@ -579,5 +647,24 @@ public class RechercheService {
 		 Secteur secteur = voie.getSecteur();
 		 Site site = secteur.getSite();
 		 return site;
+	}
+	
+	
+	
+	String convertString(String phrase) {
+
+		try {
+			char car0 = phrase.charAt(0);
+			String stringCar0 = String.valueOf(car0);
+			String stringCar0Low = stringCar0.toUpperCase();
+			String reste = phrase.substring(1);
+			String phrase1 = stringCar0Low + reste + "%";
+			System.out.println("phrase1: " + phrase1);
+			return phrase1;
+
+		} catch (StringIndexOutOfBoundsException e) {
+
+			return "StringIndexOutOfBoundsException";
+		}
 	}
 }

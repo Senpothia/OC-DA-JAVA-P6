@@ -13,7 +13,7 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 
-<link rel="stylesheet" href="/escalade/css/styles.css">
+<link rel="stylesheet" href="/css/styles.css">
 
 <title>Les amis de l'escalade</title>
 </head>
@@ -31,7 +31,7 @@
 
 		<div class="row">
 			<div class="col">
-				<img class="img-fluid" src="escalade/images/bandeau7.png"
+				<img class="img-fluid" src="/images/bandeau7.png"
 					th:src="@{/images/bandeau7.png}" />
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 						<label for="text">Nom de site, secteur, voie ou longueur</label> <input
 							type="text" class="form-control" th:field="*{nom}">
 					</div>
-					<div class="row mr-1 mt-2">
+					<div class="row mr-1 mt-1">
 						<div class="form-group">
 							<label for="text">Type de sites</label> <select
 								class="form-control" id="exampleFormControlSelect1" th:field="*{type}">
@@ -70,10 +70,12 @@
 								<option value="Autres">Autres</option>
 
 							</select>
+							 <small class="form-text text-muted">applicable aux critères de la colonne de gauche.</small>
 						</div>
+						
 					</div>
 
-					<div class="row mr-1 mt-2">
+					<div class="row mr-1">
 						<label for="text">Créateur</label> <input type="text"
 							class="form-control" th:field="*{createur}">
 					</div>
@@ -139,7 +141,7 @@
 						</div>
 					</div>
 
-					<div class="row mr-1 mt-3 justify-content-start">
+					<div class="row mr-1 mt-4 justify-content-start">
 
 						<div class="col">
 							<label for="text">Nombre de longueurs</label> <input

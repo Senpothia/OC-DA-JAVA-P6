@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.formation.escalade.model.Secteur;
 import com.formation.escalade.model.Site;
+import com.formation.escalade.model.Utilisateur;
 
 public interface ISite extends JpaRepository <Site, Integer>{
 
@@ -24,12 +25,14 @@ public interface ISite extends JpaRepository <Site, Integer>{
 	List<Site> findByDepartement(Integer departement);
 
 	List<Site> findByLocalisationIgnoreCase(String localisation);
-
+	
 	@Query(value = "select * from site u where u.nom like ?1 or u.localisation like ?1", nativeQuery = true)
 	List<Site> findAllSiteStartBy(String string);
-
 	
+	@Query(value = "select * from site u where u.nom like ?", nativeQuery = true)
+	List<Site> findAllSiteNomStartBy(String string);
 	
+	@Query(value = "select * from site u where u.localisation like ?1", nativeQuery = true)
+	List<Site> findAllSiteLocalisationStartBy(String string);
 	
-
 }
