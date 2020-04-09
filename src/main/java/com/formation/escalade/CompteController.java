@@ -38,15 +38,48 @@ public class CompteController {
 	}
 
 	@GetMapping("/compte")   // Création de compte
-	public String compte(Model model) {
+	public String compte(Model model
+						, HttpSession session
+						,HttpServletRequest request
+						, Principal principal) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		model.addAttribute("utilisateur", new Utilisateur());
 		model.addAttribute("echec", false);
 		return "compte";
 	}
 
 	@PostMapping("/compte")	// Création de compte
-	public String compteSubmit(@ModelAttribute Utilisateur utilisateur, Model model) {
+	public String compteSubmit(@ModelAttribute Utilisateur utilisateur
+			, Model model
+			, HttpSession session
+			,HttpServletRequest request
+			, Principal principal) {
 		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
 		
 		List<Utilisateur> users = utilisateurRepo.findAll();
 		if (users.size() == 0) {
@@ -80,24 +113,44 @@ public class CompteController {
 	}
 
 	@GetMapping("/espace")    // Accès espace personnel
-	public String espace( Model model, HttpServletRequest request, Principal principal) {
+	public String espace( Model model
+			, HttpServletRequest request
+			, Principal principal) {
+		
+		/**
 		String email = request.getUserPrincipal().getName();
 		model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
 		
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
-		if (utilisateur.isActif()) {
-			
-			System.out.println("User actif");
-			return "espace";
-		} else {
-			
-			System.out.println("User inactif!!!");
-			return "index";
+		*/
 		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
+			model.addAttribute("utilisateur", utilisateur);
+			model.addAttribute("authentification", true);
+			
+			if (utilisateur.isActif()) {
+				
+				System.out.println("User actif");
+				return "espace";
+			} else {
+				
+				System.out.println("User inactif!!!");
+				return "index";
+			
+			}
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+			return "index";
 		}
 		
 	}
-	
 	
 	@GetMapping("/compte/supprimer")
 
@@ -201,7 +254,4 @@ public class CompteController {
 		logoutHandler.logout(request, null, null);
 		return "redirect:/";}
 	
-	
-	
-
 }
