@@ -81,7 +81,24 @@ public class HomeController {
 	}
 	
 	@GetMapping("/connexion")
-	public String connexion(@RequestParam(name="error", required=false) boolean error, Model model) {
+	public String connexion(@RequestParam(name="error", required=false) boolean error
+			, Model model
+			, HttpSession session
+			,HttpServletRequest request) {
+		
+		try {
+
+			String email = request.getUserPrincipal().getName();
+			System.out.println("email récupéré: " + email);
+			model.addAttribute("utilisateur", utilisateurRepo.findByEmail(email));
+			model.addAttribute("authentification", true);
+
+		} catch (NullPointerException e) {
+
+			System.out.println("email récupéré: aucun!!!");
+			model.addAttribute("authentification", false);
+		}
+		
 		User user = new User();
 		model.addAttribute("user",user );
 		model.addAttribute("error", error);
