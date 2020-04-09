@@ -29,9 +29,10 @@ public interface ISite extends JpaRepository <Site, Integer>{
 	@Query(value = "select * from site u where u.nom like ?1 or u.localisation like ?1", nativeQuery = true)
 	List<Site> findAllSiteStartBy(String string);
 	
-
+	@Query(value = "select * from site u where u.nom like ?", nativeQuery = true)
+	List<Site> findAllSiteNomStartBy(String string);
 	
+	@Query(value = "select * from site u where u.localisation like ?1", nativeQuery = true)
+	List<Site> findAllSiteLocalisationStartBy(String string);
 	
-	
-
 }

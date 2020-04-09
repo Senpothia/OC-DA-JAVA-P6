@@ -20,5 +20,7 @@ public interface ISecteur extends JpaRepository <Secteur, Integer>{
 	@Query(value = "select * from secteur u where u.nom like ?1", nativeQuery = true)
 	List<Secteur> findAllSecteurStartBy(String string);
 
+	@Query(value = "select * from secteur u where u.nom like ?", nativeQuery = true)
+	List<Secteur> findAllSecteurNomStartBy(String string);
 	
 }

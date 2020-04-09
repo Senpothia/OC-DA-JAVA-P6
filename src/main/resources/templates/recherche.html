@@ -61,7 +61,7 @@
 						<label for="text">Nom de site, secteur, voie ou longueur</label> <input
 							type="text" class="form-control" th:field="*{nom}">
 					</div>
-					<div class="row mr-1 mt-2">
+					<div class="row mr-1 mt-1">
 						<div class="form-group">
 							<label for="text">Type de sites</label> <select
 								class="form-control" id="exampleFormControlSelect1" th:field="*{type}">
@@ -70,10 +70,12 @@
 								<option value="Autres">Autres</option>
 
 							</select>
+							 <small class="form-text text-muted">applicable aux critères de la colonne de gauche.</small>
 						</div>
+						
 					</div>
 
-					<div class="row mr-1 mt-2">
+					<div class="row mr-1">
 						<label for="text">Créateur</label> <input type="text"
 							class="form-control" th:field="*{createur}">
 					</div>
@@ -139,7 +141,7 @@
 						</div>
 					</div>
 
-					<div class="row mr-1 mt-3 justify-content-start">
+					<div class="row mr-1 mt-4 justify-content-start">
 
 						<div class="col">
 							<label for="text">Nombre de longueurs</label> <input

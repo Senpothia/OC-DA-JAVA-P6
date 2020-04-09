@@ -25,5 +25,8 @@ public interface IVoie extends JpaRepository <Voie, Integer>{
 	
 	@Query(value = "select * from voie u where u.nom like ?1", nativeQuery = true)
 	List<Voie> findAllVoieStartBy(String string);
+	
+	@Query(value = "select * from voie u where u.nom like ?", nativeQuery = true)
+	List<Voie> findAllVoieNomStartBy(String string);
 
 }
