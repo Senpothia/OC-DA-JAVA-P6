@@ -111,7 +111,7 @@ public class HomeController {
 			, HttpServletRequest request
 			, Model model
 			, Principal principal) {
-
+		System.out.println("Entrée connexion (post)");
 		try {
 
 			String email = request.getUserPrincipal().getName();
@@ -120,6 +120,7 @@ public class HomeController {
 
 			model.addAttribute("utilisateur", utilisateur);
 			model.addAttribute("authentification", true);
+			System.out.println("authentification ok");
 
 		} catch (NullPointerException e) {
 
@@ -131,7 +132,7 @@ public class HomeController {
 		String email = user.getEmail();
 		Utilisateur utilisateur = utilisateurRepo.findByEmail(email);
 		if (utilisateur != null) {
-			
+			System.out.println("email non null:" + email);
 			model.addAttribute("phrase", new String());
 			return "redirect:espace";
 			
