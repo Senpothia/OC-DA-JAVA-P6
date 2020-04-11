@@ -11,11 +11,11 @@ L'instance EC2 héberge l'application proprement dit tandis que l'instance RDS h
 
 Le site est déployé sur un serveur Tomcat version 9. <br/>
 
-Le war de l'application est produit par Maven avec la commande suivante: mvn clean install <br/>
+Le war de l'application est produit par Maven avec la commande suivante:  mvn clean install <br/>
 
 Le war est ensuite déposé dans le dossier webapps de tomcat a partir du manager. <br/>
 Les droits d'accès au manager sont configurés dans le fichier tomcat-users.xml situé dans le dossier conf de Tomcat par les
-lignes suivantes<br/>
+lignes suivantes:<br/>
 
 ```xml
 <role rolename="manager-gui"/>
