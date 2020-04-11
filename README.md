@@ -17,8 +17,8 @@ Le war est ensuite déposé dans le dossier webapps de tomcat a partir du manage
 Les droits d'accès au manager sont configurés dans le fichier tomcat-users.xml situé dans le dossier conf de Tomcat par les
 lignes suivantes<br/>
 
-'''xml
+```xml
 <role rolename="manager-gui"/>
 <user username="xxxxxx" password="xxxx" roles="tomcat, manager-gui"/>
-'''
+```
 
